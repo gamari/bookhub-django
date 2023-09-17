@@ -1,28 +1,24 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ログイン画面</title>
-  </head>
+{% block title %}
+  ログイン
+{% endblock %}
 
-  <body>
-    {% if error %}
-      <p>{{ error }}</p>
-    {% endif %}
+{% block content %}
+  {% if error %}
+    <p>{{ error }}</p>
+  {% endif %}
 
-    <form method="post">
-      {% csrf_token %}
-      <label>メールアドレス</label>
-      <input type="email" name="email" required />
-      <label>パスワード</label>
-      <input type="password" name="password" required />
-      <button type="submit">Login</button>
-    </form>
+  <form method="post">
+    {% csrf_token %}
+    <label>メールアドレス</label>
+    <input type="email" name="email" required />
+    <label>パスワード</label>
+    <input type="password" name="password" required />
+    <button type="submit">Login</button>
+  </form>
 
-    <div>
-      <a href="{% url 'register' %}">ユーザー登録</a>
-    </div>
-  </body>
-</html>
+  <div>
+    <a href="{% url 'register' %}">ユーザー登録</a>
+  </div>
+{% endblock %}

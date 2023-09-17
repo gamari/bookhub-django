@@ -1,10 +1,21 @@
 <header class="header-container">
-  <div>LOGO</div>
+  <div>
+    <a href="/">LOGO</a>
+  </div>
 
   <nav>
+    <div>
+      <form action="{% url 'book_search' %}" method="GET">
+        <input type="text" name="q" placeholder="書籍を検索" />
+        <input type="submit" value="検索" />
+      </form>
+    </div>
     {% if user.is_authenticated %}
       <a href="{% url 'dashboard' %}">ダッシュボード</a>
       <!-- 他のリンクや情報もここに追加できます -->
+    {% else %}
+      <a href="{% url 'login' %}">ログイン</a>
+      <a href="{% url 'register' %}">新規登録</a>
     {% endif %}
   </nav>
 </header>

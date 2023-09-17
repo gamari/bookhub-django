@@ -11,3 +11,8 @@
 ## Backend
 
 - Django
+
+## API
+
+- Google Books API
+  - 書籍検索
