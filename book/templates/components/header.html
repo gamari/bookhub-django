@@ -1,0 +1,10 @@
+<header class="header-container">
+  <div>LOGO</div>
+
+  <nav>
+    {% if user.is_authenticated %}
+      <a href="{% url 'dashboard' %}">ダッシュボード</a>
+      <!-- 他のリンクや情報もここに追加できます -->
+    {% endif %}
+  </nav>
+</header>

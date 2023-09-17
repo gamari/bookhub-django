@@ -1,15 +1,22 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+
     <title>ダッシュボード画面</title>
-</head>
-<body>
+  </head>
+  <body>
+    {% include 'components/header.html' %}
     <div>dashboard</div>
 
     <div>
-        <a href="{% url 'logout' %}">ログアウト</a>
+      <a href="{% url 'logout' %}">ログアウト</a>
     </div>
-</body>
+  </body>
 </html>
