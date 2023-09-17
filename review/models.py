@@ -1,0 +1,15 @@
+from django.db import models
+from django.contrib.auth import get_user_model
+
+from book.models import Book
+
+rating_choices = [(i, str(i)) for i in range(1, 6)]
+
+User = get_user_model()
+
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    rating = models.PositiveIntegerField(choices=rating_choices)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

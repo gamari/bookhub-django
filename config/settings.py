@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     # Local
     'authentication',
     'book',
+    'review',
 ]
 
 MIDDLEWARE = [

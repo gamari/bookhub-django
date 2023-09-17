@@ -3,6 +3,9 @@ from django.db import models
 class Author(models.Model):
     name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
+
 
 class Book(models.Model):
     isbn_10 = models.CharField(max_length=10, unique=True, null=True, blank=True)
@@ -11,5 +14,8 @@ class Book(models.Model):
     description = models.TextField(null=True, blank=True)
     authors = models.ManyToManyField(Author)
     thumbnail = models.URLField(null=True, blank=True)
+
+    def __str__(self):
+        return f"[{self.isbn_10} | {self.isbn_13}] {self.title}"
 
 

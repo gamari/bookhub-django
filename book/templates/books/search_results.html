@@ -9,7 +9,7 @@
     <div>
       <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
       <h2><a href="{% url 'book_detail' book.id %}">{{ book.title }}</a></h2>
-      <p>{{ book.author }}</p>
+      <p>{{ book.author.name }}</p>
       <p>{{ book.description }}
     </div>
   {% endfor %}

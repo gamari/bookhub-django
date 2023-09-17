@@ -1,0 +1,367 @@
+{
+    "kind": "books#volumes",
+    "totalItems": 3446,
+    "items": [
+        {
+            "kind": "books#volume",
+            "id": "UMV0tAEACAAJ",
+            "etag": "6j1Klwq+Ww4",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/UMV0tAEACAAJ",
+            "volumeInfo": {
+                "title": "鬼滅の刃 8",
+                "authors": [
+                    "吾峠呼世晴"
+                ],
+                "publishedDate": "2017-10",
+                "description": "In Taisho-era Japan, Tanjiro Kamado is a kindhearted boy who makes a living selling charcoal until his peaceful life is shattered when a demon slaughters his family and turns his sister into another demon, forcing Tanjiro on a dangerous journey to destroy the demon and save his sister.",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "4088812123"
+                    },
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9784088812120"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": false
+                },
+                "pageCount": 192,
+                "printType": "BOOK",
+                "categories": [
+                    "Brothers and sisters"
+                ],
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "preview-1.0.0",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=UMV0tAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=UMV0tAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+                },
+                "language": "ja",
+                "previewLink": "http://books.google.co.jp/books?id=UMV0tAEACAAJ&dq=%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83&hl=&cd=1&source=gbs_api",
+                "infoLink": "http://books.google.co.jp/books?id=UMV0tAEACAAJ&dq=%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83&hl=&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83_8.html?hl=&id=UMV0tAEACAAJ"
+            },
+            "saleInfo": {
+                "country": "JP",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "JP",
+                "viewability": "NO_PAGES",
+                "embeddable": false,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false
+                },
+                "pdf": {
+                    "isAvailable": false
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=UMV0tAEACAAJ&hl=&source=gbs_api",
+                "accessViewStatus": "NONE",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "眠り鬼・魘夢にヒノカミ神楽「碧羅の天」を放った炭治郎の戦いの顛末は!? さらに、炭治郎一行の下に現れたものの正体とは!? ..."
+            }
+        },
+        {
+            "kind": "books#volume",
+            "id": "Ol6gswEACAAJ",
+            "etag": "DVjYiQ9gF68",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/Ol6gswEACAAJ",
+            "volumeInfo": {
+                "title": "鬼滅の刃 9",
+                "authors": [
+                    "吾峠呼世晴"
+                ],
+                "publishedDate": "2017-12",
+                "description": "In Taisho-era Japan, Tanjiro Kamado is a kindhearted boy who makes a living selling charcoal until his peaceful life is shattered when a demon slaughters his family and turns his sister into another demon, forcing Tanjiro on a dangerous journey to destroy the demon and save his sister.",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "4088812832"
+                    },
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9784088812830"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": false
+                },
+                "pageCount": 192,
+                "printType": "BOOK",
+                "categories": [
+                    "Brothers and sisters"
+                ],
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "preview-1.0.0",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=Ol6gswEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=Ol6gswEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+                },
+                "language": "ja",
+                "previewLink": "http://books.google.co.jp/books?id=Ol6gswEACAAJ&dq=%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83&hl=&cd=2&source=gbs_api",
+                "infoLink": "http://books.google.co.jp/books?id=Ol6gswEACAAJ&dq=%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83&hl=&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83_9.html?hl=&id=Ol6gswEACAAJ"
+            },
+            "saleInfo": {
+                "country": "JP",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "JP",
+                "viewability": "NO_PAGES",
+                "embeddable": false,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false
+                },
+                "pdf": {
+                    "isAvailable": false
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=Ol6gswEACAAJ&hl=&source=gbs_api",
+                "accessViewStatus": "NONE",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "“音柱&quot;宇髄天元と共に鬼の棲む遊郭へ向かった炭治郎たち。そこではくノ一である天元の妻3人が、情報収集中に連絡を絶っていた。調査のため炭治郎たちは女装して潜入するが ..."
+            }
+        },
+        {
+            "kind": "books#volume",
+            "id": "QxV2swEACAAJ",
+            "etag": "FOm6G+V4fcU",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/QxV2swEACAAJ",
+            "volumeInfo": {
+                "title": "鬼滅の刃 5",
+                "authors": [
+                    "吾峠呼世晴"
+                ],
+                "publishedDate": "2017-03",
+                "description": "In Taisho-era Japan, Tanjiro Kamado is a kindhearted boy who makes a living selling charcoal until his peaceful life is shattered when a demon slaughters his family and turns his sister into another demon, forcing Tanjiro on a dangerous journey to destroy the demon and save his sister.",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "4088810260"
+                    },
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9784088810263"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": false
+                },
+                "pageCount": 192,
+                "printType": "BOOK",
+                "categories": [
+                    "Brothers and sisters"
+                ],
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "preview-1.0.0",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=QxV2swEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=QxV2swEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+                },
+                "language": "ja",
+                "previewLink": "http://books.google.co.jp/books?id=QxV2swEACAAJ&dq=%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83&hl=&cd=3&source=gbs_api",
+                "infoLink": "http://books.google.co.jp/books?id=QxV2swEACAAJ&dq=%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83&hl=&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83_5.html?hl=&id=QxV2swEACAAJ"
+            },
+            "saleInfo": {
+                "country": "JP",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "JP",
+                "viewability": "NO_PAGES",
+                "embeddable": false,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false
+                },
+                "pdf": {
+                    "isAvailable": false
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=QxV2swEACAAJ&hl=&source=gbs_api",
+                "accessViewStatus": "NONE",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "那田蜘蛛山へ向かった炭治郎たちは、山に棲む蜘蛛の鬼の家族に苦戦を強いられる! 善逸は蜘蛛になる毒に侵され、伊之助と炭治郎も巨大化した父鬼に翻弄され、戦いに終わりは ..."
+            }
+        },
+        {
+            "kind": "books#volume",
+            "id": "evlBAQAACAAJ",
+            "etag": "S/wPMMqZxXk",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/evlBAQAACAAJ",
+            "volumeInfo": {
+                "title": "鬼滅の刃 3",
+                "authors": [
+                    "吾峠呼世晴"
+                ],
+                "publishedDate": "2016-10",
+                "description": "In Taisho-era Japan, Tanjiro Kamado is a kindhearted boy who makes a living selling charcoal until his peaceful life is shattered when a demon slaughters his family and turns his sister into another demon, forcing Tanjiro on a dangerous journey to destroy the demon and save his sister.",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "4088807952"
+                    },
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9784088807959"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": false
+                },
+                "pageCount": 192,
+                "printType": "BOOK",
+                "categories": [
+                    "Brothers and sisters"
+                ],
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "preview-1.0.0",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=evlBAQAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=evlBAQAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+                },
+                "language": "ja",
+                "previewLink": "http://books.google.co.jp/books?id=evlBAQAACAAJ&dq=%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83&hl=&cd=4&source=gbs_api",
+                "infoLink": "http://books.google.co.jp/books?id=evlBAQAACAAJ&dq=%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83&hl=&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83_3.html?hl=&id=evlBAQAACAAJ"
+            },
+            "saleInfo": {
+                "country": "JP",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "JP",
+                "viewability": "NO_PAGES",
+                "embeddable": false,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false
+                },
+                "pdf": {
+                    "isAvailable": false
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=evlBAQAACAAJ&hl=&source=gbs_api",
+                "accessViewStatus": "NONE",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "毬と矢印を操る鬼二人と刃を交える炭治郎と禰豆子。自らを鬼舞辻の直属の部下・十二鬼月と名乗る鬼たちに、珠世や愈史郎の助力を得て炭治郎たちは立ち向かう!! ..."
+            }
+        },
+        {
+            "kind": "books#volume",
+            "id": "BLSezQEACAAJ",
+            "etag": "ZASvMXiNjNQ",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/BLSezQEACAAJ",
+            "volumeInfo": {
+                "title": "鬼滅の刃 11",
+                "subtitle": "",
+                "authors": [
+                    "吾峠呼世晴"
+                ],
+                "publishedDate": "2018-06",
+                "description": "In Taisho-era Japan, Tanjiro Kamado is a kindhearted boy who makes a living selling charcoal until his peaceful life is shattered when a demon slaughters his family and turns his sister into another demon, forcing Tanjiro on a dangerous journey to destroy the demon and save his sister.",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "4088813995"
+                    },
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9784088813998"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": false
+                },
+                "pageCount": 192,
+                "printType": "BOOK",
+                "categories": [
+                    "Brothers and sisters"
+                ],
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "preview-1.0.0",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=BLSezQEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=BLSezQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+                },
+                "language": "ja",
+                "previewLink": "http://books.google.co.jp/books?id=BLSezQEACAAJ&dq=%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83&hl=&cd=5&source=gbs_api",
+                "infoLink": "http://books.google.co.jp/books?id=BLSezQEACAAJ&dq=%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83&hl=&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/%E9%AC%BC%E6%BB%85%E3%81%AE%E5%88%83_11.html?hl=&id=BLSezQEACAAJ"
+            },
+            "saleInfo": {
+                "country": "JP",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "JP",
+                "viewability": "NO_PAGES",
+                "embeddable": false,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false
+                },
+                "pdf": {
+                    "isAvailable": false
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=BLSezQEACAAJ&hl=&source=gbs_api",
+                "accessViewStatus": "NONE",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "上弦の陸の兄妹鬼、妓夫太郎と堕姫との花街での戦いは熾烈を極める。次第に柱の宇髄と連携がとれる炭治郎たちだが、宇随や伊之助、善逸は鬼の凶刃に倒れてしまう。仲間が倒 ..."
+            }
+        }
+    ]
+}

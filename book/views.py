@@ -3,14 +3,19 @@ import requests
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
-from book.apis import GoogleBooksAPI
+from book.models import Book
+from review.forms import ReviewForm
 
 
 def book_detail(request, book_id):
-    book_api = GoogleBooksAPI()
+    book = Book.objects.get(id=book_id)
+    review_form = ReviewForm()
 
-    book = book_api.get_detail(book_id)
-    return render(request, "books/book_detail.html", {"book": book})
+    context = {
+        "book": book,
+        "review_form": review_form,
+    }
+    return render(request, "books/book_detail.html", context)
 
 
 def show_home(request):
@@ -27,9 +32,6 @@ def show_book_search(request):
     query = request.GET.get("q")
     results = []
 
-    book_api = GoogleBooksAPI()
-
-    if query:
-        results = book_api.search(query)
+    results = Book.objects.filter(title__icontains=query)
 
     return render(request, "books/search_results.html", {"results": results})

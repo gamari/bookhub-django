@@ -11,12 +11,16 @@ class BookAPI(ABC):
     def get_detail(self, book_id):
         pass
 
+
 class GoogleBooksAPI(BookAPI):
     BASE_URL = "https://www.googleapis.com/books/v1/volumes"
 
     def search(self, query):
         results = []
-        response = requests.get(self.BASE_URL, params={"q": query, "langRestrict": "ja"})
+        response = requests.get(
+            self.BASE_URL,
+            params={"q": f"intitle:{query}", "langRestrict": "ja", "Country": "JP"},
+        )
         data = response.json()
         for item in data.get("items", []):
             results.append(
