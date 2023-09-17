@@ -32,4 +32,4 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = "email"
 
-    objects = AccountManager()
+    objects: AccountManager = AccountManager()

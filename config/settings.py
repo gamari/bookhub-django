@@ -90,6 +90,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = "authentication.Account"
 
+LOGIN_URL = "login"
+
 
 # 国際化設定
 
