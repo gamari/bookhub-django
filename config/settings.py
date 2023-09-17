@@ -6,13 +6,12 @@ from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default="").split(',')
-
+# TODO typeの修正
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default="").split(',') # type: ignore
 
 
 REST_FRAMEWORK = {
@@ -45,6 +44,10 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'djoser',
     'corsheaders',
+
+    # Local
+    'authentication',
+    'book',
 ]
 
 MIDDLEWARE = [
@@ -90,8 +93,8 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
+
+# 認証関係
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -107,6 +110,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = "authentication.Account"
 
 
 # 国際化設定

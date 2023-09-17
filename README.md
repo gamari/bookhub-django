@@ -1,10 +1,6 @@
 # 概要
 
-Django + Nginx + sqlite3のテンプレート。
-
-## Task
-
-- [ ] なし
+BookHubアプリ。
 
 ## プロジェクト説明
 
