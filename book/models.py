@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class Author(models.Model):
     name = models.CharField(max_length=255)
@@ -18,4 +21,6 @@ class Book(models.Model):
     def __str__(self):
         return f"[{self.isbn_10} | {self.isbn_13}] {self.title}"
 
-
+class Bookshelf(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    books = models.ManyToManyField(Book)

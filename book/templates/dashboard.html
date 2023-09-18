@@ -1,11 +1,36 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}ダッシュボード{% endblock title %}
+{% block title %}
+  ダッシュボード
+{% endblock %}
 
 {% block content %}
-<h1>Home</h1>
-<p>Welcome to the home page</p>
 <div>
-    <a href="{% url 'logout' %}">ログアウト</a>
+    <div>ユーザー情報</div>
 </div>
-{% endblock content %}
+
+<div>
+    <div>読書履歴</div>
+    <div>今読んでいる本</div>
+    <div>読み終わった本</div>
+</div>
+
+  <div>
+    <h2>本棚</h2>
+    {% if books %}
+      <ul>
+        {% for book in books %}
+          <li>
+            <a href="{% url 'book_detail' book.id %}">{{ book.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>本棚には書籍が登録されていません。</p>
+    {% endif %}
+  </div>
+
+  <div>
+    <a href="{% url 'logout' %}">ログアウト</a>
+  </div>
+{% endblock %}
