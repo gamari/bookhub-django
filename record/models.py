@@ -5,6 +5,13 @@ from book.models import Book
 
 User = get_user_model()
 
+class ReadingMemo(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    content = models.CharField(max_length=280)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 class ReadingRecord(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)

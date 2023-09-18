@@ -1,17 +1,33 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
   読書記録
 {% endblock %}
 
-{% block content %}
-  <h2>{{ book.title }} - 読書記録</h2>
+{% block js %}
+  <script src="{% static 'js/create-memo.js' %}"></script>
+{% endblock %}
 
-  {% if record %}
-    <p>開始日: {{ record.started_at }}</p>
-    <p>終了日: {{ record.finished_at }}</p>
-    <p>メモ: {{ record.notes }}</p>
-  {% else %}
-    <p>この書籍の読書記録はありません。</p>
-  {% endif %}
+{% block content %}
+  <h1>読書記録: {{ book.title }}</h1>
+
+  {# メモの投稿フォーム #}
+  <form id="memoForm" data-action="{% url 'create_memo' book_id=book.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button id="createMemoButton" class="btn btn-primary">メモを追加</button>
+  </form>
+
+  <h2>メモ一覧</h2>
+  <ul id="memoList">
+    {% for memo in memos %}
+      <li>
+        <p>{{ memo.created_at }}</p>
+        <p>{{ memo.content }}</p>
+      </li>
+      {% empty %}
+      <p>まだメモはありません。</p>
+    {% endfor %}
+  </ul>
 {% endblock %}
