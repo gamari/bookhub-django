@@ -3,8 +3,23 @@
 {% block title %}トップページ{% endblock title %}
 
 {% block content %}
+
 <div>
-    <div>最新のレビュー</div>
+    <div>
+        <div>気になる書籍を検索する</div>
+    </div>
+    <div>
+        <h2>最新のレビュー</h2>
+        <ul>
+        {% for review in latest_reviews %}
+            <li>
+                <a href="{% url 'book_detail' book_id=review.book.id %}">
+                    {{ review.book.title }} - {{ review.user.username }}が{{ review.rating }}点を付けました。
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
     <div>よく読まれています</div>
     <div>オススメ</div>
 </div>

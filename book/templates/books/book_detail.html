@@ -6,15 +6,24 @@
   <h2>{{ book.title }}</h2>
   <p>{{ book.author }}</p>
   <p>{{ book.description }}</p>
+  <p>レビュー {{ avg_rating }}</p>
 
-  <button type="button" class="btn btn-primary" id="openModalButton">レビューを投稿</button>
+  {% if user.is_authenticated %}
+    <button type="button" class="btn btn-primary" id="openModalButton">レビューを投稿</button>
+  {% else %}
+    <p>
+      レビューを投稿するには<a href="{% url 'login' %}">ログイン</a>してください。
+    </p>
+  {% endif %}
 
-  <div>
-    <div>
-      {% comment %}TODO レビュー一覧{% endcomment %}レビュー一覧
-    </div>
-  </div>
-
+  <h3>レビュー一覧</h3>
+  <ul>
+    {% for review in reviews %}
+      <li>
+        <strong>{{ review.user.username }}</strong> - {{ review.rating }}点<p>{{ review.content }}</p>
+      </li>
+    {% endfor %}
+  </ul>
   <!-- モーダル機能 -->
   <div class="modal-container" id="reviewModal" style="display: none;">
     <div class="modal-dialog">
@@ -25,7 +34,7 @@
         </div>
 
         <div class="modal-body">
-          <form class="modal-form" method="post" action="{% url 'review_create' book.id %}">
+          <form class="modal-form" method="post" action="{% url 'review_create'  book.id %}">
             {% csrf_token %}
             {{ review_form.as_p }}
 
