@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  読書記録
+{% endblock %}
+
+{% block content %}
+  <h2>{{ book.title }} - 読書記録</h2>
+
+  {% if record %}
+    <p>開始日: {{ record.started_at }}</p>
+    <p>終了日: {{ record.finished_at }}</p>
+    <p>メモ: {{ record.notes }}</p>
+  {% else %}
+    <p>この書籍の読書記録はありません。</p>
+  {% endif %}
+{% endblock %}

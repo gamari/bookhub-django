@@ -8,4 +8,5 @@ urlpatterns = [
     path("", include("authentication.urls")),
     path("", include("book.urls")),
     path("", include("review.urls")),
+    path("", include("record.urls")),
 ]
