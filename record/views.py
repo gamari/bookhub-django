@@ -26,7 +26,7 @@ def reading_record(request, book_id):
 
 @login_required
 def create_memo(request, book_id):
-    print("メモ")
+    # TODO 返ってくる日付がUTCを考慮してない
     book = get_object_or_404(Book, id=book_id)
     response_data = {}
 

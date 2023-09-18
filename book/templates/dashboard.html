@@ -11,31 +11,48 @@
 
 {% block content %}
   <div class="user-container">
-    <div>
+    <div class="user-left">
       <div class="user-icon"></div>
       <div>
         <div>
-          <a 
-            class="user-settings-button"
-            href="{% url 'setting' %}"
-          >ユーザー設定</a>
-        </div>
-        <div>
-          {% comment %} TODO ユーザーページに入れる {% endcomment %}
-          
+          <a class="user-settings-button" href="{% url 'setting' %}">ユーザー設定</a>
         </div>
       </div>
     </div>
 
-    <div></div>
+    <div class="user-right">
+      <div>
+        <div class="user-username">{{ user.username }}</div>
+      </div>
+
+      <div class="contribution-calendar">
+        <!-- 曜日の表示 -->
+        <div class="day-label">日</div>
+        <div class="day-label">月</div>
+        <div class="day-label">火</div>
+        <div class="day-label">水</div>
+        <div class="day-label">木</div>
+        <div class="day-label">金</div>
+        <div class="day-label">土</div>
+    
+        <!-- 各日のデータを表示 -->
+        {% for data in activity_data %}
+            <div class="contribution-day" data-count="{{ data.activity_count }}" title="{{ data.date }}: {{ data.activity_count }} activities">
+                {{ data.date.day }}
+            </div>
+        {% endfor %}
+    </div>
+    </div>
   </div>
 
+  {% comment %}書籍関連{% endcomment %}
   <div>
     <div>読書履歴</div>
     <div>今読んでいる本</div>
     <div>読み終わった本</div>
   </div>
 
+  {% comment %}本棚{% endcomment %}
   <div>
     <h2>本棚</h2>
     {% if books %}
