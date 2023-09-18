@@ -5,15 +5,27 @@ from django.contrib.auth.decorators import login_required
 
 from book.models import Book
 from review.forms import ReviewForm
+from review.models import Review
 
 
 def book_detail(request, book_id):
     book = Book.objects.get(id=book_id)
     review_form = ReviewForm()
 
+    try:
+        latest_review = book.review_set.filter(user=request.user).latest('created_at')
+    except Review.DoesNotExist:
+        latest_review = None
+    
+    if latest_review:
+        review_form = ReviewForm(instance=latest_review)
+    else:
+        review_form = ReviewForm()
+
     context = {
         "book": book,
         "review_form": review_form,
+        "latest_review": latest_review
     }
     return render(request, "books/book_detail.html", context)
 

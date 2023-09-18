@@ -1,18 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}
-  書籍詳細
-{% endblock %}
-
-{% block js %}
-  <script src="{% static 'js/modal.js' %}"></script>
-{% endblock %}
-
-{% block css %}
-  <link href="{% static 'css/modal.css' %}" rel="stylesheet" />
-{% endblock %}
-
 {% block content %}
   <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
   <h2>{{ book.title }}</h2>
@@ -20,7 +8,13 @@
   <p>{{ book.description }}</p>
 
   <button type="button" class="btn btn-primary" id="openModalButton">レビューを投稿</button>
-  
+
+  <div>
+    <div>
+      {% comment %}TODO レビュー一覧{% endcomment %}レビュー一覧
+    </div>
+  </div>
+
   <!-- モーダル機能 -->
   <div class="modal-container" id="reviewModal" style="display: none;">
     <div class="modal-dialog">
@@ -34,6 +28,7 @@
           <form class="modal-form" method="post" action="{% url 'review_create' book.id %}">
             {% csrf_token %}
             {{ review_form.as_p }}
+
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" id="footerCloseModalButton">閉じる</button>
               <button type="submit" class="btn btn-primary">レビューを送信</button>
@@ -43,4 +38,18 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% comment %}Meta情報{% endcomment %}
+
+{% block title %}
+  書籍詳細
+{% endblock %}
+
+{% block js %}
+  <script src="{% static 'js/modal.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+  <link href="{% static 'css/modal.css' %}" rel="stylesheet" />
 {% endblock %}

@@ -11,8 +11,11 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     rating = models.PositiveIntegerField(choices=rating_choices)
-    content = models.TextField()
+    content = models.TextField(max_length=2000, blank=True, default="")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return f"[{self.user}] {self.content}"
+    
+    class Meta:
+        unique_together = ('user', 'book')
