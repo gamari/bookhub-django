@@ -1,0 +1,22 @@
+.user-container {
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 4px;
+    padding: 10px 20px
+}
+
+.user-icon {
+    width: 100px;
+    height: 100px;
+    background-color: gainsboro;
+    border-radius: 100%;
+}
+
+.user-settings-button {
+    background-color: gray;
+    color: white;
+    border-radius: 4px;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+}

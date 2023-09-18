@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  ダッシュボード
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/pages/dashboard.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <div>
+    {% comment %} TODO user情報を記載 {% endcomment %}
+    <p>ユーザー名: {{ user.username }}</p>
+    <p>メールアドレス: {{ user.email }}</p>
+  </div>
+
+  <div>
+    <a href="{% url 'logout' %}">ログアウト</a>
+  </div>
+{% endblock %}

@@ -1,19 +1,40 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
   ダッシュボード
 {% endblock %}
 
-{% block content %}
-<div>
-    <div>ユーザー情報</div>
-</div>
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/pages/dashboard.css' %}" />
+{% endblock %}
 
-<div>
+{% block content %}
+  <div class="user-container">
+    <div>
+      <div class="user-icon"></div>
+      <div>
+        <div>
+          <a 
+            class="user-settings-button"
+            href="{% url 'setting' %}"
+          >ユーザー設定</a>
+        </div>
+        <div>
+          {% comment %} TODO ユーザーページに入れる {% endcomment %}
+          
+        </div>
+      </div>
+    </div>
+
+    <div></div>
+  </div>
+
+  <div>
     <div>読書履歴</div>
     <div>今読んでいる本</div>
     <div>読み終わった本</div>
-</div>
+  </div>
 
   <div>
     <h2>本棚</h2>
@@ -28,9 +49,5 @@
     {% else %}
       <p>本棚には書籍が登録されていません。</p>
     {% endif %}
-  </div>
-
-  <div>
-    <a href="{% url 'logout' %}">ログアウト</a>
   </div>
 {% endblock %}
