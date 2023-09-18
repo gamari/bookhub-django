@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
   書籍詳細
+{% endblock %}
+
+{% block js %}
+  <script src="{% static 'js/modal.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+  <link href="{% static 'css/modal.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
@@ -10,23 +19,23 @@
   <p>{{ book.author }}</p>
   <p>{{ book.description }}</p>
 
-  {% comment %}TODOレビュー投稿{% endcomment %}
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reviewModal">レビューを投稿</button>
-
-  <!-- モーダル本体 -->
-  <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+  <button type="button" class="btn btn-primary" id="openModalButton">レビューを投稿</button>
+  
+  <!-- モーダル機能 -->
+  <div class="modal-container" id="reviewModal" style="display: none;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="reviewModalLabel">レビューを投稿</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title">レビューを投稿</h5>
+          <button type="button" class="btn-close" id="closeModalButton"></button>
         </div>
+
         <div class="modal-body">
-          <form method="post" action="{% url 'review_create' book.id %}">
+          <form class="modal-form" method="post" action="{% url 'review_create' book.id %}">
             {% csrf_token %}
             {{ review_form.as_p }}
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+              <button type="button" class="btn btn-secondary" id="footerCloseModalButton">閉じる</button>
               <button type="submit" class="btn btn-primary">レビューを送信</button>
             </div>
           </form>
