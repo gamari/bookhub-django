@@ -1,0 +1,13 @@
+.search-container {
+    margin-top: 32px;
+    padding: 12px 24px;
+}
+
+.search-container {
+    border: 1px solid #ccc;
+    box-shadow: 0 0 4px #ccc;
+}
+
+.review-container {
+    margin-top: 32px;
+}

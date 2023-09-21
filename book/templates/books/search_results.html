@@ -10,7 +10,30 @@
       <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
       <h2><a href="{% url 'book_detail' book.id %}">{{ book.title }}</a></h2>
       <p>{{ book.author.name }}</p>
-      <p>{{ book.description }}
+      <p>{{ book.description }}</p>
     </div>
+  {% empty %}
+    <p>見つかりませんでした</p>
+    <p>
+      <button>詳細に検索する</button>
+    </p>
   {% endfor %}
+
+  <div class="pagination">
+    <span class="step-links">
+        {% if results.has_previous %}
+            <a href="?query={{ query }}&page=1">&laquo; 最初</a>
+            <a href="?query={{ query }}&page={{ results.previous_page_number }}">前へ</a>
+        {% endif %}
+
+        <span class="current">
+            ページ {{ results.number }} / {{ results.paginator.num_pages }}
+        </span>
+
+        {% if results.has_next %}
+            <a href="?query={{ query }}&page={{ results.next_page_number }}">次へ</a>
+            <a href="?query={{ query }}&page={{ results.paginator.num_pages }}">最後 &raquo;</a>
+        {% endif %}
+    </span>
+  </div>
 {% endblock %}

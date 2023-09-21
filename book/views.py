@@ -1,24 +1,17 @@
-from collections import defaultdict
-import math
 import requests
-from datetime import date, timedelta, datetime
-from calendar import monthrange
 
-from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
-from django.db.models import Count
-from django.db.models.functions import TruncDate
+from django.core.paginator import Paginator
 
+from book.application_services import DashboardService
 from book.models import Book, Bookshelf
-from record.forms import ReadingMemoForm
-from record.models import ReadingMemo
 from review.forms import ReviewForm
 from review.models import Review
 
 
-def show_book_detail(request, book_id):
+def book_detail(request, book_id):
     book = Book.objects.get(id=book_id)
     review_form = ReviewForm()
 
@@ -60,56 +53,8 @@ def show_book_detail(request, book_id):
 
 
 @login_required
-def show_dashboard(request):
-    bookshelf, created = Bookshelf.objects.get_or_create(user=request.user)
-    books = bookshelf.books.all()
-
-    # 活動履歴の処理
-    today = timezone.now().date()
-    first_day_of_month = today.replace(day=1)
-    last_day_of_month = today.replace(month=today.month % 12 + 1, day=1) - timedelta(
-        days=1
-    )
-
-    # 1日が日曜日までの日数を計算
-    days_until_sunday = first_day_of_month.weekday()
-    first_day_of_calendar = first_day_of_month - timedelta(days=days_until_sunday)
-
-    # 月の最終日が土曜日までの日数を計算
-    days_from_last_saturday = 6 - last_day_of_month.weekday()
-    last_day_of_calendar = last_day_of_month + timedelta(days=days_from_last_saturday)
-
-
-    activity_data_raw = (
-        ReadingMemo.objects.filter(
-            created_at__date__range=[first_day_of_month, last_day_of_month],
-            user=request.user,
-        )
-        .annotate(date_str=TruncDate("created_at"))
-        .values("date_str")
-        .annotate(count=Count("id"))
-        .values("date_str", "count")
-    )
-
-    # デフォルト値を0に設定して日付ごとの辞書を作成
-    activity_data_default = defaultdict(int)
-    current_day = first_day_of_calendar
-    while current_day <= last_day_of_calendar:
-        activity_data_default[current_day] = 0
-        current_day += timedelta(days=1)
-
-    # 実際の活動データをデフォルトの辞書にマージ
-    for data in activity_data_raw:
-        activity_data_default[data["date_str"]] = data["count"]
-
-    # TODO activity_countは5より小さくする
-    activity_data = [
-        {"date": key, "activity_count": value if value <= 5 else 5}
-        for key, value in activity_data_default.items()
-    ]
-
-    context = {"books": books, "activity_data": activity_data}
-
+def dashboard(request):
+    context = DashboardService.prepare_dashboard_data(request.user)
     return render(request, "dashboard.html", context)
 
 
@@ -121,24 +66,44 @@ def show_home(request):
     return render(request, "home.html", context)
 
 
-def show_book_search(request):
+# TODO 抜き出す
+def search_google_books_api(query):
+    GOOGLE_BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q={}"
+    response = requests.get(GOOGLE_BOOKS_API_URL.format(query))
+    if response.status_code == 200:
+        data = response.json()
+        return data.get("items", [])
+    return []
+
+
+def book_search(request):
     query = request.GET.get("query")
-    results = []
+    results_list = list(Book.objects.filter(title__icontains=query))
 
-    results = Book.objects.filter(title__icontains=query)
+    if not results_list:
+        # データベースに結果がない場合、Google Books APIを使用
+        api_results = search_google_books_api(query)
+        for item in api_results:
+            volume_info = item.get("volumeInfo", {})
+            book, created = Book.objects.get_or_create(
+                title=volume_info.get("title", "Unknown Title"),
+                description=volume_info.get("description", ""),
+                thumbnail=volume_info.get("imageLinks", {}).get("thumbnail", "")
+            )
+            results_list.append(book)
+    
+    paginator = Paginator(results_list, 10)  # 10は1ページあたりのアイテム数。変更可。
+    page = request.GET.get('page')
+    results = paginator.get_page(page)
 
-    return render(request, "books/search_results.html", {"results": results})
+    return render(request, "books/search_results.html", {"results": results_list})
 
 
 # 本棚処理
 @login_required
-def add_to_shelf(request, book_id):
-    book = get_object_or_404(Book, id=book_id)
-
-    # ユーザーの本棚を取得するか、存在しない場合は作成します。
+def bookshelf(request, book_id):
+    book: Book = get_object_or_404(Book, id=book_id)
     shelf, created = Bookshelf.objects.get_or_create(user=request.user)
-
-    # 本棚に書籍を追加します。
     shelf.books.add(book)
 
     return redirect("book_detail", book_id=book.id)

@@ -1,26 +1,33 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}トップページ{% endblock title %}
+{% load static %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
+{% endblock %}
+
+
+{% block title %}
+  トップページ
+{% endblock %}
 
 {% block content %}
-
-<div>
-    <div>
-        <div>気になる書籍を検索する</div>
+  <div>
+    <div class="search-container">
+      <div>気になる書籍を検索する</div>
     </div>
-    <div>
-        <h2>最新のレビュー</h2>
-        <ul>
+
+    <div class="review-container">
+      <h2>最新のレビュー</h2>
+      <ul>
         {% for review in latest_reviews %}
-            <li>
-                <a href="{% url 'book_detail' book_id=review.book.id %}">
-                    {{ review.book.title }} - {{ review.user.username }}が{{ review.rating }}点を付けました。
-                </a>
-            </li>
+          <li>
+            <a href="{% url 'book_detail' review.book.id %}">{{ review.book.title }} - {{ review.user.username }}が{{ review.rating }}点を付けました。</a>
+          </li>
         {% endfor %}
-        </ul>
+      </ul>
     </div>
     <div>よく読まれています</div>
     <div>オススメ</div>
-</div>
-{% endblock content %}
+  </div>
+{% endblock %}
