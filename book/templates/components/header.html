@@ -1,6 +1,6 @@
 <header class="header-container">
   <div>
-    <a href="/">LOGO</a>
+    <a href="/" class="logo">LOGO</a>
   </div>
 
   <nav>
@@ -10,6 +10,7 @@
         <input type="submit" value="検索" />
       </form>
     </div>
+
     {% if user.is_authenticated %}
       <a href="{% url 'dashboard' %}">ダッシュボード</a>
     {% else %}

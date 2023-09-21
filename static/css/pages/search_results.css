@@ -1,0 +1,15 @@
+.search-container {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    padding: 12px 24px;
+}
+
+.book-result {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}

@@ -1,48 +1,64 @@
-import requests
 from abc import ABC, abstractmethod
+from django.db import IntegrityError
+import requests
+
+import requests
+
+from book.models import Book
 
 
-class BookAPI(ABC):
+class BookApi(ABC):
     @abstractmethod
-    def search(self, query):
+    def search(self, query, page):
         pass
 
-    @abstractmethod
-    def get_detail(self, book_id):
-        pass
 
+class BookSearchService(BookApi):
+    @staticmethod
+    def search(query, page):
+        results_list = list(Book.objects.filter(title__icontains=query))
+        total_results = len(results_list)
+        return results_list, total_results
 
-class GoogleBooksAPI(BookAPI):
-    BASE_URL = "https://www.googleapis.com/books/v1/volumes"
+# TODO 多分サービスに入れたほうが良さそう
+class GoogleBooksAPIService(BookApi):
+    @staticmethod
+    def search(query, page):
+        startIndex = (int(page) - 1) * 10
+        GOOGLE_BOOKS_API_URL = f"https://www.googleapis.com/books/v1/volumes?q={query}&startIndex={startIndex}&maxResults=10&langRestrict=ja&Country=JP"
+        response = requests.get(GOOGLE_BOOKS_API_URL)
+        if response.status_code == 200:
+            data = response.json()
+            items = data.get("items", [])
+            total_items = data.get("totalItems", 0)
+            results_list = []
+            for item in items:
+                volume_info = item.get("volumeInfo", {})
+                industry_identifiers = volume_info.get("industryIdentifiers", [])
 
-    def search(self, query):
-        results = []
-        response = requests.get(
-            self.BASE_URL,
-            params={"q": f"intitle:{query}", "langRestrict": "ja", "Country": "JP"},
-        )
-        data = response.json()
-        for item in data.get("items", []):
-            results.append(
-                {
-                    "title": item["volumeInfo"].get("title"),
-                    "author": ", ".join(item["volumeInfo"].get("authors", [])),
-                    "id": item["id"],
-                    "thumbnail": item["volumeInfo"]
-                    .get("imageLinks", {})
-                    .get("thumbnail"),
-                    # TODO 説明の追加
-                    "description": item["volumeInfo"].get("description"),
-                }
-            )
-        return results
+                isbn_10 = ""
+                isbn_13 = ""
 
-    def get_detail(self, book_id):
-        response = requests.get(f"{self.BASE_URL}/{book_id}")
-        data = response.json()
-        return {
-            "title": data["volumeInfo"].get("title"),
-            "author": ", ".join(data["volumeInfo"].get("authors", [])),
-            "description": data["volumeInfo"].get("description"),
-            "thumbnail": data["volumeInfo"].get("imageLinks", {}).get("thumbnail"),
-        }
+                if len(industry_identifiers) > 0:
+                    isbn_10 = industry_identifiers[0].get("identifier", "")
+                if len(industry_identifiers) > 1:
+                    isbn_13 = industry_identifiers[1].get("identifier", "")
+
+                if not isbn_10 or not isbn_13:
+                    print("None create")
+                    continue
+                
+                try:
+                    book, created = Book.objects.get_or_create(
+                        title=volume_info.get("title", "Unknown Title"),
+                        description=volume_info.get("description", ""),
+                        thumbnail=volume_info.get("imageLinks", {}).get("thumbnail", ""),
+                        isbn_10=isbn_10,
+                        isbn_13=isbn_13,
+                    )
+                    results_list.append(book)
+                except Exception as e:
+                    continue
+
+            return results_list, total_items
+        return [], 0

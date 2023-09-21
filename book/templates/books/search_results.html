@@ -1,39 +1,55 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/pages/search_results.css' %}" />
+{% endblock %}
+
 {% block title %}
   検索結果
 {% endblock %}
 
 {% block content %}
+  <div class="search-container">
+    <div>検索する</div>
+
+    <form action="{% url 'book_search' %}" method="get">
+      {% csrf_token %}
+      <input type="text" name="query" value="{{ query }}" />
+
+      <button type="submit">検索する</button>
+      <button type="submit" name="mode" value="detail">詳細に検索</button>
+    </form>
+  </div>
+
   {% for book in results %}
-    <div>
+    <div class="book-result">
       <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
       <h2><a href="{% url 'book_detail' book.id %}">{{ book.title }}</a></h2>
       <p>{{ book.author.name }}</p>
       <p>{{ book.description }}</p>
     </div>
-  {% empty %}
+    {% empty %}
     <p>見つかりませんでした</p>
-    <p>
-      <button>詳細に検索する</button>
-    </p>
   {% endfor %}
 
   <div class="pagination">
     <span class="step-links">
-        {% if results.has_previous %}
-            <a href="?query={{ query }}&page=1">&laquo; 最初</a>
-            <a href="?query={{ query }}&page={{ results.previous_page_number }}">前へ</a>
-        {% endif %}
+      {% if current_page > 1 %}
+        <a href="?query={{ query }}&mode={{ mode }}&page=1">&laquo; 最初</a>
+        <a href="?query={{ query }}&mode={{ mode }}&page={{ current_page|add:'-1' }}">前へ</a>
+      {% endif %}
 
-        <span class="current">
-            ページ {{ results.number }} / {{ results.paginator.num_pages }}
-        </span>
+      <span class="current">ページ {{ current_page }} / {{ total_pages }}</span>
 
-        {% if results.has_next %}
-            <a href="?query={{ query }}&page={{ results.next_page_number }}">次へ</a>
-            <a href="?query={{ query }}&page={{ results.paginator.num_pages }}">最後 &raquo;</a>
-        {% endif %}
+      {% if current_page < total_pages %}
+        <a href="?query={{ query }}&mode={{ mode }}&page={{ current_page|add:'1' }}">次へ</a>
+      {% else %}
+        <span>次へ</span>
+      {% endif %}
+
+      <a href="?query={{ query }}&mode={{ mode }}&page={{ total_pages }}">最後 &raquo;</a>
     </span>
   </div>
 {% endblock %}

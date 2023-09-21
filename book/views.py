@@ -1,10 +1,9 @@
-import requests
-
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 from django.core.paginator import Paginator
 
+from book.apis import BookSearchService, GoogleBooksAPIService
 from book.application_services import DashboardService
 from book.models import Book, Bookshelf
 from review.forms import ReviewForm
@@ -66,37 +65,35 @@ def show_home(request):
     return render(request, "home.html", context)
 
 
-# TODO 抜き出す
-def search_google_books_api(query):
-    GOOGLE_BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q={}"
-    response = requests.get(GOOGLE_BOOKS_API_URL.format(query))
-    if response.status_code == 200:
-        data = response.json()
-        return data.get("items", [])
-    return []
-
-
 def book_search(request):
     query = request.GET.get("query")
-    results_list = list(Book.objects.filter(title__icontains=query))
+    mode = request.GET.get("mode", "")
+    page = int(request.GET.get("page", 1))
 
-    if not results_list:
-        # データベースに結果がない場合、Google Books APIを使用
-        api_results = search_google_books_api(query)
-        for item in api_results:
-            volume_info = item.get("volumeInfo", {})
-            book, created = Book.objects.get_or_create(
-                title=volume_info.get("title", "Unknown Title"),
-                description=volume_info.get("description", ""),
-                thumbnail=volume_info.get("imageLinks", {}).get("thumbnail", "")
-            )
-            results_list.append(book)
-    
-    paginator = Paginator(results_list, 10)  # 10は1ページあたりのアイテム数。変更可。
-    page = request.GET.get('page')
-    results = paginator.get_page(page)
+    results = []
 
-    return render(request, "books/search_results.html", {"results": results_list})
+    if mode == "detail":
+        results_list, total_results = GoogleBooksAPIService.search(query, page)
+        results = results_list
+        total_pages = int(total_results / 10) + 1
+    else:
+        print("none")
+        results_list, total_results = BookSearchService.search(query, page)
+        print(results_list, total_results)
+        paginator = Paginator(results_list, 10)
+        results = paginator.get_page(page)
+        total_pages = paginator.num_pages
+
+    context = {
+        "results": results,
+        "query": query,
+        "total_results": total_results,
+        "current_page": page,
+        "total_pages": total_pages,
+        "mode": mode
+    }
+
+    return render(request, "books/search_results.html", context)
 
 
 # 本棚処理
@@ -115,7 +112,6 @@ def remove_from_shelf(request, book_id):
 
     shelf, created = Bookshelf.objects.get_or_create(user=request.user)
 
-    # 本棚から書籍を排除します。
     shelf.books.remove(book)
 
     return redirect("book_detail", book_id=book.id)
