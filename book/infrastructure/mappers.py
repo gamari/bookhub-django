@@ -1,5 +1,5 @@
-# mappers.py
 class GoogleBooksMapper:
+    # TODO result受け取って、booksを返したほうが良いかも。
     @staticmethod
     def to_books(items):
         books = []

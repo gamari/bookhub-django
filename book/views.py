@@ -1,17 +1,25 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from django.db.models import Avg
-from book.repositories import BookRepository, BookshelfRepository
+from book.domain.repository.repositories import BookRepository, BookshelfRepository
 
-from book.services import BookApplicationService, BookSearchService, BookService, GoogleBooksService, DashboardService
+from book.application.services import (
+    BookApplicationService,
+    DashboardService,
+)
 from book.models import Book, Bookshelf
-from review.forms import ReviewForm
+from book.domain.services import (
+    BookSearchService,
+    BookService,
+    GoogleBooksService,
+)
 from review.models import Review
 from review.repositories import ReviewRepository
 
 
 def book_detail(request, book_id):
-    service = BookApplicationService(BookService(BookRepository, ReviewRepository, BookshelfRepository))
+    service = BookApplicationService(
+        BookService(BookRepository, ReviewRepository, BookshelfRepository)
+    )
     context = service.view_book_detail(book_id, request.user)
     return render(request, "books/book_detail.html", context)
 
@@ -30,6 +38,7 @@ def show_home(request):
     return render(request, "home.html", context)
 
 
+# 検索
 def book_search(request):
     query = request.GET.get("query")
     mode = request.GET.get("mode", "")
@@ -40,7 +49,6 @@ def book_search(request):
     else:
         search_service = BookSearchService()
 
-    # TODO total_resultsいらない
     results_list, total_pages = search_service.search(query, page)
 
     context = {
