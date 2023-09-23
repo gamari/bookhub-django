@@ -3,8 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 from django.core.paginator import Paginator
 
-from book.apis import BookSearchService, GoogleBooksAPIService
-from book.application_services import DashboardService
+from book.services import BookSearchService, DashboardService, GoogleBooksService
 from book.models import Book, Bookshelf
 from review.forms import ReviewForm
 from review.models import Review
@@ -70,27 +69,20 @@ def book_search(request):
     mode = request.GET.get("mode", "")
     page = int(request.GET.get("page", 1))
 
-    results = []
-
     if mode == "detail":
-        results_list, total_results = GoogleBooksAPIService.search(query, page)
-        results = results_list
-        total_pages = int(total_results / 10) + 1
+        search_service = GoogleBooksService()
     else:
-        print("none")
-        results_list, total_results = BookSearchService.search(query, page)
-        print(results_list, total_results)
-        paginator = Paginator(results_list, 10)
-        results = paginator.get_page(page)
-        total_pages = paginator.num_pages
+        search_service = BookSearchService()
+
+    results_list, total_results, total_pages = search_service.search(query, page)
 
     context = {
-        "results": results,
+        "results": results_list,
         "query": query,
         "total_results": total_results,
         "current_page": page,
         "total_pages": total_pages,
-        "mode": mode
+        "mode": mode,
     }
 
     return render(request, "books/search_results.html", context)

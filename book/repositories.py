@@ -1,26 +1,16 @@
-from abc import ABC, abstractmethod
 import requests
-
 from book.models import Book
 
 
-class BookApi(ABC):
-    @abstractmethod
-    def search(self, query, page):
-        pass
-
-
-class BookSearchService(BookApi):
+class BookRepository:
     @staticmethod
-    def search(query, page):
-        results_list = list(Book.objects.filter(title__icontains=query))
-        total_results = len(results_list)
-        return results_list, total_results
+    def search_by_title(query):
+        return list(Book.objects.filter(title__icontains=query))
 
-# TODO 多分サービスに入れたほうが良さそう
-class GoogleBooksAPIService(BookApi):
+
+class GoogleBooksRepository:
     @staticmethod
-    def search(query, page):
+    def search_books(query, page):
         startIndex = (int(page) - 1) * 10
         GOOGLE_BOOKS_API_URL = f"https://www.googleapis.com/books/v1/volumes?q={query}&startIndex={startIndex}&maxResults=10&langRestrict=ja&Country=JP"
         response = requests.get(GOOGLE_BOOKS_API_URL)
@@ -44,12 +34,14 @@ class GoogleBooksAPIService(BookApi):
                 if not isbn_10 or not isbn_13:
                     print("None create")
                     continue
-                
+
                 try:
                     book, created = Book.objects.get_or_create(
                         title=volume_info.get("title", "Unknown Title"),
                         description=volume_info.get("description", ""),
-                        thumbnail=volume_info.get("imageLinks", {}).get("thumbnail", ""),
+                        thumbnail=volume_info.get("imageLinks", {}).get(
+                            "thumbnail", ""
+                        ),
                         isbn_10=isbn_10,
                         isbn_13=isbn_13,
                     )
