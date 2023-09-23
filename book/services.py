@@ -9,8 +9,11 @@ from django.contrib.auth import get_user_model
 from django.db.models.functions import TruncDate
 from django.db.models import Count
 
+from book.apis import GoogleBooksAPIClient
+from book.mappers import GoogleBooksMapper
 from book.models import Bookshelf
-from book.repositories import BookRepository, GoogleBooksRepository
+from book.repositories import BookRepository
+
 from record.models import ReadingMemo
 
 
@@ -27,19 +30,30 @@ class BookSearchService(SearchService):
     def search(self, query, page):
         results_list = self.repository.search_by_title(query)
         total_results = len(results_list)
-        total_pages = (total_results // 10) + (1 if total_results % 10 else 0)
-        return results_list[(page-1)*10:page*10], total_results, total_pages
-
+        total_pages = (total_results // 10) + (1 if total_results % 10 else 1)
+        return results_list[(page - 1) * 10 : page * 10], total_pages
 
 
 class GoogleBooksService(SearchService):
     def __init__(self):
-        self.repository = GoogleBooksRepository()
+        self.api_client = GoogleBooksAPIClient()
+        self.repository = BookRepository()
 
     def search(self, query, page):
-        results_list, total_results = self.repository.search_books(query, page)
-        total_pages = (total_results // 10) + (1 if total_results % 10 else 0)
-        return results_list, total_results, total_pages
+        api_result = self.api_client.fetch_books(query, page)
+        book_items = api_result.get("items", [])
+
+        books_data = GoogleBooksMapper.to_books(book_items)
+
+        books = []
+        for book_data in books_data:
+            book = self.repository.get_or_create(book_data)
+            books.append(book)
+
+        total_items = api_result.get("totalItems", 0)
+        total_pages = (total_items // 10) + (1 if total_items % 10 else 1)
+
+        return books, total_pages
 
 
 # Dashboard

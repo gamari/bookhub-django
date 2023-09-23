@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 from django.core.paginator import Paginator
 
-from book.services import BookSearchService, DashboardService, GoogleBooksService
+from book.services import BookSearchService, GoogleBooksService, DashboardService
 from book.models import Book, Bookshelf
 from review.forms import ReviewForm
 from review.models import Review
@@ -74,12 +74,12 @@ def book_search(request):
     else:
         search_service = BookSearchService()
 
-    results_list, total_results, total_pages = search_service.search(query, page)
+    # TODO total_resultsいらない
+    results_list, total_pages = search_service.search(query, page)
 
     context = {
         "results": results_list,
         "query": query,
-        "total_results": total_results,
         "current_page": page,
         "total_pages": total_pages,
         "mode": mode,
