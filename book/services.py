@@ -6,8 +6,8 @@ from datetime import timedelta
 
 from django.utils import timezone
 from django.contrib.auth import get_user_model
+from django.db.models import Count, Avg
 from django.db.models.functions import TruncDate
-from django.db.models import Count
 
 from book.apis import GoogleBooksAPIClient
 from book.mappers import GoogleBooksMapper
@@ -15,12 +15,57 @@ from book.models import Bookshelf
 from book.repositories import BookRepository
 
 from record.models import ReadingMemo
+from review.forms import ReviewForm
 
 
 class SearchService(ABC):
     @abstractmethod
     def search(self, query, page):
         pass
+
+
+class BookService:
+    def __init__(self, book_repository, review_repository, bookshelf_repository):
+        self.book_repository = book_repository
+        self.review_repository = review_repository
+        self.bookshelf_repository = bookshelf_repository
+
+    def get_book_detail(self, book_id, user):
+        book = self.book_repository.find_by_id(book_id)
+
+        if user.is_authenticated:
+            latest_review = self.review_repository.latest_review_for_user(book, user)
+            book_on_shelf = self.bookshelf_repository.has_book_for_user(book, user)
+        else:
+            latest_review = None
+            book_on_shelf = False
+        return book, latest_review, book_on_shelf
+
+
+class BookApplicationService:
+    def __init__(self, book_service):
+        self.book_service = book_service
+
+    def view_book_detail(self, book_id, user):
+        book, latest_review, book_on_shelf = self.book_service.get_book_detail(
+            book_id, user
+        )
+
+        avg_rating = book.review_set.aggregate(avg_rating=Avg("rating"))["avg_rating"]
+        if avg_rating:
+            avg_rating = round(avg_rating, 2)
+        reviews = book.review_set.all().order_by("-created_at")
+        context = {
+            "book": book,
+            "review_form": ReviewForm(
+                instance=latest_review if latest_review else None
+            ),
+            "latest_review": latest_review,
+            "avg_rating": avg_rating,
+            "reviews": reviews,
+            "book_on_shelf": book_on_shelf,
+        }
+        return context
 
 
 class BookSearchService(SearchService):

@@ -1,52 +1,18 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
-from django.core.paginator import Paginator
+from book.repositories import BookRepository, BookshelfRepository
 
-from book.services import BookSearchService, GoogleBooksService, DashboardService
+from book.services import BookApplicationService, BookSearchService, BookService, GoogleBooksService, DashboardService
 from book.models import Book, Bookshelf
 from review.forms import ReviewForm
 from review.models import Review
+from review.repositories import ReviewRepository
 
 
 def book_detail(request, book_id):
-    book = Book.objects.get(id=book_id)
-    review_form = ReviewForm()
-
-    try:
-        if request.user.is_authenticated:
-            latest_review = book.review_set.filter(user=request.user).latest(
-                "created_at"
-            )
-            book_on_shelf = Bookshelf.objects.filter(
-                user=request.user, books=book
-            ).exists()
-        else:
-            latest_review = None
-            book_on_shelf = False
-    except Review.DoesNotExist:
-        latest_review = None
-        book_on_shelf = False
-
-    if latest_review:
-        review_form = ReviewForm(instance=latest_review)
-    else:
-        review_form = ReviewForm()
-
-    avg_rating = book.review_set.aggregate(avg_rating=Avg("rating"))["avg_rating"]
-    if avg_rating:
-        avg_rating = round(avg_rating, 2)
-
-    reviews = book.review_set.all().order_by("-created_at")
-
-    context = {
-        "book": book,
-        "review_form": review_form,
-        "latest_review": latest_review,
-        "avg_rating": avg_rating,
-        "reviews": reviews,
-        "book_on_shelf": book_on_shelf,
-    }
+    service = BookApplicationService(BookService(BookRepository, ReviewRepository, BookshelfRepository))
+    context = service.view_book_detail(book_id, request.user)
     return render(request, "books/book_detail.html", context)
 
 

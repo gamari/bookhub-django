@@ -1,5 +1,5 @@
 import requests
-from book.models import Book
+from book.models import Book, Bookshelf
 
 
 class BookRepository:
@@ -7,6 +7,10 @@ class BookRepository:
     def search_by_title(query):
         return list(Book.objects.filter(title__icontains=query))
 
+    @staticmethod
+    def find_by_id(book_id):
+        return Book.objects.get(id=book_id)
+    
     @staticmethod
     def get_or_create(book_data):
         book, created = Book.objects.get_or_create(
@@ -18,3 +22,7 @@ class BookRepository:
         )
         return book
 
+class BookshelfRepository:
+    @staticmethod
+    def has_book_for_user(book, user):
+        return Bookshelf.objects.filter(user=user, books=book).exists()
