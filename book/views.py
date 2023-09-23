@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from book.domain.repository.repositories import BookRepository, BookshelfRepository
+from book.domain.repositories import BookRepository, BookshelfRepository
+
 
 from book.application.services import (
     BookApplicationService,
@@ -16,12 +17,13 @@ from review.models import Review
 from review.repositories import ReviewRepository
 
 
-def book_detail(request, book_id):
-    service = BookApplicationService(
-        BookService(BookRepository, ReviewRepository, BookshelfRepository)
-    )
-    context = service.view_book_detail(book_id, request.user)
-    return render(request, "books/book_detail.html", context)
+# ページ表示
+def home(request):
+    latest_reviews = Review.objects.all().order_by("-created_at")[:5]
+
+    context = {"latest_reviews": latest_reviews}
+
+    return render(request, "home.html", context)
 
 
 @login_required
@@ -30,12 +32,13 @@ def dashboard(request):
     return render(request, "dashboard.html", context)
 
 
-def show_home(request):
-    latest_reviews = Review.objects.all().order_by("-created_at")[:5]
-
-    context = {"latest_reviews": latest_reviews}
-
-    return render(request, "home.html", context)
+# 書籍詳細
+def book_detail(request, book_id):
+    service = BookApplicationService(
+        BookService(BookRepository, ReviewRepository, BookshelfRepository)
+    )
+    context = service.view_book_detail(book_id, request.user)
+    return render(request, "books/book_detail.html", context)
 
 
 # 検索

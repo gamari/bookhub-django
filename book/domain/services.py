@@ -3,14 +3,10 @@ from collections import defaultdict
 import datetime
 from typing import Any
 
-from django.db.models import Count
-from django.db.models.functions import TruncDate
-
-
+from book.domain.repositories import BookRepository
+from record.domain.repositories import ReadingMemoRepository
 from book.infrastructure.external.apis import GoogleBooksAPIClient
 from book.infrastructure.mappers import GoogleBooksMapper
-from book.domain.repository.repositories import BookRepository
-from record.models import ReadingMemo
 
 
 # 書籍ドメイン
@@ -80,6 +76,9 @@ class ActivityService:
     def fetch_monthly_activity(
         user: Any, start_date: datetime.date, end_date: datetime.date
     ):
+        # TODO リファクタリングしたほうが良い
+        # TODO ドメインが分散しすぎてる
+
         # 1日が日曜日までの日数を計算
         days_until_sunday = start_date.weekday()
         first_day_of_calendar = start_date - datetime.timedelta(days=days_until_sunday)
@@ -90,15 +89,8 @@ class ActivityService:
             days=days_from_last_saturday
         )
 
-        activity_data_raw = (
-            ReadingMemo.objects.filter(
-                created_at__date__range=[start_date, end_date],
-                user=user,
-            )
-            .annotate(date_str=TruncDate("created_at"))
-            .values("date_str")
-            .annotate(count=Count("id"))
-            .values("date_str", "count")
+        activity_data_raw = ReadingMemoRepository.fetch_for_user_within_date_range(
+            user, first_day_of_calendar, last_day_of_calendar
         )
 
         # デフォルト値を0に設定して日付ごとの辞書を作成
