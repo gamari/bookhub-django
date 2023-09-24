@@ -23,17 +23,44 @@
     </form>
   </div>
 
-  {% for book in results %}
-    <div class="book-result">
-      <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
-      <h2><a href="{% url 'book_detail' book.id %}">{{ book.title }}</a></h2>
-      <p>{{ book.author.name }}</p>
-      <p>{{ book.description }}</p>
-    </div>
-    {% empty %}
-    <p>見つかりませんでした</p>
-  {% endfor %}
+  <div class="book-resuls-container">
+    {% for book in results %}
+      <div class="book-result">
+        <div class="book-result-image">
+          <img src="{{ book.thumbnail }}" alt="{{ book.title }}" width="80px" />
+        </div>
 
+        <div class="book-result-info">
+          <h2><a href="{% url 'book_detail' book.id %}">{{ book.title }}</a></h2>
+          <p>{{ book.author.name }}</p>
+          <ul class="book-authors-container">
+            {% for author in book.authors.all %}
+              <li class="book-author">{{ author.name }}</li>
+              {% empty %}
+              <li class="book-author">-</li>
+            {% endfor %}
+          </ul>
+          <p>{{ book.description|truncatechars:80 }}</p>
+        </div>
+
+        <div class="book-result-tools">
+          <button class="btn btn-primary book-add-button">本棚に追加</button>
+        </div>
+      </div>
+    {% empty %}
+      <div class="book-noresult">
+        <p>見つかりませんでした</p>
+        <div>
+          <p>詳細に検索してみてください</p>
+          <div>
+            <a href="{% url 'book_search' %}?query={{ query }}&mode=detail">詳細に検索</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% comment %} TODO ページネーションを変えたい {% endcomment %}
   <div class="pagination">
     <span class="step-links">
       {% if current_page > 1 %}

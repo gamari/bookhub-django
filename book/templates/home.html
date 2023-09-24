@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
 {% endblock %}
 
-
 {% block title %}
   トップページ
 {% endblock %}
@@ -14,7 +13,13 @@
 {% block content %}
   <div>
     <div class="search-container">
-      <div>気になる書籍を検索する</div>
+      <div class="search-title">気になる書籍を検索する</div>
+      <div class="">
+        <form action="{% url 'book_search' %}" method="GET" class="search-input-container">
+          <input type="text" name="query" placeholder="書籍を検索" class="search-input" />
+          <button type="submit" class="searchbox-icon"><i class="fas fa-search"></i></button>
+        </form>
+      </div>
     </div>
 
     <div class="review-container">

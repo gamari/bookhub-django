@@ -62,8 +62,6 @@ def book_search(request):
         "mode": mode,
     }
 
-    print(context)
-
     return render(request, "books/search_results.html", context)
 
 
