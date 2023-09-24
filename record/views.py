@@ -6,21 +6,20 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 
 from book.models import Book
+from record.application.service import ReadingApplicationService
+from record.domain.repositories import ReadingRecordRepository
+from record.domain.service import ReadingService
 from record.forms import ReadingMemoForm
-from record.models import ReadingMemo, ReadingRecord
 
-# TODO book_idで指定するのは直観的ではない
 
 @login_required
 def reading_record(request, book_id):
-    book = get_object_or_404(Book, id=book_id)
-    record, created = ReadingRecord.objects.get_or_create(user=request.user, book=book)
-    memos = ReadingMemo.objects.filter(user=request.user, book=book).order_by(
-        "-created_at"
+    record_repository = ReadingRecordRepository()
+    reading_service = ReadingService(record_repository)
+    service = ReadingApplicationService(
+        user=request.user, book_id=book_id, reading_service=reading_service
     )
-    form = ReadingMemoForm()
-
-    context = {"book": book, "record": record, "memos": memos, "form": form}
+    context = service.execute()
     return render(request, "reading_record.html", context)
 
 

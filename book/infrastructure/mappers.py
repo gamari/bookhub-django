@@ -5,6 +5,7 @@ class GoogleBooksMapper:
         books = []
 
         for item in items:
+            print(item)
             volume_info = item.get("volumeInfo", {})
             industry_identifiers = volume_info.get("industryIdentifiers", [])
 
@@ -20,12 +21,17 @@ class GoogleBooksMapper:
             if not isbn_10 or not isbn_13:
                 continue
 
+            authors = volume_info.get("authors", [])
+            print(authors)
+
             book = {
                 "title": volume_info.get("title", "Unknown Title"),
                 "description": volume_info.get("description", ""),
                 "thumbnail": volume_info.get("imageLinks", {}).get("thumbnail", ""),
                 "isbn_10": isbn_10,
                 "isbn_13": isbn_13,
+                "authors": authors
+
             }
             books.append(book)
 

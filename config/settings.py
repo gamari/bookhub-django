@@ -13,6 +13,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 # TODO typeの修正
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default="").split(',') # type: ignore
 
+GOOGLE_BOOKS_API_KEY = config('GOOGLE_BOOKS_API_KEY', default="")
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',

@@ -1,7 +1,7 @@
 from django.db.models import Count
 from django.db.models.functions import TruncDate
 
-from record.models import ReadingMemo
+from record.models import ReadingMemo, ReadingRecord
 
 
 class ReadingMemoRepository:
@@ -17,3 +17,8 @@ class ReadingMemoRepository:
             .annotate(count=Count("id"))
             .values("date_str", "count")
         )
+
+
+class ReadingRecordRepository:
+    def get_or_create(self, user, book):
+        return ReadingRecord.objects.get_or_create(user=user, book=book)

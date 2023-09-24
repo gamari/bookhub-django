@@ -1,0 +1,40 @@
+.book-detail-container {
+    background-color: white;
+    margin-top: 32px;
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 12px 24px;
+}
+
+.book-detail-left {
+
+}
+
+.book-detail-right {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.memo-container {
+    margin-top: 32px;
+}
+
+.book-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.authors-container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.author-item {
+    list-style: none;
+}

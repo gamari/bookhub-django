@@ -54,4 +54,6 @@ class DashboardService:
             user, start_date, end_date
         )
 
-        return {"books": books, "activity_data": activity_data}
+        month = today.month
+
+        return {"books": books, "activity_data": activity_data, "month": month}

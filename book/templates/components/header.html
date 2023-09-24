@@ -3,11 +3,11 @@
     <a href="/" class="logo">LOGO</a>
   </div>
 
-  <nav>
+  <nav class="nav-container">
     <div>
-      <form action="{% url 'book_search' %}" method="GET">
-        <input type="text" name="query" placeholder="書籍を検索" />
-        <input type="submit" value="検索" />
+      <form action="{% url 'book_search' %}" method="GET" class="searchbox-container">
+        <input type="text" name="query" placeholder="書籍を検索" class="searchbox-input" />
+        <button type="submit" class="searchbox-icon"><i class="fas fa-search"></i></button>
       </form>
     </div>
 

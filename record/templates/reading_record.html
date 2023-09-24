@@ -5,29 +5,61 @@
   読書記録
 {% endblock %}
 
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/pages/reading_record.css' %}" />
+{% endblock %}
+
 {% block js %}
   <script src="{% static 'js/create-memo.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-  <h1>読書記録: {{ book.title }}</h1>
+  <div class="book-detail-container">
+    <div class="book-detail-left">
+      <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
+
+      <div>SHARE</div>
+    </div>
+
+    <div class="book-detail-right">
+      <h2>{{ book.title }}</h2>
+
+      <div>
+        <h3>著者一覧</h3>
+        <ul class="authors-container">
+          {% for author in book.authors.all %}
+            <li class="author-item">{{ author.name }}</li>
+            {% empty %}
+            <li class="author-item">著者が登録されていません</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="book-buttons">
+        <a href="{% url 'book_detail' book.id %}" class="btn btn-info">書籍詳細へ</a>
+        <button class="btn btn-primary">本棚に登録</button>
+      </div>
+    </div>
+  </div>
 
   {# メモの投稿フォーム #}
-  <form id="memoForm" data-action="{% url 'create_memo' book_id=book.id %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button id="createMemoButton" class="btn btn-primary">メモを追加</button>
-  </form>
+  <div class="memo-container">
+    <h2>メモ一覧</h2>
+    <form id="memoForm" data-action="{% url 'create_memo' book.id %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button id="createMemoButton" class="btn btn-primary">メモを追加</button>
+    </form>
 
-  <h2>メモ一覧</h2>
-  <ul id="memoList">
-    {% for memo in memos %}
-      <li>
-        <p>{{ memo.created_at }}</p>
-        <p>{{ memo.content }}</p>
-      </li>
-      {% empty %}
-      <p>まだメモはありません。</p>
-    {% endfor %}
-  </ul>
+    <ol id="memoList">
+      {% for memo in memos %}
+        <li>
+          <p>{{ memo.created_at }}</p>
+          <p>{{ memo.content }}</p>
+        </li>
+        {% empty %}
+        <p>まだメモはありません。</p>
+      {% endfor %}
+    </ol>
+  </div>
 {% endblock %}

@@ -1,4 +1,4 @@
-.user-container {
+.top-container {
     margin-top: 32px;
     display: flex;
     flex-direction: row;
@@ -9,15 +9,18 @@
     gap: 32px;
 }
 
-.user-left {
+.top-left {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
 }
 
-.user-right {
+.top-right {
     flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
 }
 
 
@@ -39,8 +42,10 @@
 }
 
 .user-username {
-    font-size: 1.5rem;
-    font-weight: bold;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    font-size: 1rem;
+    text-align: center;
 }
 
 /* コントリビューション */
@@ -51,7 +56,16 @@
     gap: 4px;
 }
 
-.day-label, .contribution-day {
+.day-label {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contribution-day {
     width: 20px;
     height: 20px;
     display: flex;
@@ -61,11 +75,6 @@
     background-color: #ebedf0;
 }
 
-/* .contribution-day {
-    width: 10px;
-    height: 10px;
-    background-color: #ebedf0;
-} */
 
 .contribution-day[data-count="1"] {
     background-color: #9be9a8;
@@ -86,4 +95,26 @@
 /* 4以上の活動の場合の色。必要に応じて増やしてください。 */
 .contribution-day[data-count="5"], .contribution-day[data-count="6"], .contribution-day[data-count="7"] {
     background-color: #196127;
+}
+
+/* ツールバー */
+.toolbar {
+    margin-top: 32px;
+}
+
+
+/* 本棚 */
+.bookshelf-container {
+    margin-top: 32px;
+}
+
+.bookshelf {
+    /* TODO gridで4列にする */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.bookshelf-item {
+    list-style: none;
 }

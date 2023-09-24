@@ -4,7 +4,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    border-bottom: 1px #777 solid;
+    border-bottom: 1px #d2d2d2 solid;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: rgba(27, 152, 255);
     color: white;
 }
@@ -14,4 +15,33 @@
     font-size: 1.5rem;
     font-weight: bold;
     text-decoration: none;
+}
+
+.nav-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.searchbox-container {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #d2d2d2;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.searchbox-input {
+    padding: 0.5rem;
+    border: 1px solid transparent;
+    outline: none;
+}
+
+.searchbox-icon {
+    padding: 0.5rem;
+    color: black;
+    border: 1px solid transparent;
+    cursor: pointer;
 }
