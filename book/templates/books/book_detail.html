@@ -56,7 +56,7 @@
           {% if avg_rating %}
             {{ avg_rating }}点
           {% else %}
-            -
+            レビューがありません
           {% endif %}
         </span>
       </div>
@@ -88,7 +88,8 @@
 
   <div class="reviews-container">
     <h3>レビュー一覧</h3>
-    <div>
+
+    <div class="reviews">
       {% for review in reviews %}
         <div class="review-item">
           <div class="review-user">
@@ -104,31 +105,12 @@
             <div class="review-content">{{ review.content }}</div>
           </div>
         </div>
+        {% empty %}
+        <div class="review-item">レビューがありません</div>
       {% endfor %}
     </div>
   </div>
 
   <!-- モーダル機能 -->
-  <div class="modal-container" id="reviewModal" style="display: none;">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">レビューを投稿</h5>
-          <button type="button" class="btn-close" id="closeModalButton"></button>
-        </div>
-
-        <div class="modal-body">
-          <form class="modal-form" method="post" action="{% url 'review_create' book.id %}">
-            {% csrf_token %}
-            {{ review_form.as_p }}
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" id="footerCloseModalButton">閉じる</button>
-              <button type="submit" class="btn btn-primary">レビューを送信</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  {% include 'review_modal.html' %}
 {% endblock %}

@@ -44,7 +44,6 @@ class CreateMemoApplicationService:
         if not form.is_valid():
             return {"result": "fail", "errors": form.errors}
 
-        # TODO リファクタリングしたほうが良いかも
         book = self.book_repo.find_by_id(book_id)
         memo = self.memo_service.create_memo(form, user, book)
         saved_memo = self.memo_repo.save(memo)

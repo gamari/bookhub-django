@@ -8,7 +8,8 @@
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  width: fit-content;
+  height: 180px;
+  width: 160px;
 }
 
 .book-panel:hover {
@@ -26,15 +27,4 @@
 .book-image img {
   max-width: 100%;
   height: auto;
-}
-
-/* レビュータイトル関連のスタイリング */
-.review-title {
-  font-size: 16px; /* フォントサイズ */
-  color: #333; /* 文字色 */
-  text-decoration: none; /* アンダーラインを削除 */
-}
-
-.review-title:hover {
-  text-decoration: underline; /* マウスホバー時のアンダーライン */
 }

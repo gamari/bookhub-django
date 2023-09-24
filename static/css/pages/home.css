@@ -1,4 +1,4 @@
-.search-container {
+.search-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,11 +16,10 @@
     color: #333;
 }
 
-.search-input-container {
+.search-container {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 16px;
     border: 1px solid #ccc;
 }
 
@@ -31,23 +30,35 @@
 }
 
 
-.search-container {
-    border: 1px solid #ccc;
-    box-shadow: 0 0 4px #ccc;
+
+/* 最新のレビュー */
+.review-section {
+    margin-top: 32px;
 }
 
-.review-container {
-    margin-top: 32px;
+.reviews-container {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
 .review-title {
+    font-size: 12px;
     text-decoration: none;
     color: #333;
-    font-size: 0.8rem;
+}
+
+/* よく読まれてます */
+.top-books-section {
+    margin-top: 32px;
 }
 
 .top-books-container {
-    margin-top: 32px;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
 }
 
 .recommendation-book-container {

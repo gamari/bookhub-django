@@ -13,19 +13,17 @@
 
 {% block content %}
   <div>
-    <div class="search-container">
+    <div class="search-section">
       <div class="search-title">気になる書籍を検索する</div>
-      <div class="">
-        <form action="{% url 'book_search' %}" method="GET" class="search-input-container">
-          <input type="text" name="query" placeholder="書籍を検索" class="search-input" />
-          <button type="submit" class="searchbox-icon"><i class="fas fa-search"></i></button>
-        </form>
-      </div>
+      <form action="{% url 'book_search' %}" method="GET" class="search-container">
+        <input type="text" name="query" placeholder="書籍を検索" class="search-input" />
+        <button type="submit" class="searchbox-icon"><i class="fas fa-search"></i></button>
+      </form>
     </div>
 
-    <div class="review-container">
+    <div class="review-section">
       <h2>最新のレビュー</h2>
-      <div>
+      <div class="reviews-container">
         {% for review in latest_reviews %}
           <a href="{% url 'book_detail' review.book.id %}" class="book-panel">
             <div class="book-image">
@@ -34,22 +32,25 @@
 
             <div class="text-primary">{{ review.book.title }}</div>
 
-            <div class="review-title">{{ review.user.username }}が{{ review.rating }}点を付けました</div>
+            <div class="review-title">{{ review.user.username }}さんが{{ review.rating }}点を付けました</div>
           </a>
         {% endfor %}
       </div>
     </div>
 
-    <div class="top-books-container">
+    <div class="top-books-section">
       <h2>よく読まれています</h2>
-      {% for result in top_book_results %}
-        <div class="book-panel">
-          <div>
-            <img src="{{ result.book__thumbnail }}" alt="{{ result.book__title }}" />
+
+      <div class="top-books-container">
+        {% for result in top_book_results %}
+          <div class="book-panel">
+            <div class="book-image">
+              <img src="{{ result.book__thumbnail }}" alt="{{ result.book__title }}"  />
+            </div>
+            <div>{{ result.book__title }}</div>
           </div>
-          <div>{{ result.book__title }}</div>
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
 
     <div class="recommendation-book-container">オススメ</div>

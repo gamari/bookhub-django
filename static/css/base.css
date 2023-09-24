@@ -1,61 +1,72 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background-color: rgb(243, 243, 243);
+  background-color: rgb(243, 243, 243);
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgb(42, 42, 42);
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: rgb(42, 42, 42);
 }
 
 .container {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* ヘッダー部分 */
-.search-box {
-    /* TODO */
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 /* テキスト */
 .text-primary {
-    color: rgb(0, 82, 204);
+  color: rgb(0, 82, 204);
+}
+
+.text-sm {
+  font-size: 0.8rem;
 }
 
 /* ボタン */
 .btn {
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 6px 12px;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 1rem;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
 }
 
 .btn-primary {
-    background-color: rgb(0, 82, 204);
-    color: white;
+  background-color: rgb(0, 82, 204);
+  color: white;
 }
 
 .btn-primary:hover {
-    background-color: rgb(0, 82, 204);
-    opacity: 0.8;
+  background-color: rgb(0, 82, 204);
+  opacity: 0.8;
 }
 
 .btn-info {
-    background-color: rgb(72, 72, 72);
-    color: white;
+  background-color: rgb(72, 72, 72);
+  color: white;
 }
 
 .btn-info:hover {
-    background-color: rgb(72, 72, 72);
-    opacity: 0.8;
+  background-color: rgb(72, 72, 72);
+  opacity: 0.8;
 }
 
 /* Icon */
 .icon {
-    width: 2rem;
-    height: 1.5rem;
+  width: 2rem;
+  height: 1.5rem;
 }

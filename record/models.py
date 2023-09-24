@@ -7,7 +7,7 @@ from book.models import Book
 
 User = get_user_model()
 
-
+# TODO 紐づけ先をReadingRecordにすべき
 class ReadingMemo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
