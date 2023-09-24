@@ -18,6 +18,11 @@ body {
     /* TODO */
 }
 
+/* テキスト */
+.text-primary {
+    color: rgb(0, 82, 204);
+}
+
 /* ボタン */
 .btn {
     background-color: white;

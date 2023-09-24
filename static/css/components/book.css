@@ -1,0 +1,40 @@
+/* 基本スタイル */
+.book-panel {
+  display: block;
+  border: 1px solid #ddd;
+  background-color: white;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.book-panel:hover {
+  background-color: #f5f5f5; /* マウスホバー時の背景色 */
+}
+
+/* 画像関連のスタイリング */
+.book-image {
+  margin-right: 15px; /* 画像とタイトルの間の余白 */
+  width: 80px;
+  height: 120px; /* サイズは変更可能 */
+  overflow: hidden; /* 画像が枠を超えた部分を隠す */
+}
+
+.book-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* レビュータイトル関連のスタイリング */
+.review-title {
+  font-size: 16px; /* フォントサイズ */
+  color: #333; /* 文字色 */
+  text-decoration: none; /* アンダーラインを削除 */
+}
+
+.review-title:hover {
+  text-decoration: underline; /* マウスホバー時のアンダーライン */
+}

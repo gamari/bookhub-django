@@ -10,10 +10,6 @@
     padding: 20px;
 }
 
-.book-detail-image {
-
-}
-
 .book-detail-info {
     display: flex;
     flex-direction: column;
@@ -28,6 +24,20 @@
     align-items: center;
 }
 
+.book-description-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.book-description-content {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    word-wrap: pre-wrap;
+}
+
+
+/* 著者一覧 */
 .authors-container {
     display: flex;
     flex-direction: row;
@@ -42,5 +52,5 @@
     color: #444;
     width: 10px;
     height: 10px;
-    /* margin-right: 4px; */
 }
+

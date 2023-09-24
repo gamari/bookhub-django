@@ -46,7 +46,15 @@
               </li>
             {% endfor %}
           </ul>
-          <p>{{ book.description|truncatechars:80 }}</p>
+
+          <div>
+            <i class="fa-regular fa-calendar fa-sm"></i>
+            <span>
+              {{ book.published_date | default_if_none:"-"}}
+            </span>
+          </div>
+
+          <p>{{ book.description | truncatechars:80 }}</p>
         </div>
 
         <div class="book-result-tools">

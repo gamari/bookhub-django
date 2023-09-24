@@ -1,5 +1,12 @@
+from datetime import datetime
 import requests
 from book.models import Author, Book, Bookshelf
+from django.db.models import Q
+
+class AuthorRepository:
+    @staticmethod
+    def get_or_create_by_name(name):
+        return Author.objects.get_or_create(name=name)
 
 
 class BookRepository:
@@ -21,18 +28,42 @@ class BookRepository:
 
         book_data.pop("authors")
 
-        book, created = Book.objects.get_or_create(
-            title=book_data["title"],
-            description=book_data["description"],
-            thumbnail=book_data["thumbnail"],
-            isbn_10=book_data["isbn_10"],
-            isbn_13=book_data["isbn_13"],
-        )
+        try:
+            published_date = BookRepository._convert_to_date_format(book_data["published_date"])
+
+            book, created = Book.objects.get_or_create(
+                title=book_data["title"],
+                description=book_data["description"],
+                thumbnail=book_data["thumbnail"],
+                isbn_10=book_data["isbn_10"],
+                isbn_13=book_data["isbn_13"],
+                published_date=published_date
+            )
+        except Exception as e:
+            print(e)
+            book = Book.objects.filter(
+                Q(isbn_10=book_data["isbn_10"]) | Q(isbn_13=book_data["isbn_13"])
+            ).first()
+
+        if book:
+            for author in author_objects:
+                book.authors.add(author)
+        else:
+            return None
 
         for author in author_objects:
             book.authors.add(author)
 
         return book
+    
+    # TODO リファクタリング予定
+    @staticmethod
+    def _convert_to_date_format(date_str):
+        """YYYY-MM-DD形式に変換。変換不可の場合はNoneを返す。"""
+        try:
+            return datetime.strptime(date_str, '%Y-%m-%d').date()
+        except Exception:
+            return None
 
 
 class BookshelfRepository:
@@ -41,7 +72,3 @@ class BookshelfRepository:
         return Bookshelf.objects.filter(user=user, books=book).exists()
 
 
-class AuthorRepository:
-    @staticmethod
-    def get_or_create_by_name(name):
-        return Author.objects.get_or_create(name=name)

@@ -1,0 +1,34 @@
+.reviews-container {
+    margin-top: 32px;   
+}
+
+.review-item {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 16px;
+    background-color: white;
+    padding: 12px 24px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.review-user-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    background-color: #ddd;
+}
+
+.review-user {
+
+}
+
+.review-info {
+
+}
+
+.review-content {
+    /* TODO テキストは改行と、末尾も折り返す */
+    white-space: pre-wrap;
+}

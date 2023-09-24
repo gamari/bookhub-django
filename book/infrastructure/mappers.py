@@ -24,14 +24,16 @@ class GoogleBooksMapper:
             authors = volume_info.get("authors", [])
             print(authors)
 
+            published_date = volume_info.get("publishedDate", "")
+
             book = {
                 "title": volume_info.get("title", "Unknown Title"),
                 "description": volume_info.get("description", ""),
                 "thumbnail": volume_info.get("imageLinks", {}).get("thumbnail", ""),
                 "isbn_10": isbn_10,
                 "isbn_13": isbn_13,
-                "authors": authors
-
+                "authors": authors,
+                "published_date": published_date,
             }
             books.append(book)
 

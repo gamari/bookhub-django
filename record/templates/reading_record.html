@@ -41,9 +41,25 @@
         {% endfor %}
       </ul>
 
+      {% comment %} 書籍ツール {% endcomment %}
       <div class="book-buttons">
         <a href="{% url 'book_detail' book.id %}" class="btn btn-info">書籍詳細へ</a>
-        <button class="btn btn-primary">本棚に登録</button>
+        {% if record.finished_at %}
+          <form action="{% url 'mark_as_unfinished' book.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-warning">未読にする</button>
+          </form>
+        {% else %}
+          <form action="{% url 'mark_as_finished' book.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">読了済みにする</button>
+          </form>
+        {% endif %}
+      </div>
+
+      <div>
+        <div>開始日: {{ record.started_at | default_if_none:"" }}</div>
+        <div>読了日: {{ record.finished_at | default_if_none:"-" }}</div>
       </div>
     </div>
   </div>

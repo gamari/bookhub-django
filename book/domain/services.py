@@ -60,7 +60,8 @@ class GoogleBooksService(SearchService):
         books = []
         for book_data in books_data:
             book = self.repository.get_or_create(book_data)
-            books.append(book)
+            if book:
+                books.append(book)
 
         total_items = api_result.get("totalItems", 0)
         total_pages = (total_items // 10) + (1 if total_items % 10 else 1)

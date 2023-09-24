@@ -8,6 +8,7 @@
 
 {% block css %}
   <link href="{% static 'css/pages/book_detail.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/components/review.css' %}" rel="stylesheet" />
   <link href="{% static 'css/modal.css' %}" rel="stylesheet" />
 {% endblock %}
 
@@ -38,16 +39,37 @@
         {% endfor %}
       </ul>
 
-      <p>{{ book.description }}</p>
-      <p>レビュー {{ avg_rating }}</p>
+      <div>
+        <i class="fa-regular fa-calendar fa-sm"></i>
+        <span>
+          {% if book.published_date %}
+            {{ book.published_date }}
+          {% else %}
+            -
+          {% endif %}
+        </span>
+      </div>
+
+      <div>
+        <i class="fa-regular fa-star fa-sm"></i>
+        <span>
+          {% if avg_rating %}
+            {{ avg_rating }}点
+          {% else %}
+            -
+          {% endif %}
+        </span>
+      </div>
 
       <div class="book-detail-tools">
         {% if user.is_authenticated %}
           {% comment %}TODO Ajaxにする{% endcomment %}
           {% if book_on_shelf %}
-            <a href="{% url 'remove_from_shelf' book.id %}" class="btn">登録解除</a>
+            <a href="{% url 'remove_from_shelf' book.id %}" class="btn">本棚から削除</a>
+            <a href="{% url 'reading_record' book.id %}" class="btn">読書履歴へ</a>
+
           {% else %}
-            <a href="{% url 'add_to_shelf' book.id %}" class="btn btn-primary">登録</a>
+            <a href="{% url 'add_to_shelf' book.id %}" class="btn btn-primary">本棚に追加</a>
           {% endif %}
           <button type="button" class="btn btn-info" id="openModalButton">レビューを投稿</button>
         {% else %}
@@ -59,15 +81,31 @@
     </div>
   </div>
 
+  <div class="book-description-container">
+    <h3>書籍紹介</h3>
+    <p class="book-description-content">{{ book.description }}</p>
+  </div>
+
   <div class="reviews-container">
     <h3>レビュー一覧</h3>
-    <ul>
+    <div>
       {% for review in reviews %}
-        <li>
-          <strong>{{ review.user.username }}</strong> - {{ review.rating }}点<p>{{ review.content }}</p>
-        </li>
+        <div class="review-item">
+          <div class="review-user">
+            <div class="review-user-icon"></div>
+          </div>
+
+          <div class="review-info">
+            {% comment %}TODO 星で表示させたい{% endcomment %}
+            {% comment %}投稿日を出したい{% endcomment %}
+            <div>
+              <strong>{{ review.user.username }}</strong> - {{ review.rating }}点
+            </div>
+            <div class="review-content">{{ review.content }}</div>
+          </div>
+        </div>
       {% endfor %}
-    </ul>
+    </div>
   </div>
 
   <!-- モーダル機能 -->

@@ -18,7 +18,7 @@ class ReadingApplicationService:
 
     def execute(self):
         book = get_object_or_404(Book, id=self.book_id)
-        record = self.reading_service.get_or_create_record(self.user, book)
+        record, created = self.reading_service.get_or_create_record(self.user, book)
         memos = ReadingMemo.objects.filter(user=self.user, book=book).order_by(
             "-created_at"
         )

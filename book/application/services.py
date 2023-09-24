@@ -41,6 +41,7 @@ class BookApplicationService:
 
 class DashboardApplicationService:
     """ダッシュボード"""
+
     def execute(self, user: Any):
         bookshelf, created = Bookshelf.objects.get_or_create(user=user)
         books = bookshelf.books.all()

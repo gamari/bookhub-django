@@ -19,6 +19,7 @@ class Book(models.Model):
     description = models.TextField(null=True, blank=True)
     authors = models.ManyToManyField(Author)
     thumbnail = models.URLField(null=True, blank=True)
+    published_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return f"[{self.isbn_10} | {self.isbn_13}] {self.title}"

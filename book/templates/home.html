@@ -4,6 +4,7 @@
 
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
 {% endblock %}
 
 {% block title %}
@@ -24,15 +25,33 @@
 
     <div class="review-container">
       <h2>最新のレビュー</h2>
-      <ul>
+      <div>
         {% for review in latest_reviews %}
-          <li>
-            <a href="{% url 'book_detail' review.book.id %}">{{ review.book.title }} - {{ review.user.username }}が{{ review.rating }}点を付けました。</a>
-          </li>
+          <a href="{% url 'book_detail' review.book.id %}" class="book-panel">
+            <div class="book-image">
+              <img src="{{ review.book.thumbnail }}" alt="{{ book.title }}" />
+            </div>
+
+            <div class="text-primary">{{ review.book.title }}</div>
+
+            <div class="review-title">{{ review.user.username }}が{{ review.rating }}点を付けました</div>
+          </a>
         {% endfor %}
-      </ul>
+      </div>
     </div>
-    <div>よく読まれています</div>
-    <div>オススメ</div>
+
+    <div class="top-books-container">
+      <h2>よく読まれています</h2>
+      {% for result in top_book_results %}
+        <div class="book-panel">
+          <div>
+            <img src="{{ result.book__thumbnail }}" alt="{{ result.book__title }}" />
+          </div>
+          <div>{{ result.book__title }}</div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="recommendation-book-container">オススメ</div>
   </div>
 {% endblock %}

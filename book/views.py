@@ -1,7 +1,10 @@
+from datetime import datetime, timedelta
+
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from book.domain.repositories import BookRepository, BookshelfRepository
+from django.db.models import Count
 
+from book.domain.repositories import BookRepository, BookshelfRepository
 from book.application.services import (
     BookApplicationService,
     DashboardApplicationService,
@@ -12,15 +15,42 @@ from book.domain.services import (
     BookService,
     GoogleBooksService,
 )
+from record.models import ReadingRecord
 from review.models import Review
 from review.repositories import ReviewRepository
 
 
 # ページ表示
 def home(request):
+    # 今月の最初の日を取得
+    first_day_of_month = datetime.now().replace(day=1)
+
+    # 今月の最後の日を取得
+    last_day_of_month = first_day_of_month.replace(
+        month=first_day_of_month.month % 12 + 1, day=1
+    ) - timedelta(days=1)
+
+    # 今月に登録されたReadingRecordをフィルタリング
+    monthly_records = ReadingRecord.objects.filter(
+        started_at__range=[first_day_of_month, last_day_of_month]
+    )
+
+    # 書籍ごとにエントリーを集計
+    top_book_results = (
+        monthly_records.values(
+            "book__title", "book__id", "book__thumbnail"
+        )  # book__titleで書籍のタイトルを使用
+        .annotate(total=Count("book"))
+        .order_by("-total")[:3]
+    )
+    print(top_book_results)
+
     latest_reviews = Review.objects.all().order_by("-created_at")[:5]
 
-    context = {"latest_reviews": latest_reviews}
+    context = {
+        "top_book_results": top_book_results,
+        "latest_reviews": latest_reviews,
+    }
 
     return render(request, "home.html", context)
 
@@ -34,9 +64,8 @@ def dashboard(request):
 
 # 書籍詳細
 def book_detail(request, book_id):
-    service = BookApplicationService(
-        BookService(BookRepository, ReviewRepository, BookshelfRepository)
-    )
+    book_service = BookService(BookRepository, ReviewRepository, BookshelfRepository)
+    service = BookApplicationService(book_service)
     context = service.execute(book_id, request.user)
     return render(request, "books/book_detail.html", context)
 

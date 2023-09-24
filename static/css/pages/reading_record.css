@@ -44,7 +44,10 @@
   margin-top: 32px;
   margin-bottom: 32px;
   background-color: white;
-  padding: 12px 24px;
+  padding-top: 24px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 24px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
@@ -52,6 +55,12 @@
 #memoForm {
   margin-bottom: 20px;
 }
+
+#memoForm textarea {
+  resize: none;
+  width: 80%;
+}
+
 
 #memoList {
   list-style-type: none;
@@ -73,6 +82,12 @@
   margin-bottom: 10px;
 }
 
+#memoList li p:last-child {
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
 .memo-textarea {
   width: 100%;
   padding: 10px;
@@ -84,5 +99,5 @@
 }
 
 .memo-textarea:focus {
-    border-color: #007bff;
+  border-color: #007bff;
 }

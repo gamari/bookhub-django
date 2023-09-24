@@ -39,3 +39,17 @@
 .review-container {
     margin-top: 32px;
 }
+
+.review-title {
+    text-decoration: none;
+    color: #333;
+    font-size: 0.8rem;
+}
+
+.top-books-container {
+    margin-top: 32px;
+}
+
+.recommendation-book-container {
+    margin-top: 32px;
+}
