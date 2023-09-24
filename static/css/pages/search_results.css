@@ -53,7 +53,7 @@
 }
 
 .book-add-button {
-    width: 100px;
+    width: 120px;
 }
 
 .book-authors-container {
@@ -65,4 +65,11 @@
 .book-author {
     list-style: none;
     font-size: 0.8rem;
+}
+
+.book-author-icon {
+    color: #444;
+    width: 10px;
+    height: 10px;
+    /* margin-right: 4px; */
 }

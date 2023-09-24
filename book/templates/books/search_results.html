@@ -35,9 +35,15 @@
           <p>{{ book.author.name }}</p>
           <ul class="book-authors-container">
             {% for author in book.authors.all %}
-              <li class="book-author">{{ author.name }}</li>
+              <li class="book-author">
+                <i class="fa-regular fa-user fa-sm"></i>
+                <span>{{ author.name }}</span>
+              </li>
               {% empty %}
-              <li class="book-author">-</li>
+              <li class="book-author">
+                <i class="fa-regular fa-user fa-sm"></i>
+                <span>-</span>
+              </li>
             {% endfor %}
           </ul>
           <p>{{ book.description|truncatechars:80 }}</p>
@@ -47,7 +53,7 @@
           <button class="btn btn-primary book-add-button">本棚に追加</button>
         </div>
       </div>
-    {% empty %}
+      {% empty %}
       <div class="book-noresult">
         <p>見つかりませんでした</p>
         <div>
@@ -60,7 +66,7 @@
     {% endfor %}
   </div>
 
-  {% comment %} TODO ページネーションを変えたい {% endcomment %}
+  {% comment %}TODO ページネーションを変えたい{% endcomment %}
   <div class="pagination">
     <span class="step-links">
       {% if current_page > 1 %}

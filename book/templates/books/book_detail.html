@@ -1,35 +1,75 @@
 {% extends 'base.html' %}
+
 {% load static %}
 
+{% block title %}
+  書籍詳細
+{% endblock %}
+
+{% block css %}
+  <link href="{% static 'css/pages/book_detail.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/modal.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block js %}
+  <script src="{% static 'js/modal.js' %}"></script>
+{% endblock %}
+
 {% block content %}
-  <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
-  <h2>{{ book.title }}</h2>
-  <p>{{ book.author }}</p>
-  <p>{{ book.description }}</p>
-  <p>レビュー {{ avg_rating }}</p>
+  <div class="book-detail-container">
+    <div class="book-detail-image">
+      <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
+    </div>
 
-  {% if user.is_authenticated %}
-    {% comment %} TODO Ajaxにする {% endcomment %}
-    {% if book_on_shelf %}
-      <a href="{% url 'remove_from_shelf' book.id %}" class="btn btn-warning">登録解除</a>
-    {% else %}
-      <a href="{% url 'add_to_shelf' book.id %}" class="btn btn-success">登録</a>
-    {% endif %}
-    <button type="button" class="btn btn-primary" id="openModalButton">レビューを投稿</button>
-  {% else %}
-    <p>
-      レビューを投稿するには<a href="{% url 'login' %}">ログイン</a>してください。
-    </p>
-  {% endif %}
+    <div class="book-detail-info">
+      <h2>{{ book.title }}</h2>
 
-  <h3>レビュー一覧</h3>
-  <ul>
-    {% for review in reviews %}
-      <li>
-        <strong>{{ review.user.username }}</strong> - {{ review.rating }}点<p>{{ review.content }}</p>
-      </li>
-    {% endfor %}
-  </ul>
+      <ul class="authors-container">
+        {% for author in book.authors.all %}
+          <li class="author-item">
+            <i class="fa-regular fa-user fa-sm"></i>
+            <span>{{ author.name }}</span>
+          </li>
+          {% empty %}
+          <li class="author-item">
+            <i class="fa-regular fa-user fa-sm"></i>
+            <span>-</span>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <p>{{ book.description }}</p>
+      <p>レビュー {{ avg_rating }}</p>
+
+      <div class="book-detail-tools">
+        {% if user.is_authenticated %}
+          {% comment %}TODO Ajaxにする{% endcomment %}
+          {% if book_on_shelf %}
+            <a href="{% url 'remove_from_shelf' book.id %}" class="btn">登録解除</a>
+          {% else %}
+            <a href="{% url 'add_to_shelf' book.id %}" class="btn btn-primary">登録</a>
+          {% endif %}
+          <button type="button" class="btn btn-info" id="openModalButton">レビューを投稿</button>
+        {% else %}
+          <p>
+            レビューを投稿するには<a href="{% url 'login' %}">ログイン</a>してください。
+          </p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews-container">
+    <h3>レビュー一覧</h3>
+    <ul>
+      {% for review in reviews %}
+        <li>
+          <strong>{{ review.user.username }}</strong> - {{ review.rating }}点<p>{{ review.content }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
   <!-- モーダル機能 -->
   <div class="modal-container" id="reviewModal" style="display: none;">
     <div class="modal-dialog">
@@ -40,7 +80,7 @@
         </div>
 
         <div class="modal-body">
-          <form class="modal-form" method="post" action="{% url 'review_create'  book.id  %}">
+          <form class="modal-form" method="post" action="{% url 'review_create' book.id %}">
             {% csrf_token %}
             {{ review_form.as_p }}
 
@@ -53,18 +93,4 @@
       </div>
     </div>
   </div>
-{% endblock %}
-
-{% comment %}Meta情報{% endcomment %}
-
-{% block title %}
-  書籍詳細
-{% endblock %}
-
-{% block js %}
-  <script src="{% static 'js/modal.js' %}"></script>
-{% endblock %}
-
-{% block css %}
-  <link href="{% static 'css/modal.css' %}" rel="stylesheet" />
 {% endblock %}

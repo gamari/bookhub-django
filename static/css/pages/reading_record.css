@@ -1,40 +1,91 @@
+/* 書籍詳細 */
 .book-detail-container {
-    background-color: white;
-    margin-top: 32px;
-    display: flex;
-    flex-direction: row;
-    gap: 24px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 12px 24px;
+  background-color: white;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 12px 24px;
 }
 
 .book-detail-left {
-
 }
 
 .book-detail-right {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .memo-container {
-    margin-top: 32px;
+  margin-top: 32px;
 }
 
 .book-buttons {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
 }
 
 .authors-container {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
 }
 
 .author-item {
-    list-style: none;
+  list-style: none;
+}
+
+/* メモ機能 */
+.memo-container {
+  margin-top: 32px;
+  background-color: white;
+  padding: 12px 24px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#memoForm {
+  margin-bottom: 20px;
+}
+
+#memoList {
+  list-style-type: none;
+  padding: 0;
+}
+
+#memoList li {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#memoList li p:first-child {
+  font-size: 0.8em;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+#memoList li p:last-child {
+  font-weight: bold;
+}
+
+.memo-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  resize: vertical;
+  outline: none;
+}
+
+.memo-textarea:focus {
+    border-color: #007bff;
 }
