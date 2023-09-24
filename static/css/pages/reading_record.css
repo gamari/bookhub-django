@@ -42,6 +42,7 @@
 /* メモ機能 */
 .memo-container {
   margin-top: 32px;
+  margin-bottom: 32px;
   background-color: white;
   padding: 12px 24px;
   border: 1px solid #ccc;
@@ -61,7 +62,7 @@
   margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #e0e0e0;
-  background-color: #ffffff;
+  background-color: #e1f2ff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -70,10 +71,6 @@
   font-size: 0.8em;
   color: #888;
   margin-bottom: 10px;
-}
-
-#memoList li p:last-child {
-  font-weight: bold;
 }
 
 .memo-textarea {

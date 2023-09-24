@@ -17,6 +17,11 @@ class ReadingMemoRepository:
             .annotate(count=Count("id"))
             .values("date_str", "count")
         )
+    
+    @staticmethod
+    def save(memo):
+        memo.save()
+        return memo
 
 
 class ReadingRecordRepository:
