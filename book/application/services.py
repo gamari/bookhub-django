@@ -17,7 +17,7 @@ class BookApplicationService:
         self.book_service = book_service
         print("test")
 
-    def view_book_detail(self, book_id, user):
+    def execute(self, book_id, user):
         book, latest_review, book_on_shelf = self.book_service.get_book_detail(
             book_id, user
         )
@@ -39,9 +39,9 @@ class BookApplicationService:
         return context
 
 
-class DashboardService:
-    @staticmethod
-    def prepare_dashboard_data(user: Any):
+class DashboardApplicationService:
+    """ダッシュボード"""
+    def execute(self, user: Any):
         bookshelf, created = Bookshelf.objects.get_or_create(user=user)
         books = bookshelf.books.all()
 
@@ -50,7 +50,8 @@ class DashboardService:
         start_date = today.replace(day=1)
         end_date = today.replace(month=today.month % 12 + 1, day=1) - timedelta(days=1)
 
-        activity_data = ActivityService.fetch_monthly_activity(
+        activity_service = ActivityService()
+        activity_data = activity_service.fetch_monthly_activity(
             user, start_date, end_date
         )
 

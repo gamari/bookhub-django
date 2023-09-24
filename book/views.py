@@ -2,10 +2,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from book.domain.repositories import BookRepository, BookshelfRepository
 
-
 from book.application.services import (
     BookApplicationService,
-    DashboardService,
+    DashboardApplicationService,
 )
 from book.models import Book, Bookshelf
 from book.domain.services import (
@@ -28,7 +27,8 @@ def home(request):
 
 @login_required
 def dashboard(request):
-    context = DashboardService.prepare_dashboard_data(request.user)
+    service = DashboardApplicationService()
+    context = service.execute(request.user)
     return render(request, "dashboard.html", context)
 
 
@@ -37,7 +37,7 @@ def book_detail(request, book_id):
     service = BookApplicationService(
         BookService(BookRepository, ReviewRepository, BookshelfRepository)
     )
-    context = service.view_book_detail(book_id, request.user)
+    context = service.execute(book_id, request.user)
     return render(request, "books/book_detail.html", context)
 
 
@@ -46,6 +46,8 @@ def book_search(request):
     query = request.GET.get("query")
     mode = request.GET.get("mode", "")
     page = int(request.GET.get("page", 1))
+
+    # TODO 詳細検索は、ログイン時のみ利用可能にする
 
     if mode == "detail":
         search_service = GoogleBooksService()

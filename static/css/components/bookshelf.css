@@ -1,0 +1,15 @@
+
+.bookshelf-container {
+    margin-top: 32px;
+  }
+  
+  .bookshelf {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  
+  .bookshelf-item {
+    list-style: none;
+  }
+  

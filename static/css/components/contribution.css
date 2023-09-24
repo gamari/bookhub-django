@@ -1,0 +1,48 @@
+.contribution-calendar {
+  width: 180px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.day-label {
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contribution-day {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  background-color: #ebedf0;
+}
+
+.contribution-day[data-count="1"] {
+  background-color: #9be9a8;
+}
+
+.contribution-day[data-count="2"] {
+  background-color: #40c463;
+}
+
+.contribution-day[data-count="3"] {
+  background-color: #30a14e;
+}
+
+.contribution-day[data-count="4"] {
+  background-color: #216e39;
+}
+
+/* 4以上の活動の場合の色。必要に応じて増やしてください。 */
+.contribution-day[data-count="5"],
+.contribution-day[data-count="6"],
+.contribution-day[data-count="7"] {
+  background-color: #196127;
+}

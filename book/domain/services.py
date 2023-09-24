@@ -72,13 +72,9 @@ class GoogleBooksService(SearchService):
 
 
 class ActivityService:
-    @staticmethod
     def fetch_monthly_activity(
-        user: Any, start_date: datetime.date, end_date: datetime.date
+        self, user: Any, start_date: datetime.date, end_date: datetime.date
     ):
-        # TODO リファクタリングしたほうが良い
-        # TODO ドメインが分散しすぎてる
-
         # 1日が日曜日までの日数を計算
         days_until_sunday = start_date.weekday()
         first_day_of_calendar = start_date - datetime.timedelta(days=days_until_sunday)
@@ -104,10 +100,27 @@ class ActivityService:
         for data in activity_data_raw:
             activity_data_default[data["date_str"]] = data["count"]
 
-        # TODO activity_countは5より小さくする
+        # TODO 1~5の範囲にする
+        # TODO valueの値を5で割る
         activity_data = [
-            {"date": key, "activity_count": value if value <= 5 else 5}
+            {"date": key, "activity_count": self._calc_level(value)}
             for key, value in activity_data_default.items()
         ]
 
         return activity_data
+
+    def _calc_level(self, activity_count):
+        if activity_count <= 0:
+            return 0
+        elif activity_count <= 5:
+            return 1
+        elif activity_count <= 10:
+            return 2
+        elif activity_count <= 15:
+            return 3
+        elif activity_count <= 20:
+            return 4
+        elif activity_count <= 25:
+            return 5
+        else:
+            return 0
