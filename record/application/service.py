@@ -6,24 +6,36 @@ from record.domain.repositories import ReadingMemoRepository
 from record.domain.service import ReadingMemoService
 from record.forms import ReadingMemoForm
 from record.models import ReadingMemo
+from review.forms import ReviewForm
 
 
 class ReadingApplicationService:
     """読書記録取得アプリサービス。"""
 
-    def __init__(self, user, book_id, reading_service):
+    def __init__(self, user, book_id, reading_service, book_service):
         self.user = user
         self.book_id = book_id
         self.reading_service = reading_service
+        self.book_service = book_service
 
     def execute(self):
-        book = get_object_or_404(Book, id=self.book_id)
+        book, latest_review, book_on_shelf = self.book_service.get_book_detail(
+            self.book_id, self.user
+        )
         record, created = self.reading_service.get_or_create_record(self.user, book)
         memos = ReadingMemo.objects.filter(user=self.user, book=book).order_by(
             "-created_at"
         )
         form = ReadingMemoForm()
-        return {"book": book, "record": record, "memos": memos, "form": form}
+        return {
+            "book": book,
+            "record": record,
+            "memos": memos,
+            "form": form,
+            "review_form": ReviewForm(
+                instance=latest_review if latest_review else None
+            ),
+        }
 
 
 class CreateMemoApplicationService:

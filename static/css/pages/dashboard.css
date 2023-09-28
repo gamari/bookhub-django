@@ -44,7 +44,7 @@
 }
 
 .user-settings-button {
-  background-color: gray;
+  background-color: #1E90FF;
   color: white;
   border-radius: 4px;
   padding: 6px 12px;
@@ -80,7 +80,7 @@
 }
 
 .data-table th {
-  background-color: #4caf50;
+  background-color: #1E90FF;
   color: white;
 }
 

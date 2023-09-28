@@ -7,9 +7,11 @@
 
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/pages/reading_record.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/modal.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block js %}
+  <script src="{% static 'js/modal.js' %}"></script>
   <script src="{% static 'js/create-memo.js' %}"></script>
 {% endblock %}
 
@@ -19,8 +21,7 @@
       <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
 
       <div>
-        {% comment %}TODO シェア機能を追加する{% endcomment %}
-        <i class="fa-brands fa-x-twitter fa-lg"></i>
+        <a href="https://twitter.com/intent/tweet?text={{ book.title }}&url={{ request.build_absolute_uri|urlencode }}" target="_blank"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
       </div>
     </div>
 
@@ -41,25 +42,40 @@
         {% endfor %}
       </ul>
 
-      {% comment %} 書籍ツール {% endcomment %}
+      {% comment %}書籍ツール{% endcomment %}
       <div class="book-buttons">
-        <a href="{% url 'book_detail' book.id %}" class="btn btn-info">書籍詳細へ</a>
+        <a href="{% url 'book_detail' book.id %}" class="btn-sm btn-info">
+          <i class="fa-solid fa-book"></i>
+          <span>詳細へ</span>
+        </a>
         {% if record.finished_at %}
           <form action="{% url 'mark_as_unfinished' book.id %}" method="post">
             {% csrf_token %}
-            <button type="submit" class="btn btn-warning">未読にする</button>
+            <button type="submit" class="btn-sm btn-primary">
+              <i class="fa-regular fa-calendar"></i>
+
+              <span>未読にする</span>
+            </button>
           </form>
+
+          <button  id="openModalButton" type="button" class="btn-sm btn-primary">
+            <i class="fa-solid fa-pen"></i>
+            <span>レビュー</span>
+          </button>
         {% else %}
           <form action="{% url 'mark_as_finished' book.id %}" method="post">
             {% csrf_token %}
-            <button type="submit" class="btn btn-primary">読了済みにする</button>
+            <button type="submit" class="btn-sm btn-primary">
+              <i class="fa-regular fa-calendar"></i>
+              <span>読了済みにする</span>
+            </button>
           </form>
         {% endif %}
       </div>
 
       <div>
-        <div>開始日: {{ record.started_at | default_if_none:"" }}</div>
-        <div>読了日: {{ record.finished_at | default_if_none:"-" }}</div>
+        <div>開始日: {{ record.started_at|default_if_none:'' }}</div>
+        <div>読了日: {{ record.finished_at|default_if_none:'-' }}</div>
       </div>
     </div>
   </div>
@@ -74,18 +90,24 @@
         <div class="error">{{ form.content.errors }}</div>
       {% endif %}
 
-      <button id="createMemoButton" class="btn btn-primary">メモを追加</button>
+      <button id="createMemoButton" class="btn btn-primary">
+        <i class="fa-regular fa-file"></i>
+        <span>メモを追加</span>
+      </button>
     </form>
 
     <ol id="memoList">
       {% for memo in memos %}
-        <li>
+        <li class="memo-item">
           <p>{{ memo.created_at }}</p>
           <p>{{ memo.content }}</p>
         </li>
         {% empty %}
-        <p>まだメモはありません。</p>
+        <p id="no-memo-title">まだメモはありません。</p>
       {% endfor %}
     </ol>
   </div>
+
+  {% comment %}Modal{% endcomment %}
+  {% include 'review_modal.html' %}
 {% endblock %}

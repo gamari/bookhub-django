@@ -1,9 +1,9 @@
-from datetime import date
 from django.http import JsonResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from book.domain.repositories import BookRepository
+from book.domain.repositories import BookRepository, BookshelfRepository
+from book.domain.services import BookService
 from book.models import Book
 from record.application.service import (
     CreateMemoApplicationService,
@@ -12,14 +12,17 @@ from record.application.service import (
 from record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
 from record.domain.service import ReadingMemoService, ReadingService
 from record.models import ReadingRecord
+from review.repositories import ReviewRepository
 
 
 @login_required
 def reading_record(request, book_id):
     record_repository = ReadingRecordRepository()
+    book_service = BookService(BookRepository, ReviewRepository, BookshelfRepository)
     reading_service = ReadingService(record_repository)
+
     service = ReadingApplicationService(
-        user=request.user, book_id=book_id, reading_service=reading_service
+        request.user, book_id, reading_service, book_service
     )
     context = service.execute()
     return render(request, "reading_record.html", context)

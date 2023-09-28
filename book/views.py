@@ -94,7 +94,7 @@ def book_search(request):
     return render(request, "books/search_results.html", context)
 
 
-# 本棚処理
+# 本棚
 def bookshelf_list(request, bookshelf_id):
     user_bookshelf = Bookshelf.objects.get(id=bookshelf_id)
     return render(request, "bookshelf_list.html", {"bookshelf": user_bookshelf})

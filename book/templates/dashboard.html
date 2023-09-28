@@ -21,7 +21,7 @@
 
       <div>
         <div>
-          <a class="btn btn-info" href="{% url 'setting' %}">ユーザー設定</a>
+          <a class="btn btn-primary" href="{% url 'setting' %}">ユーザー設定</a>
         </div>
       </div>
     </div>
@@ -79,7 +79,9 @@
   <div class="dashboard-bookshelf-container">
     <div class="dashboard-bookshelf-title mb-4">
       <h2 class="">本棚</h2>
-      <a href="{% url 'bookshelf_list' bookshelf.id %}" class="btn btn-primary">Shareする</a>
+      <a href="{% url 'bookshelf_list' bookshelf.id %}">
+        <i class="fa-solid fa-share"></i>
+      </a>
     </div>
     {% if books %}
       <div class="bookshelf">
