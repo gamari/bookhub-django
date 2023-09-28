@@ -5,10 +5,7 @@ from django.contrib.auth.decorators import login_required
 from book.domain.repositories import BookRepository, BookshelfRepository
 from book.domain.services import BookService
 from book.models import Book
-from record.application.service import (
-    CreateMemoApplicationService,
-    ReadingApplicationService,
-)
+from record.application.usecases import CreateMemoUsecase, RecordReadingHistoryUsecase
 from record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
 from record.domain.service import ReadingMemoService, ReadingService
 from record.models import ReadingRecord
@@ -21,30 +18,31 @@ def reading_record(request, book_id):
     book_service = BookService(BookRepository, ReviewRepository, BookshelfRepository)
     reading_service = ReadingService(record_repository)
 
-    service = ReadingApplicationService(
+    usecase = RecordReadingHistoryUsecase(
         request.user, book_id, reading_service, book_service
     )
-    
-    context = service.execute()
+
+    context = usecase.execute()
 
     return render(request, "reading_record.html", context)
 
 
-# API
+# API系
 @login_required
 def create_memo(request, book_id):
-    if request.method == "POST":
-        service = CreateMemoApplicationService(
-            BookRepository, ReadingMemoRepository, ReadingMemoService
-        )
-        response_data = service.execute(request.POST, request.user, book_id)
-
-        if response_data["result"] == "success":
-            return JsonResponse(response_data, status=201)
-        else:
-            return JsonResponse(response_data, status=400)
-    else:
+    if request.method != "POST":
         return JsonResponse({"result": "fail"}, status=400)
+
+    usecase = CreateMemoUsecase(
+        BookRepository(), ReadingMemoRepository(), ReadingMemoService()
+    )
+
+    response_data = usecase.execute(request.POST, request.user, book_id)
+
+    if response_data["result"] == "success":
+        return JsonResponse(response_data, status=201)
+    else:
+        return JsonResponse(response_data, status=400)
 
 
 @login_required

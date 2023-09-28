@@ -30,8 +30,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.result === 'success') {
                     let memoList = document.querySelector("#memoList");
                     let newMemo = document.createElement('li');
+                    newMemo.classList.add('memo-item');
                     newMemo.innerHTML = `<p>${data.created_at}</p><p>${data.content}</p>`;
                     memoList.prepend(newMemo);
+                    
+
+                    // TODO フォームの中身を削除
+                    let memoContent = document.querySelector("#memoContent");
+                    memoContent.value = '';
 
                     let noMemoTitle = document.querySelector("#no-memo-title");
                     if (noMemoTitle) {

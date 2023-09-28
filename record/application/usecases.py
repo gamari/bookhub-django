@@ -1,7 +1,5 @@
-from django.shortcuts import get_object_or_404
 from book.domain.repositories import BookRepository
 
-from book.models import Book
 from record.domain.repositories import ReadingMemoRepository
 from record.domain.service import ReadingMemoService
 from record.forms import ReadingMemoForm
@@ -9,8 +7,8 @@ from record.models import ReadingMemo
 from review.forms import ReviewForm
 
 
-class ReadingApplicationService:
-    """読書記録取得アプリサービス。"""
+class RecordReadingHistoryUsecase(object):
+    """読書記録画面を表示する。"""
 
     def __init__(self, user, book_id, reading_service, book_service):
         self.user = user
@@ -38,8 +36,8 @@ class ReadingApplicationService:
         }
 
 
-class CreateMemoApplicationService:
-    """メモ作成アプリサービス。"""
+class CreateMemoUsecase(object):
+    """メモ作成。"""
 
     def __init__(
         self,
