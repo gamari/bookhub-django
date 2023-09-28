@@ -28,7 +28,12 @@
 
 }
 
-.review-content {
-    /* TODO テキストは改行と、末尾も折り返す */
-    white-space: pre-wrap;
+.review-rating {
+    margin-top: 24px;
 }
+
+.review-content {
+    white-space: pre-wrap;
+    margin-top: 24px;
+}
+

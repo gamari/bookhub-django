@@ -1,3 +1,4 @@
+// TODO 削除予定
 document.addEventListener("DOMContentLoaded", function () {
     // レビューモーダルの処理を実装
     document.getElementById('openModalButton').addEventListener('click', function () {

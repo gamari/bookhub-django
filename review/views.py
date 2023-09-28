@@ -1,23 +1,21 @@
 # TODO
-from django.http import HttpResponseBadRequest
-from django.shortcuts import get_object_or_404, redirect
-
-from book.models import Book
-from review.forms import ReviewForm
-from review.models import Review
+from review.application.usecases import ReviewUsecase
 
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+
+
+# API
+@csrf_exempt
+@login_required
 def create_review(request, book_id):
-    book: Book = get_object_or_404(Book, id=book_id)
-    existing_review = Review.objects.filter(user=request.user, book=book).first()
-    
-    if request.method == "POST":
-        form = ReviewForm(request.POST, instance=existing_review)
-        if form.is_valid():
-            review = form.save(commit=False)
-            if not existing_review:
-                review.user = request.user
-                review.book = book
-            review.save()
-            return redirect("book_detail", book_id=book.id) # type: ignore
-    return HttpResponseBadRequest("無効なリクエスト")
+    if request.method != "POST":
+        return JsonResponse({"error": "Postのみ受け付けています。"}, status=400)
+
+    usecase = ReviewUsecase(request.user, book_id, request.POST)
+
+    response, status = usecase.execute()
+
+    return JsonResponse(response, status=status)

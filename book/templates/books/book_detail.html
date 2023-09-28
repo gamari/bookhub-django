@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block js %}
-  <script src="{% static 'js/modal.js' %}"></script>
+  <script src="{% static 'js/review-modal.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -65,13 +65,18 @@
         {% if user.is_authenticated %}
           {% comment %}TODO Ajaxにする{% endcomment %}
           {% if book_on_shelf %}
-            <a href="{% url 'remove_from_shelf' book.id %}" class="btn">本棚から削除</a>
-            <a href="{% url 'reading_record' book.id %}" class="btn">読書履歴へ</a>
-
+            <a href="{% url 'reading_record' book.id %}" class="btn-sm btn-info"><span>読書履歴へ</span></a>
+            <a href="{% url 'remove_from_shelf' book.id %}" class="btn-sm btn-secondary"><span>本棚から削除</span></a>
           {% else %}
-            <a href="{% url 'add_to_shelf' book.id %}" class="btn btn-primary">本棚に追加</a>
+            <a href="{% url 'add_to_shelf' book.id %}" class="btn-sm btn-primary">
+              <i class="fa-solid fa-book"></i>
+              <span>本棚に追加</span>
+            </a>
           {% endif %}
-          <button type="button" class="btn btn-info" id="openModalButton">レビューを投稿</button>
+          <button type="button" class="btn-sm btn-primary" id="openReviewModalButton">
+            <i class="fa-solid fa-pen"></i>
+            <span>レビューする</span>
+          </button>
         {% else %}
           <p>
             レビューを投稿するには<a href="{% url 'login' %}">ログイン</a>してください。

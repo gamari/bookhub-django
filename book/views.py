@@ -63,12 +63,12 @@ def book_search(request):
 
 # 本棚
 def bookshelf_list(request, bookshelf_id):
-    user_bookshelf = Bookshelf.objects.get(id=bookshelf_id)
-    return render(request, "bookshelf_list.html", {"bookshelf": user_bookshelf})
+    bookshelf = Bookshelf.objects.get(id=bookshelf_id)
+    return render(request, "bookshelf_list.html", {"bookshelf": bookshelf})
 
 
 @login_required
-def bookshelf(request, book_id):
+def add_book_to_shelf(request, book_id):
     book: Book = get_object_or_404(Book, id=book_id)
     shelf, created = Bookshelf.objects.get_or_create(user=request.user)
     shelf.books.add(book)
@@ -77,7 +77,7 @@ def bookshelf(request, book_id):
 
 
 @login_required
-def remove_from_shelf(request, book_id):
+def remove_book_from_shelf(request, book_id):
     book: Book = get_object_or_404(Book, id=book_id)
 
     shelf, created = Bookshelf.objects.get_or_create(user=request.user)
