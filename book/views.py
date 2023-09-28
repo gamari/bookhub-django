@@ -37,9 +37,7 @@ def home(request):
 
     # 書籍ごとにエントリーを集計
     top_book_results = (
-        monthly_records.values(
-            "book__title", "book__id", "book__thumbnail"
-        )
+        monthly_records.values("book__title", "book__id", "book__thumbnail")
         .annotate(total=Count("book"))
         .order_by("-total")[:3]
     )
@@ -99,7 +97,7 @@ def book_search(request):
 # 本棚処理
 def bookshelf_list(request, bookshelf_id):
     user_bookshelf = Bookshelf.objects.get(id=bookshelf_id)
-    return render(request, 'bookshelf_list.html', {'bookshelf': user_bookshelf})
+    return render(request, "bookshelf_list.html", {"bookshelf": user_bookshelf})
 
 
 @login_required

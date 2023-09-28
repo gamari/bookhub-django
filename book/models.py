@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -25,7 +26,7 @@ class Book(models.Model):
         return f"[{self.isbn_10} | {self.isbn_13}] {self.title}"
 
 class Bookshelf(models.Model):
-    id = models.AutoField(primary_key=True)
+    id: uuid.UUID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     books = models.ManyToManyField(Book)
 
