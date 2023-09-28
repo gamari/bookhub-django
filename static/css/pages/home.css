@@ -1,66 +1,97 @@
+/* Aboutセクション */
+.about-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+  padding: 12px 24px;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.about-features-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.about-feature {
+  background-color: white;
+  padding: 16px;
+  border-radius: 4px;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (min-width: 768px) {
+  .about-features-container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* 検索セクション */
 .search-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
-    margin-top: 32px;
-    padding: 12px 24px;
-    border-radius: 4px;
-    background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  margin-top: 32px;
+  padding: 12px 24px;
+  border-radius: 4px;
+  background-color: #fff;
 }
 
 .search-title {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: #333;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #333;
 }
 
 .search-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border: 1px solid #ccc;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid #ccc;
 }
 
 .search-input {
-    padding: 0.5rem;
-    border: 1px solid transparent;
-    outline: none;
+  padding: 0.5rem;
+  border: 1px solid transparent;
+  outline: none;
 }
 
-
-
-/* 最新のレビュー */
+/* レビューセクション */
 .review-section {
-    margin-top: 32px;
+  margin-top: 32px;
 }
 
 .reviews-container {
-    margin-top: 16px;
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-    flex-wrap: wrap;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .review-title {
-    font-size: 12px;
-    text-decoration: none;
-    color: #333;
+  font-size: 12px;
+  text-decoration: none;
+  color: #333;
 }
 
 /* よく読まれてます */
 .top-books-section {
-    margin-top: 32px;
+  margin-top: 32px;
 }
 
 .top-books-container {
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
 }
 
 .recommendation-book-container {
-    margin-top: 32px;
+  margin-top: 32px;
 }

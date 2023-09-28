@@ -13,6 +13,23 @@
 
 {% block content %}
   <div>
+
+    <div class="about-section">
+      <h3>BookHubとは？</h3>
+
+      <div class="about-features-container">
+        <div class="about-feature">
+          <h4>毎日の頑張りが可視化されます！</h4>
+        </div>
+        <div class="about-feature">
+          <h4>自分の本棚をシェアできます！</h4>
+        </div>
+        <div class="about-feature">
+          <h4>ツイート感覚でメモができます！</h4>
+        </div>
+      </div>
+    </div>
+
     <div class="search-section">
       <div class="search-title">気になる書籍を検索する</div>
       <form action="{% url 'book_search' %}" method="GET" class="search-container">

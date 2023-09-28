@@ -10,10 +10,16 @@
   padding: 28px 24px;
 }
 
-.book-detail-right {
+.book-detail-middle {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.book-detail-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .book-buttons {
@@ -22,6 +28,16 @@
   gap: 8px;
 }
 
+/* TODO PC版 */
+@media screen and (max-width: 768px) {
+  .book-buttons {
+    flex-direction: column;
+  }
+
+  #done-button {
+    width: 100%;
+  }
+}
 
 /* 著者 */
 .authors-container {
@@ -97,7 +113,6 @@
   white-space: pre-wrap;
   word-break: break-all;
 }
-
 
 @media screen and (max-width: 768px) {
   /* スマホサイズ */

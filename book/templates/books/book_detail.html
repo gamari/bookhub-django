@@ -17,12 +17,14 @@
 {% endblock %}
 
 {% block content %}
-  <div class="book-detail-container">
+  <div class="page-title">書籍詳細</div>
+
+  <div class="book-detail-section">
     <div class="book-detail-image">
       <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
     </div>
 
-    <div class="book-detail-info">
+    <div class="book-detail-info-container">
       <h2>{{ book.title }}</h2>
 
       <ul class="authors-container">
@@ -65,7 +67,7 @@
         {% if user.is_authenticated %}
           {% comment %}TODO Ajaxにする{% endcomment %}
           {% if book_on_shelf %}
-            <a href="{% url 'reading_record' book.id %}" class="btn-sm btn-info"><span>読書履歴へ</span></a>
+            <a href="{% url 'reading_record' book.id %}" class="btn-sm btn-info"><span>読書する</span></a>
             <a href="{% url 'remove_from_shelf' book.id %}" class="btn-sm btn-secondary"><span>本棚から削除</span></a>
           {% else %}
             <a href="{% url 'add_to_shelf' book.id %}" class="btn-sm btn-primary">
@@ -84,9 +86,23 @@
         {% endif %}
       </div>
     </div>
+
+    <div class="book-record-container">
+      <h3>書籍記録</h3>
+
+      <div>
+        <span class="badge badge-primary">レビュー数</span>
+        <span>123件</span>
+      </div>
+
+      <div>
+        <span class="badge badge-primary">登録数</span>
+        <span>10</span>
+      </div>
+    </div>
   </div>
 
-  <div class="book-description-container">
+  <div class="book-description-section">
     <h3>書籍紹介</h3>
     <p class="book-description-content">{{ book.description }}</p>
   </div>

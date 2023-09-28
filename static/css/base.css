@@ -7,10 +7,33 @@ body {
   background-color: rgb(243, 243, 243);
 }
 
+main {
+  min-height: 100vh;
+}
+
+.page-title {
+  font-size: 0.8rem;
+  color: #1e90ff;
+  font-weight: bold;
+  margin-top: 24px;
+}
+
 .container {
-  width: 100%;
+  display: relative;
   max-width: 800px;
   margin: 0 auto;
+  padding-right: 32px;
+  padding-left: 32px;
+}
+
+@media screen and (max-width: 768px) {
+  /* TODO スマホ用 */
+  .container {
+  }
+}
+
+.w-full {
+  width: 100%;
 }
 
 h2 {
@@ -47,8 +70,9 @@ h3 {
 
 /* ボタン */
 .btn {
+  text-align: center;
   background-color: white;
-  border: 1px solid #ccc;
+  border: 1px solid transparent;
   border-radius: 4px;
   padding: 6px 12px;
   cursor: pointer;
@@ -57,8 +81,9 @@ h3 {
 }
 
 .btn-sm {
+  text-align: center;
   background-color: white;
-  border: 1px solid #ccc;
+  border: 1px solid transparent;
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
@@ -70,19 +95,40 @@ h3 {
   opacity: 0.8;
 }
 
+.btn-sm:hover {
+  opacity: 0.8;
+}
+
 .btn-primary {
   background-color: #1e90ff;
   color: white;
 }
 
 .btn-secondary {
-  background-color: #b0c4de;
+  background-color: #5992dc;
   color: white;
 }
 
 .btn-info {
   background-color: rgb(72, 72, 72);
   color: white;
+}
+
+/* バッジ */
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  color: white;
+}
+
+.badge-primary {
+  background-color: #1e90ff;
+}
+
+.badge-info {
+  background-color: rgb(72, 72, 72);
 }
 
 /*

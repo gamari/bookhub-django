@@ -16,6 +16,8 @@
 {% endblock %}
 
 {% block content %}
+  <div class="page-title">読書記録</div>
+
   <div class="book-detail-container">
     <div class="book-detail-left">
       <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
@@ -25,7 +27,7 @@
       </div>
     </div>
 
-    <div class="book-detail-right">
+    <div class="book-detail-middle">
       <h2>{{ book.title }}</h2>
 
       <ul class="authors-container">
@@ -48,10 +50,11 @@
           <i class="fa-solid fa-book"></i>
           <span>詳細へ</span>
         </a>
+
         {% if record.finished_at %}
           <form action="{% url 'mark_as_unfinished' book.id %}" method="post">
             {% csrf_token %}
-            <button type="submit" class="btn-sm btn-primary">
+            <button id="done-button" type="submit" class="btn-sm btn-primary">
               <i class="fa-regular fa-calendar"></i>
 
               <span>未読にする</span>
@@ -72,10 +75,18 @@
           </form>
         {% endif %}
       </div>
+    </div>
+
+    <div class="book-detail-right">
+      <h3>記録情報</h3>
 
       <div>
-        <div>開始日: {{ record.started_at|default_if_none:'' }}</div>
-        <div>読了日: {{ record.finished_at|default_if_none:'-' }}</div>
+        <span class="badge badge-info">開始日</span>
+        <span>{{ record.started_at|default_if_none:'' }}</span>
+      </div>
+      <div>
+        <span class="badge badge-info">読了日</span>
+        <span>{{ record.finished_at|default_if_none:'-' }}</span>
       </div>
     </div>
   </div>

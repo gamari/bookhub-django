@@ -13,8 +13,10 @@
     <link href="https://use.fontawesome.com/releases/v6.4.2/css/all.css" rel="stylesheet" />
 
     {% block css %}
+
     {% endblock %}
     {% block js %}
+
     {% endblock %}
 
     <title>
@@ -25,19 +27,20 @@
   </head>
 
   <body>
-    {% include 'components/header.html' %}
+    <main>
+      {% include 'components/header.html' %}
 
-    <div class="container">
-      {% block content %}
-      {% endblock %}
-    </div>
+      <div class="container">
+        {% block content %}
+
+        {% endblock %}
+      </div>
+    </main>
 
     <footer class="footer-container">
       <div class="footer-links">
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Contact</a>
+        <a href="#">利用規約</a>
+        <a href="#">プライバシーポリシー</a>
       </div>
       <div class="footer-credits">
         <p>&copy; 2023 Your Company. All rights reserved.</p>
