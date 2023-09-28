@@ -24,10 +24,13 @@ def reading_record(request, book_id):
     service = ReadingApplicationService(
         request.user, book_id, reading_service, book_service
     )
+    
     context = service.execute()
+
     return render(request, "reading_record.html", context)
 
 
+# API
 @login_required
 def create_memo(request, book_id):
     if request.method == "POST":

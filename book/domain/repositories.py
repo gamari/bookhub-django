@@ -3,6 +3,7 @@ import requests
 from book.models import Author, Book, Bookshelf
 from django.db.models import Q
 
+
 class AuthorRepository:
     @staticmethod
     def get_or_create_by_name(name):
@@ -29,7 +30,9 @@ class BookRepository:
         book_data.pop("authors")
 
         try:
-            published_date = BookRepository._convert_to_date_format(book_data["published_date"])
+            published_date = BookRepository._convert_to_date_format(
+                book_data["published_date"]
+            )
 
             book, created = Book.objects.get_or_create(
                 title=book_data["title"],
@@ -37,7 +40,7 @@ class BookRepository:
                 thumbnail=book_data["thumbnail"],
                 isbn_10=book_data["isbn_10"],
                 isbn_13=book_data["isbn_13"],
-                published_date=published_date
+                published_date=published_date,
             )
         except Exception as e:
             print(e)
@@ -55,20 +58,23 @@ class BookRepository:
             book.authors.add(author)
 
         return book
-    
+
     # TODO リファクタリング予定
     @staticmethod
     def _convert_to_date_format(date_str):
         """YYYY-MM-DD形式に変換。変換不可の場合はNoneを返す。"""
         try:
-            return datetime.strptime(date_str, '%Y-%m-%d').date()
+            return datetime.strptime(date_str, "%Y-%m-%d").date()
         except Exception:
             return None
 
 
 class BookshelfRepository:
     @staticmethod
+    def get_or_create(user):
+        bookshelf, created = Bookshelf.objects.get_or_create(user=user)
+        return bookshelf
+
+    @staticmethod
     def has_book_for_user(book, user):
         return Bookshelf.objects.filter(user=user, books=book).exists()
-
-

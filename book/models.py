@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 class Author(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
@@ -25,8 +26,11 @@ class Book(models.Model):
     def __str__(self):
         return f"[{self.isbn_10} | {self.isbn_13}] {self.title}"
 
+
 class Bookshelf(models.Model):
-    id: uuid.UUID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id: uuid.UUID = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     books = models.ManyToManyField(Book)
 

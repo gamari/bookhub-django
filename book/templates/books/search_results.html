@@ -49,12 +49,10 @@
 
           <div>
             <i class="fa-regular fa-calendar fa-sm"></i>
-            <span>
-              {{ book.published_date | default_if_none:"-"}}
-            </span>
+            <span>{{ book.published_date|default_if_none:'-' }}</span>
           </div>
 
-          <p>{{ book.description | truncatechars:80 }}</p>
+          <p>{{ book.description|truncatechars:80 }}</p>
         </div>
 
         <div class="book-result-tools">
@@ -78,7 +76,6 @@
   <div class="pagination">
     <span class="step-links">
       {% if current_page > 1 %}
-        <a href="?query={{ query }}&mode={{ mode }}&page=1">&laquo; 最初</a>
         <a href="?query={{ query }}&mode={{ mode }}&page={{ current_page|add:'-1' }}">前へ</a>
       {% endif %}
 
@@ -89,8 +86,6 @@
       {% else %}
         <span>次へ</span>
       {% endif %}
-
-      <a href="?query={{ query }}&mode={{ mode }}&page={{ total_pages }}">最後 &raquo;</a>
     </span>
   </div>
 {% endblock %}

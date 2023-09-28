@@ -25,6 +25,7 @@ class BookService:
         else:
             latest_review = None
             book_on_shelf = False
+            
         return book, latest_review, book_on_shelf
 
 
