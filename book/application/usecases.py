@@ -1,47 +1,30 @@
-from datetime import datetime, timedelta
-
 from django.db.models import Avg
 from django.utils import timezone
-from django.db.models import Count
 from book.domain.repositories import BookshelfRepository
 from book.domain.services import ActivityService
 
-from config.utils import get_month_date_range
+from config.utils import get_month_date_range, get_month_range_of_today
 from book.models import Bookshelf
-from record.models import ReadingRecord
+from record.domain.repositories import ReadingRecordRepository
 from review.forms import ReviewForm
-from review.models import Review
+from review.repositories import ReviewRepository
 
 
 class HomePageShowUsecase(object):
     """ホーム画面を表示する。"""
 
-    def __init__(self) -> None:
-        pass
+    def __init__(
+        self, record_repo: ReadingRecordRepository, review_repo: ReviewRepository
+    ) -> None:
+        self.record_repo = record_repo
+        self.review_repo = review_repo
 
     def execute(self) -> dict:
-        # 今月の最初の日を取得
-        first_day_of_month = datetime.now().replace(day=1)
-
-        # 今月の最後の日を取得
-        last_day_of_month = first_day_of_month.replace(
-            month=first_day_of_month.month % 12 + 1, day=1
-        ) - timedelta(days=1)
-
-        # 今月に登録されたReadingRecordをフィルタリング
-        monthly_records = ReadingRecord.objects.filter(
-            started_at__range=[first_day_of_month, last_day_of_month]
+        first_day_of_month, last_day_of_month = get_month_range_of_today()
+        top_book_results = self.record_repo.get_top_books(
+            first_day_of_month, last_day_of_month, limit=3
         )
-
-        # 書籍ごとにエントリーを集計
-        top_book_results = (
-            monthly_records.values("book__title", "book__id", "book__thumbnail")
-            .annotate(total=Count("book"))
-            .order_by("-total")[:3]
-        )
-        print(top_book_results)
-
-        latest_reviews = Review.objects.all().order_by("-created_at")[:5]
+        latest_reviews = self.review_repo.get_latest_reviews(limit=5)
 
         context = {
             "top_book_results": top_book_results,
@@ -65,7 +48,7 @@ class MyPageShowUsecase(object):
         self.activity_service = activity_service
 
     def execute(self):
-        bookshelf: Bookshelf = self.get_or_create_bookshelf()
+        bookshelf: Bookshelf = self.bookshelf_repository.get_or_create(user=self.user)
         books = bookshelf.books.all()
 
         today = timezone.now().date()
@@ -84,9 +67,6 @@ class MyPageShowUsecase(object):
             "month": month,
             "bookshelf": bookshelf,
         }
-
-    def get_or_create_bookshelf(self):
-        return self.bookshelf_repository.get_or_create(user=self.user)
 
 
 class BookDetailPageShowUsecase(object):

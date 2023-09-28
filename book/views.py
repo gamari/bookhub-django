@@ -16,11 +16,12 @@ from book.domain.services import (
     BookService,
     GoogleBooksService,
 )
+from record.domain.repositories import ReadingRecordRepository
 from review.repositories import ReviewRepository
 
 
 def home(request):
-    usecase = HomePageShowUsecase()
+    usecase = HomePageShowUsecase(ReadingRecordRepository(), ReviewRepository())
     context = usecase.execute()
     return render(request, "home.html", context)
 

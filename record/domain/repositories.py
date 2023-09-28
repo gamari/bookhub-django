@@ -17,7 +17,7 @@ class ReadingMemoRepository:
             .annotate(count=Count("id"))
             .values("date_str", "count")
         )
-    
+
     @staticmethod
     def save(memo):
         memo.save()
@@ -25,5 +25,18 @@ class ReadingMemoRepository:
 
 
 class ReadingRecordRepository:
-    def get_or_create(self, user, book):
+    @staticmethod
+    def get_or_create(user, book):
         return ReadingRecord.objects.get_or_create(user=user, book=book)
+
+    @staticmethod
+    def get_top_books(start_date, end_date, limit):
+        monthly_records = ReadingRecord.objects.filter(
+            started_at__range=[start_date, end_date]
+        )
+
+        return (
+            monthly_records.values("book__title", "book__id", "book__thumbnail")
+            .annotate(total=Count("book"))
+            .order_by("-total")[:limit]
+        )

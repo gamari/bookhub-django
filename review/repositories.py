@@ -8,3 +8,7 @@ class ReviewRepository:
             return book.review_set.filter(user=user).latest("created_at")
         except Review.DoesNotExist:
             return None
+
+    @staticmethod
+    def get_latest_reviews(limit):
+        return Review.objects.all().order_by("-created_at")[:limit]
