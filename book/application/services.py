@@ -58,4 +58,9 @@ class DashboardApplicationService:
 
         month = today.month
 
-        return {"books": books, "activity_data": activity_data, "month": month}
+        return {
+            "books": books,
+            "activity_data": activity_data,
+            "month": month,
+            "bookshelf": bookshelf
+        }

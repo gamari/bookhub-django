@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-  ダッシュボード
+  マイページ
 {% endblock %}
 
 {% block css %}
@@ -41,7 +41,6 @@
           <div class="day-label">土</div>
           <div class="day-label">日</div>
 
-
           <!-- 各日のデータを表示 -->
           {% for data in activity_data %}
             <div class="contribution-day" data-count="{{ data.activity_count }}" title="{{ data.date }}: {{ data.activity_count }} activities">{{ data.date.day }}</div>
@@ -51,32 +50,43 @@
         {% comment %}TODO right{% endcomment %}
       </div>
 
-      <div>
-        <div>今月のメモ数</div>
-        <div>今月読破した書籍数</div>
-        <div>今月レビューした書籍数</div>
-      </div>
+      <table class="data-table">
+        <tr>
+          <th>今月の記録</th>
+          <th>数</th>
+        </tr>
+        <tr>
+          <td>メモ数</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>読破した書籍数</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>レビューした書籍数</td>
+          <td>3</td>
+        </tr>
+      </table>
     </div>
   </div>
 
-  <div class="toolbar">
-    <div>本棚</div>
-    <div>レビュー一覧</div>
+  <div class="toolbar-container">
+    <div class="toolbar-button">本棚</div>
+    <div class="toolbar-button">レビュー一覧</div>
   </div>
 
-  <div class="bookshelf-container">
-    <h2>本棚</h2>
+  <div class="dashboard-bookshelf-container">
+    <div class="dashboard-bookshelf-title mb-4">
+      <h2 class="">本棚</h2>
+      <a href="{% url 'bookshelf_list' bookshelf.id %}" class="btn btn-primary">Shareする</a>
+    </div>
     {% if books %}
-      <ul class="bookshelf">
+      <div class="bookshelf">
         {% for book in books %}
-          <li class="bookshelf-item">
-            <div>
-              <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
-            </div>
-            <a href="{% url 'reading_record' book.id %}">{{ book.title }}</a>
-          </li>
+          <a href="{% url 'reading_record' book.id %}" class="bookshelf-item"><img src="{{ book.thumbnail }}" alt="{{ book.title }}" /></a>
         {% endfor %}
-      </ul>
+      </div>
     {% else %}
       <p>本棚には書籍が登録されていません。</p>
     {% endif %}

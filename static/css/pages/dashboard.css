@@ -60,7 +60,70 @@
   text-align: center;
 }
 
+/* レコードテーブル */
+.table-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 2px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+
+.data-table th,
+.data-table td {
+  padding: 4px 8px;
+}
+
+.data-table th {
+  background-color: #4caf50;
+  color: white;
+}
+
+.data-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.data-table tr:hover {
+  background-color: #ddd;
+}
+
+.data-table td:nth-child(2) {
+  text-align: center;
+  font-weight: bold;
+}
+
 /* ツールバー */
-.toolbar {
+.toolbar-container {
   margin-top: 32px;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.toolbar-button {
+  background-color: gray;
+  color: white;
+  border-radius: 4px;
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* 本棚 */
+.dashboard-bookshelf-container {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.dashboard-bookshelf-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
 }

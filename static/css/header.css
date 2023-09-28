@@ -25,18 +25,20 @@
     gap: 12px;
 }
 
+/* 検索部分 */
 .searchbox-container {
     display: flex;
     flex-direction: row;
     border: 1px solid #d2d2d2;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 16px;
 }
 
 .searchbox-input {
     padding: 0.5rem;
     border: 1px solid transparent;
     outline: none;
+    width: 200px;
 }
 
 .searchbox-icon {
@@ -46,6 +48,7 @@
     cursor: pointer;
 }
 
+/* ダッシュボードリンク */
 .dashboard-link {
     text-decoration: none;
     color: white;
@@ -63,6 +66,7 @@
     .dashboard-link {
         font-size: 0.8rem;
     }
+
     .searchbox-container {
         display: none;
     }

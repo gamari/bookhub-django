@@ -1,0 +1,13 @@
+/* ユーザー情報 */
+.user-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.user-info-container {
+    display: flex;
+    flex-direction: row;
+    gap:12px;
+}

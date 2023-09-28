@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  本棚
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/components/bookshelf.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pages/bookshelf_list.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <div class="user-container">
+    <div class="mb-4">
+      <h3>[{{ bookshelf.user.username }}]さんの本棚</h3>
+    </div>
+
+    <div class="user-info-container">
+      <div>left</div>
+      <div>
+        <div>
+          {% comment %}TODO Twitter用のShareボタンを作りたいです。{% endcomment %}
+          <a href="https://twitter.com/intent/tweet?text={{ bookshelf.user.username }}さんの本棚をチェック！&url={{ request.build_absolute_uri|urlencode }}" target="_blank" class="btn btn-info">シェアする</a>
+        </div>
+        <div>フォローする</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bookshelf-container">
+    <div class="bookshelf">
+      {% for book in bookshelf.books.all %}
+        <a href="{% url 'reading_record' book.id %}" class="bookshelf-item"><img src="{{ book.thumbnail }}" alt="{{ book.title }}" /></a>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

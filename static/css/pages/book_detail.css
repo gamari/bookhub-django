@@ -35,6 +35,10 @@
     margin-top: 12px;
     font-size: 0.8rem;
     word-wrap: pre-wrap;
+    border: 1px solid #e6e6e6;
+    padding: 12px;
+    border-radius: 4px;
+    background-color: white;
 }
 
 
