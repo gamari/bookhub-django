@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/pages/dashboard.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pages/mypage.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/contribution.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/bookshelf.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
@@ -74,8 +74,8 @@
     <a href="{% url 'user_reviews' user.id %}" class="toolbar-button">レビュー一覧</a>
   </div>
 
-  <div class="dashboard-bookshelf-section">
-    <div class="dashboard-bookshelf-title mb-4">
+  <div class="mypage-bookshelf-section">
+    <div class="mypage-bookshelf-title mb-4">
       <h2 class="">本棚</h2>
       <a href="{% url 'bookshelf_list' bookshelf.id %}"><i class="fa-solid fa-share"></i></a>
     </div>

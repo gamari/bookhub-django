@@ -1,4 +1,4 @@
-.header-container {
+.header-section {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -17,6 +17,8 @@
     text-decoration: none;
 }
 
+
+/* ナビゲーション */
 .nav-container {
     display: flex;
     flex-direction: row;
@@ -27,7 +29,8 @@
 
 /* 検索部分 */
 .searchbox-container {
-    display: flex;
+    display: none;
+    /* display: flex; */
     flex-direction: row;
     border: 1px solid #d2d2d2;
     border-radius: 5px;
@@ -38,7 +41,8 @@
     padding: 0.5rem;
     border: 1px solid transparent;
     outline: none;
-    width: 200px;
+    width: 100%;
+    max-width: 160px;
 }
 
 .searchbox-icon {
@@ -49,7 +53,7 @@
 }
 
 /* ダッシュボードリンク */
-.dashboard-link {
+.mypage-link {
     text-decoration: none;
     color: white;
     font-size: 1rem;
@@ -58,16 +62,13 @@
     border-radius: 4px;
 }
 
-.dashboard-link:hover {
+.mypage-link:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-@media screen and (max-width: 712px) {
-    .dashboard-link {
-        font-size: 0.8rem;
-    }
-
+/* PC版 */
+@media screen and (min-width: 768px) {
     .searchbox-container {
-        display: none;
+        display: flex;
     }
-}   
+}

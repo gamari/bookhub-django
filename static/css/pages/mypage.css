@@ -101,12 +101,12 @@
 }
 
 /* 本棚 */
-.dashboard-bookshelf-section {
+.mypage-bookshelf-section {
   margin-top: 32px;
   margin-bottom: 32px;
 }
 
-.dashboard-bookshelf-title {
+.mypage-bookshelf-title {
   display: flex;
   flex-direction: row;
   align-items: center;

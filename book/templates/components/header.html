@@ -1,5 +1,5 @@
-<header class="header-container">
-  <div>
+<header class="header-section">
+  <div class="logo-container">
     <a href="/" class="logo">BookHub</a>
   </div>
 
@@ -10,9 +10,9 @@
     </form>
 
     {% if user.is_authenticated %}
-      <a href="{% url 'dashboard' %}" class="dashboard-link">マイページ</a>
+      <a href="{% url 'mypage' %}" class="mypage-link">マイページ</a>
     {% else %}
-      <a href="{% url 'login' %}" class="dashboard-link">ログイン</a>
+      <a href="{% url 'login' %}" class="mypage-link">ログイン</a>
       <a href="{% url 'register' %}" class="btn btn-warning">新規登録</a>
     {% endif %}
   </nav>

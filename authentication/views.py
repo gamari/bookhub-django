@@ -18,7 +18,7 @@ def login_view(request):
         
         if user:
             login(request, user)
-            return redirect('dashboard')
+            return redirect('mypage')
         else:
             return render(request, 'login.html', {'error': 'メールアドレスまたはパスワードが間違っています。'})
 
@@ -32,7 +32,7 @@ def register_view(request):
         user = Account.objects.create_user(email=email, password=password, username=username)
         if user:
             login(request, user)
-            return redirect('dashboard')
+            return redirect('mypage')
         else:
             return render(request, 'register.html', {'error': 'Registration failed'})
 

@@ -4,6 +4,7 @@
 
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/pages/search_results.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
 {% endblock %}
 
 {% block title %}
@@ -11,36 +12,39 @@
 {% endblock %}
 
 {% block content %}
-  <div class="search-container">
-    <div>検索する</div>
+  <div class="search-section">
+    <h3>検索する</h3>
 
     <form action="{% url 'book_search' %}" method="get">
       {% csrf_token %}
       <input type="text" name="query" value="{{ query }}" />
 
-      <button type="submit">検索する</button>
-      <button type="submit" name="mode" value="detail">詳細に検索</button>
+      <button type="submit" class="btn-sm btn-primary">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span>検索する</span>
+      </button>
+      <button type="submit" name="mode" value="detail" class="btn-sm btn-primary">詳細検索</button>
     </form>
   </div>
 
-  <div class="book-resuls-container">
+  <div class="book-resuls-section">
     {% for book in results %}
-      <div class="book-result">
+      <div class="book-result-item card-sm">
         <div class="book-result-image">
           <img src="{{ book.thumbnail }}" alt="{{ book.title }}" width="80px" />
         </div>
 
         <div class="book-result-info">
-          <h2><a href="{% url 'book_detail' book.id %}">{{ book.title }}</a></h2>
-          <p>{{ book.author.name }}</p>
-          <ul class="book-authors-container">
+          <h2><a href="{% url 'book_detail' book.id %}" class="book-result-title">{{ book.title }}</a></h2>
+
+          <ul class="authors-container">
             {% for author in book.authors.all %}
-              <li class="book-author">
+              <li class="author">
                 <i class="fa-regular fa-user fa-sm"></i>
                 <span>{{ author.name }}</span>
               </li>
               {% empty %}
-              <li class="book-author">
+              <li class="author">
                 <i class="fa-regular fa-user fa-sm"></i>
                 <span>-</span>
               </li>
@@ -54,19 +58,12 @@
 
           <p>{{ book.description|truncatechars:80 }}</p>
         </div>
-
-        <div class="book-result-tools">
-          <button class="btn btn-primary book-add-button">本棚に追加</button>
-        </div>
       </div>
       {% empty %}
-      <div class="book-noresult">
-        <p>見つかりませんでした</p>
+      <div class="book-noresult card-sm">
+        <p>対象の書籍が見つかりませんでした</p>
         <div>
-          <p>詳細に検索してみてください</p>
-          <div>
-            <a href="{% url 'book_search' %}?query={{ query }}&mode=detail">詳細に検索</a>
-          </div>
+          <a href="{% url 'book_search' %}?query={{ query }}&mode=detail">詳細に検索</a>
         </div>
       </div>
     {% endfor %}

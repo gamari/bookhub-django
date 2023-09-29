@@ -72,7 +72,6 @@ class GoogleBooksService(SearchService):
 
 # 活動履歴ドメイン
 
-
 class ActivityService:
     def fetch_monthly_activity(
         self, user: Any, start_date: datetime.date, end_date: datetime.date

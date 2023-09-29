@@ -2,7 +2,6 @@
 from django.shortcuts import get_object_or_404, render
 from review.application.usecases import ReviewUsecase
 
-
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required

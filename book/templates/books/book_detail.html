@@ -84,10 +84,6 @@
               <span>本棚に追加</span>
             </a>
           {% endif %}
-        {% else %}
-          <p>
-            レビューを投稿するには<a href="{% url 'login' %}">ログイン</a>してください。
-          </p>
         {% endif %}
       </div>
     </div>
@@ -106,20 +102,27 @@
     </div>
   </div>
 
-  {% comment %} 紹介セクション {% endcomment %}
+  {% comment %}紹介セクション{% endcomment %}
   <div class="description-section">
     <h3>書籍紹介</h3>
     <p class="description-content card-sm">{{ book.description }}</p>
   </div>
 
-  {% comment %} レビューセクション {% endcomment %}
+  {% comment %}レビューセクション{% endcomment %}
   <div class="reviews-section">
     <div class="review-title">
       <h3>レビュー一覧</h3>
-      <button type="button" class="btn-sm btn-primary" id="openReviewModalButton">
-        <i class="fa-solid fa-pen"></i>
-        <span>レビューを書く</span>
-      </button>
+
+      {% if user.is_authenticated %}
+        <button type="button" class="btn-sm btn-primary" id="openReviewModalButton">
+          <i class="fa-solid fa-pen"></i>
+          <span>レビューを書く</span>
+        </button>
+      {% else %}
+        <p>
+          レビューを投稿するには<a href="{% url 'login' %}">ログイン</a>してください。
+        </p>
+      {% endif %}
     </div>
 
     <div class="reviews">

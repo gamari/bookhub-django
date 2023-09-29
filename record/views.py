@@ -9,7 +9,7 @@ from record.application.usecases import CreateMemoUsecase, RecordReadingHistoryU
 from record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
 from record.domain.service import ReadingMemoService, ReadingService
 from record.models import ReadingRecord
-from review.repositories import ReviewRepository
+from review.domain.repositories import ReviewRepository
 
 
 @login_required

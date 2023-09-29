@@ -108,6 +108,12 @@ h4 {
   color: white;
 }
 
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+
 /* バッジ */
 .badge {
   display: inline-block;

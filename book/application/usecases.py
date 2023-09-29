@@ -7,7 +7,7 @@ from config.utils import get_month_date_range, get_month_range_of_today
 from book.models import Bookshelf
 from record.domain.repositories import ReadingRecordRepository
 from review.forms import ReviewForm
-from review.repositories import ReviewRepository
+from review.domain.repositories import ReviewRepository
 
 
 class HomePageShowUsecase(object):

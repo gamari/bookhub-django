@@ -14,12 +14,14 @@
     <p class="error">{{ error }}</p>
   {% endif %}
 
-  <form method="post">
+  <form method="post" class="login-form">
     {% csrf_token %}
-    <label>メールアドレス</label>
-    <input type="email" name="email" required />
-    <label>パスワード</label>
-    <input type="password" name="password" required />
+    <label class="login-label">メールアドレス</label>
+    <input type="email" name="email" required class="login-input" />
+
+    <label class="login-label">パスワード</label>
+    <input type="password" name="password" required class="login-input" />
+
     <button type="submit" class="btn btn-primary">Login</button>
     <a href="{% url 'register' %}">ユーザー登録</a>
   </form>

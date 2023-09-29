@@ -17,7 +17,7 @@ from book.domain.services import (
     GoogleBooksService,
 )
 from record.domain.repositories import ReadingRecordRepository
-from review.repositories import ReviewRepository
+from review.domain.repositories import ReviewRepository
 
 
 def home(request):
@@ -30,7 +30,7 @@ def home(request):
 def mypage(request):
     service = MyPageShowUsecase(request.user, BookshelfRepository(), ActivityService())
     context = service.execute()
-    return render(request, "dashboard.html", context)
+    return render(request, "mypage.html", context)
 
 
 # 書籍詳細

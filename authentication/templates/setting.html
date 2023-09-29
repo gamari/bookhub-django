@@ -6,17 +6,21 @@
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/pages/dashboard.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pages/setting.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
 {% endblock %}
 
 {% block content %}
-  <div>
-    {% comment %} TODO user情報を記載 {% endcomment %}
-    <p>ユーザー名: {{ user.username }}</p>
-    <p>メールアドレス: {{ user.email }}</p>
+  <div class="page-title">アカウント設定</div>
+
+  <div class="setting-section">
+    <div class="card">
+      <p>ユーザー名: {{ user.username }}</p>
+      <p>メールアドレス: {{ user.email }}</p>
+    </div>
   </div>
 
   <div>
-    <a href="{% url 'logout' %}">ログアウト</a>
+    <a href="{% url 'logout' %}" class="btn btn-danger">ログアウト</a>
   </div>
 {% endblock %}

@@ -1,76 +1,71 @@
-.search-container {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-top: 32px;
-    margin-bottom: 32px;
-    padding: 12px 24px;
-    background-color: #fff;
+.search-section {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  padding: 12px 24px;
+  background-color: #fff;
 }
 
 /* 書籍結果 */
 .book-noresult {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.book-resuls-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 32px;
-    margin-bottom: 32px;
+.book-resuls-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 32px;
+  margin-bottom: 32px;
 }
 
-.book-result {
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
+.book-result-item {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.book-result-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #1e90ff;
+  text-decoration: none;
 }
 
 .book-result-image img {
-    width: 80px;
-    height: auto;
+  width: 80px;
+  height: auto;
 }
 
 .book-result-info {
-    flex-grow: 1;
-    padding: 0 20px;
+  flex-grow: 1;
+  padding: 0 20px;
 }
 
 .book-result-tools {
-    padding-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .book-add-button {
-    width: 120px;
+  width: 120px;
 }
 
-.book-authors-container {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
+/* 著者 */
+.authors-container {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
 }
 
-.book-author {
-    list-style: none;
-    font-size: 0.8rem;
+.author {
+  list-style: none;
+  font-size: 0.8rem;
 }
 
-.book-author-icon {
-    color: #444;
-    width: 10px;
-    height: 10px;
-    /* margin-right: 4px; */
-}
