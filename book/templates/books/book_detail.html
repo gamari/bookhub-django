@@ -9,7 +9,8 @@
 {% block css %}
   <link href="{% static 'css/pages/book_detail.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/review.css' %}" rel="stylesheet" />
-  <link href="{% static 'css/modal.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/components/review_modal.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/components/card.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block js %}
@@ -19,12 +20,12 @@
 {% block content %}
   <div class="page-title">書籍詳細</div>
 
-  <div class="book-detail-section">
+  <div class="book-detail-section card">
     <div class="book-detail-image">
       <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
     </div>
 
-    <div class="book-detail-info-container">
+    <div class="book-detail-info-container text-sm">
       <h2>{{ book.title }}</h2>
 
       <ul class="authors-container">
@@ -67,18 +68,17 @@
         {% if user.is_authenticated %}
           {% comment %}TODO Ajaxにする{% endcomment %}
           {% if book_on_shelf %}
-            <a href="{% url 'reading_record' book.id %}" class="btn-sm btn-info"><span>読書する</span></a>
-            <a href="{% url 'remove_from_shelf' book.id %}" class="btn-sm btn-secondary"><span>本棚から削除</span></a>
+            <a href="{% url 'remove_from_shelf' book.id %}" class="btn-sm btn-secondary">
+              <i class="fa-solid fa-trash"></i>
+              <span>本棚から削除</span>
+            </a>
+            <a href="{% url 'reading_record' book.id %}" class="btn-sm btn-info"><span>読書記録へ</span></a>
           {% else %}
             <a href="{% url 'add_to_shelf' book.id %}" class="btn-sm btn-primary">
               <i class="fa-solid fa-book"></i>
               <span>本棚に追加</span>
             </a>
           {% endif %}
-          <button type="button" class="btn-sm btn-primary" id="openReviewModalButton">
-            <i class="fa-solid fa-pen"></i>
-            <span>レビューする</span>
-          </button>
         {% else %}
           <p>
             レビューを投稿するには<a href="{% url 'login' %}">ログイン</a>してください。
@@ -87,16 +87,16 @@
       </div>
     </div>
 
+    
     <div class="book-record-container">
-      <h3>書籍記録</h3>
-
+      <h4>書籍記録</h4>
       <div>
-        <span class="badge badge-primary">レビュー数</span>
+        <span class="badge badge-info">レビュー数</span>
         <span>123件</span>
       </div>
 
       <div>
-        <span class="badge badge-primary">登録数</span>
+        <span class="badge badge-info">登録数</span>
         <span>10</span>
       </div>
     </div>
@@ -104,11 +104,17 @@
 
   <div class="book-description-section">
     <h3>書籍紹介</h3>
-    <p class="book-description-content">{{ book.description }}</p>
+    <p class="book-description-content card-sm">{{ book.description }}</p>
   </div>
 
   <div class="reviews-container">
-    <h3>レビュー一覧</h3>
+    <div class="review-title">
+      <h3>レビュー一覧</h3>
+      <button type="button" class="btn-sm btn-primary" id="openReviewModalButton">
+        <i class="fa-solid fa-pen"></i>
+        <span>レビューを書く</span>
+      </button>
+    </div>
 
     <div class="reviews">
       {% for review in reviews %}

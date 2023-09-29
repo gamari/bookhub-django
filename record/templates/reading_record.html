@@ -7,7 +7,9 @@
 
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/pages/reading_record.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/modal.css' %}" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/components/review_modal.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/memo.css' %}" />
 {% endblock %}
 
 {% block js %}
@@ -18,7 +20,7 @@
 {% block content %}
   <div class="page-title">読書記録</div>
 
-  <div class="book-detail-container">
+  <div class="book-detail-section card">
     <div class="book-detail-left">
       <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
 
@@ -52,9 +54,9 @@
         </a>
 
         {% if record.finished_at %}
-          <form action="{% url 'mark_as_unfinished' book.id %}" method="post">
+          <form action="{% url 'mark_as_unfinished' book.id %}" method="post" >
             {% csrf_token %}
-            <button id="done-button" type="submit" class="btn-sm btn-primary">
+            <button id="done-button" type="submit" class="btn-sm btn-primary w-full">
               <i class="fa-regular fa-calendar"></i>
 
               <span>未読にする</span>
@@ -78,21 +80,21 @@
     </div>
 
     <div class="book-detail-right">
-      <h3>記録情報</h3>
+      <h4>記録情報</h4>
 
       <div>
         <span class="badge badge-info">開始日</span>
-        <span>{{ record.started_at|default_if_none:'' }}</span>
+        <span class="text-sm">{{ record.started_at|default_if_none:'' }}</span>
       </div>
       <div>
         <span class="badge badge-info">読了日</span>
-        <span>{{ record.finished_at|default_if_none:'-' }}</span>
+        <span class="text-sm">{{ record.finished_at|default_if_none:'-' }}</span>
       </div>
     </div>
   </div>
 
   {# メモの投稿フォーム #}
-  <div class="memo-container">
+  <div class="memo-section card">
     <form id="memoForm" data-action="{% url 'create_memo' book.id %}">
       {% csrf_token %}
       {{ form.content }}

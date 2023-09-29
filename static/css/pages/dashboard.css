@@ -1,12 +1,8 @@
-.top-container {
+.top-section {
   margin-top: 32px;
   display: flex;
   flex-direction: column;
-  border: 1px solid #ccc;
-  background-color: white;
-  border-radius: 4px;
-  padding: 24px 32px;
-  gap: 32px;
+  gap: 48px;
 }
 
 .top-left {
@@ -25,17 +21,6 @@
   gap: 12px;
 }
 
-@media screen and (min-width: 712px) {
-  .top-container {
-    flex-direction: row;
-  }
-  .top-right {
-    flex-direction: row;
-    justify-content: start;
-    align-items: start;
-  }
-}
-
 .user-icon {
   width: 100px;
   height: 100px;
@@ -44,7 +29,7 @@
 }
 
 .user-settings-button {
-  background-color: #1E90FF;
+  background-color: #1e90ff;
   color: white;
   border-radius: 4px;
   padding: 6px 12px;
@@ -80,7 +65,7 @@
 }
 
 .data-table th {
-  background-color: #1E90FF;
+  background-color: #1e90ff;
   color: white;
 }
 
@@ -126,4 +111,19 @@
   flex-direction: row;
   align-items: center;
   gap: 8px;
+}
+
+/* PC版 */
+@media screen and (min-width: 712px) {
+  .top-section {
+    flex-direction: row;
+    gap: 32px;
+  }
+
+  .top-right {
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+    gap: 32px;
+  }
 }

@@ -1,0 +1,13 @@
+.card {
+  background-color: white;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  padding: 48px 56px;
+}
+
+.card-sm {
+  background-color: white;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  padding: 24px 32px;
+}

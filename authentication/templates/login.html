@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
   ログイン
 {% endblock %}
 
+{% block css %}
+  <link href="{% static 'css/pages/login.css' %}" rel="stylesheet" />
+{% endblock %}
+
 {% block content %}
   {% if error %}
-    <p>{{ error }}</p>
+    <p class="error">{{ error }}</p>
   {% endif %}
 
   <form method="post">
@@ -15,10 +20,7 @@
     <input type="email" name="email" required />
     <label>パスワード</label>
     <input type="password" name="password" required />
-    <button type="submit">Login</button>
-  </form>
-
-  <div>
+    <button type="submit" class="btn btn-primary">Login</button>
     <a href="{% url 'register' %}">ユーザー登録</a>
-  </div>
+  </form>
 {% endblock %}

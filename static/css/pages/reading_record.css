@@ -1,42 +1,34 @@
 /* 書籍詳細 */
-.book-detail-container {
-  background-color: white;
+.book-detail-section {
   margin-top: 32px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
   gap: 24px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 28px 24px;
+}
+
+.book-detail-left {
 }
 
 .book-detail-middle {
   display: flex;
   flex-direction: column;
+  align-items: start;
   gap: 12px;
+  width: 100%;
 }
 
 .book-detail-right {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
 }
 
 .book-buttons {
   display: flex;
   flex-direction: row;
   gap: 8px;
-}
-
-/* TODO PC版 */
-@media screen and (max-width: 768px) {
-  .book-buttons {
-    flex-direction: column;
-  }
-
-  #done-button {
-    width: 100%;
-  }
 }
 
 /* 著者 */
@@ -50,87 +42,23 @@
   list-style: none;
 }
 
-/* メモ機能 */
-.memo-container {
+/* メモ */
+.memo-section {
   margin-top: 32px;
   margin-bottom: 32px;
-  background-color: white;
-  padding-top: 24px;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-bottom: 24px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
 }
 
-#memoForm {
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: row;
-  align-items: end;
-  gap: 24px;
-}
 
-.memo-textarea {
-  width: 60%;
-  padding: 12px;
-  resize: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  outline: none;
-}
 
-.memo-textarea:focus {
-  border-color: #007bff;
-}
-
-/* メモ一覧 */
-#memoList {
-  list-style-type: none;
-  padding: 0;
-  width: 100%;
-}
-
-.memo-item {
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #e0e0e0;
-  background-color: #e1f2ff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 80%;
-}
-
-.memo-item p:first-child {
-  font-size: 0.8em;
-  color: #888;
-  margin-bottom: 10px;
-}
-
-.memo-item p:last-child {
-  font-size: 0.9rem;
-  white-space: pre-wrap;
-  word-break: break-all;
-}
-
-@media screen and (max-width: 768px) {
-  /* スマホサイズ */
-  #memoForm {
-    flex-direction: column;
+/* PC版 */
+@media screen and (min-width: 768px) {
+  .book-detail-section {
+    flex-direction: row;
+    gap: 24px;
     align-items: start;
-    justify-content: center;
   }
 
-  .memo-textarea {
-    width: 90%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-
-  .memo-item {
-    width: 90%;
+  .book-buttons {
+    flex-direction: column;
   }
 }

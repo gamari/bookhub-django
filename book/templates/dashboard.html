@@ -7,20 +7,20 @@
 {% endblock %}
 
 {% block css %}
+<link rel="stylesheet" href="{% static 'css/pages/dashboard.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/contribution.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/pages/dashboard.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/bookshelf.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
 {% endblock %}
 
 {% block content %}
-
   <div class="page-title">マイページ</div>
 
-  <div class="top-container">
+  <div class="top-section card">
     <div class="top-left">
       <div class="user-icon"></div>
 
-      <div class="user-username">{{ user.username }}</div>
+      <h4>{{ user.username }}</h4>
 
       <div>
         <div>
@@ -31,9 +31,7 @@
 
     <div class="top-right">
       <div>
-        <div>
-          <div>{{ month }}月の活動履歴</div>
-        </div>
+        <h3>{{ month }}月の活動履歴</h3>
 
         <div class="contribution-calendar">
           <div class="day-label">月</div>
@@ -49,8 +47,6 @@
             <div class="contribution-day" data-count="{{ data.activity_count }}" title="{{ data.date }}: {{ data.activity_count }} activities">{{ data.date.day }}</div>
           {% endfor %}
         </div>
-
-        {% comment %}TODO right{% endcomment %}
       </div>
 
       <table class="data-table">
@@ -82,9 +78,7 @@
   <div class="dashboard-bookshelf-container">
     <div class="dashboard-bookshelf-title mb-4">
       <h2 class="">本棚</h2>
-      <a href="{% url 'bookshelf_list' bookshelf.id %}">
-        <i class="fa-solid fa-share"></i>
-      </a>
+      <a href="{% url 'bookshelf_list' bookshelf.id %}"><i class="fa-solid fa-share"></i></a>
     </div>
     {% if books %}
       <div class="bookshelf">
