@@ -1,6 +1,9 @@
 import uuid
+
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.db.models import Avg
+
 
 User = get_user_model()
 
@@ -25,6 +28,16 @@ class Book(models.Model):
 
     def __str__(self):
         return f"[{self.isbn_10} | {self.isbn_13}] {self.title}"
+
+    def get_avg_rating(self):
+        """書籍の平均評価を取得する。"""
+        return round(
+            self.review_set.aggregate(avg_rating=Avg("rating"))["avg_rating"], 2
+        )
+
+    def get_reviews(self):
+        """書籍のレビューを取得する。"""
+        return self.review_set.all().order_by("-created_at")
 
 
 class Bookshelf(models.Model):

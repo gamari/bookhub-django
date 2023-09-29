@@ -22,3 +22,6 @@ class Review(models.Model):
 
     class Meta:
         unique_together = ("user", "book")
+    
+    def is_latest(self):
+        return self == self.book.get_reviews().first()

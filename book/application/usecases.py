@@ -2,6 +2,7 @@ from django.db.models import Avg
 from django.utils import timezone
 from book.domain.repositories import BookshelfRepository
 from book.domain.services import ActivityService
+from config.application.usecases import Usecase
 
 from config.utils import get_month_date_range, get_month_range_of_today
 from book.models import Bookshelf
@@ -10,7 +11,7 @@ from review.forms import ReviewForm
 from review.domain.repositories import ReviewRepository
 
 
-class HomePageShowUsecase(object):
+class HomePageShowUsecase(Usecase):
     """ホーム画面を表示する。"""
 
     def __init__(
@@ -19,7 +20,7 @@ class HomePageShowUsecase(object):
         self.record_repo = record_repo
         self.review_repo = review_repo
 
-    def execute(self) -> dict:
+    def run(self) -> dict:
         first_day_of_month, last_day_of_month = get_month_range_of_today()
         top_book_results = self.record_repo.get_top_books(
             first_day_of_month, last_day_of_month, limit=3
@@ -34,7 +35,7 @@ class HomePageShowUsecase(object):
         return context
 
 
-class MyPageShowUsecase(object):
+class MyPageShowUsecase(Usecase):
     """マイページを表示する。"""
 
     def __init__(
@@ -47,7 +48,7 @@ class MyPageShowUsecase(object):
         self.bookshelf_repository = bookshelf_repository
         self.activity_service = activity_service
 
-    def execute(self):
+    def run(self):
         bookshelf: Bookshelf = self.bookshelf_repository.get_or_create(user=self.user)
         books = bookshelf.books.all()
 
@@ -69,7 +70,7 @@ class MyPageShowUsecase(object):
         }
 
 
-class BookDetailPageShowUsecase(object):
+class BookDetailPageShowUsecase(Usecase):
     """書籍詳細画面を表示する。"""
 
     def __init__(self, book_id, user, book_service):
@@ -77,34 +78,31 @@ class BookDetailPageShowUsecase(object):
         self.user = user
         self.book_service = book_service
 
-    def execute(self):
-        book, latest_review, book_on_shelf = self.book_service.get_book_detail(
-            self.book_id, self.user
+    def run(self):
+        book = self.book_service.find_book_by_id(self.book_id)
+        latest_review = (
+            book.get_reviews().first() if book.get_reviews().exists() else None
         )
-
-        avg_rating = book.review_set.aggregate(avg_rating=Avg("rating"))["avg_rating"]
-        if avg_rating:
-            avg_rating = round(avg_rating, 2)
-        reviews = book.review_set.all().order_by("-created_at")
-
-        rating_range = range(1, 6)
-
+        avg_rating = book.get_avg_rating()
+        reviews = book.get_reviews()
+        book_on_shelf = self.book_service.is_book_on_shelf(book, self.user)
+        registers = Bookshelf.objects.filter(books__id=book.id).count()
 
         context = {
             "book": book,
-            "review_form": ReviewForm(
-                instance=latest_review if latest_review else None
-            ),
+            "review_form": ReviewForm(instance=latest_review),
             "latest_review": latest_review,
             "avg_rating": avg_rating,
             "reviews": reviews,
             "book_on_shelf": book_on_shelf,
-            "rating_range": rating_range
+            "rating_range": range(1, 6),
+            "reviews_count": reviews.count(),
+            "registers": registers,
         }
         return context
 
 
-class BookSearchUsecase(object):
+class BookSearchUsecase(Usecase):
     """書籍検索を行う。"""
 
     def __init__(self, mode, page, query, search_service) -> None:
@@ -113,7 +111,7 @@ class BookSearchUsecase(object):
         self.query = query
         self.search_service = search_service
 
-    def execute(self):
+    def run(self):
         results_list, total_pages = self.search_service.search(self.query, self.page)
 
         context = {

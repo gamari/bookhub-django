@@ -25,8 +25,18 @@ class BookService:
         else:
             latest_review = None
             book_on_shelf = False
-            
+
         return book, latest_review, book_on_shelf
+
+    def find_book_by_id(self, book_id: int):
+        """書籍IDから書籍を取得する。"""
+        return self.book_repository.find_by_id(book_id)
+
+    def is_book_on_shelf(self, book, user):
+        """書籍が本棚に含まれているかどうかを判定する。"""
+        if not user.is_authenticated:
+            return False
+        return self.bookshelf_repository.has_book_for_user(book, user)
 
 
 # 検索ドメイン
@@ -71,6 +81,7 @@ class GoogleBooksService(SearchService):
 
 
 # 活動履歴ドメイン
+
 
 class ActivityService:
     def fetch_monthly_activity(

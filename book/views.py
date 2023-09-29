@@ -28,8 +28,8 @@ def home(request):
 
 @login_required
 def mypage(request):
-    service = MyPageShowUsecase(request.user, BookshelfRepository(), ActivityService())
-    context = service.execute()
+    usecase = MyPageShowUsecase(request.user, BookshelfRepository(), ActivityService())
+    context = usecase.execute()
     return render(request, "mypage.html", context)
 
 
