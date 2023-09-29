@@ -1,0 +1,18 @@
+.reviews-section {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.reviews-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.review-item {
+
+}
+
+.rating {
+    /* color: yellow; */
+}

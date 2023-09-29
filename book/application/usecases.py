@@ -86,6 +86,10 @@ class BookDetailPageShowUsecase(object):
         if avg_rating:
             avg_rating = round(avg_rating, 2)
         reviews = book.review_set.all().order_by("-created_at")
+
+        rating_range = range(1, 6)
+
+
         context = {
             "book": book,
             "review_form": ReviewForm(
@@ -95,6 +99,7 @@ class BookDetailPageShowUsecase(object):
             "avg_rating": avg_rating,
             "reviews": reviews,
             "book_on_shelf": book_on_shelf,
+            "rating_range": rating_range
         }
         return context
 

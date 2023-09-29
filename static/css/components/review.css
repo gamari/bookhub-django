@@ -1,7 +1,3 @@
-.reviews-container {
-    margin-top: 32px;   
-}
-
 .review-item {
     display: flex;
     flex-direction: row;

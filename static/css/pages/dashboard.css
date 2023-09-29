@@ -83,7 +83,7 @@
 }
 
 /* ツールバー */
-.toolbar-container {
+.toolbar-section {
   margin-top: 32px;
   display: flex;
   flex-direction: row;
@@ -101,7 +101,7 @@
 }
 
 /* 本棚 */
-.dashboard-bookshelf-container {
+.dashboard-bookshelf-section {
   margin-top: 32px;
   margin-bottom: 32px;
 }

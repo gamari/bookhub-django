@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="page-title">書籍詳細</div>
+  <div class="page-title">書籍 > 詳細</div>
 
   <div class="book-detail-section card">
     <div class="book-detail-image">
@@ -54,14 +54,19 @@
       </div>
 
       <div>
-        <i class="fa-regular fa-star fa-sm"></i>
-        <span>
-          {% if avg_rating %}
-            {{ avg_rating }}点
-          {% else %}
-            レビューがありません
-          {% endif %}
-        </span>
+        {% if avg_rating %}
+          {% for i in rating_range %}
+            {% if i <= avg_rating %}
+              <i class="fa-solid fa-star" style="color: #ffdc2e;"></i>
+            {% else %}
+              <i class="far fa-star"></i>
+            {% endif %}
+          {% endfor %}
+
+          {{ avg_rating }}点
+        {% else %}
+          レビューがありません
+        {% endif %}
       </div>
 
       <div class="book-detail-tools">
@@ -87,7 +92,6 @@
       </div>
     </div>
 
-    
     <div class="book-record-container">
       <h4>書籍記録</h4>
       <div>
@@ -102,12 +106,14 @@
     </div>
   </div>
 
-  <div class="book-description-section">
+  {% comment %} 紹介セクション {% endcomment %}
+  <div class="description-section">
     <h3>書籍紹介</h3>
-    <p class="book-description-content card-sm">{{ book.description }}</p>
+    <p class="description-content card-sm">{{ book.description }}</p>
   </div>
 
-  <div class="reviews-container">
+  {% comment %} レビューセクション {% endcomment %}
+  <div class="reviews-section">
     <div class="review-title">
       <h3>レビュー一覧</h3>
       <button type="button" class="btn-sm btn-primary" id="openReviewModalButton">

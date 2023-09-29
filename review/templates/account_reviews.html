@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  読書記録
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/pages/account_reviews.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <div class="page-title">
+    <a href="{% url 'account_detail' account.id %}">{{ account.username }} </a>
+    > レビュー一覧</div>
+
+  {% comment %} TODO ユーザー紹介パネルを表示する {% endcomment %}
+
+  <div class="reviews-section">
+    <div class="reviews-container">
+      {% for review in reviews %}
+        <div class="review-item card-sm">
+          <a href="{% url 'book_detail' review.book.id %}">{{ review.book.title }}</a>
+
+          <div class="rating">
+            {% comment %} TODO テンプレート化する {% endcomment %}
+            {% for i in rating_range %}
+              {% if i <= review.rating %}
+              <i class="fa-solid fa-star" style="color: #ffdc2e;"></i>
+              {% else %}
+                <i class="far fa-star"></i>
+              {% endif %}
+            {% endfor %}
+          </div>
+
+          <p>{{ review.content }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

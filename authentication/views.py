@@ -1,8 +1,14 @@
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from authentication.models import Account
+
+
+def account_detail(request, account_id):
+    account = get_object_or_404(Account, pk=account_id)
+    return render(request, 'account_detail.html', {'account': account})
+
 
 def login_view(request):
     if request.method == 'POST':
