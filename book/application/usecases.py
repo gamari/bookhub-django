@@ -1,7 +1,7 @@
 from django.db.models import Avg
 from django.utils import timezone
 from book.domain.repositories import BookshelfRepository
-from book.domain.services import ActivityService
+from book.domain.services import ActivityDomainService
 from config.application.usecases import Usecase
 
 from config.utils import get_month_date_range, get_month_range_of_today
@@ -42,7 +42,7 @@ class MyPageShowUsecase(Usecase):
         self,
         user,
         bookshelf_repository: BookshelfRepository,
-        activity_service: ActivityService,
+        activity_service: ActivityDomainService,
     ) -> None:
         self.user = user
         self.bookshelf_repository = bookshelf_repository
@@ -80,6 +80,7 @@ class BookDetailPageShowUsecase(Usecase):
 
     def run(self):
         book = self.book_service.find_book_by_id(self.book_id)
+
         latest_review = (
             book.get_reviews().first() if book.get_reviews().exists() else None
         )

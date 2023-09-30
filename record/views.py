@@ -3,23 +3,24 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from book.domain.repositories import BookRepository, BookshelfRepository
-from book.domain.services import BookService
+from book.domain.services import BookDomainService
 from book.models import Book
 from record.application.usecases import CreateMemoUsecase, RecordReadingHistoryUsecase
 from record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
-from record.domain.service import ReadingMemoService, ReadingService
+from record.domain.services import ReadingMemoService, ReadingService
 from record.models import ReadingRecord
 from review.domain.repositories import ReviewRepository
+from review.domain.services import ReviewDomainService
 
 
 @login_required
 def reading_record(request, book_id):
-    record_repository = ReadingRecordRepository()
-    book_service = BookService(BookRepository, ReviewRepository, BookshelfRepository)
-    reading_service = ReadingService(record_repository)
+    book_service = BookDomainService(BookRepository(), BookshelfRepository())
+    reading_service = ReadingService(ReadingRecordRepository())
+    review_service = ReviewDomainService(ReviewRepository())
 
     usecase = RecordReadingHistoryUsecase(
-        request.user, book_id, reading_service, book_service
+        request.user, book_id, reading_service, book_service, review_service
     )
 
     context = usecase.execute()

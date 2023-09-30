@@ -12,9 +12,9 @@ from book.domain.repositories import BookRepository, BookshelfRepository
 from book.infrastructure.external.apis import GoogleBooksAPIClient
 from book.models import Book, Bookshelf
 from book.domain.services import (
-    ActivityService,
+    ActivityDomainService,
     BookSearchService,
-    BookService,
+    BookDomainService,
     GoogleBooksService,
 )
 from record.domain.repositories import ReadingRecordRepository
@@ -29,15 +29,15 @@ def home(request):
 
 @login_required
 def mypage(request):
-    usecase = MyPageShowUsecase(request.user, BookshelfRepository(), ActivityService())
+    usecase = MyPageShowUsecase(request.user, BookshelfRepository(), ActivityDomainService())
     context = usecase.execute()
     return render(request, "mypage.html", context)
 
 
 # 書籍詳細
 def book_detail(request, book_id):
-    book_service = BookService(
-        BookRepository(), ReviewRepository(), BookshelfRepository()
+    book_service = BookDomainService(
+        BookRepository(), BookshelfRepository()
     )
     usecase = BookDetailPageShowUsecase(book_id, request.user, book_service)
     context = usecase.execute()
@@ -50,13 +50,11 @@ def book_search(request):
     mode = request.GET.get("mode", "")
     page = int(request.GET.get("page", 1))
 
-    # TODO 詳細検索は、ログイン時のみ利用可能にする
     if mode == "detail":
         search_service = GoogleBooksService(
             GoogleBooksAPIClient(), 
-            BookService(
+            BookDomainService(
                 BookRepository(),
-                ReviewRepository(),
                 BookshelfRepository()
             )
         )

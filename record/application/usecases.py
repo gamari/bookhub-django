@@ -1,25 +1,35 @@
 from book.domain.repositories import BookRepository
 
 from record.domain.repositories import ReadingMemoRepository
-from record.domain.service import ReadingMemoService
+from record.domain.services import ReadingMemoService
 from record.forms import ReadingMemoForm
 from record.models import ReadingMemo
+from review.domain.services import ReviewDomainService
 from review.forms import ReviewForm
 
 
 class RecordReadingHistoryUsecase(object):
     """読書記録画面を表示する。"""
 
-    def __init__(self, user, book_id, reading_service, book_service):
+    def __init__(
+        self,
+        user,
+        book_id,
+        reading_service: ReadingMemoService,
+        book_service,
+        review_service: ReviewDomainService,
+    ):
         self.user = user
         self.book_id = book_id
         self.reading_service = reading_service
         self.book_service = book_service
+        self.review_service = review_service
 
     def execute(self):
-        book, latest_review, book_on_shelf = self.book_service.get_book_detail(
-            self.book_id, self.user
-        )
+        book = self.book_service.find_book_by_id(self.book_id)
+
+        latest_review = self.review_service.latest_review_for_user(book, self.user)
+
         record, created = self.reading_service.get_or_create_record(self.user, book)
         memos = ReadingMemo.objects.filter(user=self.user, book=book).order_by(
             "-created_at"

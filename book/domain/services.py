@@ -5,29 +5,14 @@ from typing import Any
 
 from book.domain.repositories import BookRepository
 from record.domain.repositories import ReadingMemoRepository
-from book.infrastructure.external.apis import GoogleBooksAPIClient
 from book.infrastructure.mappers import GoogleBooksMapper
 
 
 # 書籍ドメイン
-class BookService:
-    # TODO review repositoryとか渡してるのはおかしい
-    def __init__(self, book_repository, review_repository, bookshelf_repository):
+class BookDomainService:
+    def __init__(self, book_repository, bookshelf_repository):
         self.book_repository = book_repository
-        self.review_repository = review_repository
         self.bookshelf_repository = bookshelf_repository
-
-    def get_book_detail(self, book_id, user):
-        book = self.book_repository.find_by_id(book_id)
-
-        if user.is_authenticated:
-            latest_review = self.review_repository.latest_review_for_user(book, user)
-            book_on_shelf = self.bookshelf_repository.has_book_for_user(book, user)
-        else:
-            latest_review = None
-            book_on_shelf = False
-
-        return book, latest_review, book_on_shelf
 
     def find_book_by_id(self, book_id: int):
         """書籍IDから書籍を取得する。"""
@@ -50,13 +35,12 @@ class BookService:
 
 
 # 検索ドメイン
-class SearchService(ABC):
+class SearchDomainService(ABC):
     @abstractmethod
     def search(self, query, page):
         pass
 
-# TODO 検索サービスはどこに置くべきか
-class BookSearchService(SearchService):
+class BookSearchService(SearchDomainService):
     def __init__(self):
         self.repository = BookRepository()
 
@@ -67,7 +51,7 @@ class BookSearchService(SearchService):
         return results_list[(page - 1) * 10 : page * 10], total_pages
 
 
-class GoogleBooksService(SearchService):
+class GoogleBooksService(SearchDomainService):
     def __init__(self, api_client, book_service):
         self.api_client = api_client
         self.book_service = book_service
@@ -87,8 +71,7 @@ class GoogleBooksService(SearchService):
 
 # 活動履歴ドメイン
 
-
-class ActivityService:
+class ActivityDomainService:
     def fetch_monthly_activity(
         self, user: Any, start_date: datetime.date, end_date: datetime.date
     ):
