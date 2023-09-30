@@ -1,35 +1,45 @@
+/* TODO review-commentにする */
 .review-item {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    margin-bottom: 16px;
-    background-color: white;
-    padding: 12px 24px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-bottom: 16px;
+  background-color: white;
+  padding: 12px 24px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .review-user-icon {
-    width: 24px;
-    height: 24px;
-    border-radius: 100%;
-    background-color: #ddd;
-}
-
-.review-user {
-
-}
-
-.review-info {
-
+  width: 24px;
+  height: 24px;
+  border-radius: 100%;
+  background-color: #ddd;
 }
 
 .review-rating {
-    margin-top: 24px;
+  margin-top: 24px;
 }
 
 .review-content {
-    white-space: pre-wrap;
-    margin-top: 24px;
+  white-space: pre-wrap;
 }
 
+/* ホーム用のライン */
+.review-line {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  text-decoration: none;
+}
+
+.review-user {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+
+.review-content {
+  margin-top: 4px;
+}

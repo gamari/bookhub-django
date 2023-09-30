@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 32px;
+  margin-bottom: 64px;
 }
 
 .about-features-container {
@@ -95,9 +96,8 @@
 .reviews-container {
   margin-top: 16px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 16px;
-  flex-wrap: wrap;
 }
 
 .review-title {
@@ -106,12 +106,19 @@
   color: #333;
 }
 
+.rating-container {
+  margin-bottom: 12px;
+}
+
+
 /* よく読まれてます */
 .top-books-section {
   margin-top: 32px;
+  margin-bottom: 64px;
 }
 
 .top-books-container {
+  margin-top: 16px;
   display: flex;
   flex-direction: row;
   gap: 16px;

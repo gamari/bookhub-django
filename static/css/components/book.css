@@ -12,6 +12,11 @@
   height: 180px;
 }
 
+.book-image-sm {
+  height: 100px;
+}
+
+
 /* 本棚 */
 .bookshelf {
   display: grid;

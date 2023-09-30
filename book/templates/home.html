@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
 {% endblock %}
 
 {% block title %}
@@ -13,6 +15,14 @@
 {% endblock %}
 
 {% block content %}
+  <div class="search-section card">
+    <div class="search-title">気になる書籍を検索する</div>
+    <form action="{% url 'book_search' %}" method="GET" class="search-container">
+      <input type="text" name="query" placeholder="書籍を検索" class="search-input" />
+      <button type="submit" class="searchbox-icon"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
+
   <div class="about-section">
     <h3>BookHubとは？</h3>
 
@@ -32,64 +42,70 @@
     </div>
   </div>
 
-  <div class="search-section card">
-    <div class="search-title">気になる書籍を検索する</div>
-    <form action="{% url 'book_search' %}" method="GET" class="search-container">
-      <input type="text" name="query" placeholder="書籍を検索" class="search-input" />
-      <button type="submit" class="searchbox-icon"><i class="fas fa-search"></i></button>
-    </form>
-  </div>
-
+  {% comment %}ランキング{% endcomment %}
   <div class="ranking-section">
     <h2>先週のランキング</h2>
     <div class="ranking-list-container">
       {% for entry in ranking_entries %}
         <a href="{% url 'book_detail' entry.book.id %}" class="book">
-          <div class="book-image">
-            <img src="{{ entry.book.thumbnail }}" alt="{{ book.title }}" />
-          </div>
+          <img src="{{ entry.book.thumbnail }}" alt="{{ book.title }}" class="book-image" />
           <div class="rank">{{ forloop.counter }}</div>
         </a>
       {% endfor %}
     </div>
   </div>
 
+  {% comment %}レビュー{% endcomment %}
   <div class="review-section">
     <h2>最新のレビュー</h2>
 
-    {% comment %}TODO 2カラムで表示する{% endcomment %}
+    {% comment %}TODO リファクタリングする{% endcomment %}
     <div class="reviews-container">
       {% for review in latest_reviews %}
-        <a href="{% url 'book_detail' review.book.id %}" class="book-panel">
-          <div class="book-image">
-            <img src="{{ review.book.thumbnail }}" alt="{{ book.title }}" />
+        <a href="{% url 'book_detail' review.book.id %}" class="review-line card-sm">
+          <div>
+            <img src="{{ review.book.thumbnail }}" alt="{{ book.title }}" class="book-image-sm" />
           </div>
 
-          <div class="text-primary">{{ review.book.title }}</div>
+          <div class="review-container">
+            <div class="review-user">
+              <div class="user-icon-sm"></div>
+              {{ review.user.username }}
+            </div>
 
-          <div class="review-title">
-            <p>[{{ review.user.username }}]さんが</p>
-            <p>{{ review.rating }}点を付けました</p>
+            <div class="rating-container">
+              {% if review.rating %}
+                {% for i in rating_range %}
+                  {% if i <= review.rating %}
+                    <i class="fa-solid fa-star" style="color: #ffdc2e;"></i>
+                  {% else %}
+                    <i class="far fa-star"></i>
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                レビューがありません
+              {% endif %}
+            </div>
+
+            <div class="text-sm text-primary">{{ review.book.title }}</div>
+
+            <div>
+              <div class="review-content">{{ review.content }}</div>
+            </div>
           </div>
         </a>
       {% endfor %}
     </div>
   </div>
 
+  {% comment %}TODO fix this{% endcomment %}
   <div class="top-books-section">
     <h2>よく読まれています</h2>
 
     <div class="top-books-container">
       {% for result in top_book_results %}
-        <a href="{% url 'book_detail' result.book__id %}" class="book-panel">
-          <div class="book-image">
-            <img src="{{ result.book__thumbnail }}" alt="{{ result.book__title }}" />
-          </div>
-          <div>{{ result.book__title }}</div>
-        </a>
+        <a href="{% url 'book_detail' result.book__id %}" class="book"><img src="{{ result.book__thumbnail }}" alt="{{ result.book__title }}" class="book-image" /></a>
       {% endfor %}
     </div>
   </div>
-
-  <div class="recommendation-book-container">オススメ</div>
 {% endblock %}

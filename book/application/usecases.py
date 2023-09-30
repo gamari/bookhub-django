@@ -41,6 +41,7 @@ class HomePageShowUsecase(Usecase):
             "top_book_results": top_book_results,
             "latest_reviews": latest_reviews,
             "ranking_entries": ranking_entries,
+            "rating_range": range(1, 6),
         }
 
         return context

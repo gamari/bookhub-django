@@ -1,6 +1,7 @@
 # your_app/management/commands/fetch_books.py
 import requests
 from django.core.management.base import BaseCommand
+from book.infrastructure.external.apis import GoogleBooksAPIClient
 
 from book.models import Author, Book
 
@@ -9,12 +10,14 @@ class Command(BaseCommand):
     help = "書籍を登録します。"
 
     def handle(self, *args, **options):
-        url = "https://www.googleapis.com/books/v1/volumes?q=Java"
+        api = GoogleBooksAPIClient()
+        books = api.fetch_new_books()
 
-        response = requests.get(url)
-        data = response.json()
+        print(books)
 
-        for item in data["items"]:
+        # TODO fix bellow
+
+        for item in books["items"]:
             volume_info = item["volumeInfo"]
 
             if "industryIdentifiers" not in volume_info:
@@ -34,8 +37,6 @@ class Command(BaseCommand):
             for author_name in volume_info.get("authors", []):
                 author_obj, created = Author.objects.get_or_create(name=author_name)
                 authors_objs.append(author_obj)
-            
-            # TODO 出版日を入れる
 
             book, created = Book.objects.update_or_create(
                 title=volume_info["title"],
