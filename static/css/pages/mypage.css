@@ -109,6 +109,12 @@
   gap: 8px;
 }
 
+.review-section {
+  margin-top: 32px;
+  margin-bottom: 64px;
+}
+
+
 /* PC版 */
 @media screen and (min-width: 712px) {
   .top-section {

@@ -31,6 +31,7 @@ class Book(models.Model):
     thumbnail = models.URLField("サムネイル", null=True, blank=True)
     published_date = models.DateField("出版日", null=True, blank=True)
     publisher = models.CharField("出版社", max_length=255, null=True, blank=True)
+    views = models.IntegerField("閲覧数", default=0)
 
     def __str__(self):
         return f"[{self.isbn_10} | {self.isbn_13}] {self.title}"
@@ -59,6 +60,9 @@ class Bookshelf(models.Model):
 
     def remove_book(self, book: Book):
         self.books.remove(book)
+
+    def get_books(self):
+        return self.books.all()
 
 
 class BookshelfBook(models.Model):

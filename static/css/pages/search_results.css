@@ -1,11 +1,22 @@
+/* 検索 */
 .search-section {
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-top: 32px;
   margin-bottom: 32px;
-  padding: 12px 24px;
+  padding: 20px 24px;
   background-color: #fff;
 }
+
+.search-input {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+  width: 100%;
+  max-width: 160px;
+}
+
 
 /* 書籍結果 */
 .book-noresult {
@@ -34,6 +45,10 @@
   margin-bottom: 8px;
   color: #1e90ff;
   text-decoration: none;
+}
+
+.book-result-title:hover {
+  text-decoration: underline;
 }
 
 .book-result-image img {
@@ -69,3 +84,14 @@
   font-size: 0.8rem;
 }
 
+.book-info-description {
+  margin-top: 12px;
+  font-size: 0.8rem;
+  color: #555;
+}
+
+/* ページネーション */
+.pagination-section {
+  margin-top: 32px;
+  margin-bottom: 64px;
+}

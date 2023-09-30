@@ -3,6 +3,7 @@
   border: 1px solid #e6e6e6;
   border-radius: 4px;
   padding: 36px 48px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
 .card-sm {

@@ -13,7 +13,7 @@ class AuthorRepository(object):
 class BookRepository(object):
     @staticmethod
     def search_by_title(query):
-        return list(Book.objects.filter(title__icontains=query))
+        return list(Book.objects.filter(title__icontains=query).order_by("-views"))
 
     @staticmethod
     def find_by_id(book_id):
@@ -29,7 +29,7 @@ class BookRepository(object):
 
         book_data.pop("authors")
 
-        try: 
+        try:
             published_date = BookRepository._convert_to_date_format(
                 book_data["published_date"]
             )

@@ -5,6 +5,7 @@
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/pages/search_results.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
 {% endblock %}
 
 {% block title %}
@@ -17,7 +18,7 @@
 
     <form action="{% url 'book_search' %}" method="get">
       {% csrf_token %}
-      <input type="text" name="query" value="{{ query }}" />
+      <input type="text" name="query" value="{{ query }}" class="search-input" />
 
       <button type="submit" class="btn-sm btn-primary">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -30,12 +31,14 @@
   <div class="book-resuls-section">
     {% for book in results %}
       <div class="book-result-item card-sm">
-        <div class="book-result-image">
-          <img src="{{ book.thumbnail }}" alt="{{ book.title }}" width="80px" />
+        <div class="book-image">
+          <a href="{% url 'book_detail' book.id %}">
+          <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
+          </a>
         </div>
 
         <div class="book-result-info">
-          <h2><a href="{% url 'book_detail' book.id %}" class="book-result-title">{{ book.title }}</a></h2>
+          <a href="{% url 'book_detail' book.id %}" class="book-result-title">{{ book.title }}</a>
 
           <ul class="authors-container">
             {% for author in book.authors.all %}
@@ -56,7 +59,7 @@
             <span>{{ book.published_date|default_if_none:'-' }}</span>
           </div>
 
-          <p>{{ book.description|truncatechars:80 }}</p>
+          <p  class="book-info-description">{{ book.description|truncatechars:80 }}</p>
         </div>
       </div>
       {% empty %}
@@ -69,19 +72,16 @@
     {% endfor %}
   </div>
 
-  {% comment %}TODO ページネーションを変えたい{% endcomment %}
-  <div class="pagination">
+  <div class="pagination-section">
     <span class="step-links">
       {% if current_page > 1 %}
-        <a href="?query={{ query }}&mode={{ mode }}&page={{ current_page|add:'-1' }}">前へ</a>
+        <a href="?query={{ query }}&mode={{ mode }}&page={{ current_page|add:'-1' }}" class="btn-sm btn-primary">前へ</a>
       {% endif %}
 
-      <span class="current">ページ {{ current_page }} / {{ total_pages }}</span>
+      <span class="current">{{ current_page }} / {{ total_pages }}</span>
 
       {% if current_page < total_pages %}
-        <a href="?query={{ query }}&mode={{ mode }}&page={{ current_page|add:'1' }}">次へ</a>
-      {% else %}
-        <span>次へ</span>
+        <a href="?query={{ query }}&mode={{ mode }}&page={{ current_page|add:'1' }}" class="btn-sm btn-primary">次へ</a>
       {% endif %}
     </span>
   </div>

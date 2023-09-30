@@ -61,7 +61,7 @@ class MyPageShowUsecase(Usecase):
 
     def run(self):
         bookshelf: Bookshelf = self.bookshelf_repository.get_or_create(user=self.user)
-        books = bookshelf.books.all()
+        books = bookshelf.get_books()
 
         today = timezone.now().date()
 
@@ -91,6 +91,10 @@ class BookDetailPageShowUsecase(Usecase):
 
     def run(self):
         book = self.book_service.find_book_by_id(self.book_id)
+
+        # 閲覧数のカウントアップ
+        book.views += 1
+        book.save()
 
         latest_review = (
             book.get_reviews().first() if book.get_reviews().exists() else None
