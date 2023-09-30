@@ -9,4 +9,5 @@ urlpatterns = [
     path("", include("book.urls")),
     path("", include("review.urls")),
     path("", include("record.urls")),
+    path("", include("ranking.urls")),
 ]

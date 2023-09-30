@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'book',
     'review',
     'record',
+    'ranking',
 ]
 
 MIDDLEWARE = [
