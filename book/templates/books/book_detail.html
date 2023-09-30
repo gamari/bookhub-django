@@ -26,7 +26,7 @@
     </div>
 
     <div class="book-detail-info-container text-sm">
-      <h2 class="text-primary">{{ book.title }}</h2>
+      <h4 class="text-primary">{{ book.title }}</h4>
 
       <ul class="authors-container">
         {% for author in book.authors.all %}
@@ -92,12 +92,12 @@
       <h4>書籍記録</h4>
       <div>
         <span class="badge badge-info">レビュー数</span>
-        <span>{{ reviews_count }}件</span>
+        <span class="text-sm">{{ reviews_count }}件</span>
       </div>
 
       <div>
         <span class="badge badge-info">登録者数</span>
-        <span>{{registers}}人</span>
+        <span class="text-sm">{{registers}}人</span>
       </div>
     </div>
   </div>

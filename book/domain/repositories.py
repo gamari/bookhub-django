@@ -21,19 +21,24 @@ class BookRepository:
 
     @staticmethod
     def get_or_create(book_data):
+        # 作者処理
         author_objects = []
         for author_name in book_data.get("authors", []):
-            print(author_name)
             author, _ = AuthorRepository.get_or_create_by_name(author_name)
             author_objects.append(author)
 
         book_data.pop("authors")
 
-        try:
+        try: 
             published_date = BookRepository._convert_to_date_format(
                 book_data["published_date"]
             )
+        except Exception as e:
+            print(e)
+            published_date = None
 
+        # TODO ちょっと汚い
+        try:
             book, created = Book.objects.get_or_create(
                 title=book_data["title"],
                 description=book_data["description"],
@@ -41,6 +46,7 @@ class BookRepository:
                 isbn_10=book_data["isbn_10"],
                 isbn_13=book_data["isbn_13"],
                 published_date=published_date,
+                publisher=book_data["publisher"],
             )
         except Exception as e:
             print(e)
@@ -59,13 +65,14 @@ class BookRepository:
 
         return book
 
-    # TODO リファクタリング予定
+    # TODO リファクタリング予定 ここじゃないよね
     @staticmethod
     def _convert_to_date_format(date_str):
         """YYYY-MM-DD形式に変換。変換不可の場合はNoneを返す。"""
         try:
             return datetime.strptime(date_str, "%Y-%m-%d").date()
         except Exception:
+            print(date_str + "は変換できませんでした。")
             return None
 
 

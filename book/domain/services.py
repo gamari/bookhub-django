@@ -11,6 +11,7 @@ from book.infrastructure.mappers import GoogleBooksMapper
 
 # 書籍ドメイン
 class BookService:
+    # TODO review repositoryとか渡してるのはおかしい
     def __init__(self, book_repository, review_repository, bookshelf_repository):
         self.book_repository = book_repository
         self.review_repository = review_repository
@@ -37,6 +38,15 @@ class BookService:
         if not user.is_authenticated:
             return False
         return self.bookshelf_repository.has_book_for_user(book, user)
+    
+    def get_or_create_books(self, books_data):
+        """書籍一覧を取得または作成する。"""
+        books = []
+        for book_data in books_data:
+            book = self.book_repository.get_or_create(book_data)
+            if book:
+                books.append(book)
+        return books
 
 
 # 検索ドメイン
@@ -45,7 +55,7 @@ class SearchService(ABC):
     def search(self, query, page):
         pass
 
-
+# TODO 検索サービスはどこに置くべきか
 class BookSearchService(SearchService):
     def __init__(self):
         self.repository = BookRepository()
@@ -58,24 +68,19 @@ class BookSearchService(SearchService):
 
 
 class GoogleBooksService(SearchService):
-    def __init__(self):
-        self.api_client = GoogleBooksAPIClient()
-        self.repository = BookRepository()
+    def __init__(self, api_client, book_service):
+        self.api_client = api_client
+        self.book_service = book_service
 
     def search(self, query, page):
         api_result = self.api_client.fetch_books(query, page)
         book_items = api_result.get("items", [])
 
         books_data = GoogleBooksMapper.to_books(book_items)
-
-        books = []
-        for book_data in books_data:
-            book = self.repository.get_or_create(book_data)
-            if book:
-                books.append(book)
+        books = self.book_service.get_or_create_books(books_data)
 
         total_items = api_result.get("totalItems", 0)
-        total_pages = (total_items // 10) + (1 if total_items % 10 else 1)
+        total_pages = (total_items // 10) + (1 if total_items % 10 else 0)
 
         return books, total_pages
 

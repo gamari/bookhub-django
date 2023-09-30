@@ -9,6 +9,7 @@ from book.application.usecases import (
     MyPageShowUsecase,
 )
 from book.domain.repositories import BookRepository, BookshelfRepository
+from book.infrastructure.external.apis import GoogleBooksAPIClient
 from book.models import Book, Bookshelf
 from book.domain.services import (
     ActivityService,
@@ -51,7 +52,14 @@ def book_search(request):
 
     # TODO 詳細検索は、ログイン時のみ利用可能にする
     if mode == "detail":
-        search_service = GoogleBooksService()
+        search_service = GoogleBooksService(
+            GoogleBooksAPIClient(), 
+            BookService(
+                BookRepository(),
+                ReviewRepository(),
+                BookshelfRepository()
+            )
+        )
     else:
         search_service = BookSearchService()
 

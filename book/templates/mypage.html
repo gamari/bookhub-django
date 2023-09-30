@@ -79,10 +79,13 @@
       <h2 class="">本棚</h2>
       <a href="{% url 'bookshelf_list' bookshelf.id %}"><i class="fa-solid fa-share"></i></a>
     </div>
+
     {% if books %}
       <div class="bookshelf">
         {% for book in books %}
-          <a href="{% url 'reading_record' book.id %}" class="bookshelf-item"><img src="{{ book.thumbnail }}" alt="{{ book.title }}" /></a>
+          <a href="{% url 'reading_record' book.id %}" class="bookshelf-item">
+            <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
+          </a>
         {% endfor %}
       </div>
     {% else %}

@@ -2,11 +2,13 @@ class GoogleBooksMapper:
     # TODO result受け取って、booksを返したほうが良いかも。
     @staticmethod
     def to_books(items):
+        """ISBNがない場合は何も返さない"""
         books = []
 
         for item in items:
-            print(item)
             volume_info = item.get("volumeInfo", {})
+
+            # ISBN処理
             industry_identifiers = volume_info.get("industryIdentifiers", [])
 
             isbn_10 = None
@@ -19,12 +21,14 @@ class GoogleBooksMapper:
                     isbn_13 = identifier.get("identifier")
 
             if not isbn_10 or not isbn_13:
+                print(volume_info.get("title"))
                 continue
 
             authors = volume_info.get("authors", [])
-            print(authors)
 
             published_date = volume_info.get("publishedDate", "")
+
+            publisher = volume_info.get("publisher", "")
 
             book = {
                 "title": volume_info.get("title", "Unknown Title"),
@@ -34,6 +38,7 @@ class GoogleBooksMapper:
                 "isbn_13": isbn_13,
                 "authors": authors,
                 "published_date": published_date,
+                "publisher": publisher,
             }
             books.append(book)
 
