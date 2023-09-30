@@ -7,8 +7,8 @@
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/components/bookshelf.css' %}" />
   <link rel="stylesheet" href="{% static 'css/pages/bookshelf_list.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -35,7 +35,7 @@
   <div class="bookshelf-container">
     <div class="bookshelf">
       {% for book in bookshelf.books.all %}
-        <a href="{% url 'reading_record' book.id %}" class="bookshelf-item"><img src="{{ book.thumbnail }}" alt="{{ book.title }}" /></a>
+        <a href="{% url 'reading_record' book.id %}" class="book"><img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image" /></a>
       {% endfor %}
     </div>
   </div>

@@ -8,6 +8,8 @@
 
 {% block css %}
   <link href="{% static 'css/pages/book_detail.css' %}" rel="stylesheet" />
+
+  <link href="{% static 'css/components/book.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/review.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/review_modal.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/card.css' %}" rel="stylesheet" />
@@ -20,13 +22,17 @@
 {% block content %}
   <div class="page-title">書籍 > 詳細</div>
 
-  <div class="book-detail-section card">
-    <div class="book-detail-image">
-      <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
+  <div class="detail-section card">
+    <div class="detail-image">
+      <img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image" />
+
+      <div>
+        <a href="https://twitter.com/intent/tweet?text={{ book.title }}&url={{ request.build_absolute_uri|urlencode }}" target="_blank"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
+      </div>
     </div>
 
     <div class="book-detail-info-container text-sm">
-      <h4 class="text-primary">{{ book.title }}</h4>
+      <h4 class="detail-title">{{ book.title }}</h4>
 
       <ul class="authors-container">
         {% for author in book.authors.all %}
@@ -53,7 +59,7 @@
         </span>
       </div>
 
-      <div>
+      <div class="rating-container">
         {% if avg_rating %}
           {% for i in rating_range %}
             {% if i <= avg_rating %}
@@ -71,13 +77,14 @@
 
       <div class="book-detail-tools">
         {% if user.is_authenticated %}
-          {% comment %}TODO Ajaxにする{% endcomment %}
           {% if book_on_shelf %}
             <a href="{% url 'remove_from_shelf' book.id %}" class="btn-sm btn-secondary">
               <i class="fa-solid fa-trash"></i>
               <span>本棚から削除</span>
             </a>
-            <a href="{% url 'reading_record' book.id %}" class="btn-sm btn-info"><span>読書記録へ</span></a>
+            <a href="{% url 'reading_record' book.id %}" class="btn-sm btn-info">
+              <i class="fa-regular fa-note-sticky"></i>
+              <span>メモする</span></a>
           {% else %}
             <a href="{% url 'add_to_shelf' book.id %}" class="btn-sm btn-primary">
               <i class="fa-solid fa-book"></i>
@@ -97,7 +104,7 @@
 
       <div>
         <span class="badge badge-info">登録者数</span>
-        <span class="text-sm">{{registers}}人</span>
+        <span class="text-sm">{{ registers }}人</span>
       </div>
     </div>
   </div>

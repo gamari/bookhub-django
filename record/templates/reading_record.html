@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="{% static 'css/components/review_modal.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/memo.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
 {% endblock %}
 
 {% block js %}
@@ -22,37 +23,15 @@
 
   <div class="book-detail-section card">
     <div class="book-detail-left">
-      <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
-
-      <div>
-        <a href="https://twitter.com/intent/tweet?text={{ book.title }}&url={{ request.build_absolute_uri|urlencode }}" target="_blank"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
-      </div>
+      <a href="{% url 'book_detail' book.id %}">
+        <img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image" />
+      </a>
     </div>
 
     <div class="book-detail-middle">
       <h4 class="text-primary">{{ book.title }}</h4>
 
-      <ul class="authors-container">
-        {% comment %}TODO 著者名は2名までにする{% endcomment %}
-        {% for author in book.authors.all %}
-          <li class="author-item">
-            <i class="fa-regular fa-user fa-sm"></i>
-            <span>{{ author.name }}</span>
-          </li>
-          {% empty %}
-          <li class="author-item">
-            <i class="fa-regular fa-user fa-sm"></i>
-            <span>-</span>
-          </li>
-        {% endfor %}
-      </ul>
-
       <div class="book-buttons">
-        <a href="{% url 'book_detail' book.id %}" class="btn-sm btn-info">
-          <i class="fa-solid fa-book"></i>
-          <span>書籍詳細へ</span>
-        </a>
-
         {% if record.finished_at %}
           <form action="{% url 'mark_as_unfinished' book.id %}" method="post">
             {% csrf_token %}

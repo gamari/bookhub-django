@@ -15,8 +15,11 @@
 
   <div class="setting-section">
     <div class="card">
-      <p>ユーザー名: {{ user.username }}</p>
-      <p>メールアドレス: {{ user.email }}</p>
+      <form method="post" action="{% url 'setting' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="更新" class="btn-sm btn-primary" />
+      </form>
     </div>
   </div>
 

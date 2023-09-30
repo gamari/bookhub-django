@@ -1,9 +1,24 @@
-.book-detail-section {
+.detail-section {
   display: grid;
   grid-template-columns: min-content 1fr 1fr;
   gap: 20px;
   margin-top: 32px;
   margin-bottom: 32px;
+}
+
+.detail-title {
+  font-size: 0.8rem;
+  color: #1e90ff;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.detail-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:12px;
 }
 
 .book-detail-tools {
@@ -44,6 +59,12 @@
   height: 10px;
 }
 
+.rating-container  {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+
 /* 書籍紹介 */
 .description-section {
   display: flex;
@@ -64,12 +85,12 @@
 }
 
 @media screen and (max-width: 768px) {
-  .book-detail-section {
+  .detail-section {
     grid-template-columns: 1fr;
     gap: 20px;
   }
 
-  .book-detail-image {
+  .detail-image {
     display: flex;
     justify-content: center;
     align-items: center;

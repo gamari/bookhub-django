@@ -57,6 +57,7 @@
   border-collapse: collapse;
   font-size: 12px;
   text-align: left;
+  border: 1px solid #ddd;
 }
 
 .data-table th,
@@ -114,6 +115,9 @@
   margin-bottom: 64px;
 }
 
+.share-icon {
+  text-decoration: none;
+}
 
 /* PC版 */
 @media screen and (min-width: 712px) {
