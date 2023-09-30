@@ -6,6 +6,7 @@ from config.application.usecases import Usecase
 
 from config.utils import get_month_date_range, get_month_range_of_today
 from book.models import Bookshelf
+from ranking.models import WeeklyRanking, WeeklyRankingEntry
 from record.domain.repositories import ReadingRecordRepository
 from review.forms import ReviewForm
 from review.domain.repositories import ReviewRepository
@@ -15,7 +16,9 @@ class HomePageShowUsecase(Usecase):
     """ホーム画面を表示する。"""
 
     def __init__(
-        self, record_repo: ReadingRecordRepository, review_repo: ReviewRepository
+        self,
+        record_repo: ReadingRecordRepository,
+        review_repo: ReviewRepository,
     ) -> None:
         self.record_repo = record_repo
         self.review_repo = review_repo
@@ -27,9 +30,17 @@ class HomePageShowUsecase(Usecase):
         )
         latest_reviews = self.review_repo.get_latest_reviews(limit=5)
 
+        # ランキングを取得する
+        # TODO リファクタリングする
+        latest_ranking = WeeklyRanking.objects.latest("end_date")
+        ranking_entries = WeeklyRankingEntry.objects.filter(
+            ranking=latest_ranking
+        ).order_by("-added_count")
+
         context = {
             "top_book_results": top_book_results,
             "latest_reviews": latest_reviews,
+            "ranking_entries": ranking_entries,
         }
 
         return context

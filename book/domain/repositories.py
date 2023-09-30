@@ -4,13 +4,13 @@ from book.models import Author, Book, Bookshelf
 from django.db.models import Q
 
 
-class AuthorRepository:
+class AuthorRepository(object):
     @staticmethod
     def get_or_create_by_name(name):
         return Author.objects.get_or_create(name=name)
 
 
-class BookRepository:
+class BookRepository(object):
     @staticmethod
     def search_by_title(query):
         return list(Book.objects.filter(title__icontains=query))
