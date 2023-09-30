@@ -54,10 +54,14 @@ class MyPageShowUsecase(Usecase):
         user,
         bookshelf_repository: BookshelfRepository,
         activity_service: ActivityDomainService,
+        record_repo: ReadingRecordRepository,
+        review_repo: ReviewRepository,
     ) -> None:
         self.user = user
         self.bookshelf_repository = bookshelf_repository
         self.activity_service = activity_service
+        self.record_repo = record_repo
+        self.review_repo = review_repo
 
     def run(self):
         bookshelf: Bookshelf = self.bookshelf_repository.get_or_create(user=self.user)
@@ -71,6 +75,11 @@ class MyPageShowUsecase(Usecase):
             self.user, start_date, end_date
         )
 
+        finished_count = self.record_repo.finished_books_this_month(self.user)
+
+        reviews = self.review_repo.get_reviews_for_user_this_month(self.user)
+        print(reviews)
+
         month = today.month
 
         return {
@@ -78,6 +87,8 @@ class MyPageShowUsecase(Usecase):
             "activity_data": activity_data,
             "month": month,
             "bookshelf": bookshelf,
+            "finished_count": finished_count,
+            "reviews": reviews,
         }
 
 

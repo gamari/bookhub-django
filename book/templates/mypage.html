@@ -14,92 +14,85 @@
 {% endblock %}
 
 {% block content %}
-<div class="page-title">マイページ</div>
+  <div class="page-title">マイページ</div>
 
-<div class="top-section card">
-  <div class="top-left">
-    <div class="user-icon"></div>
+  <div class="top-section card">
+    <div class="top-left">
+      <div class="user-icon"></div>
 
-    <h4>{{ user.username }}</h4>
+      <h4>{{ user.username }}</h4>
 
-    <div>
       <div>
-        <a class="btn btn-info" href="{% url 'setting' %}">ユーザー設定</a>
+        <div>
+          <a class="btn-sm btn-info" href="{% url 'setting' %}">ユーザー設定</a>
+        </div>
       </div>
+    </div>
+
+    <div class="top-right">
+      <div>
+        <h3>{{ month }}月の活動履歴</h3>
+
+        <div class="contribution-calendar">
+          <div class="day-label">月</div>
+          <div class="day-label">火</div>
+          <div class="day-label">水</div>
+          <div class="day-label">木</div>
+          <div class="day-label">金</div>
+          <div class="day-label">土</div>
+          <div class="day-label">日</div>
+
+          <!-- 各日のデータを表示 -->
+          {% for data in activity_data %}
+            <div class="contribution-day" data-count="{{ data.activity_count }}" title="{{ data.date }}: {{ data.activity_count }} activities">{{ data.date.day }}</div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <table class="data-table">
+        <tr>
+          <th>今月の記録</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>読破数</td>
+          <td>{{ finished_count }}</td>
+        </tr>
+        <tr>
+          <td>レビュー数</td>
+          <td>{{ reviews }}</td>
+        </tr>
+      </table>
     </div>
   </div>
 
-  <div class="top-right">
-    <div>
-      <h3>{{ month }}月の活動履歴</h3>
+  {% comment %}本棚{% endcomment %}
+  <div class="mypage-bookshelf-section">
+    <div class="mypage-bookshelf-title mb-4">
+      <h3>本棚</h3>
+      <a href="{% url 'bookshelf_list' bookshelf.id %}"><i class="fa-solid fa-share"></i></a>
+    </div>
 
-      <div class="contribution-calendar">
-        <div class="day-label">月</div>
-        <div class="day-label">火</div>
-        <div class="day-label">水</div>
-        <div class="day-label">木</div>
-        <div class="day-label">金</div>
-        <div class="day-label">土</div>
-        <div class="day-label">日</div>
+    {% if books %}
+      <div class="bookshelf">
+        {% for book in books %}
+          <a href="{% url 'reading_record' book.id %}" class="book">
+            <img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image" />
 
-        <!-- 各日のデータを表示 -->
-        {% for data in activity_data %}
-          <div class="contribution-day" data-count="{{ data.activity_count }}" title="{{ data.date }}: {{ data.activity_count }} activities">{{ data.date.day }}</div>
+            {% comment %}TODO 進行状況で色を変える{% endcomment %}
+            <span class="book-done-icon"><i class="fa-solid fa-check"></i></span>
+          </a>
         {% endfor %}
       </div>
-    </div>
-
-    <table class="data-table">
-      <tr>
-        <th>今月の記録</th>
-        <th>数</th>
-      </tr>
-      <tr>
-        <td>メモ数</td>
-        <td>20</td>
-      </tr>
-      <tr>
-        <td>読破した書籍数</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>レビューした書籍数</td>
-        <td>3</td>
-      </tr>
-    </table>
-  </div>
-</div>
-
-{% comment %} 本棚 {% endcomment %}
-<div class="mypage-bookshelf-section">
-  <div class="mypage-bookshelf-title mb-4">
-    <h3>本棚</h3>
-    <a href="{% url 'bookshelf_list' bookshelf.id %}"><i class="fa-solid fa-share"></i></a>
+    {% else %}
+      <p>本棚には書籍が登録されていません。</p>
+    {% endif %}
   </div>
 
-  {% if books %}
-    <div class="bookshelf">
-      {% for book in books %}
-        <a href="{% url 'reading_record' book.id %}" class="book">
-          <img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image" />
+  <div class="review-section">
+    <h3>最近のレビュー</h3>
+    {% comment %}TODO{% endcomment %}
 
-          {% comment %} TODO 進行状況で色を変える {% endcomment %}
-          <span class="book-done-icon">
-            <i class="fa-solid fa-check"></i>
-          </span>
-        </a>
-      {% endfor %}
-    </div>
-  {% else %}
-    <p>本棚には書籍が登録されていません。</p>
-  {% endif %}
-</div>
-
-<div class="review-section">
-  <h3>最近のレビュー</h3>
-  {% comment %} TODO {% endcomment %}
-
-  <div>特になし</div>
-</div>
-
+    <div>特になし</div>
+  </div>
 {% endblock %}

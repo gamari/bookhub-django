@@ -29,10 +29,13 @@ def home(request):
 
 @login_required
 def mypage(request):
+    # TODO serviceに切り出したい
     usecase = MyPageShowUsecase(
         request.user, 
         BookshelfRepository(), 
-        ActivityDomainService()
+        ActivityDomainService(),
+        ReadingRecordRepository(),
+        ReviewRepository()
     )
     context = usecase.execute()
     return render(request, "mypage.html", context)
