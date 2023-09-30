@@ -10,6 +10,7 @@ User = get_user_model()
 
 class Author(models.Model):
     """著者。"""
+
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
@@ -20,15 +21,16 @@ class Author(models.Model):
 
 class Book(models.Model):
     """書籍。"""
+
     id = models.AutoField(primary_key=True)
     isbn_10 = models.CharField(max_length=10, unique=True, null=True, blank=True)
     isbn_13 = models.CharField(max_length=13, unique=True, null=True, blank=True)
-    title = models.CharField("書籍名",max_length=255)
-    description = models.TextField("書籍説明",null=True, blank=True)
+    title = models.CharField("書籍名", max_length=255)
+    description = models.TextField("書籍説明", null=True, blank=True)
     authors = models.ManyToManyField(Author)
     thumbnail = models.URLField("サムネイル", null=True, blank=True)
-    published_date = models.DateField("出版日",null=True, blank=True)
-    publisher = models.CharField("出版社",max_length=255, null=True, blank=True)
+    published_date = models.DateField("出版日", null=True, blank=True)
+    publisher = models.CharField("出版社", max_length=255, null=True, blank=True)
 
     def __str__(self):
         return f"[{self.isbn_10} | {self.isbn_13}] {self.title}"
@@ -45,14 +47,23 @@ class Book(models.Model):
 
 class Bookshelf(models.Model):
     """本棚。"""
+
     id: uuid.UUID = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    books = models.ManyToManyField(Book)
+    books = models.ManyToManyField(Book, through="BookshelfBook")
 
     def add_book(self, book: Book):
         self.books.add(book)
 
     def remove_book(self, book: Book):
         self.books.remove(book)
+
+
+class BookshelfBook(models.Model):
+    """中間テーブル"""
+
+    bookshelf = models.ForeignKey(Bookshelf, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
