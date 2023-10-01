@@ -42,20 +42,7 @@
       <div>
         <h3>{{ month }}月の活動履歴</h3>
 
-        <div class="contribution-calendar">
-          <div class="day-label">月</div>
-          <div class="day-label">火</div>
-          <div class="day-label">水</div>
-          <div class="day-label">木</div>
-          <div class="day-label">金</div>
-          <div class="day-label">土</div>
-          <div class="day-label">日</div>
-
-          <!-- 各日のデータを表示 -->
-          {% for data in activity_data %}
-            <div class="contribution-day" data-count="{{ data.activity_count }}" title="{{ data.date }}: {{ data.activity_count }} activities">{{ data.date.day }}</div>
-          {% endfor %}
-        </div>
+        {% include "components/activities.html" %}
       </div>
 
       <table class="data-table">

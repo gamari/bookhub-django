@@ -10,10 +10,10 @@ from book.application.usecases import (
 from book.domain.repositories import BookRepository, BookshelfRepository
 from book.models import Book, Bookshelf
 from book.domain.services import (
-    ActivityDomainService,
     BookDomainService,
 )
 from record.domain.repositories import ReadingRecordRepository
+from record.domain.services import ActivityDomainService
 from review.domain.repositories import ReviewRepository
 
 

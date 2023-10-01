@@ -1,8 +1,8 @@
 from config.application.usecases import Usecase
 
 
-class BookSearchUsecase(Usecase):
-    """書籍検索を行う。"""
+class BookSearchByTitleUsecase(Usecase):
+    """書籍名で検索を行う。"""
 
     def __init__(self, mode, page, query, search_service) -> None:
         self.mode = mode

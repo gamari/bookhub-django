@@ -1,13 +1,13 @@
 from django.db.models import Avg
 from django.utils import timezone
 from book.domain.repositories import BookshelfRepository
-from book.domain.services import ActivityDomainService
 from config.application.usecases import Usecase
 
 from config.utils import get_month_date_range, get_month_range_of_today
 from book.models import Bookshelf
 from ranking.models import WeeklyRanking, WeeklyRankingEntry
 from record.domain.repositories import ReadingRecordRepository
+from record.domain.services import ActivityDomainService
 from review.forms import ReviewForm
 from review.domain.repositories import ReviewRepository
 
@@ -72,14 +72,13 @@ class MyPageShowUsecase(Usecase):
 
         start_date, end_date = get_month_date_range(today)
 
-        activity_data = self.activity_service.fetch_monthly_activity(
+        activity_data = self.activity_service.fetch_activities(
             self.user, start_date, end_date
         )
 
         finished_count = self.record_repo.finished_books_this_month(self.user)
 
         reviews = self.review_repo.get_reviews_for_user_this_month(self.user)
-        print(reviews)
 
         month = today.month
 
