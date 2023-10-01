@@ -61,6 +61,9 @@ class GoogleBooksService(SearchDomainService):
         book_items = api_result.get("items", [])
 
         books_data = GoogleBooksMapper.to_books(book_items)
+
+        print(str(len(books_data)) + "件の書籍を登録します")
+
         books = self.book_service.get_or_create_books(books_data)
 
         total_items = api_result.get("totalItems", 0)

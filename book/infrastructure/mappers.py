@@ -20,8 +20,10 @@ class GoogleBooksMapper:
                 elif identifier.get("type") == "ISBN_13":
                     isbn_13 = identifier.get("identifier")
 
-            if not isbn_10 or not isbn_13:
+            if not isbn_10 and not isbn_13:
+                print("ISBNがありませんでした。")
                 print(volume_info.get("title"))
+                print(industry_identifiers, isbn_10, isbn_13)
                 continue
 
             authors = volume_info.get("authors", [])
