@@ -8,6 +8,7 @@
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/pages/setting.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/form.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -15,9 +16,55 @@
 
   <div class="setting-section">
     <div class="card">
-      <form method="post" action="{% url 'setting' %}">
+      <form method="post" action="{% url 'setting' %}" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="form-group">
+          <span class="form-label">メールアドレス</span>
+          {{ form.email }}
+
+          {% if form.email.errors %}
+            <div class="form-error">
+              {% for error in form.email.errors %}
+                {{ error }}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <span class="form-label">ユーザー名</span>
+          {{ form.username }}
+
+          {% if form.username.errors %}
+            <div class="form-error">
+              {% for error in form.username.errors %}
+                {{ error }}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">プロフィール画像</div>
+          <div class="form-row">
+            <div class="form-image">
+              {% if user.profile_image %}
+                <img src="{{ user.profile_image.url }}" alt="現在のプロフィール画像" class="form-image" />
+              {% else %}
+                <p class="form-no-image">no-image</p>
+              {% endif %}
+            </div>
+            <div>{{ form.profile_image }}</div>
+          </div>
+
+          {% if form.profile_image.errors %}
+            <div class="form-error">
+              {% for error in form.profile_image.errors %}
+                {{ error }}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
         <input type="submit" value="更新" class="btn-sm btn-primary" />
       </form>
     </div>

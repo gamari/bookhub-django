@@ -10,8 +10,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-# TODO typeの修正
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default="").split(',') # type: ignore
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default="").split(',')
 
 GOOGLE_BOOKS_API_KEY = config('GOOGLE_BOOKS_API_KEY', default="")
 

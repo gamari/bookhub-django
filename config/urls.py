@@ -11,3 +11,6 @@ urlpatterns = [
     path("", include("record.urls")),
     path("", include("ranking.urls")),
 ]
+
+# ファイル設定
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

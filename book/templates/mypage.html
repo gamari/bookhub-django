@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="{% static 'css/components/contribution.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -18,13 +19,21 @@
 
   <div class="top-section card">
     <div class="top-left">
-      <div class="user-icon"></div>
+      <div>
+        {% if user.profile_image %}
+          <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="user-icon user-no-image" />
+        {% else %}
+          <div class="user-icon user-no-image">
+            <i class="fa-regular fa-user fa-2xl" style="color: #5e5e5e;"></i>
+          </div>
+        {% endif %}
+      </div>
 
       <h4>{{ user.username }}</h4>
 
       <div>
         <div>
-          <a class="btn-sm btn-info" href="{% url 'setting' %}">ユーザー設定</a>
+          <a class="btn-sm btn-info" href="{% url 'setting' %}">アカウント設定</a>
         </div>
       </div>
     </div>
@@ -70,9 +79,7 @@
   <div class="mypage-bookshelf-section">
     <div class="mypage-bookshelf-title mb-4">
       <h3>本棚</h3>
-      <a href="{% url 'bookshelf_list' bookshelf.id %}" class="share-icon">
-        <i class="fa-solid fa-share-from-square"></i>
-      </a>
+      <a href="{% url 'bookshelf_list' bookshelf.id %}" class="share-icon"><i class="fa-solid fa-share-from-square"></i></a>
     </div>
 
     {% if books %}

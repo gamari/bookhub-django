@@ -13,14 +13,14 @@ class AccountUpdateView(UpdateView):
     model = Account
     form_class = AccountUpdateForm
     template_name = "setting.html"
-    success_url = reverse_lazy("setting")
+    success_url = reverse_lazy("mypage")
 
     def get_object(self, queryset=None):
         return self.request.user
 
 
-def account_detail(request, account_id):
-    account = get_object_or_404(Account, pk=account_id)
+def account_detail(request, username):
+    account = get_object_or_404(Account, username=username)
     return render(request, "account_detail.html", {"account": account})
 
 
