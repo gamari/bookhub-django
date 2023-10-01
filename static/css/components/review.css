@@ -10,11 +10,11 @@
   border-radius: 5px;
 }
 
-.review-user-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 100%;
-  background-color: #ddd;
+.review-user-container {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
 }
 
 .review-rating {

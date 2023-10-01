@@ -25,9 +25,8 @@
 
 .form-row {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
+    flex-direction: column;
+    word-wrap: break-word;
 }
 
 .form-image {
@@ -53,4 +52,14 @@
     color: red;
     font-size: 14px;
     margin-top: 4px;
+}
+
+/* PC版 */
+@media screen and (min-width: 712px) {
+    .form-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+    }
 }

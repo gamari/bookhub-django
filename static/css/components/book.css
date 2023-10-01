@@ -17,13 +17,20 @@
   height: 100px;
 }
 
+.book-title_sm {
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-top: 4px;
+  text-decoration: none;
+}
+
 
 /* 本棚 */
 .bookshelf {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 16px;
 }
 
 .book-done-icon {

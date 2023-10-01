@@ -46,7 +46,7 @@
 
         <div class="form-group">
           <div class="form-label">プロフィール画像</div>
-          <div class="form-row">
+          <div class="form-row text-sm">
             <div class="form-image">
               {% if user.profile_image %}
                 <img src="{{ user.profile_image.url }}" alt="現在のプロフィール画像" class="form-image" />
@@ -70,7 +70,7 @@
     </div>
   </div>
 
-  <div>
+  <div class="mb-10">
     <a href="{% url 'logout' %}" class="btn btn-danger">ログアウト</a>
   </div>
 {% endblock %}

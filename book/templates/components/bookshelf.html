@@ -1,13 +1,10 @@
-{% comment %} 
-books必須
-{% endcomment %}
 <div class="bookshelf">
   {% for book in books %}
     <a href="{% url 'reading_record' book.id %}" class="book">
       <img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image" />
 
-      {% comment %}TODO 進行状況で色を変える{% endcomment %}
-      <span class="book-done-icon"><i class="fa-solid fa-check"></i></span>
+      {% comment %}TODO 進行状況を記載する{% endcomment %}
+      {% comment %} <span class="book-done-icon"><i class="fa-solid fa-check"></i></span> {% endcomment %}
     </a>
   {% endfor %}
 </div>

@@ -1,14 +1,16 @@
 <div class="reviews-container">
   {% for review in reviews %}
-    <a href="{% url 'book_detail' review.book.id %}" class="review-line card-sm">
+    <div class="review-line card-sm">
       <div>
-        <img src="{{ review.book.thumbnail }}" alt="{{ book.title }}" class="book-image-sm" />
+        <a href="{% url 'book_detail' review.book.id %}"><img src="{{ review.book.thumbnail }}" alt="{{ book.title }}" class="book-image-sm" /></a>
       </div>
 
       <div class="review-container">
-        <div class="review-user">
-          <div class="user-icon-sm"></div>
-          {{ review.user.username }}
+        <div class="review-user-container">
+          <div>
+            {% include 'components/user_icon_sm.html' %}
+          </div>
+          <div>{{ review.user.username }}</div>
         </div>
 
         <div class="rating-container">
@@ -25,12 +27,12 @@
           {% endif %}
         </div>
 
-        <div class="text-sm text-primary">{{ review.book.title }}</div>
+        {% include 'components/book_title_sm.html' %}
 
         <div>
           <div class="review-content">{{ review.content }}</div>
         </div>
       </div>
-    </a>
+    </div>
   {% endfor %}
 </div>
