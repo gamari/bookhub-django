@@ -61,14 +61,7 @@
 
       <div class="rating-container">
         {% if avg_rating %}
-          {% for i in rating_range %}
-            {% if i <= avg_rating %}
-              <i class="fa-solid fa-star" style="color: #ffdc2e;"></i>
-            {% else %}
-              <i class="far fa-star"></i>
-            {% endif %}
-          {% endfor %}
-
+          {% include 'components/rating_stars.html' %}
           {{ avg_rating }}点
         {% else %}
           レビューがありません
@@ -84,7 +77,8 @@
             </a>
             <a href="{% url 'reading_record' book.id %}" class="btn-sm btn-info">
               <i class="fa-regular fa-note-sticky"></i>
-              <span>メモする</span></a>
+              <span>メモする</span>
+            </a>
           {% else %}
             <a href="{% url 'add_to_shelf' book.id %}" class="btn-sm btn-primary">
               <i class="fa-solid fa-book"></i>
@@ -155,5 +149,5 @@
   </div>
 
   <!-- モーダル機能 -->
-  {% include 'review_modal.html' %}
+  {% include 'components/review_modal.html' %}
 {% endblock %}

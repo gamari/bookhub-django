@@ -1,0 +1,10 @@
+<ol id="memoList">
+  {% for memo in memos %}
+    <li class="memo-item">
+      <p>{{ memo.created_at }}</p>
+      <p>{{ memo.content }}</p>
+    </li>
+    {% empty %}
+    <p id="no-memo-title">まだメモはありません。</p>
+  {% endfor %}
+</ol>

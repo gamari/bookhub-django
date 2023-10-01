@@ -23,9 +23,7 @@
 
   <div class="book-detail-section card">
     <div class="book-detail-left">
-      <a href="{% url 'book_detail' book.id %}">
-        <img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image" />
-      </a>
+      <a href="{% url 'book_detail' book.id %}"><img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image" /></a>
     </div>
 
     <div class="book-detail-middle">
@@ -97,17 +95,8 @@
       </button>
     </form>
 
-    <ol id="memoList">
-      {% for memo in memos %}
-        <li class="memo-item">
-          <p>{{ memo.created_at }}</p>
-          <p>{{ memo.content }}</p>
-        </li>
-        {% empty %}
-        <p id="no-memo-title">まだメモはありません。</p>
-      {% endfor %}
-    </ol>
+    {% include "components/memo_list.html" %}
   </div>
 
-  {% include 'review_modal.html' %}
+  {% include 'components/review_modal.html' %}
 {% endblock %}

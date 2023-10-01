@@ -1,0 +1,9 @@
+<div>
+  {% for i in rating_range %}
+    {% if i <= avg_rating %}
+      <i class="fa-solid fa-star" style="color: #ffdc2e;"></i>
+    {% else %}
+      <i class="far fa-star"></i>
+    {% endif %}
+  {% endfor %}
+</div>

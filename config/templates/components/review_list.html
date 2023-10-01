@@ -1,0 +1,36 @@
+<div class="reviews-container">
+  {% for review in reviews %}
+    <a href="{% url 'book_detail' review.book.id %}" class="review-line card-sm">
+      <div>
+        <img src="{{ review.book.thumbnail }}" alt="{{ book.title }}" class="book-image-sm" />
+      </div>
+
+      <div class="review-container">
+        <div class="review-user">
+          <div class="user-icon-sm"></div>
+          {{ review.user.username }}
+        </div>
+
+        <div class="rating-container">
+          {% if review.rating %}
+            {% for i in rating_range %}
+              {% if i <= review.rating %}
+                <i class="fa-solid fa-star" style="color: #ffdc2e;"></i>
+              {% else %}
+                <i class="far fa-star"></i>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            レビューがありません
+          {% endif %}
+        </div>
+
+        <div class="text-sm text-primary">{{ review.book.title }}</div>
+
+        <div>
+          <div class="review-content">{{ review.content }}</div>
+        </div>
+      </div>
+    </a>
+  {% endfor %}
+</div>

@@ -1,4 +1,3 @@
-from django.db.models import Avg
 from django.utils import timezone
 from book.domain.repositories import BookshelfRepository
 from config.application.usecases import Usecase
@@ -39,7 +38,7 @@ class HomePageShowUsecase(Usecase):
 
         context = {
             "top_book_results": top_book_results,
-            "latest_reviews": latest_reviews,
+            "reviews": latest_reviews,
             "ranking_entries": ranking_entries,
             "rating_range": range(1, 6),
         }

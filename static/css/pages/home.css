@@ -121,11 +121,8 @@
   margin-top: 16px;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 16px;
-}
-
-.recommendation-book-container {
-  margin-top: 32px;
 }
 
 /* PC版 */

@@ -20,13 +20,7 @@
   <div class="top-section card">
     <div class="top-left">
       <div>
-        {% if user.profile_image %}
-          <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="user-icon user-no-image" />
-        {% else %}
-          <div class="user-icon user-no-image">
-            <i class="fa-regular fa-user fa-2xl" style="color: #5e5e5e;"></i>
-          </div>
-        {% endif %}
+        {% include "components/user_icon.html" %}
       </div>
 
       <h4>{{ user.username }}</h4>
@@ -62,7 +56,6 @@
     </div>
   </div>
 
-  {% comment %}本棚{% endcomment %}
   <div class="mypage-bookshelf-section">
     <div class="mypage-bookshelf-title mb-4">
       <h3>本棚</h3>
@@ -70,16 +63,7 @@
     </div>
 
     {% if books %}
-      <div class="bookshelf">
-        {% for book in books %}
-          <a href="{% url 'reading_record' book.id %}" class="book">
-            <img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image" />
-
-            {% comment %}TODO 進行状況で色を変える{% endcomment %}
-            <span class="book-done-icon"><i class="fa-solid fa-check"></i></span>
-          </a>
-        {% endfor %}
-      </div>
+      {% include "components/bookshelf.html" %}
     {% else %}
       <p>本棚には書籍が登録されていません。</p>
     {% endif %}
@@ -87,7 +71,6 @@
 
   <div class="review-section">
     <h3>最近のレビュー</h3>
-    {% comment %}TODO{% endcomment %}
 
     <div>特になし</div>
   </div>
