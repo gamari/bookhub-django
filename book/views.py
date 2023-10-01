@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 
 from book.application.usecases import (
     BookDetailPageShowUsecase,
-    BookSearchUsecase,
     HomePageShowUsecase,
     MyPageShowUsecase,
 )
@@ -16,8 +15,6 @@ from book.domain.services import (
 )
 from record.domain.repositories import ReadingRecordRepository
 from review.domain.repositories import ReviewRepository
-from search.domain.services import BookSearchService, GoogleBooksService
-from search.infrastracture.external.apis import GoogleBooksAPIClient
 
 
 def home(request):
@@ -46,26 +43,6 @@ def book_detail(request, book_id):
     usecase = BookDetailPageShowUsecase(book_id, request.user, book_service)
     context = usecase.execute()
     return render(request, "books/book_detail.html", context)
-
-
-# 検索
-def book_search(request):
-    query = request.GET.get("query")
-    mode = request.GET.get("mode", "")
-    page = int(request.GET.get("page", 1))
-
-    if mode == "detail":
-        search_service = GoogleBooksService(
-            GoogleBooksAPIClient(),
-            BookDomainService(BookRepository(), BookshelfRepository()),
-        )
-    else:
-        search_service = BookSearchService()
-
-    usecase = BookSearchUsecase(mode, page, query, search_service)
-    context = usecase.execute()
-
-    return render(request, "books/search_results.html", context)
 
 
 # 本棚
