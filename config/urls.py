@@ -10,6 +10,7 @@ urlpatterns = [
     path("", include("review.urls")),
     path("", include("record.urls")),
     path("", include("ranking.urls")),
+    path("", include("search.urls")),
 ]
 
 # ファイル設定

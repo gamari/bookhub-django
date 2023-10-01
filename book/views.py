@@ -9,16 +9,15 @@ from book.application.usecases import (
     MyPageShowUsecase,
 )
 from book.domain.repositories import BookRepository, BookshelfRepository
-from book.infrastructure.external.apis import GoogleBooksAPIClient
 from book.models import Book, Bookshelf
 from book.domain.services import (
     ActivityDomainService,
-    BookSearchService,
     BookDomainService,
-    GoogleBooksService,
 )
 from record.domain.repositories import ReadingRecordRepository
 from review.domain.repositories import ReviewRepository
+from search.domain.services import BookSearchService, GoogleBooksService
+from search.infrastracture.external.apis import GoogleBooksAPIClient
 
 
 def home(request):
@@ -31,11 +30,11 @@ def home(request):
 def mypage(request):
     # TODO serviceに切り出したい
     usecase = MyPageShowUsecase(
-        request.user, 
-        BookshelfRepository(), 
+        request.user,
+        BookshelfRepository(),
         ActivityDomainService(),
         ReadingRecordRepository(),
-        ReviewRepository()
+        ReviewRepository(),
     )
     context = usecase.execute()
     return render(request, "mypage.html", context)
@@ -43,9 +42,7 @@ def mypage(request):
 
 # 書籍詳細
 def book_detail(request, book_id):
-    book_service = BookDomainService(
-        BookRepository(), BookshelfRepository()
-    )
+    book_service = BookDomainService(BookRepository(), BookshelfRepository())
     usecase = BookDetailPageShowUsecase(book_id, request.user, book_service)
     context = usecase.execute()
     return render(request, "books/book_detail.html", context)
@@ -59,11 +56,8 @@ def book_search(request):
 
     if mode == "detail":
         search_service = GoogleBooksService(
-            GoogleBooksAPIClient(), 
-            BookDomainService(
-                BookRepository(),
-                BookshelfRepository()
-            )
+            GoogleBooksAPIClient(),
+            BookDomainService(BookRepository(), BookshelfRepository()),
         )
     else:
         search_service = BookSearchService()

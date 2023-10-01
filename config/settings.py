@@ -1,5 +1,4 @@
 import os
-from datetime import timedelta
 from pathlib import Path
 
 from decouple import config
@@ -29,6 +28,7 @@ INSTALLED_APPS = [
     'review',
     'record',
     'ranking',
+    'search',
 ]
 
 MIDDLEWARE = [
