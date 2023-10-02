@@ -1,7 +1,4 @@
-{% comment %} 
-books -> bookとreading_recordの結合結果
-TODO 名称を変えたい
-{% endcomment %}
+{% comment %}books -> bookとreading_recordの結合結果 TODO 名称を変えたい{% endcomment %}
 <div class="bookshelf">
   {% for result in books %}
     <a href="{% url 'reading_record' result.book.id %}" class="book">
@@ -9,6 +6,8 @@ TODO 名称を変えたい
 
       {% if result.reading_record.finished_at %}
         <span class="book-done-icon"><i class="fa-solid fa-check"></i></span>
+      {% elif result.reading_record.started_at %}
+        <span class="book-play-icon"><i class="fa-solid fa-play"></i></span>
       {% endif %}
     </a>
     {% empty %}

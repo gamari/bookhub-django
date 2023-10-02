@@ -16,7 +16,7 @@
 
 {% block content %}
   <div class="search-section card">
-    <div class="search-title">気になる書籍を検索する</div>
+    <h4>気になる書籍を検索する</h4>
     <form action="{% url 'book_search' %}" method="GET" class="search-container">
       <input type="text" name="query" placeholder="書籍を検索" class="search-input" autocomplete="off" />
       <button type="submit" class="searchbox-icon"><i class="fas fa-search"></i></button>
@@ -24,19 +24,19 @@
   </div>
 
   <div class="about-section">
-    <h3>BookHubとは？</h3>
+    <h2>BookHubの特徴</h2>
 
     <div class="about-features-container">
       <div class="about-feature">
-        <div class="about-title">頑張りが可視化されます</div>
+        <div class="about-title">頑張りが可視化されます！</div>
         <div class="about-image"></div>
       </div>
       <div class="about-feature">
-        <div class="about-title">本棚をシェアできます</div>
+        <div class="about-title">本棚をシェアできます！</div>
         <div class="about-image"></div>
       </div>
       <div class="about-feature">
-        <div class="about-title">SNS感覚でメモができます</div>
+        <div class="about-title">手軽にメモが書けます！</div>
         <div class="about-image"></div>
       </div>
     </div>
@@ -59,7 +59,6 @@
   <div class="review-section">
     <h2>最新のレビュー</h2>
 
-    {% comment %}TODO リファクタリングする{% endcomment %}
     {% include 'components/review_list.html' %}
   </div>
 

@@ -4,13 +4,10 @@
   </div>
 
   <nav class="nav-container">
-    <form action="{% url 'book_search' %}" method="GET" class="searchbox-container">
-      <input type="text" name="query" placeholder="書籍名で検索…" class="searchbox-input" autocomplete="off" />
-      <button type="submit" class="searchbox-icon"><i class="fas fa-search"></i></button>
-    </form>
+    {% include "components/searchbox.html" %}
 
     {% if user.is_authenticated %}
-      <a href="{% url 'mypage' %}" class="mypage-link">マイページ</a>
+      <a href="{% url 'mypage' %}" class="btn">マイページ</a>
     {% else %}
       <a href="{% url 'login' %}" class="mypage-link">ログイン</a>
       <a href="{% url 'register' %}" class="btn btn-warning">新規登録</a>

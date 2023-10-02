@@ -33,6 +33,19 @@
   gap: 16px;
 }
 
+.book-play-icon {
+  position: absolute;
+  bottom: 12px;
+  right: 4px;
+  font-size: 28px;
+  color: rgb(255, 182, 36);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
 .book-done-icon {
   position: absolute;
   bottom: 12px;

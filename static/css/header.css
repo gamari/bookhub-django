@@ -6,15 +6,26 @@
     padding: 1rem;
     border-bottom: 1px #d2d2d2 solid;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #1E90FF;
-    color: white;
+    background-color: white;
+    color: #1E90FF;
 }
 
 .logo {
-    color: white;
     font-size: 1.5rem;
     font-weight: bold;
     text-decoration: none;
+}
+
+.logo:hover {
+    color: #1E90FF;
+}
+
+.logo:active {
+    color: #1E90FF;
+}
+
+.logo:visited {
+    color: #1E90FF;
 }
 
 
@@ -30,16 +41,14 @@
 /* 検索部分 */
 .searchbox-container {
     display: none;
-    /* display: flex; */
     flex-direction: row;
     border: 1px solid #d2d2d2;
-    border-radius: 5px;
     font-size: 16px;
 }
 
 .searchbox-input {
     padding: 0.5rem;
-    border: 1px solid transparent;
+    border: none;
     outline: none;
     width: 100%;
     max-width: 160px;
