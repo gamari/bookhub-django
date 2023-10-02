@@ -25,6 +25,12 @@ class ReadingRecord(models.Model):
     def __str__(self):
         return f"[{self.finished_at}]{self.user}は{self.book}を読んでいます"
     
+    def mark_as_started(self):
+        self.started_at = date.today()
+
+    def mark_as_unstarted(self):
+        self.started_at = None
+    
     def mark_as_finished(self):
         self.finished_at = date.today()
 

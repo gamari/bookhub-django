@@ -29,73 +29,15 @@
     <div class="book-detail-middle">
       <h4 class="text-primary">{{ book.title }}</h4>
 
-      <div class="book-buttons">
-        {% if record.finished_at %}
-          <form action="{% url 'mark_as_unfinished' book.id %}" method="post">
-            {% csrf_token %}
-            <button id="done-button" type="submit" class="btn-sm btn-primary w-full">
-              <i class="fa-regular fa-calendar"></i>
-
-              <span>未読にする</span>
-            </button>
-          </form>
-
-          <button id="openReviewModalButton" type="button" class="btn-sm btn-primary">
-            <i class="fa-solid fa-pen"></i>
-            <span>レビュー</span>
-          </button>
-        {% endif %}
-      </div>
+      {% comment %}TODO 書籍情報などを書く{% endcomment %}
     </div>
 
-    {% comment %}記録{% endcomment %}
-    <div class="book-detail-right">
-      <h4>記録情報</h4>
-
-      <div class="record-item">
-        <div class="badge badge-info">開始日</div>
-        <div class="text-sm">{{ record.started_at|default_if_none:'' }}</div>
-      </div>
-
-      <div class="record-item">
-        <div class="badge badge-info">読了日</div>
-
-        {% if record.finished_at %}
-          <div class="text-sm">{{ record.finished_at }}</div>
-        {% else %}
-          {% if record.started_at %}
-            <form action="{% url 'mark_as_finished' book.id %}" method="post">
-              {% csrf_token %}
-              <button type="submit" class="btn-sm btn-primary">
-                <i class="fa-regular fa-calendar"></i>
-                <span>読了済みにする</span>
-              </button>
-            </form>
-          {% else %}
-            <div class="text-sm">{{ record.finished_at|default_if_none:'-' }}</div>
-          {% endif %}
-        {% endif %}
-      </div>
-    </div>
+    {% include "components/reading_record.html" %}
   </div>
 
-  {# メモの投稿フォーム #}
   <div class="memo-section card">
-    <form id="memoForm" data-action="{% url 'create_memo' book.id %}">
-      {% csrf_token %}
-      {{ form.content }}
-
-      {% if form.content.errors %}
-        <div class="error">{{ form.content.errors }}</div>
-      {% endif %}
-
-      <button id="createMemoButton" class="btn btn-primary">
-        <i class="fa-regular fa-file"></i>
-        <span>メモを追加</span>
-      </button>
-    </form>
-
-    {% include "components/memo_list.html" %}
+    {% include 'components/memo_form.html' %}
+    {% include 'components/memo_list.html' %}
   </div>
 
   {% include 'components/review_modal.html' %}

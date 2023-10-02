@@ -1,0 +1,13 @@
+<form id="memoForm" data-action="{% url 'create_memo' book.id %}">
+  {% csrf_token %}
+  {{ form.content }}
+
+  {% if form.content.errors %}
+    <div class="error">{{ form.content.errors }}</div>
+  {% endif %}
+
+  <button id="createMemoButton" class="btn btn-primary">
+    <i class="fa-regular fa-file"></i>
+    <span>メモを追加</span>
+  </button>
+</form>

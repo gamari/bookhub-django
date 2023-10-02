@@ -71,7 +71,7 @@
       <div class="book-detail-tools">
         {% if user.is_authenticated %}
           {% if book_on_shelf %}
-            <a href="{% url 'remove_from_shelf' book.id %}" class="btn-sm btn-secondary">
+            <a href="{% url 'remove_from_shelf' book.id %}" class="btn-sm btn-warning">
               <i class="fa-solid fa-trash"></i>
               <span>本棚から削除</span>
             </a>
