@@ -33,12 +33,15 @@
           {% endif %}
         </div>
 
-        {% include 'components/book_title_sm.html' %}
+        <a href="{% url 'book_detail' review.book.id %}" class="book-title_sm"><span class="text-sm text-primary">{{ review.book.title }}</span></a>
+
 
         <div>
           <div class="review-content">{{ review.content }}</div>
         </div>
       </div>
     </div>
+    {% empty %}
+    <div class="card">レビューが存在しません</div>
   {% endfor %}
 </div>

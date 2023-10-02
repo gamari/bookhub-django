@@ -1,0 +1,13 @@
+<div class="book-authors-container">
+  {% for author in book.authors.all %}
+    <div class="book-author">
+      <i class="fa-regular fa-user fa-sm"></i>
+      <span>{{ author.name }}</span>
+    </div>
+    {% empty %}
+    <div class="book-author">
+      <i class="fa-regular fa-user fa-sm"></i>
+      <span>-</span>
+    </div>
+  {% endfor %}
+  </div>

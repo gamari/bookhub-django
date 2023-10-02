@@ -3,6 +3,8 @@
     <li class="memo-item">
       <p>{{ memo.created_at }}</p>
       <p>{{ memo.content }}</p>
+
+      <button class="memo-item-delete-button">DELETE</button>
     </li>
     {% empty %}
     <p id="no-memo-title">まだメモはありません。</p>

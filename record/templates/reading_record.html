@@ -24,16 +24,16 @@
 
   <div class="book-detail-section card">
     <div class="book-detail-left">
-      <a href="{% url 'book_detail' book.id %}"><img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image" /></a>
+      {% include "components/book_image.html" %}
     </div>
 
     <div class="book-detail-middle">
-      <h4 class="text-primary">{{ book.title }}</h4>
+      {% include "components/book_title_sm.html" %}
 
-      {% comment %}TODO 書籍情報などを書く{% endcomment %}
+      {% include "components/book_authors.html" %}
     </div>
 
-    {% include "components/reading_record.html" %}
+    {% include "components/record.html" %}
   </div>
 
   <div class="memo-section card">

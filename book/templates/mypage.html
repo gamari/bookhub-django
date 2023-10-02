@@ -15,8 +15,6 @@
 {% endblock %}
 
 {% block content %}
-  <div class="page-title">マイページ</div>
-
   <div class="top-section card">
     <div class="top-left">
       <div>
@@ -50,7 +48,7 @@
         </tr>
         <tr>
           <td>レビュー数</td>
-          <td>{{ reviews }}</td>
+          <td>{{ reviews_count }}</td>
         </tr>
       </table>
     </div>
@@ -66,8 +64,8 @@
   </div>
 
   <div class="review-section">
-    <h3>最近のレビュー</h3>
+    <h3 class="mb-4">最近のレビュー</h3>
 
-    <div>特になし</div>
+    {% include "components/review_list.html" %}
   </div>
 {% endblock %}

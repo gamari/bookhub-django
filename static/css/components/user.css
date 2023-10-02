@@ -24,8 +24,16 @@
   background-color: white;
 }
 
-.user-icon-image {
+.user-image {
   border-radius: 100%;
+  width: 100px;
+  height: 100px;
+}
+
+.user-image-sm {
+  border-radius: 100%;
+  width: 60px;
+  height: 60px;
 }
 
 .user-no-image {
@@ -34,11 +42,6 @@
 
 .user-icon-sm {
   display: block;
-  width: 50px;
-  height: 50px;
-}
-
-.user-image-sm {
   width: 50px;
   height: 50px;
 }
@@ -58,5 +61,5 @@
 
 .follow-label {
   font-size: 0.8rem;
-  color:#434343;
+  color: #434343;
 }

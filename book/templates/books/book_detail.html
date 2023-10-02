@@ -25,29 +25,16 @@
 
   <div class="detail-section card">
     <div class="detail-image">
-      <img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image" />
+      {% include "components/book_image.html" %}
 
       <div>
-        <a href="https://twitter.com/intent/tweet?text={{ book.title }}&url={{ request.build_absolute_uri|urlencode }}" target="_blank"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
+        {% include "components/book_share_x.html" %}
       </div>
     </div>
 
     <div class="book-detail-info-container text-sm">
-      <h4 class="detail-title">{{ book.title }}</h4>
-
-      <ul class="authors-container">
-        {% for author in book.authors.all %}
-          <li class="author-item">
-            <i class="fa-regular fa-user fa-sm"></i>
-            <span>{{ author.name }}</span>
-          </li>
-          {% empty %}
-          <li class="author-item">
-            <i class="fa-regular fa-user fa-sm"></i>
-            <span>-</span>
-          </li>
-        {% endfor %}
-      </ul>
+      {% include 'components/book_title_sm.html' %}
+      {% include "components/book_authors.html" %}
 
       <div>
         <i class="fa-regular fa-calendar fa-sm"></i>

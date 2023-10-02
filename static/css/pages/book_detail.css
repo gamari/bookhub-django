@@ -42,23 +42,6 @@
   gap: 8px;
 }
 
-/* 著者一覧 */
-.authors-container {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-}
-
-.author-item {
-  list-style: none;
-}
-
-.author-icon {
-  color: #444;
-  width: 10px;
-  height: 10px;
-}
-
 .rating-container {
   margin-top: 12px;
   margin-bottom: 12px;

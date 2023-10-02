@@ -5,7 +5,11 @@ from django.contrib.auth.decorators import login_required
 from book.domain.repositories import BookRepository, BookshelfRepository
 from book.domain.services import BookDomainService
 from book.models import Book
-from record.application.usecases import CreateMemoUsecase, RecordReadingHistoryUsecase
+from record.application.usecases import (
+    CreateMemoUsecase,
+    DeleteMemoUsecase,
+    RecordReadingHistoryUsecase,
+)
 from record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
 from record.domain.services import ReadingMemoService, ReadingService
 from record.models import ReadingRecord
@@ -44,6 +48,21 @@ def create_memo(request, book_id):
         return JsonResponse(response_data, status=201)
     else:
         return JsonResponse(response_data, status=400)
+
+
+# メモの削除機能
+def delete_memo(request, book_id):
+    if request.method != "DELETE":
+        return JsonResponse({"result": "fail"}, status=400)
+
+    memo_id = request.POST.get("memo_id")
+    if not memo_id:
+        return JsonResponse({"result": "fail"}, status=400)
+
+    usecase = DeleteMemoUsecase(ReadingMemoRepository())
+    context = usecase.execute(memo_id)
+
+    return render(request, "reading_record.html", context)
 
 
 # 開始操作

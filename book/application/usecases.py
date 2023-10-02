@@ -77,7 +77,7 @@ class MyPageShowUsecase(Usecase):
 
         finished_count = self.record_repo.finished_books_this_month(self.user)
 
-        reviews = self.review_repo.get_reviews_for_user_this_month(self.user)
+        reviews_count = self.review_repo.get_reviews_for_user_this_month(self.user)
 
         month = today.month
 
@@ -87,7 +87,7 @@ class MyPageShowUsecase(Usecase):
             "month": month,
             "bookshelf": bookshelf,
             "finished_count": finished_count,
-            "reviews": reviews,
+            "reviews_count": reviews_count,
         }
 
 

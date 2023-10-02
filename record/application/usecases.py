@@ -1,4 +1,5 @@
 from book.domain.repositories import BookRepository
+from config.application.usecases import Usecase
 
 from record.domain.repositories import ReadingMemoRepository
 from record.domain.services import ReadingMemoService
@@ -73,3 +74,15 @@ class CreateMemoUsecase(object):
             "content": saved_memo.content,
             "created_at": saved_memo.created_at.strftime("%Y年%m月%d日 %H:%M"),
         }
+
+
+class DeleteMemoUsecase(Usecase):
+    """メモ削除。"""
+
+    def __init__(self, memo_repo: ReadingMemoRepository):
+        self.memo_repo = memo_repo
+
+    def execute(self, memo_id):
+        memo = self.memo_repo.find_by_id(memo_id)
+        self.memo_repo.delete(memo)
+        return {"result": "success"}
