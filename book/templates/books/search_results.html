@@ -16,25 +16,25 @@
   <div class="search-section">
     <h3>検索する</h3>
 
-    <form action="{% url 'book_search' %}" method="get">
+    <form action="{% url 'book_search' %}" method="get" class="search-form-container">
       {% csrf_token %}
-      <input type="text" name="query" value="{{ query }}" class="search-input" />
+      <input type="text" name="query" value="{{ query }}" class="search-input" autocomplete="off" placeholder="書籍名で検索…" />
 
-      <button type="submit" class="btn-sm btn-primary">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <span>検索する</span>
-      </button>
-      <button type="submit" name="mode" value="detail" class="btn-sm btn-primary">詳細検索</button>
+      <div class="search-buttons-container">
+        <button type="submit" class="btn-sm btn-primary">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span>検索する</span>
+        </button>
+        <button type="submit" name="mode" value="detail" class="btn-sm">詳細検索</button>
+      </div>
     </form>
   </div>
 
   <div class="book-resuls-section">
     {% for book in results %}
       <div class="book-result-item card-sm">
-        <div class="book-image">
-          <a href="{% url 'book_detail' book.id %}">
-          <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
-          </a>
+        <div class="">
+          <a href="{% url 'book_detail' book.id %}"><img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image" /></a>
         </div>
 
         <div class="book-result-info">
@@ -59,7 +59,7 @@
             <span>{{ book.published_date|default_if_none:'-' }}</span>
           </div>
 
-          <p  class="book-info-description">{{ book.description|truncatechars:80 }}</p>
+          <p class="book-info-description">{{ book.description|truncatechars:80 }}</p>
         </div>
       </div>
       {% empty %}

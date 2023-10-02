@@ -20,7 +20,6 @@ class URLBuilder:
 
 class GoogleBooksURLBuilder(URLBuilder):
     def with_query(self, query):
-        # TODO 削除
         return self.add_param("q", '"' + query + '"')
     
     def with_query_in_title(self, query):
@@ -62,7 +61,8 @@ class GoogleBooksAPIClient(object):
         start_index = (int(page) - 1) * 10
         url = (
             GoogleBooksURLBuilder(GoogleBooksAPIClient.BASE_URL)
-            .with_query_in_title(query)
+            .with_query(query)
+            # .with_query_in_title(query)
             .with_start_index(start_index)
             .with_max_results(10)
             .with_lang_restrict("ja")

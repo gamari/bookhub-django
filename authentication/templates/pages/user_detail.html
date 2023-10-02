@@ -10,6 +10,7 @@
   <link href="{% static 'css/pages/user_detail.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/card.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/user.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/components/book.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block js %}
@@ -17,10 +18,13 @@
 {% endblock %}
 
 {% block content %}
+  <div class="mt-10">
+    {% include 'components/user_panel.html' %}
+  </div>
 
-<div class="mt-10">
-  {% include "components/user_panel.html" %}
-</div>
+  <div class="mt-10">
+    <h4>{{ user.username }}さんの本棚</h4>
 
-  <div>user</div>
+    {% include "components/bookshelf.html" %}
+  </div>
 {% endblock %}

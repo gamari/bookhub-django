@@ -18,7 +18,7 @@
   <div class="search-section card">
     <div class="search-title">気になる書籍を検索する</div>
     <form action="{% url 'book_search' %}" method="GET" class="search-container">
-      <input type="text" name="query" placeholder="書籍を検索" class="search-input" />
+      <input type="text" name="query" placeholder="書籍を検索" class="search-input" autocomplete="off" />
       <button type="submit" class="searchbox-icon"><i class="fas fa-search"></i></button>
     </form>
   </div>
@@ -60,7 +60,7 @@
     <h2>最新のレビュー</h2>
 
     {% comment %}TODO リファクタリングする{% endcomment %}
-    {% include "components/review_list.html" %}
+    {% include 'components/review_list.html' %}
   </div>
 
   {% comment %}TODO fix this{% endcomment %}

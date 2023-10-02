@@ -1,18 +1,19 @@
 from django.contrib.auth import authenticate, login
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView
 
+from authentication.application.usecases import UserDetailShowUsecase
 from authentication.forms import AccountUpdateForm
 from authentication.models import Account
+from book.domain.repositories import BookshelfRepository
 
 
 class AccountUpdateView(UpdateView):
     model = Account
     form_class = AccountUpdateForm
-    template_name = "setting.html"
+    template_name = "pages/setting.html"
     success_url = reverse_lazy("mypage")
 
     def get_object(self, queryset=None):
@@ -20,8 +21,9 @@ class AccountUpdateView(UpdateView):
 
 
 def user_detail(request, username):
-    user = get_object_or_404(Account, username=username)
-    return render(request, "user_detail.html", {"user": user})
+    usercase = UserDetailShowUsecase(username, BookshelfRepository())
+    context = usercase.execute()
+    return render(request, "pages/user_detail.html", context)
 
 
 def login_view(request):
@@ -62,6 +64,5 @@ def logout_view(request):
     return redirect("login")
 
 
-@login_required
-def show_setting(request):
-    return render(request, "setting.html")
+def contact(request):
+    return render(request, "pages/contact.html")

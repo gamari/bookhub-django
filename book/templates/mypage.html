@@ -20,7 +20,7 @@
   <div class="top-section card">
     <div class="top-left">
       <div>
-        {% include "components/user_icon.html" %}
+        {% include 'components/user_icon.html' %}
       </div>
 
       <h4>{{ user.username }}</h4>
@@ -36,7 +36,7 @@
       <div>
         <h3>{{ month }}月の活動履歴</h3>
 
-        {% include "components/activities.html" %}
+        {% include 'components/activities.html' %}
       </div>
 
       <table class="data-table">
@@ -63,7 +63,7 @@
     </div>
 
     {% if books %}
-      {% include "components/bookshelf.html" %}
+      {% include 'components/bookshelf.html' %}
     {% else %}
       <p>本棚には書籍が登録されていません。</p>
     {% endif %}

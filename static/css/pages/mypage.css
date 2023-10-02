@@ -46,14 +46,9 @@
 }
 
 /* レコードテーブル */
-.table-container {
-  max-width: 600px;
-  margin: auto;
-  padding: 2px;
-}
-
 .data-table {
   width: 100%;
+  max-width: 240px;
   border-collapse: collapse;
   font-size: 12px;
   text-align: left;

@@ -8,13 +8,26 @@
   background-color: #fff;
 }
 
+.search-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.search-buttons-container {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
 .search-input {
   padding: 0.5rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   outline: none;
   width: 100%;
-  max-width: 160px;
+  max-width: 240px;
 }
 
 
