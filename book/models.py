@@ -4,8 +4,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.db.models import Avg
 
-
 User = get_user_model()
+
 
 class Genre(models.Model):
     """ジャンル。"""
@@ -74,6 +74,22 @@ class Bookshelf(models.Model):
 
     def get_books(self):
         return self.books.all()
+
+    def get_books_with_reading_records(self, user):
+        from record.models import ReadingRecord
+        books = self.get_books()
+        reading_records = ReadingRecord.objects.filter(user=user)
+
+        result = []
+        for book in books:
+            record = reading_records.filter(book=book).first()
+
+            if record:
+                result.append({"book": book, "reading_record": record})
+            else:
+                result.append({"book": book, "reading_record": None})
+
+        return result
 
 
 class BookshelfBook(models.Model):

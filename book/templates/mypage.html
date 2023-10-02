@@ -62,11 +62,7 @@
       <a href="{% url 'bookshelf_list' bookshelf.id %}" class="share-icon"><i class="fa-solid fa-share-from-square"></i></a>
     </div>
 
-    {% if books %}
-      {% include 'components/bookshelf.html' %}
-    {% else %}
-      <p>本棚には書籍が登録されていません。</p>
-    {% endif %}
+    {% include 'components/bookshelf.html' %}
   </div>
 
   <div class="review-section">

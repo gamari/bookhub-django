@@ -33,10 +33,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     newMemo.classList.add('memo-item');
                     newMemo.innerHTML = `<p>${data.created_at}</p><p>${data.content}</p>`;
                     memoList.prepend(newMemo);
-                    
+
 
                     // TODO フォームの中身を削除
-                    let memoContent = document.querySelector("#memoContent");
+                    let memoContent = document.querySelector("#id_content");
                     memoContent.value = '';
 
                     let noMemoTitle = document.querySelector("#no-memo-title");

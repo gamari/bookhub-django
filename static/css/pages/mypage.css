@@ -2,14 +2,14 @@
   margin-top: 32px;
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 32px;
 }
 
 .top-left {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
 }
 
 .top-right {
@@ -118,7 +118,7 @@
 @media screen and (min-width: 712px) {
   .top-section {
     flex-direction: row;
-    gap: 32px;
+    gap: 64px;
   }
 
   .top-right {

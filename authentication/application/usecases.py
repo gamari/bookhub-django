@@ -13,6 +13,6 @@ class UserDetailShowUsecase(Usecase):
         user = get_object_or_404(Account, username=self.username)
 
         bookshelf: Bookshelf = self.bookshelf_repository.get_or_create(user=user)
-        books = bookshelf.get_books()
+        books = bookshelf.get_books_with_reading_records(user)
 
         return {"user": user, "books": books, "bookshelf": bookshelf}

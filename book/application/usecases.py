@@ -65,7 +65,7 @@ class MyPageShowUsecase(Usecase):
 
     def run(self):
         bookshelf: Bookshelf = self.bookshelf_repository.get_or_create(user=self.user)
-        books = bookshelf.get_books()
+        books = bookshelf.get_books_with_reading_records(self.user)
 
         today = timezone.now().date()
 

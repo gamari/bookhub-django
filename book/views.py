@@ -25,7 +25,7 @@ def home(request):
 
 @login_required
 def mypage(request):
-    # TODO serviceに切り出したい
+    # TODO repository -> serviceにリファクタリングしたい
     usecase = MyPageShowUsecase(
         request.user,
         BookshelfRepository(),
