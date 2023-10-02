@@ -19,9 +19,9 @@ class AccountUpdateView(UpdateView):
         return self.request.user
 
 
-def account_detail(request, username):
-    account = get_object_or_404(Account, username=username)
-    return render(request, "account_detail.html", {"account": account})
+def user_detail(request, username):
+    user = get_object_or_404(Account, username=username)
+    return render(request, "user_detail.html", {"user": user})
 
 
 def login_view(request):

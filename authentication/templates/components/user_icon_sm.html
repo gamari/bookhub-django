@@ -1,4 +1,4 @@
-<a href="{% url 'account_detail' user.username %}">
+<a href="{% url 'user_detail' user.username %}">
   {% if user.profile_image %}
     <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="user-image-sm" />
   {% else %}

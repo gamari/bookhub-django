@@ -1,3 +1,9 @@
+.user-username {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* ユーザーアイコン */
 .user-icon-container {
   display: flex;
   flex-direction: column;
@@ -35,4 +41,22 @@
 .user-image-sm {
   width: 50px;
   height: 50px;
+}
+
+/* フォロワー関係 */
+.follow-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.follow-count {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.follow-label {
+  font-size: 0.8rem;
+  color:#434343;
 }

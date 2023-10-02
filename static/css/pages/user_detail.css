@@ -1,0 +1,12 @@
+.user-panel-container {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+}
+
+.user-panel-info {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-between;
+}
