@@ -123,6 +123,7 @@ h4 {
 .btn-danger {
   background-color: #dc3545;
   color: white;
+  border: 1px solid transparent;
 }
 
 /* バッジ */
@@ -131,13 +132,19 @@ h4 {
   padding: 6px 8px;
   font-size: 0.7rem;
   border-radius: 16px;
-  color: white;
+  background-color: white;
+  color: #1e90ff;
+  border: 1px solid #1e90ff;
 }
 
 .badge-primary {
   background-color: #1e90ff;
+  color: white;
+  border: 1px solid transparent;
 }
 
 .badge-info {
   background-color: rgb(100, 100, 100);
+  color: white;
+  border: 1px solid transparent;
 }

@@ -13,6 +13,7 @@
   <link href="{% static 'css/components/review.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/review_modal.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/card.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/components/form.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block js %}
@@ -75,7 +76,7 @@
               <i class="fa-solid fa-trash"></i>
               <span>本棚から削除</span>
             </a>
-            <a href="{% url 'reading_record' book.id %}" class="btn-sm btn-info">
+            <a href="{% url 'reading_record' book.id %}" class="btn-sm">
               <i class="fa-regular fa-note-sticky"></i>
               <span>メモする</span>
             </a>
@@ -103,15 +104,13 @@
     </div>
   </div>
 
-  {% comment %}紹介セクション{% endcomment %}
   <div class="description-section">
     <h3>書籍紹介</h3>
     <p class="description-content card-sm">{{ book.description }}</p>
   </div>
 
-  {% comment %}レビューセクション{% endcomment %}
   <div class="reviews-section">
-    <div class="review-title">
+    <div class="review-title-container">
       <h3>レビュー一覧</h3>
 
       {% if user.is_authenticated %}

@@ -1,13 +1,11 @@
-from datetime import timedelta, date, datetime, timedelta
-from typing import List, Dict
-from collections import defaultdict
+from datetime import datetime
 from config.utils import DateUtils
 from record.domain.aggregates import ActivityCollection
 
 from record.domain.repositories import ReadingMemoRepository
 
 
-class ReadingService:
+class ReadingService(object):
     """読書ドメイン"""
 
     def __init__(self, record_repository):

@@ -11,32 +11,34 @@
 .modal-dialog {
   position: absolute;
   /* 中央寄せ */
+  width: 80%;
+  max-width: 480px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1001;
   background-color: white;
-
-  padding: 20px 40px;
+  padding: 20px 24px;
 }
 
-/* モーダルのテキストエリア */
-.modal-form textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #999;
-  border-radius: 5px;
-  font-size: 16px;
-  line-height: 24px;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  resize: none;
+.modal-select {
+  width: 30%;
 }
 
-.modal-form textarea:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+.modal-textarea {
+  width: 92%;
 }
 
-.modal-form textarea::placeholder {
-  color: #999;
+.modal-form {
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* PC版 */
+@media screen and (min-width: 712px) {
+  .modal-dialog {
+    padding: 20px 40px;
+  }
 }

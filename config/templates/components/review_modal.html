@@ -7,12 +7,14 @@
 
       <form id="reviewForm" class="modal-form" method="post" action="{% url 'review_create' book.id %}">
         {% csrf_token %}
-        {{ review_form.rating }}
-        {{ review_form.content }}
+
+        <div class="modal-select">{{ review_form.rating }}</div>
+
+        <div class="modal-textarea">{{ review_form.content }}</div>
 
         <div class="modal-footer">
           <button id="review-submit" type="button" class="btn btn-primary">レビューを送信</button>
-          <button type="button" class="btn btn-secondary" id="closeReviewModalButton">閉じる</button>
+          <button type="button" class="btn" id="closeReviewModalButton">閉じる</button>
         </div>
       </form>
     </div>

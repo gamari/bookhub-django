@@ -48,6 +48,40 @@
     align-items: center;
 }
 
+.form-textarea {
+    width: 100%;
+    padding: 12px 12px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 24px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    resize: none;
+    outline: none;
+}
+
+.form-textarea:focus {
+    border-color: #4d90fe;
+}
+
+.form-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 24px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    resize: none;
+    outline: none;
+}
+
+
+.form-select:focus {
+    border-color: #4d90fe;
+}
+
+
 .form-error {
     color: red;
     font-size: 14px;
