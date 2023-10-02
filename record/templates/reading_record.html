@@ -17,6 +17,7 @@
 {% block js %}
   <script src="{% static 'js/review-modal.js' %}"></script>
   <script src="{% static 'js/create-memo.js' %}"></script>
+  <script src="{% static 'js/delete-memo.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -24,16 +25,16 @@
 
   <div class="book-detail-section card">
     <div class="book-detail-left">
-      {% include "components/book_image.html" %}
+      {% include 'components/book_image.html' %}
     </div>
 
     <div class="book-detail-middle">
-      {% include "components/book_title_sm.html" %}
+      {% include 'components/book_title_sm.html' %}
 
-      {% include "components/book_authors.html" %}
+      {% include 'components/book_authors.html' %}
     </div>
 
-    {% include "components/record.html" %}
+    {% include 'components/record.html' %}
   </div>
 
   <div class="memo-section card">

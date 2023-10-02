@@ -3,8 +3,7 @@
     <li class="memo-item">
       <p>{{ memo.created_at }}</p>
       <p>{{ memo.content }}</p>
-
-      <button class="memo-item-delete-button">DELETE</button>
+      <button class="memo-item-delete-button" data-memo-id="{{ memo.id }}" data-action="{% url 'memo_detail_api' memo.id %}">DELETE</button>
     </li>
     {% empty %}
     <p id="no-memo-title">まだメモはありません。</p>

@@ -19,6 +19,14 @@ class ReadingMemoRepository:
             .annotate(count=Count("id"))
             .values("date_str", "count")
         )
+    
+    @staticmethod
+    def find_by_id(memo_id):
+        return ReadingMemo.objects.get(id=memo_id)
+    
+    @staticmethod
+    def delete(memo):
+        memo.delete()
 
     @staticmethod
     def save(memo):

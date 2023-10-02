@@ -79,10 +79,16 @@ class CreateMemoUsecase(object):
 class DeleteMemoUsecase(Usecase):
     """メモ削除。"""
 
-    def __init__(self, memo_repo: ReadingMemoRepository):
+    def __init__(self, memo_id, user, memo_repo: ReadingMemoRepository):
+        self.memo_id = memo_id
         self.memo_repo = memo_repo
+        self.user = user
 
-    def execute(self, memo_id):
-        memo = self.memo_repo.find_by_id(memo_id)
+    def execute(self):
+        memo = self.memo_repo.find_by_id(self.memo_id)
+
+        if memo.user != self.user:
+            return {"result": "fail"}
+
         self.memo_repo.delete(memo)
         return {"result": "success"}

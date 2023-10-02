@@ -1,4 +1,4 @@
-<form id="memoForm" data-action="{% url 'create_memo' book.id %}">
+<form id="memoForm" data-action="{% url 'create_memo_api' book.id %}">
   {% csrf_token %}
   {{ form.content }}
 

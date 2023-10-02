@@ -1,12 +1,13 @@
 from django.urls import path
 
 from record.views import (
+    create_memo_api,
     mark_as_finished,
     mark_as_started,
     mark_as_unfinished,
     mark_as_unstarted,
     reading_record,
-    create_memo,
+    memo_detail_api,
 )
 
 urlpatterns = [
@@ -22,5 +23,10 @@ urlpatterns = [
         name="mark_as_unfinished",
     ),
     # API
-    path("api/reading_record/<int:book_id>/memo/", create_memo, name="create_memo"),
+    path("api/memos/<int:memo_id>/", memo_detail_api, name="memo_detail_api"),
+    path(
+        "api/reading_record/<int:book_id>/memo/",
+        create_memo_api,
+        name="create_memo_api",
+    ),
 ]

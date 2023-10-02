@@ -34,35 +34,32 @@ def reading_record(request, book_id):
 
 # API系
 @login_required
-def create_memo(request, book_id):
-    if request.method != "POST":
-        return JsonResponse({"result": "fail"}, status=400)
+def create_memo_api(request, book_id):
+    if request.method == "POST":
+        usecase = CreateMemoUsecase(
+            BookRepository(), ReadingMemoRepository(), ReadingMemoService()
+        )
 
-    usecase = CreateMemoUsecase(
-        BookRepository(), ReadingMemoRepository(), ReadingMemoService()
-    )
+        response_data = usecase.execute(request.POST, request.user, book_id)
 
-    response_data = usecase.execute(request.POST, request.user, book_id)
-
-    if response_data["result"] == "success":
-        return JsonResponse(response_data, status=201)
+        if response_data["result"] == "success":
+            return JsonResponse(response_data, status=201)
+        else:
+            return JsonResponse(response_data, status=400)
     else:
-        return JsonResponse(response_data, status=400)
-
-
-# メモの削除機能
-def delete_memo(request, book_id):
-    if request.method != "DELETE":
         return JsonResponse({"result": "fail"}, status=400)
 
-    memo_id = request.POST.get("memo_id")
-    if not memo_id:
-        return JsonResponse({"result": "fail"}, status=400)
 
-    usecase = DeleteMemoUsecase(ReadingMemoRepository())
-    context = usecase.execute(memo_id)
+@login_required
+def memo_detail_api(request, memo_id):
+    if request.method == "DELETE":
+        usecase = DeleteMemoUsecase(memo_id, request.user, ReadingMemoRepository())
+        response_data = usecase.execute()
 
-    return render(request, "reading_record.html", context)
+        if response_data["result"] == "success":
+            return JsonResponse(response_data, status=201)
+        else:
+            return JsonResponse(response_data, status=400)
 
 
 # 開始操作
