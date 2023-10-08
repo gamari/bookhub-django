@@ -1,8 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.memo-item-delete-button').forEach(function (button) {
         button.addEventListener('click', function () {
+            const isOk = confirm('メモを削除しますか？');
+
+            if (!isOk) return;
+
             const memoId = this.dataset.memoId;
-            const actionUrl = this.dataset.action; // data-action属性からURLを取得
+            const actionUrl = this.dataset.action;
 
             fetch(actionUrl, {
                 method: 'DELETE',
