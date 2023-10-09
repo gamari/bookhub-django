@@ -1,12 +1,18 @@
-.form-input {
-    margin-left: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 16px;
-    padding: 8px 4px;
-    transition: border-color 0.3s ease-in-out;
-    outline: none;
+.login-card {
+  width: 100%;
+  max-width: 350px;
+  margin: 50px auto;
+  padding: 24px 24px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.form-title {
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .form-label {
@@ -15,90 +21,112 @@
     font-weight: bold;
 }
 
+.form-error {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.form-input {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+  padding:8px;
+  outline: none;
+  /* TODO アニメーション */
+  /* transition: border-color 0.3s ease-in-out; */
+}
+
+.form-label {
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 .form-input:focus {
-    border-color: #4d90fe;
+  border-color: #4d90fe;
 }
 
 .form-group {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .form-row {
-    display: flex;
-    flex-direction: column;
-    word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
 }
 
 .form-image {
-    width: 100px;
+  width: 100px;
 }
 
 .form-row-image {
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
 }
 
 .form-no-image {
-    width: 100px;
-    height: 100px;
-    border: 1px solid #efefef;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 16px;
-    padding: 8px 4px;
-    outline: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #efefef;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 8px 4px;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .form-textarea {
-    width: 100%;
-    padding: 12px 12px;
-    border: 1px solid #999;
-    border-radius: 5px;
-    font-size: 16px;
-    line-height: 24px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    resize: none;
-    outline: none;
+  width: 100%;
+  padding: 12px 12px;
+  border: 1px solid #999;
+  border-radius: 5px;
+  font-size: 16px;
+  line-height: 24px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  resize: none;
+  outline: none;
 }
 
 .form-textarea:focus {
-    border-color: #4d90fe;
+  border-color: #4d90fe;
 }
 
 .form-select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #999;
-    border-radius: 5px;
-    font-size: 16px;
-    line-height: 24px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    resize: none;
-    outline: none;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #999;
+  border-radius: 5px;
+  font-size: 16px;
+  line-height: 24px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  resize: none;
+  outline: none;
 }
-
 
 .form-select:focus {
-    border-color: #4d90fe;
+  border-color: #4d90fe;
 }
 
-
 .form-error {
-    color: red;
-    font-size: 14px;
-    margin-top: 4px;
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
 }
 
 /* PC版 */
 @media screen and (min-width: 712px) {
-    .form-row {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 16px;
-    }
+  .form-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
 }

@@ -14,6 +14,10 @@
   <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
 {% endblock %}
 
+{% block js %}
+  <script src="{% static 'js/pages/mypage.js' %}"></script>
+{% endblock %}
+
 {% block content %}
   <div class="top-section card">
     <div class="top-left">
@@ -54,18 +58,28 @@
     </div>
   </div>
 
-  <div class="mypage-bookshelf-section">
+  <div class="selection-section">
+    <div>
+      <button id="btn-bookshelf" class="badge badge-info">本棚</button>
+      <button id="btn-reviews" class="badge">レビュー一覧</button>
+    </div>
+  </div>
+
+  <div id="bookshelf-section">
     <div class="mypage-bookshelf-title mb-4">
       <h3>本棚</h3>
-      <a href="{% url 'bookshelf_list' bookshelf.id %}" class="share-icon"><i class="fa-solid fa-share-from-square"></i></a>
+      <a href="https://twitter.com/intent/tweet?text={{ user.username }}さんの本棚をチェックしよう！&url={% url 'user_detail' user.id %}" target="_blank" class="btn-sm btn-primary">
+        <i class="fa-regular fa-share-from-square"></i>
+        <span>シェアする</span>
+      </a>
     </div>
 
     {% include 'components/bookshelf.html' %}
   </div>
 
-  <div class="review-section">
+  <div id="reviews-section" style="display: none;">
     <h3 class="mb-4">最近のレビュー</h3>
 
-    {% include "components/review_list.html" %}
+    {% include 'components/review_list.html' %}
   </div>
 {% endblock %}

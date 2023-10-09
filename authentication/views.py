@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView
 
 from authentication.application.usecases import UserDetailShowUsecase
-from authentication.forms import AccountUpdateForm
+from authentication.forms import AccountUpdateForm, LoginForm, RegisterForm
 from authentication.models import Account
 from book.domain.repositories import BookshelfRepository
 
@@ -18,6 +18,7 @@ class AccountUpdateView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
 
 def delete_profile_image(request):
     if request.method != "POST":
@@ -36,40 +37,48 @@ def user_detail(request, username):
 
 
 def login_view(request):
+    error_message = ""
     if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        user = authenticate(request, email=email, password=password)
-
-        if user:
-            login(request, user)
-            return redirect("mypage")
-        else:
-            return render(request, "login.html", {"error": "メールアドレスまたはパスワードが間違っています。"})
-
-    return render(request, "login.html")
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect("mypage")
+            else:
+                error_message = "メールアドレスまたはパスワードが間違っています。"
+    else:
+        form = LoginForm()
+    return render(request, "login.html", {"form": form, "error": error_message})
 
 
 def register_view(request):
+    error_message = ""
     if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        username = request.POST.get("username")
-        user = Account.objects.create_user(
-            email=email, password=password, username=username
-        )
-        if user:
-            login(request, user)
-            return redirect("mypage")
-        else:
-            return render(request, "register.html", {"error": "Registration failed"})
+        form = RegisterForm(request.POST)
 
-    return render(request, "register.html")
+        if form.is_valid():
+            email = form.cleaned_data.get("email")
+            password = form.cleaned_data.get("password")
+            username = form.cleaned_data.get("username")
+
+            user = Account.objects.create_user(
+                email=email, password=password, username=username
+            )
+
+            if user:
+                login(request, user)
+                return redirect("mypage")
+            else:
+                error_message = "ユーザー登録に失敗しました。"
+    else:
+        form = RegisterForm()
+
+    return render(request, "register.html", {"form": form, "error": error_message})
 
 
 def logout_view(request):
     logout(request)
     return redirect("login")
-
-
-

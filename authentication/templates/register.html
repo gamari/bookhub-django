@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
   ユーザー登録
+{% endblock %}
+
+{% block css %}
+  <link href="{% static 'css/components/form.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
@@ -9,14 +14,44 @@
     <p>{{ error }}</p>
   {% endif %}
 
-  <form method="post">
+  <form method="post" class="login-card">
     {% csrf_token %}
-    <label>メールアドレス</label>
-    <input type="email" name="email" required />
-    <label>ユーザー名</label>
-    <input type="text" name="username" required />
-    <label>パスワード</label>
-    <input type="password" name="password" required />
-    <button type="submit">登録</button>
+
+    <h3 class="form-title">ユーザー登録</h3>
+
+    <div class="form-group">
+      <div class="form-label">ユーザー名</div>
+      {{ form.username }}
+      {% if form.username.errors %}
+        <p class="form-error">{{ form.username.errors.as_text }}</p>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">メールアドレス</div>
+      {{ form.email }}
+
+      {% if form.email.errors %}
+        <p class="form-error">{{ form.email.errors.as_text }}</p>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">パスワード</div>
+      {{ form.password }}
+
+      {% if form.password.errors %}
+        <p class="form-error">{{ form.password.errors.as_text }}</p>
+      {% endif %}
+    </div>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <div class="mt-4">
+      <button type="submit" class="btn btn-warning">登録する</button>
+      <a href="{% url 'login' %}">ログイン画面へ</a>
+    </div>
   </form>
 {% endblock %}
