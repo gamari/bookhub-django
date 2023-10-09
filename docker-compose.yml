@@ -4,13 +4,12 @@ services:
   web:
     build: .
     command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
-    volumes:
-      - .:/code
     ports:
       - "8000:8000"
     depends_on:
       - nginx
     volumes:
+      - .:/code
       - ./static_root:/code/static_root
   nginx:
     image: nginx:latest
