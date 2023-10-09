@@ -18,19 +18,20 @@
 {% endblock %}
 
 {% block content %}
-  <div class="mt-10">
+  <div class="user-section">
     {% include 'components/user_panel.html' %}
   </div>
 
-  <div class="mt-10">
+  <div class="bookshelf-section">
     <div class="mb-6 user-bookshelf-title">
       <h4>{{ user.username }}さんの本棚</h4>
-      <button class="btn-sm btn-primary">
+
+      <a href="https://twitter.com/intent/tweet?text={{ user.username }}さんの本棚をチェックしよう！&url={{ request.build_absolute_uri|urlencode }}" target="_blank" class="btn-sm btn-primary">
         <i class="fa-regular fa-share-from-square"></i>
         <span>シェアする</span>
-      </button>
+      </a>
     </div>
-
+    
     {% include 'components/bookshelf.html' %}
   </div>
 {% endblock %}

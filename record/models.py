@@ -20,7 +20,7 @@ class ReadingMemo(models.Model):
 class ReadingRecord(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    started_at = models.DateField(null=True, blank=True, default=date.today)
+    started_at = models.DateField(null=True, blank=True)
     finished_at = models.DateField(null=True, blank=True)
     notes = models.TextField(blank=True)
 

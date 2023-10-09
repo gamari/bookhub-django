@@ -8,11 +8,11 @@
     {% else %}
       {% if is_following %}
         <div class="user-follow-btn">
-          <a href="{% url 'unfollow' user.id %}" class="btn btn-warning">フォロー解除</a>
+          <a href="{% url 'unfollow' user.id %}" class="btn-sm">フォロー解除</a>
         </div>
       {% else %}
         <div class="user-follow-btn">
-          <a href="{% url 'follow' user.id %}" class="btn btn-primary">フォローする</a>
+          <a href="{% url 'follow' user.id %}" class="btn-sm btn-primary">フォローする</a>
         </div>
       {% endif %}
     {% endif %}

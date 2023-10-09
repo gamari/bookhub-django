@@ -2,10 +2,6 @@
 .about-section {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 32px;
-  margin-bottom: 64px;
 }
 
 .about-features-container {
@@ -38,14 +34,21 @@
   background-color: gray;
 }
 
+/* お知らせセクション */
+.news-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
 /* 検索セクション */
 .search-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  margin-top: 32px;
-  margin-bottom: 32px;
 }
 
 .search-title {
@@ -93,7 +96,6 @@
 
 /* レビューセクション */
 .review-section {
-  margin-top: 32px;
 }
 
 .reviews-container {
@@ -116,8 +118,6 @@
 
 /* よく読まれてます */
 .top-books-section {
-  margin-top: 32px;
-  margin-bottom: 64px;
 }
 
 .top-books-container {

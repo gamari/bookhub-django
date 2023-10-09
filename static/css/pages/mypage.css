@@ -1,5 +1,4 @@
 .top-section {
-  margin-top: 32px;
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -94,8 +93,6 @@
 
 /* 本棚 */
 .mypage-bookshelf-section {
-  margin-top: 32px;
-  margin-bottom: 32px;
 }
 
 .mypage-bookshelf-title {
@@ -106,8 +103,6 @@
 }
 
 .review-section {
-  margin-top: 32px;
-  margin-bottom: 64px;
 }
 
 .share-icon {

@@ -2,8 +2,6 @@
   display: grid;
   grid-template-columns: min-content 1fr 1fr;
   gap: 20px;
-  margin-top: 32px;
-  margin-bottom: 32px;
 }
 
 .detail-title {
@@ -62,8 +60,6 @@
 
 /* レビューセクション */
 .reviews-section {
-  margin-top: 24px;
-  padding-bottom: 64px;
 }
 
 .review-title-container {

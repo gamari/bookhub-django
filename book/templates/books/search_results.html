@@ -66,7 +66,12 @@
       <div class="book-noresult card-sm">
         <p>対象の書籍が見つかりませんでした</p>
         <div>
-          <a href="{% url 'book_search' %}?query={{ query }}&mode=detail">詳細に検索</a>
+          <a href="{% url 'book_search' %}?query={{ query }}&mode=detail" class="btn-sm">詳細に検索</a>
+        </div>
+
+        <div>
+          <p>詳細検索しても見つからない場合は<a href="/contact">お問い合わせ</a>からご連絡ください
+          </p>
         </div>
       </div>
     {% endfor %}

@@ -2,8 +2,6 @@
 .search-section {
   border: 1px solid #ddd;
   border-radius: 5px;
-  margin-top: 32px;
-  margin-bottom: 32px;
   padding: 20px 24px;
   background-color: #fff;
 }
@@ -42,8 +40,6 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-top: 32px;
-  margin-bottom: 32px;
 }
 
 .book-result-item {
