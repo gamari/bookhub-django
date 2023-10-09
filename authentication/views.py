@@ -23,7 +23,6 @@ def delete_profile_image(request):
     if request.method != "POST":
         # TODO エラー処理する
         return redirect("setting")
-    print("削除します")
     user = request.user
     user.profile_image = None
     user.save()

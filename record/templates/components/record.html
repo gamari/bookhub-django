@@ -2,7 +2,7 @@
   <h4>記録情報</h4>
 
   <div class="record-item">
-    <div class="badge badge-info">開始日</div>
+    <div class="badge">開始日</div>
     {% if record.started_at %}
       <div class="row-center gap-4">
         <div class="text-sm">{{ record.started_at|default_if_none:'' }}</div>
@@ -30,7 +30,7 @@
   </div>
 
   <div class="record-item">
-    <div class="badge badge-info">読了日</div>
+    <div class="badge">読了日</div>
 
     {% if record.finished_at %}
       <div class="row-center gap-4">

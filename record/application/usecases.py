@@ -72,7 +72,7 @@ class CreateMemoUsecase(object):
         return {
             "result": "success",
             "content": saved_memo.content,
-            "created_at": saved_memo.created_at.strftime("%Y年%m月%d日 %H:%M"),
+            "created_at": saved_memo.created_at.strftime("%Y年%m月%d日%H:%M"),
         }
 
 

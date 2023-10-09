@@ -23,10 +23,16 @@ class UserDetailShowUsecase(Usecase):
         follow_service = FollowService()
         is_following = follow_service.is_following(self.me.id, user.id)
 
+        following_count = follow_service.get_following_count(user.id)
+
+        follower_count = follow_service.get_follower_count(user.id)
+
         return {
             "user": user,
             "books": books,
             "bookshelf": bookshelf,
             "is_self": is_self,
             "is_following": is_following,
+            "following_count": following_count,
+            "follower_count": follower_count,
         }

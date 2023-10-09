@@ -11,17 +11,28 @@
 {% endblock %}
 
 {% block content %}
-  <div class="card mt-10">
-    <h3>お問い合わせページ</h3>
+  <div class="card card-section">
+    <h3 class="mb-4">お問い合わせ</h3>
 
     {% if message %}
       <div class="text-primary mt-4 mb-4">{{ message }}</div>
     {% endif %}
 
-    <form method="post" action="{% url 'contact' %}">
+    <form method="post" action="{% url 'contact' %}" class="contact-form">
       {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">送信する</button>
+      <div class="form-group">
+        <label for="">種別</label>
+        {{ form.contact_type }}
+      </div>
+      <div class="form-group">
+        <label for="">連絡先メールアドレス</label>
+        {{ form.email }}
+      </div>
+      <div class="form-group">
+        <label for="">お問い合わせ内容</label>
+        {{ form.content }}
+      </div>
+      <button type="submit" class="btn btn-primary submit-btn">送信する</button>
     </form>
   </div>
 {% endblock %}

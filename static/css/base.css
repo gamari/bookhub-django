@@ -32,12 +32,9 @@ main {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  /* gap: 64px; */
-  gap: 48px;
-  padding-bottom: 64px;
-  padding-right: 32px;
-  padding-left: 32px;
+  gap: 32px;
   padding-top: 128px;
+  padding-bottom: 64px;
 }
 
 /* Header */
@@ -68,9 +65,7 @@ h4 {
   color: #ff604f;
 }
 
-
 /* 背景 */
-
 .bg-primary {
   background-color: #1e90ff;
 }
@@ -145,8 +140,9 @@ h4 {
   font-size: 0.7rem;
   border-radius: 16px;
   background-color: white;
-  color: #1e90ff;
-  border: 1px solid #1e90ff;
+  color: rgb(64, 64, 64);
+  border: 1px solid rgb(64, 64, 64);
+  
 }
 
 .badge-primary {
@@ -159,4 +155,20 @@ h4 {
   background-color: rgb(100, 100, 100);
   color: white;
   border: 1px solid transparent;
+}
+
+/* PC版 */
+@media screen and (min-width: 768px) {
+  body {
+    background-color: #eef6ff;
+  }
+
+  .container {
+    max-width: 800px;
+    gap: 48px;
+    padding-bottom: 64px;
+    padding-right: 32px;
+    padding-left: 32px;
+    padding-top: 128px;
+  }
 }

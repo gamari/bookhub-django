@@ -1,14 +1,26 @@
 .card {
   background-color: white;
-  border: 1px solid #e6e6e6;
-  border-radius: 4px;
-  padding: 36px 48px;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+  padding: 24px 32px;
 }
 
 .card-sm {
   background-color: white;
-  border: 1px solid #e6e6e6;
-  border-radius: 4px;
   padding: 24px 32px;
+}
+
+/* PC版 */
+@media screen and (min-width: 768px) {
+  .card {
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    padding: 36px 48px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-sm {
+    background-color: white;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    padding: 24px 32px;
+  }
 }

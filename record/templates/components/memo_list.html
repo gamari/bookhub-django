@@ -3,9 +3,7 @@
     <li class="memo-item">
       <p>{{ memo.created_at }}</p>
       <p>{{ memo.content }}</p>
-      <button class="memo-item-delete-button" data-memo-id="{{ memo.id }}" data-action="{% url 'memo_detail_api' memo.id %}">
-        <i class="fa-regular fa-trash-can" style="color: #160160160;"></i>
-      </button>
+      <button class="memo-item-delete-button" data-memo-id="{{ memo.id }}" data-action="{% url 'memo_detail_api' memo.id %}"><i class="fa-regular fa-trash-can" style="color: #160160160;"></i></button>
     </li>
     {% empty %}
     <p id="no-memo-title">まだメモはありません。</p>
