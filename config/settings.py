@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "ranking",
     "search",
     "follow",
+    "contact",
 ]
 
 MIDDLEWARE = [

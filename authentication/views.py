@@ -64,5 +64,4 @@ def logout_view(request):
     return redirect("login")
 
 
-def contact(request):
-    return render(request, "pages/contact.html")
+

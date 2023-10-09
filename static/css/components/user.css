@@ -11,6 +11,14 @@
   align-items: center;
 }
 
+.user-side-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
 .user-icon {
   width: 100px;
   height: 100px;

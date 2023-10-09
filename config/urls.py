@@ -12,6 +12,7 @@ urlpatterns = [
     path("", include("ranking.urls")),
     path("", include("search.urls")),
     path("", include("follow.urls")),
+    path("", include("contact.urls")),
 ]
 
 # ファイル設定
