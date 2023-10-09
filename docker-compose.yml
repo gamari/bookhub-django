@@ -10,7 +10,8 @@ services:
       - "8000:8000"
     depends_on:
       - nginx
-
+    volumes:
+      - ./static_root:/code/static_root
   nginx:
     image: nginx:latest
     ports:
@@ -18,5 +19,5 @@ services:
       - "443:443"
     volumes:
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./static:/code/static
+      - ./static_root:/code/static_root
       - /etc/letsencrypt:/etc/letsencrypt
