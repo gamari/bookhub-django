@@ -21,3 +21,11 @@ BookHubアプリ。
 - [ ] .envを用意して下さい。
   - .env-sampleを参考に用意してください。
 
+
+## デプロイ
+
+- .envの準備
+- docker compose up -d --build
+- docker compose exec web python manage.py migrate
+
+- 週間ランキングの作成をする（準備中）
