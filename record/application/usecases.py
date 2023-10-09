@@ -36,6 +36,7 @@ class RecordReadingHistoryUsecase(object):
             "-created_at"
         )
         form = ReadingMemoForm()
+        
         return {
             "book": book,
             "record": record,

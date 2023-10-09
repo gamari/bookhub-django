@@ -5,14 +5,18 @@
 }
 
 .book:hover {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .book-image {
   height: 180px;
-  /* width: 150px; */
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
+
+.book-image:hover {
+  opacity: 0.8;
+}
+
 
 .book-image-sm {
   height: 100px;
@@ -23,9 +27,6 @@
   font-weight: bold;
   margin-top: 4px;
   text-decoration: none;
-}
-
-.book-authors-container {
 }
 
 .book-author {

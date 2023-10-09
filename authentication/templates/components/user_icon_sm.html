@@ -1,6 +1,6 @@
 <a href="{% url 'user_detail' user.username %}">
   {% if user.profile_image %}
-    <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="user-image-sm" />
+    <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="user-icon-sm" />
   {% else %}
     <i class="fa-regular fa-user fa-2xl" style="color: #5e5e5e;"></i>
   {% endif %}

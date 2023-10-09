@@ -1,7 +1,3 @@
-.user-section {
-  /* TODO */
-}
-
 .user-panel-container {
   display: flex;
   flex-direction: row;
@@ -13,10 +9,6 @@
   flex-grow: 1;
   flex-direction: row;
   justify-content: space-between;
-}
-
-.bookshelf-section {
-  /* TODO */
 }
 
 .user-bookshelf-title {

@@ -1,12 +1,13 @@
 from django.utils import timezone
 from book.domain.repositories import BookshelfRepository
+from book.domain.services import BookDomainService
 from config.application.usecases import Usecase
 
 from config.utils import get_month_date_range, get_month_range_of_today
 from book.models import Bookshelf
 from ranking.models import WeeklyRanking, WeeklyRankingEntry
 from record.domain.repositories import ReadingRecordRepository
-from record.domain.services import ActivityDomainService
+from record.domain.services import ActivityDomainService, ReadingRecordService
 from review.forms import ReviewForm
 from review.domain.repositories import ReviewRepository
 
@@ -58,33 +59,31 @@ class MyPageShowUsecase(Usecase):
 
     def __init__(
         self,
-        user,
         bookshelf_repository: BookshelfRepository,
         activity_service: ActivityDomainService,
         record_repo: ReadingRecordRepository,
         review_repo: ReviewRepository,
     ) -> None:
-        self.user = user
         self.bookshelf_repository = bookshelf_repository
         self.activity_service = activity_service
         self.record_repo = record_repo
         self.review_repo = review_repo
 
-    def run(self):
-        bookshelf: Bookshelf = self.bookshelf_repository.get_or_create(user=self.user)
-        books = bookshelf.get_books_with_reading_records(self.user)
+    def run(self, user):
+        bookshelf: Bookshelf = self.bookshelf_repository.get_or_create(user=user)
+        books = bookshelf.get_books_with_reading_records(user)
 
         today = timezone.now().date()
 
         start_date, end_date = get_month_date_range(today)
 
         activity_data = self.activity_service.fetch_activities(
-            self.user, start_date, end_date
+            user, start_date, end_date
         )
 
-        finished_count = self.record_repo.finished_books_this_month(self.user)
+        finished_count = self.record_repo.finished_books_this_month(user)
 
-        reviews_count = self.review_repo.get_reviews_for_user_this_month(self.user)
+        reviews_count = self.review_repo.get_reviews_for_user_this_month(user)
 
         month = today.month
 
@@ -101,13 +100,11 @@ class MyPageShowUsecase(Usecase):
 class BookDetailPageShowUsecase(Usecase):
     """書籍詳細画面を表示する。"""
 
-    def __init__(self, book_id, user, book_service):
-        self.book_id = book_id
-        self.user = user
+    def __init__(self, book_service):
         self.book_service = book_service
 
-    def run(self):
-        book = self.book_service.find_book_by_id(self.book_id)
+    def run(self, book_id, user):
+        book = self.book_service.find_book_by_id(book_id)
 
         # 閲覧数のカウントアップ
         book.views += 1
@@ -118,7 +115,7 @@ class BookDetailPageShowUsecase(Usecase):
         )
         avg_rating = book.get_avg_rating()
         reviews = book.get_reviews()
-        book_on_shelf = self.book_service.is_book_on_shelf(book, self.user)
+        book_on_shelf = self.book_service.is_book_on_shelf(book, user)
         registers = Bookshelf.objects.filter(books__id=book.id).count()
 
         context = {
@@ -133,3 +130,43 @@ class BookDetailPageShowUsecase(Usecase):
             "registers": registers,
         }
         return context
+
+
+class AddBookToShelfUsecase(Usecase):
+    """本棚に本を追加する。"""
+
+    def __init__(
+        self,
+        book_service: BookDomainService,
+        reading_record_service: ReadingRecordService,
+    ):
+        self.book_service = book_service
+        self.reading_record_service = reading_record_service
+
+    def run(self, book_id, user):
+        book = self.book_service.find_book_by_id(book_id)
+        bookshelf: Bookshelf = self.book_service.get_or_create_bookshelf(user)
+        bookshelf.books.add(book)
+
+        # 登録時にRecordを作成する
+        record = self.reading_record_service.get_or_create_record(user, book)
+        print(record)
+
+        return {}
+
+
+class RemoveBookFromShelfUsecase(Usecase):
+    """本棚から本を削除する。"""
+
+    def __init__(self, book_service: BookDomainService):
+        self.book_service = book_service
+
+    def run(self, book_id, user):
+        book = self.book_service.find_book_by_id(book_id)
+
+        # TODO recordを削除する
+
+        bookshelf: Bookshelf = self.book_service.get_or_create_bookshelf(user)
+        bookshelf.books.remove(book)
+
+        return {}

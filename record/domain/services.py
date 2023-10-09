@@ -1,10 +1,11 @@
 from datetime import datetime
 from config.utils import DateUtils
+
 from record.domain.aggregates import ActivityCollection
+from record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
 
-from record.domain.repositories import ReadingMemoRepository
 
-
+# TODO 削除予定
 class ReadingService(object):
     """読書ドメイン"""
 
@@ -14,8 +15,15 @@ class ReadingService(object):
     def get_or_create_record(self, user, book):
         return self.record_repository.get_or_create(user, book)
 
+class ReadingRecordService(object):
+    def __init__(self, reading_record_repo: ReadingRecordRepository) -> None:
+        self.reading_record_repo = reading_record_repo
+    
+    def get_or_create_record(self, user, book):
+        return self.reading_record_repo.get_or_create(user, book)
 
-class ReadingMemoService:
+
+class ReadingMemoService(object):
     """メモドメイン"""
 
     @staticmethod

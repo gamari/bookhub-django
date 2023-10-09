@@ -7,7 +7,7 @@ class BookDomainService:
         self.book_repository = book_repository
         self.bookshelf_repository = bookshelf_repository
 
-    def find_book_by_id(self, book_id: int):
+    def find_book_by_id(self, book_id):
         """書籍IDから書籍を取得する。"""
         return self.book_repository.find_by_id(book_id)
 
@@ -25,3 +25,7 @@ class BookDomainService:
             if book:
                 books.append(book)
         return books
+    
+    def get_or_create_bookshelf(self, user):
+        """本棚を取得または作成する。"""
+        return self.bookshelf_repository.get_or_create(user)
