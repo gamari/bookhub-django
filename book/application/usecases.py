@@ -31,13 +31,17 @@ class HomePageShowUsecase(Usecase):
 
         # ランキングを取得する
         # TODO リファクタリングする
-        latest_ranking = WeeklyRanking.objects.latest("end_date")
-        if latest_ranking is None:
+        try:
+            latest_ranking = WeeklyRanking.objects.latest("end_date")
+
+            if latest_ranking is None:
+                ranking_entries = None
+            else:
+                ranking_entries = WeeklyRankingEntry.objects.filter(
+                    ranking=latest_ranking
+                ).order_by("-added_count")
+        except:
             ranking_entries = None
-        else:
-            ranking_entries = WeeklyRankingEntry.objects.filter(
-                ranking=latest_ranking
-            ).order_by("-added_count")
 
         context = {
             "top_book_results": top_book_results,
