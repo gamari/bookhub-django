@@ -25,7 +25,8 @@ BookHubアプリ。
 ## デプロイ
 
 - .envの準備
+- staticファイルの準備
+  - `docker compose exec web python manage.py collectstatic`
 - docker compose up -d --build
 - docker compose exec web python manage.py migrate
-
 - 週間ランキングの作成をする（準備中）
