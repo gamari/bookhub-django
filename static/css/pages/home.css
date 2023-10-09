@@ -95,16 +95,6 @@
 }
 
 /* レビューセクション */
-.review-section {
-}
-
-.reviews-container {
-  margin-top: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
 .review-title {
   font-size: 12px;
   text-decoration: none;

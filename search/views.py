@@ -13,6 +13,9 @@ def book_search(request):
     mode = request.GET.get("mode", "")
     page = int(request.GET.get("page", 1))
 
+    # TODO 検証のため
+    mode = "detail"
+
     if mode == "detail":
         search_service = GoogleBooksService(
             GoogleBooksAPIClient(),

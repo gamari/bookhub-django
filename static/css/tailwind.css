@@ -9,6 +9,18 @@
   align-items: center;
 }
 
+.max-w-xs {
+  max-width: 128px;
+}
+
+.max-w-sm {
+  max-width: 256px;
+}
+
+.max-w-md {
+  max-width: 512px;
+}
+
 /* margin */
 .mt-4 {
   margin-top: 16px;

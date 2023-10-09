@@ -19,7 +19,7 @@
       <form method="post" action="{% url 'setting' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
-          <span class="form-label">メールアドレス</span>
+          <div class="form-label">メールアドレス</div>
           {{ form.email }}
 
           {% if form.email.errors %}
@@ -32,7 +32,7 @@
         </div>
 
         <div class="form-group">
-          <span class="form-label">ユーザー名</span>
+          <div class="form-label">ユーザー名</div>
           {{ form.username }}
 
           {% if form.username.errors %}
@@ -44,7 +44,6 @@
           {% endif %}
         </div>
 
-        {% comment %}TODO 画像を削除する -> 再登録っていう流れにしたい{% endcomment %}
         <div class="form-group">
           <div class="form-label">プロフィール画像</div>
           <div class="form-row text-sm">

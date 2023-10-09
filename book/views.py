@@ -20,7 +20,7 @@ from review.domain.repositories import ReviewRepository
 def home(request):
     usecase = HomePageShowUsecase(ReadingRecordRepository(), ReviewRepository())
     context = usecase.execute()
-    return render(request, "home.html", context)
+    return render(request, "pages/home.html", context)
 
 
 @login_required
@@ -34,7 +34,7 @@ def mypage(request):
         ReviewRepository(),
     )
     context = usecase.execute()
-    return render(request, "mypage.html", context)
+    return render(request, "pages/mypage.html", context)
 
 
 # 書籍詳細
@@ -42,7 +42,7 @@ def book_detail(request, book_id):
     book_service = BookDomainService(BookRepository(), BookshelfRepository())
     usecase = BookDetailPageShowUsecase(book_id, request.user, book_service)
     context = usecase.execute()
-    return render(request, "books/book_detail.html", context)
+    return render(request, "pages/book_detail.html", context)
 
 
 # 本棚

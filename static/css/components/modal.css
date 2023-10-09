@@ -21,20 +21,11 @@
   padding: 20px 24px;
 }
 
-.modal-select {
-  width: 30%;
+.modal-content {
+  max-width: 92%;
 }
 
-.modal-textarea {
-  width: 92%;
-}
 
-.modal-form {
-  padding-top: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
 
 /* PC版 */
 @media screen and (min-width: 712px) {

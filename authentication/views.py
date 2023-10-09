@@ -41,9 +41,9 @@ def login_view(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get("username")
+            email = form.cleaned_data.get("email")
             password = form.cleaned_data.get("password")
-            user = authenticate(username=username, password=password)
+            user = authenticate(username=email, password=password)
             if user is not None:
                 login(request, user)
                 return redirect("mypage")
@@ -51,7 +51,7 @@ def login_view(request):
                 error_message = "メールアドレスまたはパスワードが間違っています。"
     else:
         form = LoginForm()
-    return render(request, "login.html", {"form": form, "error": error_message})
+    return render(request, "pages/login.html", {"form": form, "error": error_message})
 
 
 def register_view(request):
@@ -76,7 +76,7 @@ def register_view(request):
     else:
         form = RegisterForm()
 
-    return render(request, "register.html", {"form": form, "error": error_message})
+    return render(request, "pages/register.html", {"form": form, "error": error_message})
 
 
 def logout_view(request):
