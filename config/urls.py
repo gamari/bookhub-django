@@ -11,6 +11,7 @@ urlpatterns = [
     path("", include("record.urls")),
     path("", include("ranking.urls")),
     path("", include("search.urls")),
+    path("", include("follow.urls")),
 ]
 
 # ファイル設定

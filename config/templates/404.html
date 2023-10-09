@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  書籍詳細
+{% endblock %}
+
+{% block css %}
+  <link href="{% static 'css/pages/book_detail.css' %}" rel="stylesheet" />
+
+  <link href="{% static 'css/components/book.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/components/review.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/components/review_modal.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/components/card.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/components/form.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/components/user.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block js %}
+  <script src="{% static 'js/review-modal.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div>エラーページです</div>
+{% endblock %}

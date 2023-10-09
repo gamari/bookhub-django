@@ -1,4 +1,4 @@
-import uuid 
+import uuid
 
 from django.db import models
 from django.contrib.auth.models import (
@@ -6,7 +6,6 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
-
 
 
 class AccountManager(BaseUserManager):
@@ -33,7 +32,9 @@ class Account(AbstractBaseUser, PermissionsMixin):
     description = models.TextField(max_length=500, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
+    profile_image = models.ImageField(
+        upload_to="profile_images/", null=True, blank=True
+    )
 
     USERNAME_FIELD = "email"
 

@@ -21,7 +21,7 @@ class AccountUpdateView(UpdateView):
 
 
 def user_detail(request, username):
-    usercase = UserDetailShowUsecase(username, BookshelfRepository())
+    usercase = UserDetailShowUsecase(username, request.user, BookshelfRepository())
     context = usercase.execute()
     return render(request, "pages/user_detail.html", context)
 

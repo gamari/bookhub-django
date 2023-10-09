@@ -2,6 +2,21 @@
   <div>
     {% include 'components/user_icon_sm.html' %}
     <div class="user-username">{{ user.username }}</div>
+
+    {% if is_self %}
+      <div class="user-edit-btn">自分自身</div>
+    {% else %}
+      {% if is_following %}
+        <div class="user-follow-btn">
+          {% comment %} <a href="{% url 'unfollow' user.id %}" class="btn btn-primary">フォロー解除</a> {% endcomment %}
+          フォロー解除
+        </div>
+      {% else %}
+        <div class="user-follow-btn">
+          <a href="{% url 'follow' user.id %}" class="btn btn-primary">フォローする</a>
+        </div>
+      {% endif %}
+    {% endif %}
   </div>
 
   <div class="user-panel-info">
