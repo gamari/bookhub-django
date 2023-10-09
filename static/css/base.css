@@ -94,6 +94,8 @@ h4 {
   text-decoration: none;
   font-size: 0.8rem;
   padding: 4px 8px;
+  flex-shrink: 0;
+  flex-grow: 1;
 }
 
 .btn:hover {

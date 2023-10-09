@@ -31,7 +31,12 @@
 
 .form-image {
     width: 100px;
-    height: 100px;
+}
+
+.form-row-image {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
 }
 
 .form-no-image {

@@ -19,6 +19,16 @@ class AccountUpdateView(UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
+def delete_profile_image(request):
+    if request.method != "POST":
+        # TODO エラー処理する
+        return redirect("setting")
+    print("削除します")
+    user = request.user
+    user.profile_image = None
+    user.save()
+    return redirect("setting")
+
 
 def user_detail(request, username):
     usercase = UserDetailShowUsecase(username, request.user, BookshelfRepository())
@@ -59,7 +69,6 @@ def register_view(request):
 
 
 def logout_view(request):
-    print("logoutします")
     logout(request)
     return redirect("login")
 

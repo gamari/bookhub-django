@@ -44,18 +44,19 @@
           {% endif %}
         </div>
 
-        {% comment %} TODO 画像を削除する -> 再登録っていう流れにしたい {% endcomment %}
+        {% comment %}TODO 画像を削除する -> 再登録っていう流れにしたい{% endcomment %}
         <div class="form-group">
           <div class="form-label">プロフィール画像</div>
           <div class="form-row text-sm">
             <div class="form-image">
               {% if user.profile_image %}
-                <img src="{{ user.profile_image.url }}" alt="現在のプロフィール画像" class="form-image" />
+                <div class="row-center gap-4">
+                  <img src="{{ user.profile_image.url }}" alt="現在のプロフィール画像" class="form-image" />
+                </div>
               {% else %}
-                <p class="form-no-image">no-image</p>
+                <div>{{ form.profile_image }}</div>
               {% endif %}
             </div>
-            <div>{{ form.profile_image }}</div>
           </div>
 
           {% if form.profile_image.errors %}
@@ -68,6 +69,14 @@
         </div>
         <input type="submit" value="更新" class="btn-sm btn-primary" />
       </form>
+
+      {% if user.profile_image %}
+      <form action="{% url 'delete_profile_image' %}" method="post" class="mt-4">
+        {% csrf_token %}
+
+        <button type="submit" class="btn-sm">プロフィール画像を削除</button>
+      </form>
+      {% endif %}
     </div>
   </div>
 
