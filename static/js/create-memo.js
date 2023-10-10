@@ -33,7 +33,18 @@ document.addEventListener("DOMContentLoaded", function () {
                     newMemo.classList.add('memo-item');
                     newMemo.innerHTML = `<p>${data.created_at}</p><p>${data.content}</p>`;
                     memoList.prepend(newMemo);
-
+                    
+                    // TODO 削除ボタンの追加
+                    let deleteButton = document.createElement('button');
+                    deleteButton.classList.add('memo-item-delete-button');
+                    deleteButton.dataset.memoId = data.id;
+                    deleteButton.dataset.action = data.delete_url;
+                    let deleteIcon = document.createElement('i');
+                    deleteIcon.classList.add('fa-regular', 'fa-trash-can');
+                    deleteIcon.style.color = '#160160160';
+                    deleteButton.appendChild(deleteIcon);
+                    newMemo.appendChild(deleteButton);
+                    
 
                     // TODO フォームの中身を削除
                     let memoContent = document.querySelector("#id_content");

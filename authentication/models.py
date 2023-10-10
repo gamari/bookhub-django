@@ -28,7 +28,7 @@ class AccountManager(BaseUserManager):
 class Account(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(max_length=256, unique=True)
-    username = models.CharField(max_length=255, unique=True, default="noname")
+    username = models.CharField(max_length=12, unique=True, default="noname")
     description = models.TextField(max_length=500, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

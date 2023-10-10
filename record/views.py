@@ -34,13 +34,11 @@ def reading_record_page(request, book_id):
 @login_required
 def create_memo_api(request, book_id):
     if request.method == "POST":
-        usecase = CreateMemoUsecase(
-            BookRepository(), 
-            ReadingMemoRepository(), 
-            MemoDomainService()
-        )
+        memo_service = MemoDomainService(ReadingMemoRepository())
 
-        response_data = usecase.execute(request.POST, request.user, book_id)
+        usecase = CreateMemoUsecase(BookRepository(), memo_service)
+
+        response_data = usecase.run(request.POST, request.user, book_id)
 
         if response_data["result"] == "success":
             return JsonResponse(response_data, status=201)

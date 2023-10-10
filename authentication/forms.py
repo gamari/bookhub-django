@@ -3,6 +3,7 @@ from django.forms import ValidationError
 
 from .models import Account
 
+
 class LoginForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "form-input"}))
     password = forms.CharField(
@@ -19,6 +20,10 @@ class RegisterForm(forms.Form):
 
     def clean_username(self):
         username = self.cleaned_data.get("username")
+
+        if len(username) < 1 or len(username) > 12:
+            raise ValidationError("ユーザー名は1～12文字で入力してください。")
+
         if Account.objects.filter(username=username).exists():
             raise ValidationError("このユーザー名は既に使用されています。")
         return username
@@ -35,7 +40,7 @@ class RegisterForm(forms.Form):
             raise ValidationError("4文字以上を入力してください")
         return password
 
-
+# TODO リファクタリングする
 class AccountUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(AccountUpdateForm, self).__init__(*args, **kwargs)
@@ -48,7 +53,9 @@ class AccountUpdateForm(forms.ModelForm):
         fields = ["email", "username", "description", "profile_image"]
 
     def clean_username(self):
-        username = self.cleaned_data["username"]
-        if len(username) < 1:
-            raise ValidationError("1文字以上を入力してください")
+        username = self.cleaned_data.get("username")
+
+        if len(username) < 1 or len(username) > 12:
+            raise ValidationError("ユーザー名は1～12文字で入力してください。")
+
         return username

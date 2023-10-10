@@ -6,7 +6,11 @@ from book.domain.services import BookDomainService, BookshelfDomainService
 from book.models import Bookshelf
 from ranking.models import WeeklyRanking, WeeklyRankingEntry
 from record.domain.repositories import ReadingRecordRepository
-from record.domain.services import ActivityDomainService, RecordDomainService
+from record.domain.services import (
+    ActivityDomainService,
+    MemoDomainService,
+    RecordDomainService,
+)
 from review.domain.services import ReviewDomainService
 from review.forms import ReviewForm
 from review.domain.repositories import ReviewRepository
@@ -19,11 +23,13 @@ class ShowHomePageUsecase(Usecase):
         self,
         record_repo: ReadingRecordRepository,
         review_repo: ReviewRepository,
-    ) -> None:
+        memo_service: MemoDomainService,
+    ):
         self.record_repo = record_repo
         self.review_repo = review_repo
+        self.memo_service = memo_service
 
-    def run(self) -> dict:
+    def run(self, user) -> dict:
         first_day_of_month, last_day_of_month = get_month_range_of_today()
         top_book_results = self.record_repo.get_top_books(
             first_day_of_month, last_day_of_month, limit=3
@@ -44,11 +50,14 @@ class ShowHomePageUsecase(Usecase):
         except:
             ranking_entries = None
 
+        memos = self.memo_service.get_memos_by_user(user, limit=4)
+
         context = {
             "top_book_results": top_book_results,
             "reviews": latest_reviews,
             "ranking_entries": ranking_entries,
             "rating_range": range(1, 6),
+            "memos": memos,
         }
 
         return context
@@ -93,7 +102,7 @@ class ShowMyPageUsecase(Usecase):
             "month": month,
             "bookshelf": bookshelf,
             "finished_count": finished_count,
-            "reviews_count": reviews_count,
+            "reviews_count": reviews_count
         }
 
 

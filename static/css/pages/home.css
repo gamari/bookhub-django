@@ -35,6 +35,40 @@
   background-color: rgb(192, 192, 192);
 }
 
+
+/* タイムラインセクション  */
+.timeline-section {
+}
+
+.timeline-panel-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.timeline-panel {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.timeline-panel-image {
+  height: 100px;
+  width: 80px;
+}
+
+.timeline-panel-image:hover {
+  opacity: 0.8;
+}
+
+.timeline-panel-content {
+  color: #666;
+  font-size: 16px;
+  padding: 12px;
+}
+
+
+
 /* お知らせセクション */
 .news-section {
   display: flex;

@@ -16,14 +16,21 @@ from book.domain.services import (
     BookshelfDomainService,
 )
 from record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
-from record.domain.services import ActivityDomainService, RecordDomainService
+from record.domain.services import ActivityDomainService, MemoDomainService, RecordDomainService
 from review.domain.repositories import ReviewRepository
 from review.domain.services import ReviewDomainService
 
 
 def home(request):
-    usecase = ShowHomePageUsecase(ReadingRecordRepository(), ReviewRepository())
-    context = usecase.execute()
+    memo_service = MemoDomainService(ReadingMemoRepository())
+
+    usecase = ShowHomePageUsecase(
+        ReadingRecordRepository(), 
+        ReviewRepository(),
+        memo_service
+    )
+    context = usecase.execute(request.user)
+    
     return render(request, "pages/home.html", context)
 
 

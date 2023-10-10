@@ -3,6 +3,7 @@ from config.utils import DateUtils
 
 from record.domain.aggregates import ActivityCollection
 from record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
+from record.forms import ReadingMemoForm
 
 
 class RecordDomainService(object):
@@ -23,15 +24,19 @@ class RecordDomainService(object):
 
 class MemoDomainService(object):
     """メモドメインサービス。"""
+    def __init__(self, memo_repo: ReadingMemoRepository) -> None:
+        self.memo_repo = memo_repo
 
-    def create_memo(self, form, user, book):
+    def get_memos_by_user(self, user, limit: int):
+        return self.memo_repo.fetch_memos_by_user(user, limit)
+
+    def create_memo_from_form(self, form: ReadingMemoForm, user, book):
+        # TODO userとbookを入れてから保存する
         memo = form.save(commit=False)
         memo.user = user
         memo.book = book
+        memo.save()
         return memo
-
-
-# 活動履歴ドメイン
 
 
 class ActivityDomainService(object):

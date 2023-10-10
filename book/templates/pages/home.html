@@ -1,70 +1,124 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
+{% endblock %} {% block title %} トップページ {% endblock %} {% block content %}
+<div class="search-section card">
+  <h4>気になる書籍を検索する</h4>
+  <form action="{% url 'book_search' %}" method="GET" class="search-container">
+    <input
+      type="text"
+      name="query"
+      placeholder="書籍名で検索"
+      class="search-input"
+      autocomplete="off"
+    />
+    <button type="submit" class="searchbox-icon">
+      <i class="fas fa-search"></i>
+    </button>
+  </form>
+</div>
 
-{% load static %}
+<div>
+  <h2>お知らせ</h2>
 
-{% block css %}
-  <link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
-{% endblock %}
-
-{% block title %}
-  トップページ
-{% endblock %}
-
-{% block content %}
-  <div class="search-section card">
-    <h4>気になる書籍を検索する</h4>
-    <form action="{% url 'book_search' %}" method="GET" class="search-container">
-      <input type="text" name="query" placeholder="書籍名で検索" class="search-input" autocomplete="off" />
-      <button type="submit" class="searchbox-icon"><i class="fas fa-search"></i></button>
-    </form>
+  <div class="card-sm">
+    <p>2023年10月現在、α版を公開中。</p>
+    <p></p>
   </div>
+</div>
 
-  <div>
-    <h2>お知らせ</h2>
+{% include 'components/features.html' %}
 
-    <div class="card-sm">
-      <p>2023年10月現在、α版を公開中。</p>
-      <p></p>
-    </div>
-  </div>
-
-  {% include 'components/features.html' %}
-
-  {% comment %}ランキング{% endcomment %}
-  <div class="ranking-section">
-    <h2>先週のランキング</h2>
-    {% if ranking_entries %}
-      <div class="ranking-list-container">
-        {% for entry in ranking_entries %}
-          <a href="{% url 'book_detail' entry.book.id %}" class="book">
-            <img src="{{ entry.book.thumbnail }}" alt="{{ book.title }}" class="book-image" />
-            <div class="rank">{{ forloop.counter }}</div>
-          </a>
-        {% endfor %}
+<div class="timeline-section">
+  <h2>最新のタイムライン</h2>
+  <div class="timeline-panel-container mt-4">
+    {% for memo in memos %}
+    <div class="card-sm timeline-panel">
+      <div>
+        <a href="{% url 'book_detail' memo.book.id %}"
+          ><img
+            src="{{ memo.book.thumbnail }}"
+            alt="{{ memo.book.title }}"
+            class="timeline-panel-image"
+        /></a>
       </div>
-      {% else %}
-      <div class="card-sm">ランキングが存在しません</div>
-    {% endif %}
-  </div>
+      <div>
+        <div>
+          <div>
+            <a
+              href="{% url 'user_detail' memo.user.username %}"
+              class="user-icon-container"
+            >
+              {% if memo.user.profile_image %}
+              <img
+                src="{{ memo.user.profile_image.url }}"
+                alt="{{ memo.user.username }}"
+                class="user-icon-sm"
+              />
+              {% else %}
+              <div class="user-icon-sm">
+                <i class="fa-regular fa-user fa-2xl" style="color: #5e5e5e"></i>
+              </div>
+              {% endif %}
+              <span class="user-username">{{ memo.user.username }}</span>
+            </a>
+          </div>
+        </div>
 
-  <div class="review-section">
-    <h2>最新のレビュー</h2>
-
-    {% include 'components/review_list.html' %}
-  </div>
-
-  {% comment %}TODO fix this{% endcomment %}
-  <div class="top-books-section">
-    <h2>よく読まれています</h2>
-
-    <div class="top-books-container">
-      {% for result in top_book_results %}
-        <a href="{% url 'book_detail' result.book__id %}" class="book"><img src="{{ result.book__thumbnail }}" alt="{{ result.book__title }}" class="book-image" /></a>
-      {% endfor %}
+        <div>
+          <div class="timeline-panel-content">{{ memo.content }}</div>
+        </div>
+      </div>
     </div>
+    {% empty %}
+    <div>存在しません</div>
+    {% endfor %}
   </div>
+</div>
+
+{% comment %}ランキング{% endcomment %}
+<div class="ranking-section">
+  <h2>先週のランキング</h2>
+  {% if ranking_entries %}
+  <div class="ranking-list-container">
+    {% for entry in ranking_entries %}
+    <a href="{% url 'book_detail' entry.book.id %}" class="book">
+      <img
+        src="{{ entry.book.thumbnail }}"
+        alt="{{ book.title }}"
+        class="book-image"
+      />
+      <div class="rank">{{ forloop.counter }}</div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="card-sm">ランキングが存在しません</div>
+  {% endif %}
+</div>
+
+<div class="review-section">
+  <h2>最新のレビュー</h2>
+
+  {% include 'components/review_list.html' %}
+</div>
+
+{% comment %}TODO fix this{% endcomment %}
+<div class="top-books-section">
+  <h2>よく読まれています</h2>
+
+  <div class="top-books-container">
+    {% for result in top_book_results %}
+    <a href="{% url 'book_detail' result.book__id %}" class="book"
+      ><img
+        src="{{ result.book__thumbnail }}"
+        alt="{{ result.book__title }}"
+        class="book-image"
+    /></a>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}

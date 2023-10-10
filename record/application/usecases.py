@@ -46,32 +46,29 @@ class RecordReadingHistoryUsecase(Usecase):
         }
 
 
-class CreateMemoUsecase(object):
+class CreateMemoUsecase(Usecase):
     """メモ作成。"""
 
     def __init__(
         self,
         book_repo: BookRepository,
-        memo_repo: ReadingMemoRepository,
         memo_service: MemoDomainService,
     ):
         self.book_repo = book_repo
-        self.memo_repo = memo_repo
         self.memo_service = memo_service
 
-    def execute(self, form_data, user, book_id):
+    def run(self, form_data, user, book_id):
         form = ReadingMemoForm(form_data)
         if not form.is_valid():
             return {"result": "fail", "errors": form.errors}
 
         book = self.book_repo.find_by_id(book_id)
-        memo = self.memo_service.create_memo(form, user, book)
-        saved_memo = self.memo_repo.save(memo)
+        memo: ReadingMemo = self.memo_service.create_memo_from_form(form, user, book)
 
         return {
             "result": "success",
-            "content": saved_memo.content,
-            "created_at": saved_memo.created_at.strftime("%Y年%m月%d日%H:%M"),
+            "content": memo.content,
+            "created_at": memo.created_at.strftime("%Y年%m月%d日%H:%M"),
         }
 
 

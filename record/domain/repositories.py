@@ -21,6 +21,9 @@ class ReadingMemoRepository(object):
 
     def fetch_memo_by_id(self, memo_id):
         return ReadingMemo.objects.get(id=memo_id)
+    
+    def fetch_memos_by_user(self, user, limit):
+        return ReadingMemo.objects.filter(user=user).order_by("-created_at")[:limit]
 
     def delete(self, memo):
         memo.delete()
