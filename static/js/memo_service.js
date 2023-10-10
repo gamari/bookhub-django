@@ -31,6 +31,7 @@ async function createMemo(url, body_data, csrf_token) {
     if (data.result === 'success') {
         return data;
     } else {
-        throw new Error("メモ作成に失敗しました。")
+        alert("メモ作成に失敗しました。");
+        throw new Error("メモ作成に失敗しました。");
     }
 }

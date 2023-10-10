@@ -32,7 +32,7 @@ main {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 96px;
   padding-top: 128px;
   padding-bottom: 64px;
 }

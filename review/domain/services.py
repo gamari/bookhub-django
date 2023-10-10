@@ -15,3 +15,6 @@ class ReviewDomainService(object):
 
     def get_reviews_by_user_within_this_month(self, user):
         return self.review_repo.fetch_reviews_by_user_within_this_month(user)
+    
+    def get_latest_reviews(self, limit):
+        return self.review_repo.fetch_latest_reviews(limit)

@@ -27,15 +27,7 @@ function deleteListener(button) {
     });
 }
 
-
-function createMemoElement(data) {
-    let memoList = document.querySelector("#memoList");
-    let newMemo = document.createElement('li');
-    newMemo.classList.add('memo-item');
-    newMemo.innerHTML = `<p>${data.created_at}</p><p>${data.content}</p>`;
-    memoList.prepend(newMemo);
-
-    // 削除ボタンの追加
+function createDeleteButton(data) {
     let deleteButton = document.createElement('button');
     deleteButton.classList.add('memo-item-delete-button');
     deleteButton.dataset.memoId = data.id;
@@ -44,19 +36,31 @@ function createMemoElement(data) {
     deleteIcon.classList.add('fa-regular', 'fa-trash-can');
     deleteIcon.style.color = '#160160160';
     deleteButton.appendChild(deleteIcon);
-    newMemo.appendChild(deleteButton);
-    deleteButton.addEventListener('click', function (event) {
+    deleteButton.addEventListener('click', function () {
         deleteListener(deleteButton);
     });
+    return deleteButton;
+}
+
+
+function createMemoElement(data) {
+    let newMemo = document.createElement('li');
+    newMemo.classList.add('memo-item');
+    newMemo.innerHTML = `<p>${data.created_at}</p><p>${data.content}</p>`;
+    newMemo.appendChild(createDeleteButton(data));
+    return newMemo;
 }
 
 
 // リスナー設定
 document.addEventListener('DOMContentLoaded', function () {
-    // メモフォームを設定
-    let memoForm = document.querySelector("#memoForm");
-    let createMemoButton = document.querySelector("#createMemoButton");
+    const memoList = document.querySelector("#memoList");
+    const memoForm = document.querySelector("#memoForm");
+    const createMemoButton = document.querySelector("#createMemoButton");
+    const memoContent = document.querySelector("#id_content");
+    const noMemoTitle = document.querySelector("#no-memo-title");
 
+    // フォーム設定
     createMemoButton.addEventListener("click", function (event) {
         event.preventDefault();
         let formData = new FormData(memoForm);
@@ -66,31 +70,21 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        for (let [key, value] of formData.entries()) {
-            console.log(key, value);
-        }
-
         let postUrl = memoForm.dataset.action;
 
         createMemo(
             postUrl,
             formData,
-            document.querySelector("[name=csrfmiddlewaretoken]").value
+            getCookie('csrfmiddlewaretoken')
         ).then(data => {
-            createMemoElement(data);
-
-            let memoContent = document.querySelector("#id_content");
+            memoList.prepend(createMemoElement(data));
             memoContent.value = '';
-
-            let noMemoTitle = document.querySelector("#no-memo-title");
-            if (noMemoTitle) {
-                noMemoTitle.remove();
-            }
+            if (noMemoTitle) noMemoTitle.remove();
         });
     });
 
 
-    // 削除ボタンのイベントリスナーを登録
+    // 削除ボタン設定
     document.querySelectorAll('.memo-item-delete-button').forEach(function (button) {
         button.addEventListener('click', function (event) {
             deleteListener(button);

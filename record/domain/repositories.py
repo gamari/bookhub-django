@@ -40,7 +40,7 @@ class ReadingRecordRepository(object):
     def fetch_record_by_user_and_book(self, user, book):
         return ReadingRecord.objects.get(book=book, user=user)
 
-    def get_top_books(self, start_date, end_date, limit):
+    def fetch_top_books(self, start_date, end_date, limit):
         """指定した期間内の読書記録を集計し、上位の本を返す"""
         monthly_records = ReadingRecord.objects.filter(
             started_at__range=[start_date, end_date]

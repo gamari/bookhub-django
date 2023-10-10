@@ -5,7 +5,6 @@ from config.application.usecases import Usecase
 from book.domain.services import BookDomainService, BookshelfDomainService
 from book.models import Bookshelf
 from ranking.models import WeeklyRanking, WeeklyRankingEntry
-from record.domain.repositories import ReadingRecordRepository
 from record.domain.services import (
     ActivityDomainService,
     MemoDomainService,
@@ -13,7 +12,6 @@ from record.domain.services import (
 )
 from review.domain.services import ReviewDomainService
 from review.forms import ReviewForm
-from review.domain.repositories import ReviewRepository
 
 
 class ShowHomePageUsecase(Usecase):
@@ -21,20 +19,20 @@ class ShowHomePageUsecase(Usecase):
 
     def __init__(
         self,
-        record_repo: ReadingRecordRepository,
-        review_repo: ReviewRepository,
+        record_service: RecordDomainService,
+        review_service: ReviewDomainService,
         memo_service: MemoDomainService,
     ):
-        self.record_repo = record_repo
-        self.review_repo = review_repo
+        self.record_service = record_service
+        self.review_service = review_service
         self.memo_service = memo_service
 
     def run(self, user) -> dict:
         first_day_of_month, last_day_of_month = get_month_range_of_today()
-        top_book_results = self.record_repo.get_top_books(
+        top_book_results = self.record_service.get_top_books(
             first_day_of_month, last_day_of_month, limit=3
         )
-        latest_reviews = self.review_repo.fetch_latest_reviews(limit=5)
+        latest_reviews = self.review_service.get_latest_reviews(limit=5)
 
         # ランキングを取得する
         # TODO リファクタリングする

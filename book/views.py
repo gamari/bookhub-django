@@ -22,11 +22,13 @@ from review.domain.services import ReviewDomainService
 
 
 def home(request):
+    record_service = RecordDomainService(ReadingRecordRepository())
+    review_service = ReviewDomainService(ReviewRepository())
     memo_service = MemoDomainService(ReadingMemoRepository())
 
     usecase = ShowHomePageUsecase(
-        ReadingRecordRepository(), 
-        ReviewRepository(),
+        record_service, 
+        review_service,
         memo_service
     )
     context = usecase.execute(request.user)

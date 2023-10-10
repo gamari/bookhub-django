@@ -42,7 +42,7 @@
 
 .timeline-panel-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 16px;
 }
 
@@ -154,5 +154,9 @@
 @media screen and (min-width: 768px) {
   .about-features-container {
     grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .timeline-panel-container {
+    grid-template-columns: 1fr 1fr;
   }
 }

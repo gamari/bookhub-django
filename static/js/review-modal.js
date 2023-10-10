@@ -1,41 +1,50 @@
+// TODO pages/reading_recordに移す
+// TODO 処理をリファクタリングする
 document.addEventListener("DOMContentLoaded", function () {
-    // TODO openReviewModalはない場合が存在するのでそれを修正する
-    // レビューモーダルの処理を実装
-    document.getElementById('openReviewModalButton').addEventListener('click', function () {
-        document.getElementById('reviewModal').style.display = 'block';
-    });
+    const reviewModal = document.getElementById('reviewModal');
+    const closeReviewModalButton = document.getElementById('closeReviewModalButton');
+    const reviewSubmitButton = document.getElementById('review-submit');
 
-    document.getElementById('closeReviewModalButton').addEventListener('click', function () {
-        document.getElementById('reviewModal').style.display = 'none';
-    });
+    if (reviewModal) {
+        reviewModal.addEventListener('click', function () {
+            document.getElementById('reviewModal').style.display = 'block';
+        });
+    }
 
-    document.getElementById('review-submit').addEventListener('click', function () {
-        // レビュー処理
-        const reviewForm = document.getElementById('reviewForm');
-        const formData = new FormData(reviewForm);
-        const reviewUrl = reviewForm.getAttribute('action');
+    if (closeReviewModalButton) {
+        closeReviewModalButton.addEventListener('click', function () {
+            document.getElementById('reviewModal').style.display = 'none';
+        });
+    }
 
-        fetch(reviewUrl, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-            },
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    console.error(data.error);
-                    // handle error (show message to user or something)
-                } else {
-                    // 画面をリロードする
-                    location.reload();
-                }
+    if (reviewSubmitButton) {
+        reviewSubmitButton.addEventListener('click', function () {
+            // レビュー処理
+            const reviewForm = document.getElementById('reviewForm');
+            const formData = new FormData(reviewForm);
+            const reviewUrl = reviewForm.getAttribute('action');
+
+            fetch(reviewUrl, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                },
+                body: formData
             })
-            .catch(error => console.error('Error submitting review:', error));
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error(data.error);
+                        // handle error (show message to user or something)
+                    } else {
+                        // 画面をリロードする
+                        location.reload();
+                    }
+                })
+                .catch(error => console.error('Error submitting review:', error));
 
-    });
-
+        });
+    }
 });
 
 

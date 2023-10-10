@@ -15,6 +15,9 @@ class RecordDomainService(object):
     def get_or_create_record(self, user, book):
         return self.reading_record_repo.fetch_or_create(user, book)
     
+    def get_top_books(self, start_date, end_date, limit):
+        return self.reading_record_repo.fetch_top_books(start_date, end_date, limit)
+    
     def get_by_user_and_book(self, user, book):
         return self.reading_record_repo.fetch_record_by_user_and_book(user, book)
     

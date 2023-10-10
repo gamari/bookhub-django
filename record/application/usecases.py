@@ -60,7 +60,7 @@ class CreateMemoUsecase(Usecase):
     def run(self, form_data, user, book_id):
         form = ReadingMemoForm(form_data)
         if not form.is_valid():
-            return {"result": "fail", "errors": form.errors}
+            return { "result": "fail", "errors": form.errors}
 
         book = self.book_repo.find_by_id(book_id)
         memo: ReadingMemo = self.memo_service.create_memo_from_form(form, user, book)

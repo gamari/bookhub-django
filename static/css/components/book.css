@@ -57,6 +57,7 @@
   justify-content: center;
   cursor: pointer;
   z-index: 10;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 
 .book-done-icon {
@@ -73,6 +74,7 @@
   justify-content: center;
   cursor: pointer;
   z-index: 10;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 
 /* PC版では4列にする  */
