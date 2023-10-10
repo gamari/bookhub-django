@@ -56,12 +56,10 @@
   margin-top: 12px;
   font-size: 0.8rem;
   word-wrap: pre-wrap;
+  white-space: pre-wrap;
 }
 
 /* レビューセクション */
-.reviews-section {
-}
-
 .review-title-container {
   display: flex;
   flex-direction: row;

@@ -7,11 +7,12 @@
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/pages/mypage.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/contribution.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pages/mypage.css' %}" />
 {% endblock %}
 
 {% block js %}
@@ -84,7 +85,7 @@
     </div>
   
     <div id="reviews-section" style="display: none">
-      <h3 class="mb-4">最近のレビュー</h3>
+      <h3 class="mb-4">最近のレビュー(5件まで)</h3>
   
       {% include 'components/review_list.html' %}
     </div>

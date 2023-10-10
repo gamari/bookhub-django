@@ -41,20 +41,25 @@
 }
 
 .timeline-panel-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
 }
 
 .timeline-panel {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 12px;
 }
 
+.timeline-panel-header {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+}
+
 .timeline-panel-image {
-  height: 100px;
-  width: 80px;
+  height: 80px;
+  width: 70px;
 }
 
 .timeline-panel-image:hover {
@@ -62,9 +67,16 @@
 }
 
 .timeline-panel-content {
-  color: #666;
-  font-size: 16px;
-  padding: 12px;
+  color: #494949;
+  font-size: 14px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.timeline-panel-date {
+  color: #676767;
+  font-size: 12px;
+  padding-left: 12px;
 }
 
 

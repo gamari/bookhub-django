@@ -18,3 +18,6 @@ class ReviewDomainService(object):
     
     def get_latest_reviews(self, limit):
         return self.review_repo.fetch_latest_reviews(limit)
+    
+    def get_latest_reviews_by_user(self, user, limit):
+        return self.review_repo.fetch_latest_reviews_by_user(user, limit)

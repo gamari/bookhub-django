@@ -11,6 +11,9 @@ class ReviewRepository(object):
 
     def fetch_latest_reviews(self, limit):
         return Review.objects.all().order_by("-created_at")[:limit]
+    
+    def fetch_latest_reviews_by_user(self, user, limit):
+        return Review.objects.filter(user=user).order_by("-created_at")[:limit]
 
     def fetch_reviews_by_user_within_this_month(self, user):
         """今月のレビュー数を取得"""

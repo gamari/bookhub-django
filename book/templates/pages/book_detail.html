@@ -85,7 +85,12 @@
 
   <div class="description-section">
     <h3>書籍紹介</h3>
+
+    {% if book.description %}
     <p class="description-content card-sm">{{ book.description }}</p>
+    {% else %}
+    <p class="description-content card-sm">書籍紹介がありません</p>
+    {% endif %}
   </div>
 
   <div class="reviews-section">

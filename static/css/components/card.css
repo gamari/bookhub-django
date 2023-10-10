@@ -5,7 +5,7 @@
 
 .card-sm {
   background-color: white;
-  padding: 24px 32px;
+  padding: 16px 24px;
 }
 
 /* PC版 */
@@ -21,6 +21,6 @@
     background-color: white;
     border: 1px solid #e6e6e6;
     border-radius: 6px;
-    padding: 24px 32px;
+    padding: 16px 24px;
   }
 }

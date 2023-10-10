@@ -47,10 +47,12 @@
   margin-bottom: 10px;
 }
 
-.memo-item p:last-child {
+.memo-item p:nth-child(2) {
   font-size: 1rem;
   white-space: pre-wrap;
-  word-break: break-all;
+  word-wrap: break-word;
+  font-size: 14px;
+  color: #3d3d3d;
 }
 
 .memo-item-delete-button {

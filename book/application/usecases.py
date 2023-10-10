@@ -92,6 +92,8 @@ class ShowMyPageUsecase(Usecase):
 
         reviews_count = self.review_service.get_reviews_by_user_within_this_month(user)
 
+        reviews = self.review_service.get_latest_reviews_by_user(user, 5)
+
         month = today.month
 
         return {
@@ -100,7 +102,8 @@ class ShowMyPageUsecase(Usecase):
             "month": month,
             "bookshelf": bookshelf,
             "finished_count": finished_count,
-            "reviews_count": reviews_count
+            "reviews_count": reviews_count,
+            "reviews": reviews
         }
 
 

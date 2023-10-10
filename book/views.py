@@ -10,7 +10,7 @@ from book.application.usecases import (
     RemoveBookFromShelfUsecase,
 )
 from book.domain.repositories import BookRepository, BookshelfRepository
-from book.models import Book, Bookshelf
+from book.models import Bookshelf
 from book.domain.services import (
     BookDomainService,
     BookshelfDomainService,
