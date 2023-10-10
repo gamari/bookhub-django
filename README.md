@@ -30,3 +30,5 @@ BookHubアプリ。
 - docker compose up -d --build
 - docker compose exec web python manage.py migrate
 - 週間ランキングの作成をする（準備中）
+
+- CICDによるデプロイ
