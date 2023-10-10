@@ -12,7 +12,6 @@
   <link href="{% static 'css/components/book.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/review.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/modal.css' %}" rel="stylesheet" />
-  <link href="{% static 'css/components/card.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/form.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/user.css' %}" rel="stylesheet" />
 {% endblock %}
@@ -22,9 +21,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="page-title">書籍 > 詳細</div>
-
-  <div class="detail-section card">
+  <div class="section detail-section card">
     <div class="detail-image">
       {% include 'components/book_image.html' %}
 
@@ -83,7 +80,7 @@
     </div>
   </div>
 
-  <div class="description-section">
+  <div class="section">
     <h3>書籍紹介</h3>
 
     {% if book.description %}

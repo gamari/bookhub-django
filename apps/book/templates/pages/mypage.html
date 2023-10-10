@@ -9,7 +9,6 @@
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/components/contribution.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
   <link rel="stylesheet" href="{% static 'css/pages/mypage.css' %}" />
@@ -37,7 +36,12 @@
 
     <div class="top-right">
       <div>
-        <h3>{{ month }}月の活動履歴</h3>
+        <h3>
+          <span>{{ month }}月の活動履歴</span>
+          <a href="{% url 'help_activity' %}">
+            <i class="fa-solid fa-question fa-2xs" style="color: #3d3d3d;"></i>
+          </a>
+        </h3>
 
         {% include 'components/activities.html' %}
       </div>
@@ -70,15 +74,6 @@
     <div id="bookshelf-section">
       <div class="mypage-bookshelf-title mb-6">
         <h3>本棚</h3>
-  
-        <a
-          href="https://twitter.com/intent/tweet?text={{ user.username }}さんの本棚をチェックしよう！&url={{ request.build_absolute_uri|default:'' }}{% url 'user_detail' user.id %}"
-          target="_blank"
-          class="btn-sm btn-primary"
-        >
-          <i class="fa-regular fa-share-from-square"></i>
-          <span>シェアする</span>
-        </a>
       </div>
   
       {% include 'components/bookshelf.html' %}

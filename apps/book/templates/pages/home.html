@@ -1,11 +1,16 @@
-{% extends 'base.html' %} {% load static %} {% block css %}
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block css %}
 <link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
 <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
-<link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
 <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
 <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
-{% endblock %} {% block title %} トップページ {% endblock %} {% block content %}
+{% endblock %} 
 
+{% block title %} トップページ {% endblock %} 
+
+{% block content %}
 <section>
   <div class="card">
     <h4>気になる書籍を検索する</h4>
@@ -27,17 +32,6 @@
     </form>
   </div>
 </section>
-
-<section>
-  <h2>お知らせ</h2>
-
-  <div class="card-sm">
-    <p>2023年10月現在、α版を公開中。</p>
-    <p></p>
-  </div>
-</section>
-
-{% include 'components/features.html' %}
 
 <section>
   <h2>最新のタイムライン</h2>
@@ -86,6 +80,9 @@
     {% endfor %}
   </div>
 </section>
+
+{% include 'components/home_news.html' %}
+{% include 'components/features.html' %}
 
 <section>
   <h2>先週のランキング</h2>

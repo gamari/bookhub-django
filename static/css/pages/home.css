@@ -14,6 +14,12 @@
   padding-top: 24px;
 }
 
+.about-title {
+  color: #1e90ff;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
 .about-feature {
   background-color: white;
   padding: 16px;
@@ -21,20 +27,18 @@
   border: 1px solid #e6e6e6;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   width: 200px;
-}
-
-.about-title {
-  color: #1e90ff;
-  font-weight: bold;
-  margin-bottom: 8px;
+  height: 200px;
+  overflow: hidden;
 }
 
 .about-image {
-  width: 100%;
-  height: 200px;
-  background-color: rgb(192, 192, 192);
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
-
 
 /* タイムラインセクション  */
 .timeline-panel-container {
@@ -57,6 +61,7 @@
 .timeline-panel-image {
   height: 80px;
   width: 70px;
+  object-fit: contain;
 }
 
 .timeline-panel-image:hover {

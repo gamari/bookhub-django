@@ -1,18 +1,32 @@
+{% load static %}
+
 <section>
   <h2>BookHubの特徴</h2>
 
   <div class="about-features-container">
     <div class="about-feature">
       <div class="about-title">頑張りが可視化されます！</div>
-      <div class="about-image"></div>
+      <img 
+        src="{% static "images/activity.jpg" %}" 
+        alt="image"
+        class="about-image"
+      >
     </div>
     <div class="about-feature">
       <div class="about-title">本棚をシェアできます！</div>
-      <div class="about-image"></div>
+      <img 
+        src="{% static "images/bookshelf.jpg" %}" 
+        alt="image"
+        class="about-image"
+      >
     </div>
     <div class="about-feature">
       <div class="about-title">手軽にメモが書けます！</div>
-      <div class="about-image"></div>
+      <img 
+      src="{% static "images/memo.jpg" %}" 
+      alt="image"
+      class="about-image"
+    >
     </div>
   </div>
 </section>

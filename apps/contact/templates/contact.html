@@ -1,9 +1,15 @@
-{% extends 'base.html' %} {% load static %} {% block title %} お問い合わせページ
-{% endblock %} {% block css %}
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block title %} お問い合わせページ {% endblock %} 
+
+{% block css %}
 <link href="{% static 'css/pages/contact.css' %}" rel="stylesheet" />
 <link href="{% static 'css/components/card.css' %}" rel="stylesheet" />
 <link href="{% static 'css/components/form.css' %}" rel="stylesheet" />
-{% endblock %} {% block content %}
+{% endblock %} 
+
+{% block content %}
 <div class="card card-section">
   <h3 class="mb-4">お問い合わせ</h3>
 

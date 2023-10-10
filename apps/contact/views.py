@@ -14,3 +14,6 @@ def contact_page(request):
         message = "送信しました"
 
     return render(request, "contact.html", {"form": form, "message": message})
+
+def help_activity_page(request):
+    return render(request, "pages/help_activity.html")
