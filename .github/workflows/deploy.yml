@@ -22,4 +22,5 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY }}
         script: |
           cd ${{ secrets.DEPLOY_DIR }}
-          sudo git pull
+          echo "git pull開始"
+          git pull
