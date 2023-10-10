@@ -4,29 +4,31 @@
   <div class="record-item">
     <div class="badge">開始日</div>
     {% if record.started_at %}
-    <div class="row-center gap-4">
-      <div class="text-sm">{{ record.started_at|default_if_none:'' }}</div>
+      <div class="row-center gap-4">
+        <div class="text-sm">{{ record.started_at|default_if_none:'' }}</div>
 
+        {% if not record.finished_at %}
+        <form action="{% url 'mark_as_unstarted' book.id %}" method="post">
+          {% csrf_token %}
+          <button id="done-button" type="submit">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </form>
+        {% endif %}
+      </div>
+    {% else %} 
       {% if not record.finished_at %}
-      <form action="{% url 'mark_as_unstarted' book.id %}" method="post">
+      <form action="{% url 'mark_as_started' book.id %}" method="post">
         {% csrf_token %}
-        <button id="done-button" type="submit">
-          <i class="fa-solid fa-xmark"></i>
+        <button type="submit" class="btn-sm">
+          <i class="fa-regular fa-calendar"></i>
+          <span>読み始める</span>
         </button>
       </form>
-      {% endif %}
-    </div>
-    {% else %} {% if not record.finished_at %}
-    <form action="{% url 'mark_as_started' book.id %}" method="post">
-      {% csrf_token %}
-      <button type="submit" class="btn-sm">
-        <i class="fa-regular fa-calendar"></i>
-        <span>読み始める</span>
-      </button>
-    </form>
-    {% else %}
-    <div class="text-sm">{{ record.started_at|default_if_none:'-' }}</div>
-    {% endif %} {% endif %}
+      {% else %}
+      <div class="text-sm">{{ record.started_at|default_if_none:'-' }}</div>
+      {% endif %} 
+    {% endif %}
   </div>
 
   <div class="record-item">
@@ -43,17 +45,19 @@
         </button>
       </form>
     </div>
-    {% else %} {% if record.started_at %}
-    <form action="{% url 'mark_as_finished' book.id %}" method="post">
-      {% csrf_token %}
-      <button type="submit" class="btn-sm">
-        <i class="fa-regular fa-calendar"></i>
-        <span>読了済みにする</span>
-      </button>
-    </form>
-    {% else %}
-    <div class="text-sm">{{ record.finished_at|default_if_none:'-' }}</div>
-    {% endif %} {% endif %}
+    {% else %} 
+      {% if record.started_at %}
+        <form action="{% url 'mark_as_finished' book.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn-sm">
+            <i class="fa-regular fa-calendar"></i>
+            <span>読了済みにする</span>
+          </button>
+        </form>
+      {% else %}
+        <div class="text-sm">{{ record.finished_at|default_if_none:'-' }}</div>
+      {% endif %} 
+    {% endif %}
   </div>
 
   <div class="record-item mt-4">

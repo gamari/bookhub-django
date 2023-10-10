@@ -5,34 +5,41 @@
 <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
 <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
 {% endblock %} {% block title %} トップページ {% endblock %} {% block content %}
-<div class="search-section card">
-  <h4>気になる書籍を検索する</h4>
-  <form action="{% url 'book_search' %}" method="GET" class="search-container">
-    <input
-      type="text"
-      name="query"
-      placeholder="書籍名で検索"
-      class="search-input"
-      autocomplete="off"
-    />
-    <button type="submit" class="searchbox-icon">
-      <i class="fas fa-search"></i>
-    </button>
-  </form>
-</div>
 
-<div>
+<section>
+  <div class="card">
+    <h4>気になる書籍を検索する</h4>
+    <form
+      action="{% url 'book_search' %}"
+      method="GET"
+      class="search-container"
+    >
+      <input
+        type="text"
+        name="query"
+        placeholder="書籍名で検索"
+        class="search-input"
+        autocomplete="off"
+      />
+      <button type="submit" class="searchbox-icon">
+        <i class="fas fa-search"></i>
+      </button>
+    </form>
+  </div>
+</section>
+
+<section>
   <h2>お知らせ</h2>
 
   <div class="card-sm">
     <p>2023年10月現在、α版を公開中。</p>
     <p></p>
   </div>
-</div>
+</section>
 
 {% include 'components/features.html' %}
 
-<div class="timeline-section">
+<section>
   <h2>最新のタイムライン</h2>
   <div class="timeline-panel-container mt-4">
     {% for memo in memos %}
@@ -78,10 +85,9 @@
     <div>存在しません</div>
     {% endfor %}
   </div>
-</div>
+</section>
 
-{% comment %}ランキング{% endcomment %}
-<div class="ranking-section">
+<section>
   <h2>先週のランキング</h2>
   {% if ranking_entries %}
   <div class="ranking-list-container">
@@ -99,16 +105,15 @@
   {% else %}
   <div class="card-sm">ランキングが存在しません</div>
   {% endif %}
-</div>
+</section>
 
-<div class="review-section">
+<section>
   <h2>最新のレビュー</h2>
 
   {% include 'components/review_list.html' %}
-</div>
+</section>
 
-{% comment %}TODO fix this{% endcomment %}
-<div class="top-books-section">
+<section>
   <h2>よく読まれています</h2>
 
   <div class="top-books-container">
@@ -121,5 +126,5 @@
     /></a>
     {% endfor %}
   </div>
-</div>
+</section>
 {% endblock %}

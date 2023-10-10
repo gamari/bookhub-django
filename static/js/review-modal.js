@@ -1,12 +1,12 @@
 // TODO pages/reading_recordに移す
 // TODO 処理をリファクタリングする
 document.addEventListener("DOMContentLoaded", function () {
-    const reviewModal = document.getElementById('reviewModal');
+    const openReviewModalButton = document.getElementById('openReviewModalButton');
     const closeReviewModalButton = document.getElementById('closeReviewModalButton');
     const reviewSubmitButton = document.getElementById('review-submit');
 
-    if (reviewModal) {
-        reviewModal.addEventListener('click', function () {
+    if (openReviewModalButton) {
+        openReviewModalButton.addEventListener('click', function () {
             document.getElementById('reviewModal').style.display = 'block';
         });
     }
@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (reviewSubmitButton) {
         reviewSubmitButton.addEventListener('click', function () {
-            // レビュー処理
             const reviewForm = document.getElementById('reviewForm');
             const formData = new FormData(reviewForm);
             const reviewUrl = reviewForm.getAttribute('action');

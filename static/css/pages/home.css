@@ -37,9 +37,6 @@
 
 
 /* タイムラインセクション  */
-.timeline-section {
-}
-
 .timeline-panel-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -106,16 +103,21 @@
 }
 
 .search-container {
+  margin-top: 12px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 1px solid #ccc;
+  width: 100%;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  max-width: 512px;
 }
 
 .search-input {
   padding: 0.5rem;
   border: 1px solid transparent;
   outline: none;
+  width: 100%;
 }
 
 /* ランキング */

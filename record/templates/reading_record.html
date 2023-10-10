@@ -1,46 +1,48 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} 
+{% load static %} 
 
-{% block title %}
-  読書記録
-{% endblock %}
+{% block title %} 読書記録 {% endblock %} 
 
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/components/modal.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/memo.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/form.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/pages/reading_record.css' %}" />
-{% endblock %}
+<link rel="stylesheet" href="{% static 'css/components/modal.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/memo.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/form.css' %}" />
+<link rel="stylesheet" href="{% static 'css/pages/reading_record.css' %}" />
+{% endblock %} 
 
 {% block js %}
 <script src="{% static 'js/review-modal.js' %}"></script>
 <script src="{% static 'js/memo_service.js' %}"></script>
 <script src="{% static 'js/pages/reading_record.js' %}"></script>
-{% endblock %}
+{% endblock %} 
 
 {% block content %}
-  <div class="page-title">読書記録</div>
+  <section>
+    <h3 class="mb-4">読書記録</h3>
+    
+    <div class="card book-detail-section">
+      <div class="book-detail-left">
+        {% include 'components/book_image.html' %}
+      </div>
 
-  <div class="book-detail-section card">
-    <div class="book-detail-left">
-      {% include 'components/book_image.html' %}
+      <div class="book-detail-middle">
+        {% include 'components/book_title_sm.html' %} 
+        {% include 'components/book_authors.html' %} 
+        {% include 'components/book_publication_date.html' %}
+      </div>
+
+      {% include 'components/record.html' %}
     </div>
+  </section>
 
-    <div class="book-detail-middle">
-      {% include 'components/book_title_sm.html' %}
-      {% include 'components/book_authors.html' %}
-      {% include 'components/book_publication_date.html' %}
-    </div>
+  <section class="section card">
+    <h3>メモ</h3>
 
-    {% include 'components/record.html' %}
-  </div>
-
-  <div class="memo-section card">
-    {% include 'components/memo_form.html' %}
+    {% include 'components/memo_form.html' %} 
     {% include 'components/memo_list.html' %}
-  </div>
+  </section>
 
-  {% include 'components/review_modal.html' %}
+  {% include 'components/review_modal.html' %} 
 {% endblock %}
