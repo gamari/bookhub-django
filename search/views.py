@@ -24,7 +24,7 @@ def book_search(request):
     else:
         search_service = BookSearchService()
 
-    usecase = BookSearchByTitleUsecase(mode, page, query, search_service)
-    context = usecase.execute()
+    usecase = BookSearchByTitleUsecase(search_service)
+    context = usecase.execute(mode, page, query)
 
     return render(request, "books/search_results.html", context)

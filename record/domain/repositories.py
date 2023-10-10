@@ -6,7 +6,7 @@ from record.models import ReadingMemo, ReadingRecord
 
 
 class ReadingMemoRepository(object):
-    def find_by_user_within_date_range(self, user, start_date, end_date):
+    def fetch_memos_by_user_within_date_range(self, user, start_date, end_date):
         """指定した期間内のメモを取得する"""
         return (
             ReadingMemo.objects.filter(
@@ -19,7 +19,7 @@ class ReadingMemoRepository(object):
             .values("date_str", "count")
         )
 
-    def find_by_id(self, memo_id):
+    def fetch_memo_by_id(self, memo_id):
         return ReadingMemo.objects.get(id=memo_id)
 
     def delete(self, memo):
@@ -31,10 +31,10 @@ class ReadingMemoRepository(object):
 
 
 class ReadingRecordRepository(object):
-    def get_or_create(self, user, book):
+    def fetch_or_create(self, user, book):
         return ReadingRecord.objects.get_or_create(user=user, book=book)
 
-    def get_by_user_and_book(self, user, book):
+    def fetch_record_by_user_and_book(self, user, book):
         return ReadingRecord.objects.get(book=book, user=user)
 
     def get_top_books(self, start_date, end_date, limit):
@@ -49,7 +49,7 @@ class ReadingRecordRepository(object):
             .order_by("-total")[:limit]
         )
 
-    def finished_books_this_month(self, user):
+    def fetch_finished_books_this_month(self, user):
         """今月読み終わった本の数を返す"""
         today = datetime.today()
         first_day_of_month = today.replace(day=1)

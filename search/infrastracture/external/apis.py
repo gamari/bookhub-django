@@ -4,7 +4,7 @@ import requests
 from config.settings import GOOGLE_BOOKS_API_KEY
 
 
-class URLBuilder:
+class URLBuilder(object):
     def __init__(self, base_url):
         self.base_url = base_url
         self.params = {}
@@ -20,10 +20,14 @@ class URLBuilder:
 
 class GoogleBooksURLBuilder(URLBuilder):
     def with_query(self, query):
-        return self.add_param("q", '"' + query + '"')
+        return self.add_param("q", query)
     
     def with_query_in_title(self, query):
-        return self.add_param("q", 'intitle:"' + query + '"')
+        # return self.add_param("q", 'intitle:"' + query + '"')
+        return self.add_param("q", 'intitle:' + query + '')
+    
+    def with_query_in_description(self, query):
+        return self.add_param("q", f'"{query} in:description"')
 
     def with_start_index(self, start_index):
         return self.add_param("startIndex", start_index)
@@ -56,13 +60,13 @@ class GoogleBooksURLBuilder(URLBuilder):
 class GoogleBooksAPIClient(object):
     BASE_URL = "https://www.googleapis.com/books/v1/volumes"
 
-    @staticmethod
-    def fetch_books(query, page):
+    def fetch_books(self, query, page):
         start_index = (int(page) - 1) * 10
         url = (
             GoogleBooksURLBuilder(GoogleBooksAPIClient.BASE_URL)
-            .with_query(query)
-            # .with_query_in_title(query)
+            # .with_query(query)
+            .with_query_in_title(query)
+            # .with_query_in_description(query)
             .with_start_index(start_index)
             .with_max_results(10)
             .with_lang_restrict("ja")

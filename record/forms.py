@@ -7,5 +7,5 @@ class ReadingMemoForm(forms.ModelForm):
         model = ReadingMemo
         fields = ['content']
         widgets = {
-            'content': forms.Textarea(attrs={'rows': 6, 'class': 'memo-textarea', 'placeholder': '感想やページ数をメモ……'}),
+            'content': forms.Textarea(attrs={'rows': 4, 'class': 'memo-textarea', 'placeholder': '感想やページ数をメモ……'}),
         }

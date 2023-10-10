@@ -3,7 +3,7 @@ from book.domain.services import BookDomainService
 from config.application.usecases import Usecase
 
 from record.domain.repositories import ReadingMemoRepository
-from record.domain.services import ReadingMemoService, ReadingRecordService
+from record.domain.services import MemoDomainService, RecordDomainService
 from record.forms import ReadingMemoForm
 from record.models import ReadingMemo
 from review.domain.services import ReviewDomainService
@@ -15,7 +15,7 @@ class RecordReadingHistoryUsecase(Usecase):
 
     def __init__(
         self,
-        reading_record_service: ReadingRecordService,
+        reading_record_service: RecordDomainService,
         book_service: BookDomainService,
         review_service: ReviewDomainService,
     ):
@@ -26,7 +26,7 @@ class RecordReadingHistoryUsecase(Usecase):
     def run(self, book_id, user):
         book = self.book_service.find_book_by_id(book_id)
 
-        latest_review = self.review_service.latest_review_for_user(book, user)
+        latest_review = self.review_service.get_latest_review_for_user(book, user)
 
         record = self.reading_record_service.get_by_user_and_book(user, book)
 
@@ -39,6 +39,7 @@ class RecordReadingHistoryUsecase(Usecase):
             "record": record,
             "memos": memos,
             "form": form,
+            "review": latest_review,
             "review_form": ReviewForm(
                 instance=latest_review if latest_review else None
             ),
@@ -52,7 +53,7 @@ class CreateMemoUsecase(object):
         self,
         book_repo: BookRepository,
         memo_repo: ReadingMemoRepository,
-        memo_service: ReadingMemoService,
+        memo_service: MemoDomainService,
     ):
         self.book_repo = book_repo
         self.memo_repo = memo_repo
@@ -83,7 +84,7 @@ class DeleteMemoUsecase(Usecase):
         self.user = user
 
     def execute(self):
-        memo = self.memo_repo.find_by_id(self.memo_id)
+        memo = self.memo_repo.fetch_memo_by_id(self.memo_id)
 
         if memo.user != self.user:
             return {"result": "fail"}

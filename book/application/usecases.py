@@ -1,18 +1,18 @@
 from django.utils import timezone
-from book.domain.repositories import BookshelfRepository
-from book.domain.services import BookDomainService
-from config.application.usecases import Usecase
 
 from config.utils import get_month_date_range, get_month_range_of_today
+from config.application.usecases import Usecase
+from book.domain.services import BookDomainService, BookshelfDomainService
 from book.models import Bookshelf
 from ranking.models import WeeklyRanking, WeeklyRankingEntry
 from record.domain.repositories import ReadingRecordRepository
-from record.domain.services import ActivityDomainService, ReadingRecordService
+from record.domain.services import ActivityDomainService, RecordDomainService
+from review.domain.services import ReviewDomainService
 from review.forms import ReviewForm
 from review.domain.repositories import ReviewRepository
 
 
-class HomePageShowUsecase(Usecase):
+class ShowHomePageUsecase(Usecase):
     """ホーム画面を表示する。"""
 
     def __init__(
@@ -28,7 +28,7 @@ class HomePageShowUsecase(Usecase):
         top_book_results = self.record_repo.get_top_books(
             first_day_of_month, last_day_of_month, limit=3
         )
-        latest_reviews = self.review_repo.get_latest_reviews(limit=5)
+        latest_reviews = self.review_repo.fetch_latest_reviews(limit=5)
 
         # ランキングを取得する
         # TODO リファクタリングする
@@ -54,23 +54,23 @@ class HomePageShowUsecase(Usecase):
         return context
 
 
-class MyPageShowUsecase(Usecase):
+class ShowMyPageUsecase(Usecase):
     """マイページを表示する。"""
 
     def __init__(
         self,
-        bookshelf_repository: BookshelfRepository,
+        bookshelf_service: BookshelfDomainService,
         activity_service: ActivityDomainService,
-        record_repo: ReadingRecordRepository,
-        review_repo: ReviewRepository,
-    ) -> None:
-        self.bookshelf_repository = bookshelf_repository
+        record_service: RecordDomainService,
+        review_service: ReviewDomainService,
+    ):
+        self.bookshelf_service = bookshelf_service
         self.activity_service = activity_service
-        self.record_repo = record_repo
-        self.review_repo = review_repo
+        self.record_service = record_service
+        self.review_service = review_service
 
     def run(self, user):
-        bookshelf: Bookshelf = self.bookshelf_repository.get_or_create(user=user)
+        bookshelf = self.bookshelf_service.get_or_create(user=user)
         books = bookshelf.get_books_with_reading_records(user)
 
         today = timezone.now().date()
@@ -81,9 +81,9 @@ class MyPageShowUsecase(Usecase):
             user, start_date, end_date
         )
 
-        finished_count = self.record_repo.finished_books_this_month(user)
+        finished_count = self.record_service.get_finished_books_this_month(user)
 
-        reviews_count = self.review_repo.get_reviews_for_user_this_month(user)
+        reviews_count = self.review_service.get_reviews_by_user_within_this_month(user)
 
         month = today.month
 
@@ -138,7 +138,7 @@ class AddBookToShelfUsecase(Usecase):
     def __init__(
         self,
         book_service: BookDomainService,
-        reading_record_service: ReadingRecordService,
+        reading_record_service: RecordDomainService,
     ):
         self.book_service = book_service
         self.reading_record_service = reading_record_service

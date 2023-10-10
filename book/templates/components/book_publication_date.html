@@ -1,0 +1,10 @@
+<div>
+  <i class="fa-regular fa-calendar fa-sm"></i>
+  <span>
+    {% if book.published_date %} 
+      {{ book.published_date }} 
+    {% else %} 
+      - 
+    {% endif %}
+  </span>
+</div>

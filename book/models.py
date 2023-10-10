@@ -43,6 +43,7 @@ class Book(models.Model):
     publisher = models.CharField("出版社", max_length=255, null=True, blank=True)
     views = models.IntegerField("閲覧数", default=0)
     genres = models.ManyToManyField(Genre)
+    is_clean = models.BooleanField("整備されたデータ判定", default=False)
 
     def __str__(self):
         return f"[{self.isbn_10} | {self.isbn_13}] {self.title}"

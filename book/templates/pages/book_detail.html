@@ -36,17 +36,8 @@
     <div class="book-detail-info-container text-sm">
       {% include 'components/book_title_sm.html' %}
       {% include 'components/book_authors.html' %}
+      {% include 'components/book_publication_date.html' %}
 
-      <div>
-        <i class="fa-regular fa-calendar fa-sm"></i>
-        <span>
-          {% if book.published_date %}
-            {{ book.published_date }}
-          {% else %}
-            -
-          {% endif %}
-        </span>
-      </div>
 
       <div class="rating-container">
         {% if avg_rating %}
@@ -66,7 +57,7 @@
             </a>
             <a href="{% url 'reading_record' book.id %}" class="btn-sm">
               <i class="fa-regular fa-note-sticky"></i>
-              <span>メモする</span>
+              <span>記録画面へ</span>
             </a>
           {% else %}
             <a href="{% url 'add_to_shelf' book.id %}" class="btn-sm btn-primary">
@@ -125,13 +116,13 @@
               <div>
                 <a href="{% url 'user_detail' review.user.username %}">
                   {% if review.user.profile_image %}
-                    <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.username }}" class="user-image-sm" />
+                    <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.username }}" class="user-icon-sm" />
                   {% else %}
                     <i class="fa-regular fa-user fa-2xl" style="color: #5e5e5e;"></i>
                   {% endif %}
                 </a>
               </div>
-              <div>{{ review.user.username }}</div>
+              <div class="user-username">{{ review.user.username }}</div>
             </div>
 
             <div class="rating-container">

@@ -4,21 +4,18 @@ from config.application.usecases import Usecase
 class BookSearchByTitleUsecase(Usecase):
     """書籍名で検索を行う。"""
 
-    def __init__(self, mode, page, query, search_service) -> None:
-        self.mode = mode
-        self.page = page
-        self.query = query
+    def __init__(self, search_service):
         self.search_service = search_service
 
-    def run(self):
-        results_list, total_pages = self.search_service.search(self.query, self.page)
+    def run(self, mode, page, query):
+        results_list, total_pages = self.search_service.search(query, page)
 
         context = {
             "results": results_list,
-            "query": self.query,
-            "current_page": self.page,
+            "query": query,
+            "current_page": page,
             "total_pages": total_pages,
-            "mode": self.mode,
+            "mode": mode,
         }
 
         return context

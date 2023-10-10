@@ -1,9 +1,11 @@
 from abc import ABC, abstractmethod
 
 from book.domain.repositories import BookRepository
+from book.domain.services import BookDomainService
 from book.infrastructure.mappers import GoogleBooksMapper
 
 
+# 検索ドメイン
 class SearchDomainService(ABC):
     @abstractmethod
     def search(self, query, page):
@@ -11,6 +13,8 @@ class SearchDomainService(ABC):
 
 
 class BookSearchService(SearchDomainService):
+    """書籍検索。"""
+
     def __init__(self):
         self.repository = BookRepository()
 
@@ -22,7 +26,9 @@ class BookSearchService(SearchDomainService):
 
 
 class GoogleBooksService(SearchDomainService):
-    def __init__(self, api_client, book_service):
+    """Google Books APIを利用した書籍検索。"""
+
+    def __init__(self, api_client, book_service: BookDomainService):
         self.api_client = api_client
         self.book_service = book_service
 

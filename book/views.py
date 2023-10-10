@@ -5,37 +5,42 @@ from django.contrib.auth.decorators import login_required
 from book.application.usecases import (
     AddBookToShelfUsecase,
     BookDetailPageShowUsecase,
-    HomePageShowUsecase,
-    MyPageShowUsecase,
+    ShowHomePageUsecase,
+    ShowMyPageUsecase,
     RemoveBookFromShelfUsecase,
 )
 from book.domain.repositories import BookRepository, BookshelfRepository
 from book.models import Book, Bookshelf
 from book.domain.services import (
     BookDomainService,
+    BookshelfDomainService,
 )
 from record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
-from record.domain.services import ActivityDomainService, ReadingRecordService
+from record.domain.services import ActivityDomainService, RecordDomainService
 from review.domain.repositories import ReviewRepository
+from review.domain.services import ReviewDomainService
 
 
 def home(request):
-    usecase = HomePageShowUsecase(ReadingRecordRepository(), ReviewRepository())
+    usecase = ShowHomePageUsecase(ReadingRecordRepository(), ReviewRepository())
     context = usecase.execute()
     return render(request, "pages/home.html", context)
 
 
 @login_required
 def mypage(request):
+    bookshelf_service = BookshelfDomainService(BookshelfRepository())
     activity_service = ActivityDomainService(
         ReadingMemoRepository()
     )
+    record_service = RecordDomainService(ReadingRecordRepository())
+    review_service = ReviewDomainService(ReviewRepository())
 
-    usecase = MyPageShowUsecase(
-        BookshelfRepository(),
+    usecase = ShowMyPageUsecase(
+        bookshelf_service,
         activity_service,
-        ReadingRecordRepository(),
-        ReviewRepository(),
+        record_service,
+        review_service
     )
     context = usecase.execute(request.user)
 
@@ -45,8 +50,10 @@ def mypage(request):
 # 書籍詳細
 def book_detail_page(request, book_id):
     book_service = BookDomainService(BookRepository(), BookshelfRepository())
+
     usecase = BookDetailPageShowUsecase(book_service)
-    context = usecase.execute(book_id, request.user,)
+    context = usecase.execute(book_id, request.user)
+
     return render(request, "pages/book_detail.html", context)
 
 
@@ -59,7 +66,7 @@ def bookshelf_list_page(request, bookshelf_id):
 @login_required
 def add_book_to_shelf(request, book_id):
     book_service = BookDomainService(BookRepository(), BookshelfRepository())
-    reading_record_service = ReadingRecordService(ReadingRecordRepository())
+    reading_record_service = RecordDomainService(ReadingRecordRepository())
 
     usecase = AddBookToShelfUsecase(book_service, reading_record_service)
     usecase.execute(book_id, request.user)

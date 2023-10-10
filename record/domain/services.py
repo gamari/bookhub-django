@@ -5,22 +5,26 @@ from record.domain.aggregates import ActivityCollection
 from record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
 
 
-class ReadingRecordService(object):
+class RecordDomainService(object):
+    """記録ドメインサービス。"""
+
     def __init__(self, reading_record_repo: ReadingRecordRepository) -> None:
         self.reading_record_repo = reading_record_repo
     
     def get_or_create_record(self, user, book):
-        return self.reading_record_repo.get_or_create(user, book)
+        return self.reading_record_repo.fetch_or_create(user, book)
     
     def get_by_user_and_book(self, user, book):
-        return self.reading_record_repo.get_by_user_and_book(user, book)
+        return self.reading_record_repo.fetch_record_by_user_and_book(user, book)
+    
+    def get_finished_books_this_month(self, user):
+        return self.reading_record_repo.fetch_finished_books_this_month(user)
 
 
-class ReadingMemoService(object):
-    """メモドメイン"""
+class MemoDomainService(object):
+    """メモドメインサービス。"""
 
-    @staticmethod
-    def create_memo(form, user, book):
+    def create_memo(self, form, user, book):
         memo = form.save(commit=False)
         memo.user = user
         memo.book = book
@@ -42,7 +46,7 @@ class ActivityDomainService(object):
 
         # TODO 取得できたメモだけを集計するように変更したい
 
-        activity_data_raw = self.reading_memo_repo.find_by_user_within_date_range(
+        activity_data_raw = self.reading_memo_repo.fetch_memos_by_user_within_date_range(
             user, head_date_of_calendar, end_date_of_calendar
         )
 
