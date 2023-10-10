@@ -2,6 +2,10 @@
 
 BookHubアプリ。
 
+[ローカル](http://localhost:8000/)
+[検証用サーバー](https://gamari-devs.xyz/)
+
+
 ## プロジェクト説明
 
 - Django + Nginx + sqlite3を利用

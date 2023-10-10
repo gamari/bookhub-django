@@ -1,6 +1,6 @@
 from django.utils import timezone
 
-from config.utils import get_month_date_range, get_month_range_of_today
+from config.utils import DateUtils
 from config.application.usecases import Usecase
 from book.domain.services import BookDomainService, BookshelfDomainService
 from book.models import Bookshelf
@@ -28,7 +28,7 @@ class ShowHomePageUsecase(Usecase):
         self.memo_service = memo_service
 
     def run(self) -> dict:
-        first_day_of_month, last_day_of_month = get_month_range_of_today()
+        first_day_of_month, last_day_of_month = DateUtils.get_month_range_of_today()
         top_book_results = self.record_service.get_top_books(
             first_day_of_month, last_day_of_month, limit=3
         )
@@ -82,7 +82,7 @@ class ShowMyPageUsecase(Usecase):
 
         today = timezone.now().date()
 
-        start_date, end_date = get_month_date_range(today)
+        start_date, end_date = DateUtils.get_month_date_range(today)
 
         activity_data = self.activity_service.fetch_activities(
             user, start_date, end_date
