@@ -11,14 +11,14 @@ from record.application.usecases import (
     RecordReadingHistoryUsecase,
 )
 from record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
-from record.domain.services import ReadingMemoService, ReadingRecordService, ReadingService
+from record.domain.services import ReadingMemoService, ReadingRecordService
 from record.models import ReadingRecord
 from review.domain.repositories import ReviewRepository
 from review.domain.services import ReviewDomainService
 
 
 @login_required
-def reading_record(request, book_id):
+def reading_record_page(request, book_id):
     book_service = BookDomainService(BookRepository(), BookshelfRepository())
     reading_service = ReadingRecordService(ReadingRecordRepository())
     review_service = ReviewDomainService(ReviewRepository())
@@ -35,7 +35,9 @@ def reading_record(request, book_id):
 def create_memo_api(request, book_id):
     if request.method == "POST":
         usecase = CreateMemoUsecase(
-            BookRepository(), ReadingMemoRepository(), ReadingMemoService()
+            BookRepository(), 
+            ReadingMemoRepository(), 
+            ReadingMemoService()
         )
 
         response_data = usecase.execute(request.POST, request.user, book_id)

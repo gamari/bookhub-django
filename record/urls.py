@@ -6,12 +6,12 @@ from record.views import (
     mark_as_started,
     mark_as_unfinished,
     mark_as_unstarted,
-    reading_record,
+    reading_record_page,
     memo_detail_api,
 )
 
 urlpatterns = [
-    path("book/<int:book_id>/reading/", reading_record, name="reading_record"),
+    path("book/<int:book_id>/reading/", reading_record_page, name="reading_record"),
     path("mark_as_started/<int:book_id>/", mark_as_started, name="mark_as_started"),
     path(
         "mark_as_unstarted/<int:book_id>/", mark_as_unstarted, name="mark_as_unstarted"

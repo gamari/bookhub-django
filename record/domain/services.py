@@ -5,16 +5,6 @@ from record.domain.aggregates import ActivityCollection
 from record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
 
 
-# TODO 削除予定
-class ReadingService(object):
-    """読書ドメイン"""
-
-    def __init__(self, record_repository):
-        self.record_repository = record_repository
-
-    def get_or_create_record(self, user, book):
-        return self.record_repository.get_or_create(user, book)
-
 class ReadingRecordService(object):
     def __init__(self, reading_record_repo: ReadingRecordRepository) -> None:
         self.reading_record_repo = reading_record_repo
@@ -40,7 +30,10 @@ class ReadingMemoService(object):
 # 活動履歴ドメイン
 
 
-class ActivityDomainService:
+class ActivityDomainService(object):
+    def __init__(self, reading_memo_repo: ReadingMemoRepository):
+        self.reading_memo_repo = reading_memo_repo
+
     def fetch_activities(
         self, user, start_date: datetime.date, end_date: datetime.date
     ):
@@ -49,7 +42,7 @@ class ActivityDomainService:
 
         # TODO 取得できたメモだけを集計するように変更したい
 
-        activity_data_raw = ReadingMemoRepository.fetch_for_user_within_date_range(
+        activity_data_raw = self.reading_memo_repo.find_by_user_within_date_range(
             user, head_date_of_calendar, end_date_of_calendar
         )
 

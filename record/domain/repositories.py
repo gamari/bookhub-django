@@ -5,9 +5,8 @@ from django.db.models.functions import TruncDate
 from record.models import ReadingMemo, ReadingRecord
 
 
-class ReadingMemoRepository:
-    @staticmethod
-    def fetch_for_user_within_date_range(user, start_date, end_date):
+class ReadingMemoRepository(object):
+    def find_by_user_within_date_range(self, user, start_date, end_date):
         """指定した期間内のメモを取得する"""
         return (
             ReadingMemo.objects.filter(
@@ -20,16 +19,13 @@ class ReadingMemoRepository:
             .values("date_str", "count")
         )
 
-    @staticmethod
-    def find_by_id(memo_id):
+    def find_by_id(self, memo_id):
         return ReadingMemo.objects.get(id=memo_id)
 
-    @staticmethod
-    def delete(memo):
+    def delete(self, memo):
         memo.delete()
 
-    @staticmethod
-    def save(memo):
+    def save(self, memo):
         memo.save()
         return memo
 

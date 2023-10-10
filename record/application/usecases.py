@@ -3,7 +3,7 @@ from book.domain.services import BookDomainService
 from config.application.usecases import Usecase
 
 from record.domain.repositories import ReadingMemoRepository
-from record.domain.services import ReadingMemoService, ReadingRecordService, ReadingService
+from record.domain.services import ReadingMemoService, ReadingRecordService
 from record.forms import ReadingMemoForm
 from record.models import ReadingMemo
 from review.domain.services import ReviewDomainService

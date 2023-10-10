@@ -14,7 +14,7 @@ from book.models import Book, Bookshelf
 from book.domain.services import (
     BookDomainService,
 )
-from record.domain.repositories import ReadingRecordRepository
+from record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
 from record.domain.services import ActivityDomainService, ReadingRecordService
 from review.domain.repositories import ReviewRepository
 
@@ -27,14 +27,18 @@ def home(request):
 
 @login_required
 def mypage(request):
-    # TODO repository -> serviceにリファクタリングしたい
+    activity_service = ActivityDomainService(
+        ReadingMemoRepository()
+    )
+
     usecase = MyPageShowUsecase(
         BookshelfRepository(),
-        ActivityDomainService(),
+        activity_service,
         ReadingRecordRepository(),
         ReviewRepository(),
     )
     context = usecase.execute(request.user)
+
     return render(request, "pages/mypage.html", context)
 
 
