@@ -10,10 +10,27 @@ async function deleteMemo(id, url) {
     const data = await response.json();
 
     if (data.result === 'success') {
-        // TODO 成功
+        return data;
     } else {
-        // TODO 失敗
-        console.error('Failed to delete memo');
+        throw new Error("メモの削除に失敗しました。");
     }
 
+}
+
+async function createMemo(url, body_data, csrf_token) {
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrf_token
+        },
+        body: body_data
+    });
+
+    const data = await response.json();
+
+    if (data.result === 'success') {
+        return data;
+    } else {
+        throw new Error("メモ作成に失敗しました。")
+    }
 }
