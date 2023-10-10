@@ -16,6 +16,7 @@
 }
 
 .form-label {
+  color: #5e5e5e;
   margin-bottom: 8px;
   font-size: 16px;
   font-weight: bold;
@@ -39,7 +40,7 @@
 
 .form-group > input {
   width: 100%;
-  border: 1px solid #ccc;
+  border: 1px solid #999;
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 16px;

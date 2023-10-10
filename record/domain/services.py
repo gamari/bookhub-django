@@ -21,6 +21,9 @@ class ReadingRecordService(object):
     
     def get_or_create_record(self, user, book):
         return self.reading_record_repo.get_or_create(user, book)
+    
+    def get_by_user_and_book(self, user, book):
+        return self.reading_record_repo.get_by_user_and_book(user, book)
 
 
 class ReadingMemoService(object):

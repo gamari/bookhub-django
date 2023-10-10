@@ -19,11 +19,11 @@ class ReadingMemoRepository:
             .annotate(count=Count("id"))
             .values("date_str", "count")
         )
-    
+
     @staticmethod
     def find_by_id(memo_id):
         return ReadingMemo.objects.get(id=memo_id)
-    
+
     @staticmethod
     def delete(memo):
         memo.delete()
@@ -34,13 +34,14 @@ class ReadingMemoRepository:
         return memo
 
 
-class ReadingRecordRepository:
-    @staticmethod
-    def get_or_create(user, book):
+class ReadingRecordRepository(object):
+    def get_or_create(self, user, book):
         return ReadingRecord.objects.get_or_create(user=user, book=book)
 
-    @staticmethod
-    def get_top_books(start_date, end_date, limit):
+    def get_by_user_and_book(self, user, book):
+        return ReadingRecord.objects.get(book=book, user=user)
+
+    def get_top_books(self, start_date, end_date, limit):
         """指定した期間内の読書記録を集計し、上位の本を返す"""
         monthly_records = ReadingRecord.objects.filter(
             started_at__range=[start_date, end_date]
@@ -52,8 +53,7 @@ class ReadingRecordRepository:
             .order_by("-total")[:limit]
         )
 
-    @staticmethod
-    def finished_books_this_month(user):
+    def finished_books_this_month(self, user):
         """今月読み終わった本の数を返す"""
         today = datetime.today()
         first_day_of_month = today.replace(day=1)

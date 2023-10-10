@@ -1,42 +1,39 @@
 from book.domain.repositories import BookRepository
+from book.domain.services import BookDomainService
 from config.application.usecases import Usecase
 
 from record.domain.repositories import ReadingMemoRepository
-from record.domain.services import ReadingMemoService
+from record.domain.services import ReadingMemoService, ReadingRecordService, ReadingService
 from record.forms import ReadingMemoForm
 from record.models import ReadingMemo
 from review.domain.services import ReviewDomainService
 from review.forms import ReviewForm
 
 
-class RecordReadingHistoryUsecase(object):
+class RecordReadingHistoryUsecase(Usecase):
     """読書記録画面を表示する。"""
 
     def __init__(
         self,
-        user,
-        book_id,
-        reading_service: ReadingMemoService,
-        book_service,
+        reading_record_service: ReadingRecordService,
+        book_service: BookDomainService,
         review_service: ReviewDomainService,
     ):
-        self.user = user
-        self.book_id = book_id
-        self.reading_service = reading_service
+        self.reading_record_service = reading_record_service
         self.book_service = book_service
         self.review_service = review_service
 
-    def execute(self):
-        book = self.book_service.find_book_by_id(self.book_id)
+    def run(self, book_id, user):
+        book = self.book_service.find_book_by_id(book_id)
 
-        latest_review = self.review_service.latest_review_for_user(book, self.user)
+        latest_review = self.review_service.latest_review_for_user(book, user)
 
-        record, created = self.reading_service.get_or_create_record(self.user, book)
-        memos = ReadingMemo.objects.filter(user=self.user, book=book).order_by(
-            "-created_at"
-        )
+        record = self.reading_record_service.get_by_user_and_book(user, book)
+
+
+        memos = ReadingMemo.objects.filter(user=user, book=book).order_by("-created_at")
         form = ReadingMemoForm()
-        
+
         return {
             "book": book,
             "record": record,

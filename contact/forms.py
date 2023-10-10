@@ -8,7 +8,7 @@ class ContactForm(forms.ModelForm):
         model = Contact
         fields = ["contact_type", "email", "content"]
         widgets = {
-            "contact_type": forms.Select(attrs={"class": "form-control"}),
-            "email": forms.EmailInput(attrs={"class": "form-control"}),
+            "contact_type": forms.Select(attrs={"class": "max-w-sm"}),
+            "email": forms.EmailInput(attrs={"class": "max-w-md"}),
             "content": forms.Textarea(attrs={"class": "form-control"}),
         }

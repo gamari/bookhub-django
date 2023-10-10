@@ -11,7 +11,7 @@ from record.application.usecases import (
     RecordReadingHistoryUsecase,
 )
 from record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
-from record.domain.services import ReadingMemoService, ReadingService
+from record.domain.services import ReadingMemoService, ReadingRecordService, ReadingService
 from record.models import ReadingRecord
 from review.domain.repositories import ReviewRepository
 from review.domain.services import ReviewDomainService
@@ -20,14 +20,12 @@ from review.domain.services import ReviewDomainService
 @login_required
 def reading_record(request, book_id):
     book_service = BookDomainService(BookRepository(), BookshelfRepository())
-    reading_service = ReadingService(ReadingRecordRepository())
+    reading_service = ReadingRecordService(ReadingRecordRepository())
     review_service = ReviewDomainService(ReviewRepository())
 
-    usecase = RecordReadingHistoryUsecase(
-        request.user, book_id, reading_service, book_service, review_service
-    )
+    usecase = RecordReadingHistoryUsecase(reading_service, book_service, review_service)
 
-    context = usecase.execute()
+    context = usecase.execute(book_id, request.user)
 
     return render(request, "reading_record.html", context)
 
