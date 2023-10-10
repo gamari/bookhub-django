@@ -31,7 +31,7 @@ def home(request):
         review_service,
         memo_service
     )
-    context = usecase.execute(request.user)
+    context = usecase.execute()
     
     return render(request, "pages/home.html", context)
 

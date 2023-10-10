@@ -30,6 +30,9 @@ class MemoDomainService(object):
     def __init__(self, memo_repo: ReadingMemoRepository) -> None:
         self.memo_repo = memo_repo
 
+    def get_memos(self, limit: int):
+        return self.memo_repo.fetch_memos(limit)
+
     def get_memos_by_user(self, user, limit: int):
         return self.memo_repo.fetch_memos_by_user(user, limit)
 

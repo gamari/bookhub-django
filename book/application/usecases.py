@@ -27,7 +27,7 @@ class ShowHomePageUsecase(Usecase):
         self.review_service = review_service
         self.memo_service = memo_service
 
-    def run(self, user) -> dict:
+    def run(self) -> dict:
         first_day_of_month, last_day_of_month = get_month_range_of_today()
         top_book_results = self.record_service.get_top_books(
             first_day_of_month, last_day_of_month, limit=3
@@ -48,7 +48,7 @@ class ShowHomePageUsecase(Usecase):
         except:
             ranking_entries = None
 
-        memos = self.memo_service.get_memos_by_user(user, limit=4)
+        memos = self.memo_service.get_memos(limit=4)
 
         context = {
             "top_book_results": top_book_results,
