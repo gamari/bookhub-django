@@ -23,14 +23,15 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     
     # Local
-    "authentication",
-    "book",
-    "review",
-    "record",
-    "ranking",
-    "search",
-    "follow",
-    "contact",
+    "authentication.apps.AuthenticationConfig",
+
+    "apps.book.apps.BookConfig",
+    "apps.record.apps.RecordConfig",
+    "apps.review.apps.ReviewConfig",
+    "apps.follow.apps.FollowConfig",
+    "apps.contact.apps.ContactConfig",
+    "apps.ranking.apps.RankingConfig",
+    "apps.search.apps.SearchConfig",
 ]
 
 MIDDLEWARE = [

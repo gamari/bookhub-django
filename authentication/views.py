@@ -7,7 +7,8 @@ from django.views.generic.edit import UpdateView
 from authentication.application.usecases import UserDetailShowUsecase
 from authentication.forms import AccountUpdateForm, LoginForm, RegisterForm
 from authentication.models import Account
-from book.domain.repositories import BookshelfRepository
+
+from apps.book.domain.repositories import BookshelfRepository
 
 
 class AccountUpdateView(UpdateView):

@@ -1,9 +1,13 @@
 from django.shortcuts import get_object_or_404
-from book.models import Bookshelf
-from config.application.usecases import Usecase
-from follow.domain.services import FollowService
-from review.views import Account
+from django.contrib.auth import get_user_model
 
+from config.application.usecases import Usecase
+
+from apps.book.models import Bookshelf
+from apps.follow.domain.services import FollowService
+
+
+Account = get_user_model()
 
 class UserDetailShowUsecase(Usecase):
     def __init__(self, username, me, bookshelf_repository):

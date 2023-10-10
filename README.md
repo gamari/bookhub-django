@@ -36,3 +36,13 @@ BookHubアプリ。
 - 週間ランキングの作成をする（準備中）
 
 - CICDによるデプロイ
+
+
+## アプリの追加
+
+startappをして次の手順を行う
+
+- appsディレクトリに入れる
+- Configにappsを追加
+- urls.pyに追加
+- INSTALLED_APPSにconfigを指定する
