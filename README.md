@@ -2,6 +2,7 @@
 
 BookHubアプリ。
 
+[GitHub](https://github.com/gamari/bookhub-django)
 [ローカル](http://localhost:8000/)
 [検証用サーバー](https://gamari-devs.xyz/)
 

@@ -15,11 +15,17 @@
 
 .book-image:hover {
   opacity: 0.8;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 
 .book-image-sm {
   height: 100px;
+}
+
+.book-image-sm:hover {
+  opacity: 0.8;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .book-title_sm {

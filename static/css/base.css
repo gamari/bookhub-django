@@ -71,6 +71,11 @@ h4 {
   color: #ff604f;
 }
 
+.text-info {
+  color: #555;
+}
+
+
 /* 背景 */
 .bg-primary {
   background-color: #1e90ff;

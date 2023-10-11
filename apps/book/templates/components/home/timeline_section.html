@@ -1,16 +1,17 @@
 <section>
-  <h2>最新のタイムライン</h2>
+  <h2 class="text-info">最新のタイムライン</h2>
   <div class="timeline-panel-container mt-4">
     {% for memo in memos %}
     <div class="card-sm timeline-panel">
       <div class="timeline-panel-header">
         <div>
-          <a href="{% url 'book_detail' memo.book.id %}"
-            ><img
+          <a href="{% url 'book_detail' memo.book.id %}">
+            <img
               src="{{ memo.book.thumbnail }}"
               alt="{{ memo.book.title }}"
               class="timeline-panel-image"
-          /></a>
+            />
+          </a>
         </div>
 
         <div>
@@ -26,7 +27,7 @@
             />
             {% else %}
             <div class="user-icon-sm">
-              <i class="fa-regular fa-user fa-2xl" style="color: #5e5e5e"></i>
+              <i class="fa-regular fa-user fa-2xl user-icon-sm" style="color: #5e5e5e"></i>
             </div>
             {% endif %}
             <span class="user-username">{{ memo.user.username }}</span>
@@ -38,7 +39,12 @@
         </div>
       </div>
 
-      <div class="timeline-panel-content">{{ memo.content }}</div>
+      
+      <a 
+        class="timeline-panel-title"
+        href="{% url 'book_detail' memo.book.id %}"
+      >{{ memo.book.title }}</a>
+      <p class="timeline-panel-content">{{ memo.content }}</p>
     </div>
     {% empty %}
     <div class="card-sm">存在しません</div>

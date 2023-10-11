@@ -1,10 +1,10 @@
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
 
 from apps.book.application.usecases import (
     AddBookToShelfUsecase,
-    BookDetailPageShowUsecase,
+    ShowBookDetailPageUsecase,
     ShowHomePageUsecase,
     ShowMyPageUsecase,
     RemoveBookFromShelfUsecase,
@@ -59,8 +59,9 @@ def mypage(request):
 # 書籍詳細
 def book_detail_page(request, book_id):
     book_service = BookDomainService(BookRepository(), BookshelfRepository())
+    review_service = ReviewDomainService(ReviewRepository())
 
-    usecase = BookDetailPageShowUsecase(book_service)
+    usecase = ShowBookDetailPageUsecase(book_service, review_service)
     context = usecase.execute(book_id, request.user)
 
     return render(request, "pages/book_detail.html", context)

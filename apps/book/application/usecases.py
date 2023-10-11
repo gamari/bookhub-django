@@ -14,6 +14,7 @@ from apps.review.domain.services import ReviewDomainService
 from apps.review.forms import ReviewForm
 from apps.ranking.models import WeeklyRanking, WeeklyRankingEntry
 
+
 class ShowHomePageUsecase(Usecase):
     """ホーム画面を表示する。"""
 
@@ -27,7 +28,7 @@ class ShowHomePageUsecase(Usecase):
         self.review_service = review_service
         self.memo_service = memo_service
 
-    def run(self) -> dict:
+    def run(self):
         first_day_of_month, last_day_of_month = DateUtils.get_month_range_of_today()
         top_book_results = self.record_service.get_top_books(
             first_day_of_month, last_day_of_month, limit=3
@@ -109,15 +110,18 @@ class ShowMyPageUsecase(Usecase):
             "reviews_count": reviews_count,
             "reviews": reviews,
             "following_count": following_count,
-            "follower_count": follower_count
+            "follower_count": follower_count,
         }
 
 
-class BookDetailPageShowUsecase(Usecase):
+class ShowBookDetailPageUsecase(Usecase):
     """書籍詳細画面を表示する。"""
 
-    def __init__(self, book_service):
+    def __init__(
+        self, book_service: BookDomainService, review_service: ReviewDomainService
+    ):
         self.book_service = book_service
+        self.review_service = review_service
 
     def run(self, book_id, user):
         book = self.book_service.find_book_by_id(book_id)
@@ -126,9 +130,7 @@ class BookDetailPageShowUsecase(Usecase):
         book.views += 1
         book.save()
 
-        latest_review = (
-            book.get_reviews().first() if book.get_reviews().exists() else None
-        )
+        latest_review = self.review_service.get_latest_review_for_user(book, user)
         avg_rating = book.get_avg_rating()
         reviews = book.get_reviews()
         book_on_shelf = self.book_service.is_book_on_shelf(book, user)
