@@ -77,11 +77,13 @@ class ShowMyPageUsecase(Usecase):
         self.review_service = review_service
 
     def run(self, user):
+        # 書籍関連
         bookshelf = self.bookshelf_service.get_or_create(user=user)
         books = bookshelf.get_books_with_reading_records(user)
 
+        # 日付関連
         today = timezone.now().date()
-
+        month = today.month
         start_date, end_date = DateUtils.get_month_date_range(today)
 
         activity_data = self.activity_service.fetch_activities(
@@ -90,11 +92,13 @@ class ShowMyPageUsecase(Usecase):
 
         finished_count = self.record_service.get_finished_books_this_month(user)
 
+        # レビュー関連
         reviews_count = self.review_service.get_reviews_by_user_within_this_month(user)
-
         reviews = self.review_service.get_latest_reviews_by_user(user, 5)
 
-        month = today.month
+        # フォロー関係
+        following_count = user.following.count()
+        follower_count = user.followers.count()
 
         return {
             "books": books,
@@ -103,7 +107,9 @@ class ShowMyPageUsecase(Usecase):
             "bookshelf": bookshelf,
             "finished_count": finished_count,
             "reviews_count": reviews_count,
-            "reviews": reviews
+            "reviews": reviews,
+            "following_count": following_count,
+            "follower_count": follower_count
         }
 
 

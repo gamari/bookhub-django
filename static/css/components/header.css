@@ -1,88 +1,119 @@
 .header-section {
-    position: fixed;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px #d2d2d2 solid;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
-    background-color: white;
-    color: #1E90FF;
-    z-index: 999;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px #d2d2d2 solid;
+  background-color: white;
+  color: #1e90ff;
+  z-index: 999;
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-decoration: none;
-    padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 0.8rem;
 }
 
 .logo:hover {
-    color: #1E90FF;
+  color: #1e90ff;
 }
 
 .logo:active {
-    color: #1E90FF;
+  color: #1e90ff;
 }
 
 .logo:visited {
-    color: #1E90FF;
+  color: #1e90ff;
 }
-
 
 /* ナビゲーション */
 .nav-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 1rem;
 }
 
 /* 検索部分 */
 .searchbox-container {
-    display: none;
-    flex-direction: row;
-    border: 1px solid #d2d2d2;
-    font-size: 16px;
+  display: none;
+  flex-direction: row;
+  border: 1px solid #d2d2d2;
+  font-size: 16px;
 }
 
 .searchbox-input {
-    padding: 0.5rem;
-    border: none;
-    outline: none;
-    width: 100%;
-    max-width: 160px;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  width: 100%;
+  max-width: 160px;
 }
 
 .searchbox-icon {
-    padding: 0.5rem;
-    color: black;
-    border: 1px solid transparent;
-    cursor: pointer;
-    background-color: #ddd;
+  padding: 0.5rem;
+  color: black;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background-color: #ddd;
 }
 
 /* ダッシュボードリンク */
 .mypage-link {
-    text-decoration: none;
-    color: white;
-    font-size: 1rem;
-    border: 1px solid #ddd;
-    padding: 0.5rem;
-    border-radius: 4px;
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.header-button {
+  text-align: center;
+  background-color: white;
+  color: #1e90ff;
+  border: 1px solid #1e90ff;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+}
+
+.header-button-primary {
+  background-color: #1e90ff;
+  color: white;
+}
+
+.header-button:hover {
+  opacity: 0.8;
 }
 
 .mypage-link:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* PC版 */
 @media screen and (min-width: 768px) {
-    .searchbox-container {
-        display: flex;
-    }
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 1rem;
+  }
+
+  .header-button {
+    padding: 6px 12px;
+    font-size: 1rem;
+  }
+
+  .searchbox-container {
+    display: flex;
+  }
 }

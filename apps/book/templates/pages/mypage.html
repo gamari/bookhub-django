@@ -9,6 +9,7 @@
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/components/contribution.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/follow.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
   <link rel="stylesheet" href="{% static 'css/pages/mypage.css' %}" />
@@ -19,70 +20,8 @@
 {% endblock %}
 
 {% block content %}
-  <div class="top-section card">
-    <div class="top-left">
-      <div>
-        {% include 'components/user_icon.html' %}
-      </div>
 
-      <h4>{{ user.username }}</h4>
+{% include 'components/mypage/top_section.html' %}
+{% include 'components/mypage/content_section.html' %}
 
-      <div>
-        <div>
-          <a class="btn-sm" href="{% url 'setting' %}">アカウント設定</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="top-right">
-      <div>
-        <h3>
-          <span>{{ month }}月の活動履歴</span>
-          <a href="{% url 'help_activity' %}">
-            <i class="fa-solid fa-question fa-2xs" style="color: #3d3d3d;"></i>
-          </a>
-        </h3>
-
-        {% include 'components/activities.html' %}
-      </div>
-
-      <table class="data-table">
-        <tr>
-          <th>今月の記録</th>
-          <th></th>
-        </tr>
-        <tr>
-          <td>読了数</td>
-          <td>{{ finished_count }}</td>
-        </tr>
-        <tr>
-          <td>レビュー数</td>
-          <td>{{ reviews_count }}</td>
-        </tr>
-      </table>
-    </div>
-  </div>
-
-  <div class="content-area">
-    <div class="selection-section mb-6">
-      <div>
-        <button id="btn-bookshelf" class="badge badge-info">本棚</button>
-        <button id="btn-reviews" class="badge">レビュー一覧</button>
-      </div>
-    </div>
-  
-    <div id="bookshelf-section">
-      <div class="mypage-bookshelf-title mb-6">
-        <h3>本棚</h3>
-      </div>
-  
-      {% include 'components/bookshelf.html' %}
-    </div>
-  
-    <div id="reviews-section" style="display: none">
-      <h3 class="mb-4">最近のレビュー(5件まで)</h3>
-  
-      {% include 'components/review_list.html' %}
-    </div>
-  </div>
 {% endblock %}

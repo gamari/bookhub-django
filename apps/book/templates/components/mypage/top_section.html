@@ -1,0 +1,55 @@
+<div class="top-section card">
+  <div class="top-left">
+    <div>{% include 'components/user_icon.html' %}</div>
+
+    <h4>{{ user.username }}</h4>
+
+    <div>
+      <div>
+        <a class="btn-sm" href="{% url 'setting' %}">アカウント設定</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="top-right">
+    <div>
+      <h3>
+        <span>{{ month }}月の活動履歴</span>
+        <a href="{% url 'help_activity' %}">
+          <i class="fa-solid fa-question fa-2xs" style="color: #3d3d3d"></i>
+        </a>
+      </h3>
+
+      {% include 'components/activities.html' %}
+    </div>
+
+    <div class="record-container">
+      <table class="data-table record-table">
+        <tr>
+          <th>今月の記録</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>読了数</td>
+          <td>{{ finished_count }}</td>
+        </tr>
+        <tr>
+          <td>レビュー数</td>
+          <td>{{ reviews_count }}</td>
+        </tr>
+      </table>
+
+      <div class="follow-area">
+        <a href="{% url 'follower_page' user.id %}"
+        class="follow-link-box">
+          <span class="follow-label">フォロワー</span>
+          <span class="follow-count">{{ follower_count }}</span>
+        </a>
+        <div class="follow-link-box">
+          <div class="follow-label">フォロー数</div>
+          <div class="follow-count">{{ following_count }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
