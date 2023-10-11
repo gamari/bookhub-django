@@ -1,0 +1,47 @@
+<section>
+  <h2>最新のタイムライン</h2>
+  <div class="timeline-panel-container mt-4">
+    {% for memo in memos %}
+    <div class="card-sm timeline-panel">
+      <div class="timeline-panel-header">
+        <div>
+          <a href="{% url 'book_detail' memo.book.id %}"
+            ><img
+              src="{{ memo.book.thumbnail }}"
+              alt="{{ memo.book.title }}"
+              class="timeline-panel-image"
+          /></a>
+        </div>
+
+        <div>
+          <a
+            href="{% url 'user_detail' memo.user.username %}"
+            class="user-icon-container"
+          >
+            {% if memo.user.profile_image %}
+            <img
+              src="{{ memo.user.profile_image.url }}"
+              alt="{{ memo.user.username }}"
+              class="user-icon-sm"
+            />
+            {% else %}
+            <div class="user-icon-sm">
+              <i class="fa-regular fa-user fa-2xl" style="color: #5e5e5e"></i>
+            </div>
+            {% endif %}
+            <span class="user-username">{{ memo.user.username }}</span>
+          </a>
+
+          <div class="timeline-panel-date">
+            {{ memo.created_at | date:"Y年m月d日 H時i分" }}
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-panel-content">{{ memo.content }}</div>
+    </div>
+    {% empty %}
+    <div class="card-sm">存在しません</div>
+    {% endfor %}
+  </div>
+</section>

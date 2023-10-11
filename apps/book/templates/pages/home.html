@@ -8,120 +8,15 @@
 <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
 {% endblock %} 
 
-{% block title %} トップページ {% endblock %} 
+{% block title %}BookHub{% endblock %} 
 
 {% block content %}
-<section>
-  <div class="card">
-    <h4>気になる書籍を検索する</h4>
-    <form
-      action="{% url 'book_search' %}"
-      method="GET"
-      class="search-container"
-    >
-      <input
-        type="text"
-        name="query"
-        placeholder="書籍名で検索"
-        class="search-input"
-        autocomplete="off"
-      />
-      <button type="submit" class="searchbox-icon">
-        <i class="fas fa-search"></i>
-      </button>
-    </form>
-  </div>
-</section>
 
-<section>
-  <h2>最新のタイムライン</h2>
-  <div class="timeline-panel-container mt-4">
-    {% for memo in memos %}
-    <div class="card-sm timeline-panel">
-      <div class="timeline-panel-header">
-        <div>
-          <a href="{% url 'book_detail' memo.book.id %}"
-            ><img
-              src="{{ memo.book.thumbnail }}"
-              alt="{{ memo.book.title }}"
-              class="timeline-panel-image"
-          /></a>
-        </div>
-
-        <div>
-          <a
-            href="{% url 'user_detail' memo.user.username %}"
-            class="user-icon-container"
-          >
-            {% if memo.user.profile_image %}
-            <img
-              src="{{ memo.user.profile_image.url }}"
-              alt="{{ memo.user.username }}"
-              class="user-icon-sm"
-            />
-            {% else %}
-            <div class="user-icon-sm">
-              <i class="fa-regular fa-user fa-2xl" style="color: #5e5e5e"></i>
-            </div>
-            {% endif %}
-            <span class="user-username">{{ memo.user.username }}</span>
-          </a>
-
-          <div class="timeline-panel-date">
-            {{ memo.created_at | date:"Y年m月d日 H時i分" }}
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-panel-content">{{ memo.content }}</div>
-    </div>
-    {% empty %}
-    <div class="card-sm">存在しません</div>
-    {% endfor %}
-  </div>
-</section>
-
-{% include 'components/home_news.html' %}
+{% include 'components/home/search_section.html' %}
+{% include 'components/home/home_news.html' %}
 {% include 'components/features.html' %}
+{% include 'components/home/ranking_section.html' %}
+{% include 'components/home/home_reviews.html' %}
+{% include 'components/home/top_books.html' %}
 
-<section>
-  <h2>先週のランキング</h2>
-  {% if ranking_entries %}
-  <div class="ranking-list-container">
-    {% for entry in ranking_entries %}
-    <a href="{% url 'book_detail' entry.book.id %}" class="book">
-      <img
-        src="{{ entry.book.thumbnail }}"
-        alt="{{ book.title }}"
-        class="book-image"
-      />
-      <div class="rank">{{ forloop.counter }}</div>
-    </a>
-    {% endfor %}
-  </div>
-  {% else %}
-  <div class="card-sm">ランキングが存在しません</div>
-  {% endif %}
-</section>
-
-<section>
-  <h2>最新のレビュー</h2>
-
-  {% include 'components/review_list.html' %}
-</section>
-
-<section>
-  <h2>よく読まれています</h2>
-
-  <div class="top-books-container">
-    {% for result in top_book_results %}
-    <a href="{% url 'book_detail' result.book__id %}" class="book"
-      ><img
-        src="{{ result.book__thumbnail }}"
-        alt="{{ result.book__title }}"
-        class="book-image"
-    /></a>
-    {% endfor %}
-  </div>
-</section>
 {% endblock %}

@@ -1,0 +1,19 @@
+<section>
+  <h2>先週のランキング</h2>
+  {% if ranking_entries %}
+  <div class="ranking-list-container">
+    {% for entry in ranking_entries %}
+    <a href="{% url 'book_detail' entry.book.id %}" class="book">
+      <img
+        src="{{ entry.book.thumbnail }}"
+        alt="{{ book.title }}"
+        class="book-image"
+      />
+      <div class="rank">{{ forloop.counter }}</div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="card-sm">ランキングが存在しません</div>
+  {% endif %}
+</section>

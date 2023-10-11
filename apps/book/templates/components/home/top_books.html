@@ -1,0 +1,14 @@
+<section>
+  <h2>よく読まれています</h2>
+
+  <div class="top-books-container">
+    {% for result in top_book_results %}
+    <a href="{% url 'book_detail' result.book__id %}" class="book"
+      ><img
+        src="{{ result.book__thumbnail }}"
+        alt="{{ result.book__title }}"
+        class="book-image"
+    /></a>
+    {% endfor %}
+  </div>
+</section>

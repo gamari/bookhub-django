@@ -1,0 +1,21 @@
+<section>
+  <div class="card">
+    <h4>気になる書籍を検索する</h4>
+    <form
+      action="{% url 'book_search' %}"
+      method="GET"
+      class="search-container"
+    >
+      <input
+        type="text"
+        name="query"
+        placeholder="書籍名で検索"
+        class="search-input"
+        autocomplete="off"
+      />
+      <button type="submit" class="searchbox-icon">
+        <i class="fas fa-search"></i>
+      </button>
+    </form>
+  </div>
+</section>
