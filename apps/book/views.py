@@ -56,7 +56,6 @@ def mypage(request):
     return render(request, "pages/mypage.html", context)
 
 
-# 書籍詳細
 def book_detail_page(request, book_id):
     book_service = BookDomainService(BookRepository(), BookshelfRepository())
     review_service = ReviewDomainService(ReviewRepository())
@@ -67,7 +66,6 @@ def book_detail_page(request, book_id):
     return render(request, "pages/book_detail.html", context)
 
 
-# 本棚
 def bookshelf_list_page(request, bookshelf_id):
     bookshelf = Bookshelf.objects.get(id=bookshelf_id)
     return render(request, "bookshelf_list.html", {"bookshelf": bookshelf})

@@ -33,7 +33,7 @@ class ShowHomePageUsecase(Usecase):
         top_book_results = self.record_service.get_top_books(
             first_day_of_month, last_day_of_month, limit=3
         )
-        latest_reviews = self.review_service.get_latest_reviews(limit=5)
+        latest_reviews = self.review_service.get_latest_reviews(limit=3)
 
         # ランキングを取得する
         # TODO リファクタリングする

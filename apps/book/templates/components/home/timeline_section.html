@@ -20,15 +20,13 @@
             class="user-icon-container"
           >
             {% if memo.user.profile_image %}
-            <img
-              src="{{ memo.user.profile_image.url }}"
-              alt="{{ memo.user.username }}"
-              class="user-icon-sm"
-            />
+              <img
+                src="{{ memo.user.profile_image.url }}"
+                alt="{{ memo.user.username }}"
+                class="user-icon-sm"
+              />
             {% else %}
-            <div class="user-icon-sm">
-              <i class="fa-regular fa-user fa-2xl user-icon-sm" style="color: #5e5e5e"></i>
-            </div>
+              {% include 'components/no_user_icon_sm.html' %}
             {% endif %}
             <span class="user-username">{{ memo.user.username }}</span>
           </a>

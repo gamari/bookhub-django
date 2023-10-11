@@ -14,11 +14,11 @@
       <div class="review-container">
         <div class="review-user-container">
           <div>
-            <a href="{% url 'user_detail' review.user.username %}">
+            <a href="{% url 'user_detail' review.user.username %}" class="decoration-none">
               {% if review.user.profile_image %}
                 <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.username }}" class="user-icon-sm" />
               {% else %}
-                <i class="user-icon-sm fa-regular fa-user fa-2xl" style="color: #5e5e5e;"></i>
+                {% include "components/no_user_icon_sm.html" %}
               {% endif %}
             </a>
           </div>
