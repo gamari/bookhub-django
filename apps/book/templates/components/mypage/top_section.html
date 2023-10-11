@@ -40,15 +40,8 @@
       </table>
 
       <div class="follow-area">
-        <a href="{% url 'follower_page' user.id %}"
-        class="follow-link-box">
-          <span class="follow-label">フォロワー</span>
-          <span class="follow-count">{{ follower_count }}</span>
-        </a>
-        <div class="follow-link-box">
-          <div class="follow-label">フォロー数</div>
-          <div class="follow-count">{{ following_count }}</div>
-        </div>
+        {% include "components/follower_count.html" %}
+        {% include "components/following_count.html" %}
       </div>
     </div>
   </div>

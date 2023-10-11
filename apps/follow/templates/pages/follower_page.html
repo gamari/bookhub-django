@@ -8,10 +8,29 @@
 <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
 {% endblock %} 
 
-{% block title %}フォロワー一覧{% endblock %} 
+{% block title %}
+{{ account.username }}さんのフォロワー
+{% endblock %} 
 
 {% block content %}
 
-<div>フォロワーを表示</div>
+<section>
+    <h3></h3>
+
+    <div class="card">
+        <div>User Panel</div>
+    </div>
+</section>
+
+
+<section>
+    <h3>{{ account.username }}さんのフォロワー</h3>
+    
+    {% for follower in followers %}
+      <div>1</div>
+    {% empty %}
+      <div class="mt-4 card">存在しません</div>
+    {% endfor %}
+</section>
 
 {% endblock %}

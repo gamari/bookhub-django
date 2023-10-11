@@ -2,15 +2,20 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
+from authentication.domain.repositories import AccountRepository
+from authentication.domain.services import AccountDomainService
 from authentication.models import Account
+
+from apps.follow.application.usecases import ShowFollowerPage
 from apps.follow.domain.services import FollowService
 
 
-def follower_page(request, id):
-    # 対象ユーザーのフォロワー一覧を表示する
-    account = get_object_or_404(Account, id=id)
-    followers = account.followers.all()
-    return render(request, "pages/follower_page.html", {"followers": followers})
+def show_follower_page(request, id):
+    account_service = AccountDomainService(AccountRepository())
+    usecase = ShowFollowerPage(account_service)
+    context = usecase.execute(id)
+
+    return render(request, "pages/follower_page.html", context)
 
 
 # TODO toggle followとかのほうが良いかも

@@ -2,8 +2,8 @@
   {% if user.profile_image %}
     <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="user-icon" />
   {% else %}
-    <div class="user-icon">
-      <i class="fa-regular fa-user fa-2xl" style="color: #5e5e5e;"></i>
-    </div>
+    <span class="user-icon">
+      <i class="fa-regular fa-face-smile fa-xl" style="color: #888;"></i>
+    </span>
   {% endif %}
 </a>

@@ -27,12 +27,10 @@
     <div>
       <div class="follow-container">
         <div class="follow-count">{{ following_count }}</div>
-        <div class="follow-label">フォロー数</div>
+        <div class="follow-label">フォロー</div>
       </div>
-      <div class="mt-4 follow-container">
-        <div class="follow-count">{{ follower_count }}</div>
-        <div class="follow-label">フォロワー数</div>
-      </div>
+      
+      {% include "components/follower_count.html" %}
     </div>
   </div>
 </div>

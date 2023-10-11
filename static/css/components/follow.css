@@ -8,6 +8,7 @@
   cursor: pointer;
   padding: 4px;
   text-decoration: none;
+  width: 80px;
 }
 
 .follow-link-box:hover {
