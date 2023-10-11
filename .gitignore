@@ -1,7 +1,7 @@
-media/
-db.sqlite3
 **/__pycache__/**
 .vscode/
 .devcontainer
+db.sqlite3
 .env
 static_root/**
+media/
