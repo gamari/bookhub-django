@@ -1,6 +1,4 @@
-{% extends 'base.html' %} 
-{% load static %}
-
+{% extends 'base.html' %} {% load static %} {% load follow_tags %} 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
 <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
@@ -8,11 +6,9 @@
 <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
 <link rel="stylesheet" href="{% static 'css/pages/follower.css' %}" />
 {% endblock %} 
-
 {% block title %} {{ account.username }}さんのフォロワー {% endblock %} 
 
 {% block content %}
-
 <section>
   <h3></h3>
 
@@ -28,21 +24,34 @@
     {% for follow in followers %}
     <div class="follower-line">
       <div>
-        {% comment %} TODO アイコンを表示する {% endcomment %}
-        {{ follow.follower.username }}
+        {% if follow.follwer.profile_image %}
+        <img
+          src="{{follow.follower.profile_image}}"
+          alt="user-icon"
+          class="user-icon-sm"
+        />
+        {% else %}
+        <span class="user-icon-sm">
+          <i class="fa-regular fa-face-smile fa-xl" style="color: #888"></i>
+        </span>
+        {% endif %}
       </div>
 
-      <div class="follow-info">
-        {{ follow.follower.username }}
-      </div>
+      <div class="follow-info">{{ follow.follower.username }}</div>
 
       <div>
-        {% comment %} フォローボタンを配置する {% endcomment %}
-        {% if request.user.id != follow.follower.id %}
+        {% if request.user.id != follow.follower.id %} 
+          {% if follow.follower|is_following:user %}
+          <form action="{% url 'unfollow' follow.follower.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="フォロー解除" class="btn" />
+          </form>
+          {% else %}
           <form action="{% url 'follow' follow.follower.id %}" method="POST">
             {% csrf_token %}
             <input type="submit" value="フォロー" class="btn btn-primary" />
           </form>
+          {% endif %} 
         {% endif %}
       </div>
     </div>

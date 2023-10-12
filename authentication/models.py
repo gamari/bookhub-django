@@ -39,3 +39,9 @@ class Account(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = "email"
 
     objects: AccountManager = AccountManager()
+
+    def is_following(self, target_user) -> bool:
+        """自分がtarget_userをフォローしているかどうかを返す"""
+        from apps.follow.models import Follow
+
+        return Follow.objects.filter(follower=self, followed=target_user).exists()
