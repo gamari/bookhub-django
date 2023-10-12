@@ -10,6 +10,8 @@ class ShowFollowerPage(Usecase):
         account = self.account_service.get_account_by_id(id)
         followers = account.followers.all()
 
+        print(followers)
+
         return {
             "followers": followers,
             "account": account,

@@ -7,9 +7,18 @@ User = get_user_model()
 
 class Follow(models.Model):
     follower = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="following"
+        verbose_name="フォローしているユーザー",
+        to=User, 
+        on_delete=models.CASCADE, 
+        related_name="following"
     )
     followed = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="followers"
+        User, 
+        on_delete=models.CASCADE, 
+        related_name="followers"
     )
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("follower", "followed")
+    

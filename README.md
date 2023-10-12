@@ -38,6 +38,15 @@ BookHubアプリ。
 
 - CICDによるデプロイ
 
+## DB操作
+
+- python manage.py shell
+
+```
+from your_app_name.models import Follow
+Follow.objects.all().delete()
+```
+
 
 ## アプリの追加
 

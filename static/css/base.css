@@ -24,6 +24,7 @@ section {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  box-sizing: border-box;
 }
 
 .page-title {

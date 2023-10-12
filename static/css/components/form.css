@@ -63,6 +63,7 @@
   transition: border-color 0.3s, box-shadow 0.3s;
   resize: none;
   outline: none;
+  box-sizing: border-box;
 }
 
 .form-group > textarea:focus {

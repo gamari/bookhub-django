@@ -103,7 +103,7 @@ LOGIN_URL = "login"
 
 LANGUAGE_CODE = "ja"
 TIME_ZONE = "Asia/Tokyo"
-USE_TZ = False
+USE_TZ = False  # 日本国内向けのため、タイムゾーンを無効化
 USE_I18N = True
 USE_L10N = True
 

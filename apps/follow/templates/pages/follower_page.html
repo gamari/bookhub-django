@@ -1,36 +1,55 @@
 {% extends 'base.html' %} 
-{% load static %} 
+{% load static %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
 <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
 <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
 <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
+<link rel="stylesheet" href="{% static 'css/pages/follower.css' %}" />
 {% endblock %} 
 
-{% block title %}
-{{ account.username }}さんのフォロワー
-{% endblock %} 
+{% block title %} {{ account.username }}さんのフォロワー {% endblock %} 
 
 {% block content %}
 
 <section>
-    <h3></h3>
+  <h3></h3>
 
-    <div class="card">
-        <div>User Panel</div>
-    </div>
+  <div class="card">
+    <div>User Panel</div>
+  </div>
 </section>
 
-
 <section>
-    <h3>{{ account.username }}さんのフォロワー</h3>
-    
-    {% for follower in followers %}
-      <div>1</div>
+  <h3>{{ account.username }}さんのフォロワー</h3>
+
+  <div class="follower-list">
+    {% for follow in followers %}
+    <div class="follower-line">
+      <div>
+        {% comment %} TODO アイコンを表示する {% endcomment %}
+        {{ follow.follower.username }}
+      </div>
+
+      <div class="follow-info">
+        {{ follow.follower.username }}
+      </div>
+
+      <div>
+        {% comment %} フォローボタンを配置する {% endcomment %}
+        {% if request.user.id != follow.follower.id %}
+          <form action="{% url 'follow' follow.follower.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="フォロー" class="btn btn-primary" />
+          </form>
+        {% endif %}
+      </div>
+    </div>
     {% empty %}
-      <div class="mt-4 card">存在しません</div>
+    <div class="follower-line">存在しません</div>
     {% endfor %}
+  </div>
 </section>
 
 {% endblock %}
