@@ -1,0 +1,14 @@
+{% comment %} 
+param1: フォローされる側
+param2: フォローする側
+{% endcomment %}
+<button
+  id="followButton_{{ target_account.id }}"
+  data-follow-button
+  data-target-id="{{ target_account.id }}"
+  data-csrf-token="{{ csrf_token }}"
+  data-is-follow="{{ is_following }}"
+  class="btn {% if is_following %}{% else %}btn-primary{% endif %}"
+>
+  {% if is_following %}フォロー解除{% else %}フォロー{% endif %}
+</button>

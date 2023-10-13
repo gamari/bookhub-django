@@ -13,7 +13,8 @@ class Follow(models.Model):
         related_name="following"
     )
     followed = models.ForeignKey(
-        User, 
+        verbose_name="フォローされてる側",
+        to=User, 
         on_delete=models.CASCADE, 
         related_name="followers"
     )

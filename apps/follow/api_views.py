@@ -8,6 +8,7 @@ from apps.follow.domain.services import FollowService
 from authentication.domain.repositories import AccountRepository
 from authentication.domain.services import AccountDomainService
 
+# TODO csrf_exemptを付与するようにする
 @method_decorator(csrf_exempt, name='dispatch')
 @login_required
 def follow_api(request, id):

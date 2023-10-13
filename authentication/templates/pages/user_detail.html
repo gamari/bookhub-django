@@ -13,7 +13,9 @@
 <link href="{% static 'css/pages/user_detail.css' %}" rel="stylesheet" />
 {% endblock %}
 
-{% comment %} {% block js %}{% endblock %} {% endcomment %}
+{% block js %}
+<script src="{% static 'js/components/follow_buttons.js' %}"></script>
+{% endblock %}
 
 {% block content %}
   <div class="user-section">

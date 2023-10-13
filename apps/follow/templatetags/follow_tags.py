@@ -14,7 +14,7 @@ def follow_button(user, target_account):
     follow_service = FollowService()
     is_following = follow_service.is_following(user.id, target_account.id)
 
-    return render_to_string('components/follow_button.html', {
+    return render_to_string('tags/follow_button.html', {
         'user': user,
         'target_account': target_account,
         'is_following': is_following

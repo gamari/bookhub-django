@@ -9,7 +9,12 @@
 <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
 <link rel="stylesheet" href="{% static 'css/pages/follower.css' %}" />
 {% endblock %} 
+
 {% block title %} {{ account.username }}さんのフォロワー {% endblock %} 
+
+{% block js %}
+<script src="{% static 'js/components/follow_buttons.js' %}"></script>
+{% endblock %}
 
 {% block content %}
 <section>
@@ -44,17 +49,7 @@
 
       <div>
         {% if request.user.id != follow.follower.id %} 
-          {% if follow.follower|is_following:user %}
-          <form action="{% url 'unfollow' follow.follower.id %}" method="POST">
-            {% csrf_token %}
-            <input type="submit" value="フォロー解除" class="btn" />
-          </form>
-          {% else %}
-          <form action="{% url 'follow' follow.follower.id %}" method="POST">
-            {% csrf_token %}
-            <input type="submit" value="フォロー" class="btn btn-primary" />
-          </form>
-          {% endif %} 
+          {% follow_button follow.followed follow.follower %}
         {% endif %}
       </div>
     </div>
