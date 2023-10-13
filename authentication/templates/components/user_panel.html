@@ -1,29 +1,42 @@
-{% load follow_tags %} 
+{% load follow_tags %}
 
 <div class="card user-panel-container">
-  <div class="col-center">
+  <div class="user-left">
     {% include 'components/user_icon_sm.html' %}
-    
+
     <div class="user-username">{{ user.username }}</div>
 
     {% if is_self %}
-      <div></div>
-    {% else %}
-      {% follow_button request.user user %}
-    {% endif %}
+    <div></div>
+    {% else %} {% follow_button request.user user %} {% endif %}
   </div>
 
   <div class="user-panel-info">
+    {% comment %}TODO 色々表示する{% endcomment %}
     <div>
-      {% comment %}TODO 色々表示する{% endcomment %}
+      <div class="user-info-count">
+        <div>
+          <div>登録数</div>
+          <div>120</div>
+        </div>
+
+        <div>
+          <div>レビュー</div>
+          <div>10</div>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          {% if user.description %}
+          <div class="user-description">{{ user.description }}</div>
+          {% endif %}
+        </div>
+      </div>
     </div>
 
-    <div>
-      <div class="follow-container">
-        <div class="follow-count">{{ following_count }}</div>
-        <div class="follow-label">フォロー</div>
-      </div>
-      
+    <div class="col gap-4">
+      {% include "components/following_count.html" %}
       {% include "components/follower_count.html" %}
     </div>
   </div>

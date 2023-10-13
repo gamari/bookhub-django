@@ -47,6 +47,7 @@ class AccountUpdateForm(forms.ModelForm):
         self.fields["email"].widget.attrs.update({"class": "max-w-sm"})
         self.fields["username"].widget.attrs.update({"class": "max-w-sm"})
         self.fields["profile_image"].widget.attrs.update({"class": "form-input-file"})
+        self.fields["description"].widget.attrs.update({"class": ""})
 
     class Meta:
         model = Account
@@ -59,3 +60,11 @@ class AccountUpdateForm(forms.ModelForm):
             raise ValidationError("ユーザー名は1～12文字で入力してください。")
 
         return username
+    
+    def clean_description(self):
+        description = self.cleaned_data.get("description")
+
+        if len(description) > 200:
+            raise ValidationError("自己紹介は200文字以内で入力してください。")
+
+        return description

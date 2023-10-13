@@ -1,0 +1,16 @@
+.account-list-container {
+    background-color: white;
+    border-radius: 8px;
+}
+
+.account-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 16px;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.account-info {
+    flex-grow: 1;
+}

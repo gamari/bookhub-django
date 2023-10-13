@@ -18,15 +18,8 @@
 
 {% block content %}
 <section>
-  <h3></h3>
-
-  <div class="card">
-    <div>User Panel</div>
-  </div>
-</section>
-
-<section>
-  <h3>{{ account.username }}さんのフォロワー</h3>
+  <h3>
+    <a href="{% url 'user_detail' account.username%}" class="text-primary">{{ account.username }}</a>さんのフォロワー</h3>
 
   <div class="follower-list">
     {% for follow in followers %}
@@ -58,5 +51,4 @@
     {% endfor %}
   </div>
 </section>
-
 {% endblock %}

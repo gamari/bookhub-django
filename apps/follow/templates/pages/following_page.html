@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/account.css' %}" />
+<link rel="stylesheet" href="{% static 'css/pages/follower.css' %}" />
+{% endblock %} 
+
+{% block title %} {{ account.username }}さんのフォロワー {% endblock %}
+
+{% block js %}
+<script src="{% static 'js/components/follow_buttons.js' %}"></script>
+{% endblock %} 
+
+{% block content %}
+<section>
+  <h3>
+    <a href="{% url 'user_detail' account.username%}" class="text-primary"
+      >{{ account.username }}</a
+    >さんがフォローしてる人
+  </h3>
+
+  {% include 'components/account_list.html' with followers=accounts %}
+</section>
+{% endblock %}

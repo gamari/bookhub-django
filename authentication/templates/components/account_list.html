@@ -1,0 +1,31 @@
+{% load follow_tags %}
+
+<div class="account-list-container">
+  {% for account in accounts %}
+  <div class="account-line">
+    <div>
+      {% if account.profile_image %}
+      <img
+        src="{{account.profile_image.url}}"
+        alt="user-icon"
+        class="user-icon-sm"
+      />
+      {% else %}
+      <span class="user-icon-sm">
+        <i class="fa-regular fa-face-smile fa-xl" style="color: #888"></i>
+      </span>
+      {% endif %}
+    </div>
+
+    <div class="account-info">{{ account.username }}</div>
+
+    <div>
+      {% if request.user.id != account.id %} 
+        {% follow_button request.user account %} 
+      {% endif %}
+    </div>
+  </div>
+  {% empty %}
+  <div class="follower-line">存在しません</div>
+  {% endfor %}
+</div>

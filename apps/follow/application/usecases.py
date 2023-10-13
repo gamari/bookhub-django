@@ -11,13 +11,30 @@ class ShowFollowerPage(Usecase):
         self.account_service = account_service
 
     def execute(self, id):
-        account = self.account_service.get_account_by_id(id)
+        account: Account = self.account_service.get_account_by_id(id)
         followers = account.followers.all()
 
         return {
             "followers": followers,
             "account": account,
         }
+
+class ShowFollowingPage(Usecase):
+    """フォロー一覧を表示。"""
+    def __init__(self, account_service: AccountDomainService):
+        self.account_service = account_service
+
+    def execute(self, id):
+        account: Account = self.account_service.get_account_by_id(id)
+
+        account_ids = account.following.all().values_list('followed', flat=True)
+        accounts = Account.objects.filter(id__in=account_ids)
+
+        return {
+            "accounts": accounts,
+            "account": account,
+        }
+
 
 
 class FollowAccountUsecase(Usecase):

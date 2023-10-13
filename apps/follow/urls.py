@@ -8,6 +8,9 @@ urlpatterns = [
     path(
         "accounts/<uuid:id>/follower/", views.show_follower_page, name="follower_page"
     ),
+    path(
+        "accounts/<uuid:id>/following/", views.show_following_page, name="following_page"
+    ),
 
     # API
     path("api/follow/<uuid:id>/", api_views.follow_api, name="api_follow"),
