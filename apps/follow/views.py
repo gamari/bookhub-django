@@ -18,6 +18,7 @@ def show_follower_page(request, id):
     return render(request, "pages/follower_page.html", context)
 
 
+# TODO 削除予定
 # TODO toggle followとかのほうが良いかも
 @login_required
 def follow_account(request, id):

@@ -1,0 +1,35 @@
+<button
+  id="followButton_{{ target_account.id }}"
+  data-target-id="{{ target_account.id }}"
+  class="btn btn-primary"
+>
+  {% if is_following %}アンフォロー{% else %}フォロー{% endif %}
+</button>
+
+<script>
+  document
+    .getElementById("followButton_{{ target_account.id }}")
+    .addEventListener("click", function () {
+      const targetId = this.getAttribute("data-target-id");
+      console.log(this.textContent.trim());
+      const isFollowing = this.textContent.trim() === "アンフォロー";
+      const apiUrl = isFollowing
+        ? `/api/unfollow/${targetId}/`
+        : `/api/follow/${targetId}/`;
+
+      fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRFToken": "{{ csrf_token }}",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          this.textContent = data.followed ? "アンフォロー" : "フォロー";
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+</script>
