@@ -15,3 +15,8 @@
     height: 200px;
     cursor: pointer;
 }
+
+.selection-selected {
+    border: 2px solid #007BFF;
+    box-shadow: 0 0 5px #007BFF;
+}

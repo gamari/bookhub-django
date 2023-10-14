@@ -46,3 +46,6 @@ class BookSelectionDomainService(object):
 
     def get_selections_for_user(self, user):
         return self.book_selection_repo.get_selections_for_user(user)
+    
+    def get_selection_by_id(self, selection_id):
+        return self.book_selection_repo.get_selection_by_id(selection_id)

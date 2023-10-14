@@ -23,7 +23,16 @@
 {% block content %}
 
 <section>
-    <div>セレクション詳細ページ</div>
+    <h3>{{ selection.title }}</h3>
+
+    {% for book in selection.books.all %}
+      <div class="book">
+        <a href="{% url 'book_detail' book.id %}">
+          <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
+        </a>
+        <p>{{ book.title }}</p>
+      </div>
+    {% endfor %}
 </section>
 
 {% endblock %}

@@ -209,4 +209,13 @@ class CreateBookSelectionUsecase(Usecase):
             form.save_m2m()
             return {}
         else:
+            print(form.errors)
             raise Exception("入力値が不正です")
+
+class DetailBookSelectionUsecase(Usecase):
+    def __init__(self, book_selection_service: BookSelectionDomainService):
+        self.book_selection_service = book_selection_service
+    
+    def run(self, selection_id):
+        selection = self.book_selection_service.get_selection_by_id(selection_id)
+        return {"selection": selection}

@@ -65,7 +65,8 @@ class Book(models.Model):
     is_clean = models.BooleanField("整備されたデータ判定", default=False)
 
     def __str__(self):
-        return f"[{self.isbn_10} | {self.isbn_13}] {self.title}"
+        # return f"[{self.isbn_10} | {self.isbn_13}] {self.title}"
+        return f"{self.title}"
 
     def get_avg_rating(self):
         """書籍の平均評価を取得する。"""
@@ -129,5 +130,5 @@ class BookSelection(models.Model):
     title = models.CharField("セレクション名", max_length=126, default="セレクション名")
     description = models.TextField("セレクション説明", null=True, blank=True)
     user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="selections")
-    books = models.ManyToManyField(Book, related_name="in_selections")
+    books = models.ManyToManyField(Book, related_name="in_selections", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

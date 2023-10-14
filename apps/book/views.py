@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from apps.book.application.usecases import (
     AddBookToShelfUsecase,
     CreateBookSelectionUsecase,
+    DetailBookSelectionUsecase,
     ShowBookDetailPageUsecase,
     ShowHomePageUsecase,
     ShowMyPageUsecase,
@@ -106,7 +107,7 @@ def create_selection(request):
         usecase = CreateBookSelectionUsecase(selection_service)
         usecase.execute(request.POST, request.user)
         return redirect("mypage")
-    form = BookSelectionForm()
+    form = BookSelectionForm(user=request.user)
     return render(
         request,
         "pages/create_selection.html",
@@ -116,10 +117,14 @@ def create_selection(request):
     )
 
 def selection_detail(request, selection_id):
-    # selection_service = BookSelectionDomainService(BookSelectionRepository())
-    # selection = selection_service.get_selection_by_id(selection_id)
+    usecase = DetailBookSelectionUsecase(
+        BookSelectionDomainService(BookSelectionRepository())
+    )
+
+    context = usecase.execute(selection_id)
+
     return render(
         request, 
         "pages/selection_detail.html", 
-        # {"selection": selection}
+        context
     )

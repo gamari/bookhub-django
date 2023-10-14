@@ -96,3 +96,7 @@ class BookSelectionRepository(object):
     @staticmethod
     def get_selections_for_user(user):
         return BookSelection.objects.filter(user=user)
+    
+    @staticmethod
+    def get_selection_by_id(selection_id):
+        return BookSelection.objects.get(id=selection_id)

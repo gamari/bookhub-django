@@ -2,6 +2,10 @@
   width: 100%;
 }
 
+.opacity-80 {
+  opacity: 0.8;
+}
+
 /* Display */
 .col {
   display: flex;
@@ -36,6 +40,7 @@
 .max-w-md {
   max-width: 512px;
 }
+
 
 /* margin */
 .mt-4 {
