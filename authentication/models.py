@@ -35,7 +35,6 @@ class Account(AbstractBaseUser, PermissionsMixin):
     profile_image = models.ImageField(
         upload_to="profile_images/", null=True, blank=True
     )
-
     USERNAME_FIELD = "email"
 
     objects: AccountManager = AccountManager()

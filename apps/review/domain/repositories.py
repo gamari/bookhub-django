@@ -11,7 +11,7 @@ class ReviewRepository(object):
             return None
 
     def fetch_latest_reviews(self, limit):
-        return Review.objects.all().order_by("-created_at")[:limit]
+        return Review.objects.all().filter(user__is_active=True).order_by("-created_at")[:limit]
     
     def fetch_latest_reviews_by_user(self, user, limit):
         return Review.objects.filter(user=user).order_by("-created_at")[:limit]

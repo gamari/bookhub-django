@@ -17,7 +17,7 @@ from apps.book.domain.repositories import (
     BookshelfRepository,
 )
 from apps.book.forms import BookSelectionForm
-from apps.book.models import Bookshelf
+from apps.book.models import BookSelection, Bookshelf
 from apps.book.domain.services import (
     BookDomainService,
     BookSelectionDomainService,
@@ -128,3 +128,9 @@ def selection_detail(request, selection_id):
         "pages/selection_detail.html", 
         context
     )
+
+@login_required
+def delete_selection(request, selection_id):
+    selection = BookSelection.objects.get(id=selection_id)
+    selection.delete()
+    return redirect("mypage")

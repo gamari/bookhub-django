@@ -23,7 +23,7 @@ class ReadingMemoRepository(object):
         return ReadingMemo.objects.get(id=memo_id)
 
     def fetch_memos(self, limit):
-        return ReadingMemo.objects.order_by("-created_at")[:limit]
+        return ReadingMemo.objects.filter(user__is_active=True).order_by("-created_at")[:limit]
     
     def fetch_memos_by_user(self, user, limit):
         return ReadingMemo.objects.filter(user=user).order_by("-created_at")[:limit]
