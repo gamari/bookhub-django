@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load socialaccount %}
 
 {% block title %}
   ログイン
@@ -33,6 +34,15 @@
     <div class="mt-6">
       <button type="submit" class="btn btn-primary">ログインする</button>
       <a href="{% url 'register' %}">ユーザー登録</a>
+    </div>
+
+    <div class="mt-10 google-login-btn">
+      <h4 class="mb-2">ソーシャルログイン</h4>
+
+      <a href="{% provider_login_url 'google' %}">
+          <span class="google-icon"></span>
+          <span class="google-btn-text">Googleでログイン</span>
+      </a>
     </div>
   </form>
 {% endblock %}

@@ -38,6 +38,10 @@
 }
 
 .max-w-md {
+  max-width: 384px;
+}
+
+.max-w-lg {
   max-width: 512px;
 }
 

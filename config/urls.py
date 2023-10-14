@@ -4,8 +4,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('accounts/', include('allauth.urls')),
+
     path("", include("authentication.urls")),
-    
     path("", include("apps.book.urls")),
     path("", include("apps.record.urls")),
     path("", include("apps.review.urls")),
