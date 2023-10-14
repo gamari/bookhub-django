@@ -56,3 +56,7 @@ startappをして次の手順を行う
 - Configにappsを追加
 - urls.pyに追加
 - INSTALLED_APPSにconfigを指定する
+
+## Command
+
+python manage.py collectstatic
