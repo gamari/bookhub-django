@@ -1,9 +1,10 @@
 from django.utils import timezone
+from apps.book.forms import BookSelectionForm
 
 from config.utils import DateUtils
 from config.application.usecases import Usecase
 
-from apps.book.domain.services import BookDomainService, BookshelfDomainService
+from apps.book.domain.services import BookDomainService, BookSelectionDomainService, BookshelfDomainService
 from apps.book.models import Bookshelf
 from apps.record.domain.services import (
     ActivityDomainService,
@@ -71,11 +72,13 @@ class ShowMyPageUsecase(Usecase):
         activity_service: ActivityDomainService,
         record_service: RecordDomainService,
         review_service: ReviewDomainService,
+        selection_service: BookSelectionDomainService,
     ):
         self.bookshelf_service = bookshelf_service
         self.activity_service = activity_service
         self.record_service = record_service
         self.review_service = review_service
+        self.selection_service = selection_service
 
     def run(self, user):
         # 書籍関連
@@ -101,6 +104,9 @@ class ShowMyPageUsecase(Usecase):
         following_count = user.following.count()
         follower_count = user.followers.count()
 
+        # セレクション
+        selections = self.selection_service.get_selections_for_user(user)
+
         return {
             "books": books,
             "activity_data": activity_data,
@@ -111,6 +117,7 @@ class ShowMyPageUsecase(Usecase):
             "reviews": reviews,
             "following_count": following_count,
             "follower_count": follower_count,
+            "selections": selections,
         }
 
 
@@ -188,3 +195,18 @@ class RemoveBookFromShelfUsecase(Usecase):
         bookshelf.books.remove(book)
 
         return {}
+
+class CreateBookSelectionUsecase(Usecase):
+    def __init__(self, book_selection_service: BookSelectionDomainService):
+        self.book_selection_service = book_selection_service
+    
+    def run(self, body, user):
+        form = BookSelectionForm(body)
+        if form.is_valid():
+            selection = form.save(commit=False)
+            selection.user = user
+            selection.save()
+            form.save_m2m()
+            return {}
+        else:
+            raise Exception("入力値が不正です")

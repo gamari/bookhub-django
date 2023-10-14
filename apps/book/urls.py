@@ -5,6 +5,8 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("mypage/", views.mypage, name="mypage"),
     path("detail/<str:book_id>/", views.book_detail_page, name="book_detail"),
+    path("selection/create/", views.create_selection, name="create_selection"),
+    path("selection/<uuid:selection_id>/", views.selection_detail, name="selection_detail"),
 
     # 本棚
     path('bookshelf/<uuid:bookshelf_id>/', views.bookshelf_list_page, name='bookshelf_list'),

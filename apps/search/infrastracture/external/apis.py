@@ -68,7 +68,7 @@ class GoogleBooksAPIClient(object):
             .with_query_in_title(query)
             # .with_query_in_description(query)
             .with_start_index(start_index)
-            .with_max_results(10)
+            # .with_max_results(10)
             .with_lang_restrict("ja")
             .with_country("JP")
             .with_print_type("books")

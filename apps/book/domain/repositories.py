@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.db.models import Q
 
-from apps.book.models import Author, Book, Bookshelf
+from apps.book.models import Author, Book, BookSelection, Bookshelf
 
 
 class AuthorRepository(object):
@@ -86,3 +86,13 @@ class BookshelfRepository:
     @staticmethod
     def has_book_for_user(book, user):
         return Bookshelf.objects.filter(user=user, books=book).exists()
+
+class BookSelectionRepository(object):
+    @staticmethod
+    def get_or_create(user):
+        book_selection, created = BookSelection.objects.get_or_create(user=user)
+        return book_selection
+
+    @staticmethod
+    def get_selections_for_user(user):
+        return BookSelection.objects.filter(user=user)

@@ -1,5 +1,5 @@
-from apps.book.domain.repositories import BookRepository, BookshelfRepository
-from apps.book.models import Bookshelf
+from apps.book.domain.repositories import BookRepository, BookSelectionRepository, BookshelfRepository
+from apps.book.models import BookSelection, Bookshelf
 
 
 class BookDomainService(object):
@@ -37,4 +37,12 @@ class BookshelfDomainService(object):
     def get_or_create(self, user) -> Bookshelf:
         return self.bookshelf_repo.get_or_create(user)
 
-# TODO タイムラインサービス
+class BookSelectionDomainService(object):
+    def __init__(self, book_selection_repo: BookSelectionRepository):
+        self.book_selection_repo = book_selection_repo
+
+    def get_or_create(self, user) -> BookSelection:
+        return self.book_selection_repo.get_or_create(user)
+
+    def get_selections_for_user(self, user):
+        return self.book_selection_repo.get_selections_for_user(user)

@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
 <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
 <link rel="stylesheet" href="{% static 'css/pages/follower.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/account.css' %}" />
 {% endblock %} 
 
 {% block title %} {{ account.username }}さんのフォロワー {% endblock %} 
@@ -21,34 +22,6 @@
   <h3>
     <a href="{% url 'user_detail' account.username%}" class="text-primary">{{ account.username }}</a>さんのフォロワー</h3>
 
-  <div class="follower-list">
-    {% for follow in followers %}
-    <div class="follower-line">
-      <div>
-        {% if follow.follwer.profile_image %}
-        <img
-          src="{{follow.follower.profile_image}}"
-          alt="user-icon"
-          class="user-icon-sm"
-        />
-        {% else %}
-        <span class="user-icon-sm">
-          <i class="fa-regular fa-face-smile fa-xl" style="color: #888"></i>
-        </span>
-        {% endif %}
-      </div>
-
-      <div class="follow-info">{{ follow.follower.username }}</div>
-
-      <div>
-        {% if request.user.id != follow.follower.id %} 
-          {% follow_button follow.followed follow.follower %}
-        {% endif %}
-      </div>
-    </div>
-    {% empty %}
-    <div class="follower-line">存在しません</div>
-    {% endfor %}
-  </div>
+    {% include 'components/account_list.html' with followers=accounts %}
 </section>
 {% endblock %}

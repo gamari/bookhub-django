@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="{% static 'css/components/follow.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/selection.css' %}" />
   <link rel="stylesheet" href="{% static 'css/pages/mypage.css' %}" />
 {% endblock %}
 
@@ -21,8 +20,10 @@
 {% endblock %}
 
 {% block content %}
-
-{% include 'components/mypage/top_section.html' %}
-{% include 'components/mypage/content_section.html' %}
-
+<h2>セレクションを作成</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">セレクションを作成</button>
+  </form>
 {% endblock %}

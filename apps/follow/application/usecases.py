@@ -5,22 +5,24 @@ from authentication.models import Account
 from config.application.usecases import Usecase
 
 
-class ShowFollowerPage(Usecase):
-    """フォロワー一覧を表示。"""
+class GetFollowerUsecase(Usecase):
+    """フォロワー一覧を取得。"""
     def __init__(self, account_service: AccountDomainService):
         self.account_service = account_service
 
     def execute(self, id):
         account: Account = self.account_service.get_account_by_id(id)
-        followers = account.followers.all()
+        account_ids = account.followers.all().values_list('follower', flat=True)
+        accounts = Account.objects.filter(id__in=account_ids)
+
 
         return {
-            "followers": followers,
+            "accounts": accounts,
             "account": account,
         }
 
-class ShowFollowingPage(Usecase):
-    """フォロー一覧を表示。"""
+class GetFollowingsUsecase(Usecase):
+    """フォロー一覧を取得。"""
     def __init__(self, account_service: AccountDomainService):
         self.account_service = account_service
 

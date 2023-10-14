@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.db.models import Avg
 
-User = get_user_model()
+Account = get_user_model()
 
 
 class Genre(models.Model):
@@ -28,6 +28,18 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
+class BookCategory(models.Model):
+    """
+    書籍カテゴリ。
+    漫画 = comic
+    小説 = novel
+    ライトノベル = light_novel
+    """
+    id = models.CharField(max_length=255, primary_key=True)
+    name = models.CharField(verbose_name="表示名", max_length=255)
+    description = models.TextField(verbose_name="説明", null=True, blank=True)
+
+
 
 class Book(models.Model):
     """書籍。"""
@@ -37,6 +49,13 @@ class Book(models.Model):
     isbn_13 = models.CharField(max_length=13, unique=True, null=True, blank=True)
     title = models.CharField("書籍名", max_length=255)
     description = models.TextField("書籍説明", null=True, blank=True)
+    category = models.ForeignKey(
+        BookCategory, 
+        verbose_name="カテゴリ", 
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
     authors = models.ManyToManyField(Author)
     thumbnail = models.URLField("サムネイル", null=True, blank=True)
     published_date = models.DateField("出版日", null=True, blank=True)
@@ -64,7 +83,7 @@ class Bookshelf(models.Model):
     id: uuid.UUID = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(Account, on_delete=models.CASCADE)
     books = models.ManyToManyField(Book, through="BookshelfBook")
 
     def add_book(self, book: Book):
@@ -98,4 +117,17 @@ class BookshelfBook(models.Model):
 
     bookshelf = models.ForeignKey(Bookshelf, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class BookSelection(models.Model):
+    """書籍セレクション。"""
+
+    id: uuid.UUID = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
+    title = models.CharField("セレクション名", max_length=126, default="セレクション名")
+    description = models.TextField("セレクション説明", null=True, blank=True)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="selections")
+    books = models.ManyToManyField(Book, related_name="in_selections")
     created_at = models.DateTimeField(auto_now_add=True)
