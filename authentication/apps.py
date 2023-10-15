@@ -11,6 +11,7 @@ class AuthenticationConfig(AppConfig):
     name = "authentication"
 
 
+# TODO リファクタリングしたい
 def generate_unique_username(base_username):
     Account = apps.get_model("authentication", "Account")
 

@@ -1,0 +1,36 @@
+<div id="selection-section" style="display: none">
+    <div class="row-center mb-4 gap-2">
+      <h3>セレクション</h3>
+      <div>
+        <a href="{% url 'create_selection' %}" class="btn-sm btn-primary"
+          >作成する</a
+        >
+      </div>
+    </div>
+
+    <div class="selection-list">
+      {% for selection in selections %}
+      <div>
+        <a
+          href="{% url 'selection_detail' selection.id %}"
+          class="selection-panel"
+        >
+          {{selection.title}}
+        </a>
+        
+        <div class="row">
+          <button class="btn-sm btn-info">編集</button>
+
+          <form action="{% url 'delete_selection' selection.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn-sm btn-warning">削除</button>
+          </form>
+        </div>
+      </div>
+
+        {% empty %}
+        <p class="card">セレクションがありません</p>
+
+      {% endfor %}
+    </div>
+  </div>

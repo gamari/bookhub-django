@@ -5,6 +5,8 @@ from .models import Account
 
 
 class LoginForm(forms.Form):
+    """ログインフォーム"""
+
     email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "form-input"}))
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={"class": "form-input"})
@@ -12,6 +14,8 @@ class LoginForm(forms.Form):
 
 
 class RegisterForm(forms.Form):
+    """登録用フォーム"""
+
     email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "form-input"}))
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={"class": "form-input"})
@@ -42,12 +46,14 @@ class RegisterForm(forms.Form):
 
 # TODO リファクタリングする
 class AccountUpdateForm(forms.ModelForm):
+    """更新用フォーム"""
+
     def __init__(self, *args, **kwargs):
         super(AccountUpdateForm, self).__init__(*args, **kwargs)
         self.fields["email"].widget.attrs.update({"class": "max-w-sm"})
         self.fields["username"].widget.attrs.update({"class": "max-w-sm"})
         self.fields["profile_image"].widget.attrs.update({"class": "form-input-file"})
-        self.fields["description"].widget.attrs.update({"class": ""})
+        self.fields["description"].widget = forms.Textarea(attrs={"rows": 5, "class": "max-w-lg"})
 
     class Meta:
         model = Account
