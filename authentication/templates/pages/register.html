@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load socialaccount %}
+
 
 {% block title %}
   ユーザー登録
@@ -14,7 +16,7 @@
     <p>{{ error }}</p>
   {% endif %}
 
-  <form method="post" class="form-card">
+  <form method="post" class="form-card max-w-md">
     {% csrf_token %}
 
     <h3 class="form-title">ユーザー登録</h3>
@@ -51,7 +53,16 @@
 
     <div class="mt-4">
       <button type="submit" class="btn btn-warning">登録する</button>
-      <a href="{% url 'login' %}">ログイン画面へ</a>
+      <a href="{% url 'login' %}" class="btn">ログイン画面へ</a>
+    </div>
+
+    <div class="mt-10 google-login-btn">
+      <h4 class="mb-2 mb-4">その他登録</h4>
+
+      <a href="{% provider_login_url 'google' next=next %}">
+          <span class="google-icon"></span>
+          <span class="google-btn-text">Googleで登録</span>
+      </a>
     </div>
   </form>
 {% endblock %}

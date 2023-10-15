@@ -31,15 +31,15 @@
       <p class="error">{{ error }}</p>
     {% endif %}
 
-    <div class="mt-6">
+    <div class="mt-6 row-center gap-2">
       <button type="submit" class="btn btn-primary">ログインする</button>
-      <a href="{% url 'register' %}">ユーザー登録</a>
+      <a href="{% url 'register' %}" class="btn">ユーザー登録</a>
     </div>
 
     <div class="mt-10 google-login-btn">
-      <h4 class="mb-2">ソーシャルログイン</h4>
+      <h4 class="mb-2 mb-4">ソーシャルログイン</h4>
 
-      <a href="{% provider_login_url 'google' %}">
+      <a href="{% provider_login_url 'google' next=next %}">
           <span class="google-icon"></span>
           <span class="google-btn-text">Googleでログイン</span>
       </a>

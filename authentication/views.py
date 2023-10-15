@@ -70,6 +70,7 @@ def register_view(request):
             )
 
             if user:
+                user.backend = 'django.contrib.auth.backends.ModelBackend'
                 login(request, user)
                 return redirect("mypage")
             else:

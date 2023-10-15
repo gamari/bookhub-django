@@ -26,18 +26,30 @@ def generate_unique_username(base_username):
 
     return new_username
 
+def check_duplicate_email(email):
+    Account = apps.get_model("authentication", "Account")
+    if Account.objects.filter(email=email).exists():
+        return True
+    else:
+        return False
+
 
 @receiver(pre_social_login)
 def check_social_login(request, sociallogin, **kwargs):
-    print("ユーザー登録")
-    print(sociallogin.account.provider)
     if sociallogin.account.provider == "google":
+        if sociallogin.is_existing:
+            return
+
         data = sociallogin.account.extra_data
         email = data.get("email")
         username = data.get("name")
 
         if not email:
             raise ValueError("メールアドレスは必須です。")
+        
+        # emailチェック
+        if check_duplicate_email(email):
+            raise ValueError("このメールアドレスは既に登録されています。")
 
         if not username:
             raise ValueError("ユーザー名は必須です。")

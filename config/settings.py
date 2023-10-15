@@ -119,8 +119,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = "authentication.Account"
-
 LOGIN_URL = "login"
+SOCIALACCOUNT_LOGIN_ON_GET = True
 
 
 # 国際化設定

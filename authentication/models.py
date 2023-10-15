@@ -41,6 +41,9 @@ class Account(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ["username"]
     
     objects: AccountManager = AccountManager()
+    
+    def __str__(self) -> str:
+        return f"[{self.username}] {self.email}"
 
     def is_following(self, target_user) -> bool:
         """自分がtarget_userをフォローしているかどうかを返す"""
