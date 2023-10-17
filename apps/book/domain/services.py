@@ -1,5 +1,6 @@
 from apps.book.domain.repositories import BookRepository, BookSelectionRepository, BookshelfRepository
-from apps.book.models import BookSelection, Bookshelf
+from apps.book.models import Bookshelf
+from apps.selection.models import BookSelection
 
 
 class BookDomainService(object):

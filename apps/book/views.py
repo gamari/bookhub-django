@@ -17,7 +17,7 @@ from apps.book.domain.repositories import (
     BookshelfRepository,
 )
 from apps.book.forms import BookSelectionForm
-from apps.book.models import BookSelection, Bookshelf
+from apps.book.models import Bookshelf
 from apps.book.domain.services import (
     BookDomainService,
     BookSelectionDomainService,
@@ -34,6 +34,7 @@ from apps.record.domain.services import (
 )
 from apps.review.domain.repositories import ReviewRepository
 from apps.review.domain.services import ReviewDomainService
+from apps.selection.models import BookSelection
 from config.exceptions import ApplicationException
 
 

@@ -2,7 +2,8 @@ from datetime import datetime
 
 from django.db.models import Q
 
-from apps.book.models import Author, Book, BookSelection, Bookshelf
+from apps.book.models import Author, Book, Bookshelf
+from apps.selection.models import BookSelection
 
 
 class AuthorRepository(object):

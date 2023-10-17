@@ -1,6 +1,7 @@
 from django import forms
 
-from apps.book.models import Book, BookSelection, Bookshelf
+from apps.book.models import Book, Bookshelf
+from apps.selection.models import BookSelection
 
 class BookSelectionForm(forms.ModelForm):
     title = forms.CharField(
