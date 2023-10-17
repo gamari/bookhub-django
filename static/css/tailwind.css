@@ -6,6 +6,25 @@
   opacity: 0.8;
 }
 
+/* テキスト */
+.text-primary {
+  color: #1e90ff;
+}
+
+.text-warning {
+  color: #ff604f;
+}
+
+.text-info {
+  color: #555;
+}
+
+/* 背景 */
+.bg-info {
+  background-color: rgb(250, 250, 250);
+}
+
+
 /* Display */
 .col {
   display: flex;

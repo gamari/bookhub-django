@@ -1,3 +1,4 @@
+/* トップセクション */
 .top-section {
   display: grid;
   grid-template-columns: 1fr;
@@ -55,35 +56,6 @@
   text-align: center;
 }
 
-/* レコードテーブル */
-.data-table {
-  width: 100%;
-  max-width: 240px;
-  border-collapse: collapse;
-  font-size: 12px;
-  text-align: left;
-  border: 1px solid #ddd;
-}
-
-.data-table th,
-.data-table td {
-  padding: 4px 8px;
-}
-
-.data-table th {
-  background-color: #1e90ff;
-  color: white;
-}
-
-.data-table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.data-table td:nth-child(2) {
-  text-align: center;
-  font-weight: bold;
-}
-
 /* ツールバー */
 .toolbar-section {
   margin-top: 32px;
@@ -102,7 +74,8 @@
   text-decoration: none;
 }
 
-/* 本棚 */
+
+/* コンテント */
 .mypage-bookshelf-title {
   display: flex;
   flex-direction: row;

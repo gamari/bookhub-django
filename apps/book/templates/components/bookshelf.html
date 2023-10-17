@@ -1,8 +1,5 @@
-{% comment %}
-books -> bookとreading_recordの結合結果 TODO 名称を変えたい
-{% endcomment %}
-{% for result in books %}
 <div class="bookshelf">
+  {% for result in books %}
   <a href="{% url 'reading_record' result.book.id %}" class="book">
     <img
       src="{{ result.book.thumbnail }}"
@@ -16,8 +13,8 @@ books -> bookとreading_recordの結合結果 TODO 名称を変えたい
     <span class="book-play-icon"><i class="fa-solid fa-play"></i></span>
     {% endif %}
   </a>
-</div>
 
-{% empty %}
-<div class="card">書籍が登録されていません</div>
-{% endfor %}
+  {% empty %}
+  <div class="card">書籍が登録されていません</div>
+  {% endfor %}
+</div>
