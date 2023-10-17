@@ -96,8 +96,32 @@
   margin-bottom: 40px;
 }
 
+.my-2 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.my-4 {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+
+/* padding */
+.p-2 {
+  padding: 8px;
+}
+
 .p-4 {
   padding: 16px;
+}
+
+.p-6 {
+  padding: 24px;
+}
+
+.p-10 {
+  padding: 40px;
 }
 
 .border {
@@ -118,6 +142,10 @@
 }
 
 /* テキスト */
+
+.text-xs {
+  font-size: 0.6rem;
+}
 
 .text-sm {
   font-size: 0.8rem;

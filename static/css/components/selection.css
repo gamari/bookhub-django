@@ -10,8 +10,14 @@
     border: 1px solid transparent;
     background-color: white;
     border: 1px solid #E5E5E5;
+    overflow: hidden;
     border-radius: 6px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.selection-info {
+    color: #555;
+    font-size: 12px;
 }
 
 .selection-image {
@@ -22,10 +28,10 @@
 }
 
 .selection-title {
-    font-size: 12px;
+    font-size: 14px;
     color: #007BFF;
     text-decoration: none;
-    padding: 4px;
+    padding: 6px;
 }
 
 .selection-selected {

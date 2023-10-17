@@ -16,3 +16,8 @@ def book_icon(book, size="md"):
         return mark_safe(render_to_string('components/_book_image_md.html', context))
     else:
         return mark_safe("<!-- Invalid image size specified -->")
+
+# TODO 本棚タグを作成する
+@register.simple_tag
+def bookshelf(books):
+    pass

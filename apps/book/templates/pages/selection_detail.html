@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load user_tags %}
 
 {% block title %}
   マイページ
@@ -13,46 +14,45 @@
   <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/selection.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/pages/mypage.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pages/selection_detail.css' %}" />
 {% endblock %}
 
-{% block js %}
-  <script src="{% static 'js/pages/mypage.js' %}"></script>
-{% endblock %}
 
 {% block content %}
-
 <section class="card">
     <h3>{{ selection.title }}</h3>
 
     <div class="selection-info">
-      <div>
-        <p>選書者</p>
+      <div class="row-center gap-2 my-4">
+        {% user_icon selection.user "sm" %}
 
-        {% comment %} TODO tagsに切り替える {% endcomment %}
-        <a href="{% url 'user_detail' user.username %}" class="user-icon-container">
-          {% if selection.user.profile_image %}
-            <img src="{{ selection.user.profile_image.url }}" alt="{{ user.username }}" class="user-icon" />
-          {% else %}
-            <span class="user-icon">
-              <i class="fa-regular fa-face-smile fa-xl" style="color: #888;"></i>
-            </span>
-          {% endif %}
-        </a>
-        
+        <div>
+          <span>{{ selection.user.username }}</span>
+        </div>
+
+        <div>
+          <span>{{selection.created_at }}</span>
+        </div>
       </div>
 
-      <p>{{ selection.description }}</p>
+      <p class="my-2">{{ selection.description }}</p>
     </div>
 
+    <div class="bookshelf">
     {% for book in selection.books.all %}
-      <div class="book">
-        <a href="{% url 'book_detail' book.id %}">
-          <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
-        </a>
-        <p>{{ book.title }}</p>
-      </div>
+      <a href="{% url 'book_detail' book.id %}">
+        <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
+      </a>
     {% endfor %}
+    </div>
+
+    <div>
+      <p>シェアする</p>
+      <div>
+        {% comment %} TODO sharebottonを配置する {% endcomment %}
+      </div>
+    </div>
+
 </section>
 
 {% endblock %}

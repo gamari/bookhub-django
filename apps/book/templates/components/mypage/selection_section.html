@@ -1,4 +1,5 @@
 {% load book_tags %}
+{% load user_tags %}
 
 <div id="selection-section" style="display: none">
   <div class="row-center mb-6 gap-2">
@@ -12,29 +13,41 @@
 
   <div class="selection-list">
     {% for selection in selections %}
+    {% comment %} TODO タグ化する {% endcomment %}
     <div>
       <div class="selection-panel">
         <a
           href="{% url 'selection_detail' selection.id %}"
-          class="selection-title"
+          class="selection-title selection-image center"
         >
-          <span class="selection-image center"> Image area </span>
+          <i class="fa-solid fa-book fa-2xl" style="color: #787878;"></i>
         </a>
 
-        <a
-          href="{% url 'selection_detail' selection.id %}"
-          class="selection-title"
-        >
-          {{selection.title}}
-        </a>
+        <div class="p-2">
+          <a
+            href="{% url 'selection_detail' selection.id %}"
+            class="selection-title"
+          >
+            {{selection.title}}
+          </a>
+        </div>
+
+        <div class="row-center gap-2 ">
+          {% user_icon selection.user 'xs' %}
+          <span class="text-info text-sm">{{ selection.user.username }}</span>
+        </div>
       </div>
 
-      <div class="row">
-        <button class="btn-sm btn-info">編集</button>
+      <div class="row mt-4 gap-2">
+        <button>
+          <i class="fa-regular fa-pen-to-square fa-2xl" style="color: #6b6b6b;"></i>
+        </button>
 
         <form action="{% url 'delete_selection' selection.id %}" method="POST">
           {% csrf_token %}
-          <button type="submit" class="btn-sm btn-warning">削除</button>
+          <button type="submit">
+            <i class="fa-solid fa-trash fa-lg" style="color: #fe3939;"></i>
+          </button>
         </form>
       </div>
     </div>

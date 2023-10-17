@@ -1,0 +1,11 @@
+<a href="{% url 'user_detail' user.username %}" class="user-icon-container">
+  {% if user.profile_image %}
+    <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="user-icon user-icon-xs" />
+
+    aa
+  {% else %}
+    <span class="user-icon user-icon-xs">
+      <i class="fa-regular fa-face-smile fa-md" style="color: #888;"></i>
+    </span>
+  {% endif %}
+</a>
