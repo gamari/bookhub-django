@@ -1,0 +1,11 @@
+<a href="{% url 'book_detail' book.id %}">
+  {% if book.thumbnail %}
+  <img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image" />
+  {% else %}
+  <img
+    src="https://via.placeholder.com/150"
+    alt="{{ book.title }}"
+    class="book-image"
+  />
+  {% endif %}
+</a>
