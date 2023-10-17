@@ -1,21 +1,24 @@
 {% extends 'base.html' %} 
+
 {% load static %} 
+{% load user_tags %}
+{% load book_tags %}
 
 {% block title %} 読書記録 {% endblock %} 
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/components/modal.css' %}" />
-<link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
-<link rel="stylesheet" href="{% static 'css/components/memo.css' %}" />
-<link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
-<link rel="stylesheet" href="{% static 'css/components/form.css' %}" />
-<link rel="stylesheet" href="{% static 'css/pages/reading_record.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/modal.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/memo.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/form.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pages/reading_record.css' %}" />
 {% endblock %} 
 
 {% block js %}
-<script src="{% static 'js/review-modal.js' %}"></script>
-<script src="{% static 'js/memo_service.js' %}"></script>
-<script src="{% static 'js/pages/reading_record.js' %}"></script>
+  <script src="{% static 'js/review-modal.js' %}"></script>
+  <script src="{% static 'js/memo_service.js' %}"></script>
+  <script src="{% static 'js/pages/reading_record.js' %}"></script>
 {% endblock %} 
 
 {% block content %}
@@ -24,7 +27,14 @@
     
     <div class="card book-detail-section">
       <div class="book-detail-left">
-        {% include 'components/book_image.html' %}
+        {% book_icon book "md" %}
+
+        <div class="center mt-4">
+          <a href="{% url 'remove_from_shelf' book.id %}" class="btn-sm btn-warning">
+            <i class="fa-solid fa-trash"></i>
+            <span>本棚から削除</span>
+          </a>
+        </div>
       </div>
 
       <div class="book-detail-middle">
