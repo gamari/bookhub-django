@@ -108,6 +108,8 @@ class ShowMyPageUsecase(Usecase):
         # セレクション
         selections = self.selection_service.get_selections_for_user(user)
 
+        print(selections)
+
         return {
             "books": books,
             "activity_data": activity_data,

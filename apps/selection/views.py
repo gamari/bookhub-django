@@ -20,7 +20,6 @@ def create_selection(request):
             selection_id = usecase.execute(request.POST, request.user)
 
             return redirect("selection_detail", selection_id=selection_id)
-            # return redirect("mypage")
         except ApplicationException as e:
             error_message = e.message
 
