@@ -22,8 +22,28 @@
 
 {% block content %}
 
-<section>
+<section class="card">
     <h3>{{ selection.title }}</h3>
+
+    <div class="selection-info">
+      <div>
+        <p>選書者</p>
+
+        {% comment %} TODO tagsに切り替える {% endcomment %}
+        <a href="{% url 'user_detail' user.username %}" class="user-icon-container">
+          {% if selection.user.profile_image %}
+            <img src="{{ selection.user.profile_image.url }}" alt="{{ user.username }}" class="user-icon" />
+          {% else %}
+            <span class="user-icon">
+              <i class="fa-regular fa-face-smile fa-xl" style="color: #888;"></i>
+            </span>
+          {% endif %}
+        </a>
+        
+      </div>
+
+      <p>{{ selection.description }}</p>
+    </div>
 
     {% for book in selection.books.all %}
       <div class="book">

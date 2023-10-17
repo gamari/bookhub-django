@@ -1,20 +1,23 @@
 {% load follow_tags %}
+{% load user_tags %}
 
 <div class="card user-panel-container">
   <div class="user-left">
-    {% include 'components/user_icon_sm.html' %}
+    {% user_icon user "sm" %}
 
     <div class="user-username">{{ user.username }}</div>
 
     {% if is_self %}
-    <div></div>
-    {% else %} {% follow_button request.user user %} {% endif %}
+      <div></div>
+    {% else %} 
+      {% follow_button request.user user %} 
+    {% endif %}
   </div>
 
   <div class="user-panel-info">
-    {% comment %}TODO 色々表示する{% endcomment %}
     <div>
       <div class="user-info-count">
+        {% comment %}TODO 色々表示する{% endcomment %}
         {% comment %} 
         <div>
           <div>登録数</div>

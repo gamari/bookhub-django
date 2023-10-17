@@ -4,8 +4,6 @@ from django.contrib.auth.decorators import login_required
 
 from apps.book.application.usecases import (
     AddBookToShelfUsecase,
-    CreateBookSelectionUsecase,
-    DetailBookSelectionUsecase,
     ShowBookDetailPageUsecase,
     ShowHomePageUsecase,
     ShowMyPageUsecase,
@@ -16,7 +14,6 @@ from apps.book.domain.repositories import (
     BookSelectionRepository,
     BookshelfRepository,
 )
-from apps.book.forms import BookSelectionForm
 from apps.book.models import Bookshelf
 from apps.book.domain.services import (
     BookDomainService,
@@ -34,8 +31,6 @@ from apps.record.domain.services import (
 )
 from apps.review.domain.repositories import ReviewRepository
 from apps.review.domain.services import ReviewDomainService
-from apps.selection.models import BookSelection
-from config.exceptions import ApplicationException
 
 
 def home(request):
@@ -101,48 +96,3 @@ def remove_book_from_shelf(request, book_id):
 
     return redirect("book_detail", book_id=book_id)
 
-
-# セレクション
-@login_required
-def create_selection(request):
-    error_message = None
-
-    if request.method == "POST":
-        try:
-            selection_service = BookSelectionDomainService(BookSelectionRepository())
-            usecase = CreateBookSelectionUsecase(selection_service)
-            usecase.execute(request.POST, request.user)
-
-            return redirect("mypage")
-        except ApplicationException as e:
-            error_message = e.message
-    
-    form = BookSelectionForm(user=request.user)
-
-    return render(
-        request,
-        "pages/create_selection.html",
-        {
-            "form": form,
-            "error_message": error_message,
-        },
-    )
-
-def selection_detail(request, selection_id):
-    usecase = DetailBookSelectionUsecase(
-        BookSelectionDomainService(BookSelectionRepository())
-    )
-
-    context = usecase.execute(selection_id)
-
-    return render(
-        request, 
-        "pages/selection_detail.html", 
-        context
-    )
-
-@login_required
-def delete_selection(request, selection_id):
-    selection = BookSelection.objects.get(id=selection_id)
-    selection.delete()
-    return redirect("mypage")

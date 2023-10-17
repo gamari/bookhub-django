@@ -1,6 +1,8 @@
+{% load user_tags %}
+
 <div class="top-section card">
   <div class="top-left">
-    <div>{% include 'components/user_icon.html' %}</div>
+    {% user_icon user "md" %}
 
     <h4>{{ user.username }}</h4>
 

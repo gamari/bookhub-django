@@ -1,3 +1,5 @@
+{% load user_tags %}
+
 <div class="reviews-container">
   {% for review in reviews %}
     <div class="review-line card-sm">
@@ -14,13 +16,7 @@
       <div class="review-container">
         <div class="review-user-container">
           <div>
-            <a href="{% url 'user_detail' review.user.username %}" class="decoration-none">
-              {% if review.user.profile_image %}
-                <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.username }}" class="user-icon-sm" />
-              {% else %}
-                {% include "components/no_user_icon_sm.html" %}
-              {% endif %}
-            </a>
+            {% user_icon review.user "sm" %}
           </div>
           <div class="user-username">{{ review.user.username }}</div>
         </div>

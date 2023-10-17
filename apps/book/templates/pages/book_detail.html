@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-
 {% load static %}
+{% load user_tags %}
 
 {% block title %}
   書籍詳細
@@ -84,9 +84,9 @@
     <h3>書籍紹介</h3>
 
     {% if book.description %}
-    <p class="description-content card-sm">{{ book.description }}</p>
+     <p class="description-content card-sm">{{ book.description }}</p>
     {% else %}
-    <p class="description-content card-sm">書籍紹介がありません</p>
+     <p class="description-content card-sm">書籍紹介がありません</p>
     {% endif %}
   </div>
 
@@ -116,13 +116,7 @@
           <div class="review-container">
             <div class="review-user-container">
               <div>
-                <a href="{% url 'user_detail' review.user.username %}">
-                  {% if review.user.profile_image %}
-                    <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.username }}" class="user-icon-sm" />
-                  {% else %}
-                    <i class="fa-regular fa-user fa-2xl" style="color: #5e5e5e;"></i>
-                  {% endif %}
-                </a>
+                {% user_icon review.user "sm" %}
               </div>
               <div class="user-username">{{ review.user.username }}</div>
             </div>

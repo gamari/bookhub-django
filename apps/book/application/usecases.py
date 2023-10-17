@@ -208,6 +208,9 @@ class CreateBookSelectionUsecase(Usecase):
             selection.user = user
             selection.save()
             form.save_m2m()
+            print(selection)
+            print(selection.id)
+            return selection.id
         else:
             raise ApplicationException(form.errors)
 

@@ -1,3 +1,5 @@
+{% load user_tags %}
+
 <section>
   <h2 class="text-info">最新のタイムライン</h2>
   <div class="timeline-panel-container mt-4">
@@ -15,21 +17,10 @@
         </div>
 
         <div>
-          <a
-            href="{% url 'user_detail' memo.user.username %}"
-            class="user-icon-container"
-          >
-            {% if memo.user.profile_image %}
-              <img
-                src="{{ memo.user.profile_image.url }}"
-                alt="{{ memo.user.username }}"
-                class="user-icon-sm"
-              />
-            {% else %}
-              {% include 'components/no_user_icon_sm.html' %}
-            {% endif %}
-            <span class="user-username">{{ memo.user.username }}</span>
-          </a>
+          <div class="row-center">
+            {% user_icon memo.user "sm" %}
+            <span class="text-info">{{ memo.user.username }}</span>
+          </div>
 
           <div class="timeline-panel-date">
             {{ memo.created_at | date:"Y年m月d日 H時i分" }}
