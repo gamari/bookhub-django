@@ -1,6 +1,6 @@
 <a href="{% url 'user_detail' user.username %}" class="user-icon-md user-icon">
   {% if user.profile_image %}
-    <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="user-icon user-icon-md decoration-none" />
+    <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="decoration-none" />
   {% else %}
     <span class="user-icon">
       <i class="fa-regular fa-face-smile fa-2xl" style="color: #888;"></i>

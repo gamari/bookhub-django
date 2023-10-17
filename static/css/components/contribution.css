@@ -1,7 +1,7 @@
 /* TODO リファクタリングする（activitiesに合わせる） */
 .contribution-calendar {
+  display: none;
   width: 180px;
-  display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
 }
@@ -46,4 +46,10 @@
 .contribution-day[data-count="6"],
 .contribution-day[data-count="7"] {
   background-color: #196127;
+}
+
+@media screen and (min-width: 712px) {
+  .contribution-calendar {
+    display: grid;
+  }
 }

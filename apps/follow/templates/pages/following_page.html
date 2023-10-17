@@ -2,23 +2,23 @@
 {% load static %} 
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
-<link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
-<link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
-<link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
-<link rel="stylesheet" href="{% static 'css/components/account.css' %}" />
-<link rel="stylesheet" href="{% static 'css/pages/follower.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/account.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pages/follower.css' %}" />
 {% endblock %} 
 
 {% block title %}{{ account.username }}さんのフォロワー{% endblock %}
 
 {% block js %}
-<script src="{% static 'js/components/follow_buttons.js' %}"></script>
+  <script src="{% static 'js/components/follow_buttons.js' %}"></script>
 {% endblock %} 
 
 {% block content %}
 <section>
-  <h3>
+  <h3 class="mb-4">
     <a href="{% url 'user_detail' account.username%}" class="text-primary"
       >{{ account.username }}</a
     >さんがフォローしてる人

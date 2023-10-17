@@ -6,11 +6,17 @@
 }
 
 .user-icon {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: white;
   text-decoration: none;
+}
+
+.user-icon img {
+  width: 100%;
+  height: 100%;
 }
 
 

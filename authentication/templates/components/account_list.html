@@ -1,28 +1,28 @@
 {% load follow_tags %}
+{% load user_tags %}
 
 <div class="account-list-container">
   {% for account in accounts %}
+  {% comment %} TODO gridにする {% endcomment %}
   <div class="account-line">
-    <div>
-      {% if account.profile_image %}
-      <img
-        src="{{account.profile_image.url}}"
-        alt="user-icon"
-        class="user-icon-sm"
-      />
-      {% else %}
-      <span class="user-icon-sm">
-        <i class="fa-regular fa-face-smile fa-xl" style="color: #888"></i>
-      </span>
-      {% endif %}
+    <div class="col-center">
+      {% user_icon account "sm" %}
+      <div class="account-info">{{ account.username }}</div>
     </div>
 
-    <div class="account-info">{{ account.username }}</div>
+    <div>
+      {{ account.description }}
+    </div>
+
 
     <div>
       {% if request.user.id != account.id %} 
         {% follow_button request.user account %} 
+        {% else %}
+        {% comment %} TODO フォローボタンを配置する {% endcomment %}
+        <div></div>
       {% endif %}
+
     </div>
   </div>
   {% empty %}
