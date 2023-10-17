@@ -22,7 +22,7 @@ class Usecase(object):
 
             return result
         except Exception as e:
-            logger.error(f"{self.__class__.__name__} failed")
+            logger.error(f"エラー発生: {self.__class__.__name__}")
             logger.exception(e)
             raise e
 

@@ -22,35 +22,46 @@
 {% block content %}
 <section>
   <h3>セレクションを作成</h3>
-    <form method="post" class="form-card max-w-md">
-      {% csrf_token %}
-  
-      <div class="form-group">
-        <label for="id_title">タイトル</label>
-        {{ form.title }}
-      </div>
-  
-      <div class="form-group">
-        <label for="id_description">説明</label>
-        {{ form.description }}
-      </div>
-  
-      <div class="form-group">
-        <label for="">書籍</label>
+  <form method="post" class="form-card max-w-xl">
+    {% csrf_token %}
 
-        {% comment %} TODO 検索機能を作りたい {% endcomment %}
-
-        <div class="selection-list" style="display: flex;">
-            {% for book in form.books.field.queryset %}
-            <div class="book-selection {% if book.id in form.books.value %}selected{% endif %}">
-                <img src="{{ book.thumbnail }}" alt="{{ book.title }}">
-                <input type="checkbox" name="{{ form.books.name }}" value="{{ book.id }}" {% if book.id in form.books.value %}checked{% endif %} style="display: none;">
-            </div>
-            {% endfor %}
-        </div>
+    <div class="form-group">
+      <label for="id_title">タイトル</label>
+      {{ form.title }}
     </div>
-  
-      <button type="submit" class="btn btn-primary">セレクションを作成</button>
-    </form>
+
+    <div class="form-group">
+      <label for="id_description">説明</label>
+      {{ form.description }}
+    </div>
+
+    <div class="form-group">
+      <label for="">
+        <span>書籍</span>
+        <span class="label-help">(本棚から選択します)</span>
+      </label>
+
+      {% comment %} TODO 検索機能を作りたい {% endcomment %}
+
+      <div class="selection-list" style="display: flex;">
+          {% for book in form.books.field.queryset %}
+          <div class="book-selection selection-panel">
+              <img src="{{ book.thumbnail }}" alt="{{ book.title }}">
+              <input 
+                type="checkbox" 
+                name="{{ form.books.name }}" 
+                value="{{ book.id }}" 
+                style="display: none;"
+              >
+          </div>
+          {% endfor %}
+      </div>
+
+    <button type="submit" class="mt-4 btn btn-primary">セレクションを作成</button>
+
+    {% if error_message %}
+      <p class="mt-4 form-error">{{ error_message }}</p>
+    {% endif %}
+  </form>
 </section>
 {% endblock %}

@@ -34,6 +34,7 @@ from apps.record.domain.services import (
 )
 from apps.review.domain.repositories import ReviewRepository
 from apps.review.domain.services import ReviewDomainService
+from config.exceptions import ApplicationException
 
 
 def home(request):
@@ -64,6 +65,7 @@ def mypage(request):
 
 
 def book_detail_page(request, book_id):
+    """書籍詳細"""
     book_service = BookDomainService(BookRepository(), BookshelfRepository())
     review_service = ReviewDomainService(ReviewRepository())
 
@@ -102,17 +104,26 @@ def remove_book_from_shelf(request, book_id):
 # セレクション
 @login_required
 def create_selection(request):
+    error_message = None
+
     if request.method == "POST":
-        selection_service = BookSelectionDomainService(BookSelectionRepository())
-        usecase = CreateBookSelectionUsecase(selection_service)
-        usecase.execute(request.POST, request.user)
-        return redirect("mypage")
+        try:
+            selection_service = BookSelectionDomainService(BookSelectionRepository())
+            usecase = CreateBookSelectionUsecase(selection_service)
+            usecase.execute(request.POST, request.user)
+
+            return redirect("mypage")
+        except ApplicationException as e:
+            error_message = e.message
+    
     form = BookSelectionForm(user=request.user)
+
     return render(
         request,
         "pages/create_selection.html",
         {
             "form": form,
+            "error_message": error_message,
         },
     )
 

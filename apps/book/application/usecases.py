@@ -1,5 +1,6 @@
 from django.utils import timezone
 from apps.book.forms import BookSelectionForm
+from config.exceptions import ApplicationException
 
 from config.utils import DateUtils
 from config.application.usecases import Usecase
@@ -207,10 +208,8 @@ class CreateBookSelectionUsecase(Usecase):
             selection.user = user
             selection.save()
             form.save_m2m()
-            return {}
         else:
-            print(form.errors)
-            raise Exception("入力値が不正です")
+            raise ApplicationException(form.errors)
 
 class DetailBookSelectionUsecase(Usecase):
     def __init__(self, book_selection_service: BookSelectionDomainService):
