@@ -1,0 +1,31 @@
+{% load search_tags %}
+
+<section class="mt-4">
+  <h3>検索結果</h3>
+
+  <div class="content">
+    <div class="result-list">
+      {% for book in results %} 
+      {% search_panel book user %} 
+      {% empty %}
+      <div class="book-noresult card-sm">
+        <p>対象の書籍が見つかりませんでした</p>
+        <div>
+          <a
+            href="{% url 'book_search' %}?query={{ query }}&mode=detail"
+            class="btn-sm"
+            >詳細に検索</a
+          >
+        </div>
+
+        <div>
+          <p>
+            詳細検索しても見つからない場合は<a href="/contact">お問い合わせ</a
+            >からご連絡ください
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

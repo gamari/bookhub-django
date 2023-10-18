@@ -40,10 +40,39 @@ section {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 96px;
-  padding-top: 128px;
+  /* gap: 96px; */
+  gap: 24px;
+  padding-top: 108px;
   padding-bottom: 64px;
 }
+
+.content {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+section h1 {
+  padding-left: 12px;
+}
+section h2 {
+  padding-left: 12px;
+}
+
+section h3 {
+  padding-left: 12px;
+}
+
+section h4 {
+  padding-left: 12px;
+}
+
+
+p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+}
+
 
 /* Header */
 h2 {
@@ -63,9 +92,6 @@ h4 {
   font-weight: bold;
   color: #4d4d4d;
 }
-
-
-
 
 /* 背景 */
 .bg-primary {
@@ -166,10 +192,15 @@ h4 {
 
   .container {
     max-width: 800px;
-    gap: 48px;
+    /* gap: 48px; */
     padding-bottom: 64px;
     padding-right: 32px;
     padding-left: 32px;
     padding-top: 128px;
+  }
+
+  .content {
+    padding-left: 0px;
+    padding-right: 0px;
   }
 }

@@ -3,9 +3,11 @@
 {% load static %}
 
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/pages/search_results.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/penel.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/panel.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pages/search_results.css' %}" />
 {% endblock %}
 
 {% block title %}
@@ -13,71 +15,30 @@
 {% endblock %}
 
 {% block content %}
-  <div class="search-section">
+  <section>
     <h3>検索する</h3>
 
-    <form action="{% url 'book_search' %}" method="get" class="search-form-container">
-      {% csrf_token %}
-      <input type="text" name="query" value="{{ query }}" class="search-input" autocomplete="off" placeholder="書籍名で検索…" />
+    <div class="content">
 
-      <div class="search-buttons-container">
-        <button type="submit" class="btn-sm btn-primary">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <span>検索する</span>
-        </button>
-        <button type="submit" name="mode" value="detail" class="btn-sm">詳細検索</button>
-      </div>
-    </form>
-  </div>
-
-  <div class="book-resuls-section">
-    {% for book in results %}
-      <div class="book-result-item card-sm">
-        <div class="">
-          <a href="{% url 'book_detail' book.id %}"><img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image" /></a>
+      <form action="{% url 'book_search' %}" method="get" class=" col gap-4 card">
+        {% csrf_token %}
+        <input type="text" name="query" value="{{ query }}" class="search-input" autocomplete="off" placeholder="書籍名で検索…" />
+        
+        <div class="search-buttons-container">
+          <button type="submit" class="btn-sm btn-primary">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>検索する</span>
+          </button>
+          <button type="submit" name="mode" value="detail" class="btn-sm">詳細検索</button>
         </div>
+      </form>
+    </div>
+  </section>
+  
 
-        <div class="book-result-info">
-          <a href="{% url 'book_detail' book.id %}" class="book-result-title">{{ book.title }}</a>
+  {% include "components/search_results.html" %}
 
-          <ul class="authors-container">
-            {% for author in book.authors.all %}
-              <li class="author">
-                <i class="fa-regular fa-user fa-sm"></i>
-                <span>{{ author.name }}</span>
-              </li>
-              {% empty %}
-              <li class="author">
-                <i class="fa-regular fa-user fa-sm"></i>
-                <span>-</span>
-              </li>
-            {% endfor %}
-          </ul>
-
-          <div>
-            <i class="fa-regular fa-calendar fa-sm"></i>
-            <span>{{ book.published_date|default_if_none:'-' }}</span>
-          </div>
-
-          <p class="book-info-description">{{ book.description|truncatechars:80 }}</p>
-        </div>
-      </div>
-      {% empty %}
-      <div class="book-noresult card-sm">
-        <p>対象の書籍が見つかりませんでした</p>
-        <div>
-          <a href="{% url 'book_search' %}?query={{ query }}&mode=detail" class="btn-sm">詳細に検索</a>
-        </div>
-
-        <div>
-          <p>詳細検索しても見つからない場合は<a href="/contact">お問い合わせ</a>からご連絡ください
-          </p>
-        </div>
-      </div>
-    {% endfor %}
-  </div>
-
-  <div class="pagination-section">
+  <section>
     <span class="step-links">
       {% if current_page > 1 %}
         <a href="?query={{ query }}&mode={{ mode }}&page={{ current_page|add:'-1' }}" class="btn-sm btn-primary">前へ</a>
@@ -89,5 +50,5 @@
         <a href="?query={{ query }}&mode={{ mode }}&page={{ current_page|add:'1' }}" class="btn-sm btn-primary">次へ</a>
       {% endif %}
     </span>
-  </div>
+  </section>
 {% endblock %}

@@ -1,7 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
-
 from apps.book.application.usecases import (
     AddBookToShelfUsecase,
     ShowBookDetailPageUsecase,

@@ -1,0 +1,52 @@
+{% load book_tags %}
+
+<div class="panel row  gap-6">
+  <div class="col center">
+    {% book_icon book "md" %}
+    
+    <div class="mt-4">
+      {% comment %} TODO JSで登録処理を追加する {% endcomment %}
+      {% if is_registered %}
+      <button class="btn-sm w-full">
+          <span>+</span>
+          <span>本棚から削除</span>
+      </button>
+      {% else %}
+      <button class="btn-sm btn-primary w-full">
+          <span>+</span>
+          <span>本棚に登録</span>
+      </button>
+      {% endif %}
+    </div>
+  </div>
+
+  <div>
+    <a 
+      href="{% url 'book_detail' book.id %}" 
+      class="book-result-title"
+    >
+      {{ book.title }}
+    </a>
+
+    <ul class="authors-container mt-4">
+      {% for author in book.authors.all %}
+      <li class="info">
+        <i class="fa-regular fa-user fa-sm"></i>
+        <span>{{ author.name }}</span>
+      </li>
+      {% empty %}
+      <li class="author">
+        <i class="fa-regular fa-user fa-sm"></i>
+        <span>-</span>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <div class="info">
+      <i class="fa-regular fa-calendar fa-sm"></i>
+      <span>{{ book.published_date|default_if_none:'-' }}</span>
+    </div>
+
+    <p class="mt-4">{{ book.description|truncatechars:80 }}</p>
+  </div>
+</div>

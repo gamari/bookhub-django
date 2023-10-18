@@ -1,6 +1,6 @@
-<a href="{% url 'book_detail' book.id %}">
+<a href="{% url 'book_detail' book.id %}" class="book">
   {% if book.thumbnail %}
-  <img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image" />
+  <img src="{{ book.thumbnail }}" alt="{{ book.title }}" class="book-image book-image-sm" />
   {% else %}
   <img
     src="https://via.placeholder.com/150"

@@ -1,7 +1,9 @@
 .book {
-  display: block;
   position: relative;
-  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .book:hover {
@@ -9,7 +11,6 @@
 }
 
 .book-image {
-  height: 180px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -18,15 +19,15 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.book-image-md {
+  height: 150px;
+  width: 120px;
+}
 
 .book-image-sm {
-  height: 100px;
+  height: 80px;
 }
 
-.book-image-sm:hover {
-  opacity: 0.8;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
 
 .book-title_sm {
   font-size: 0.8rem;
@@ -34,6 +35,7 @@
   margin-top: 4px;
   text-decoration: none;
 }
+
 
 .book-author {
   font-size: 0.8rem;

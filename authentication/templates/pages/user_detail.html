@@ -1,37 +1,35 @@
-{% extends 'base.html' %}
-
-{% load static %}
-
-{% block title %}
-  {{user.username}}
-{% endblock %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %} {{user.username}} {% endblock %} 
 
 {% block css %}
   <link href="{% static 'css/components/user.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/book.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/follow.css' %}" rel="stylesheet" />
   <link href="{% static 'css/pages/user_detail.css' %}" rel="stylesheet" />
-{% endblock %}
+{% endblock %} 
 
 {% block js %}
   <script src="{% static 'js/components/follow_buttons.js' %}"></script>
-{% endblock %}
+{% endblock %} 
 
 {% block content %}
-  <div class="user-section">
-    {% include 'components/user_panel.html' %}
+<div class="content">{% include 'components/user_panel.html' %}</div>
+
+<div class="bookshelf-section">
+  <div class="mb-6 user-bookshelf-title">
+    <h4>{{ user.username }}さんの本棚</h4>
+
+    <a
+      href="https://twitter.com/intent/tweet?text={{ user.username }}さんの本棚をチェックしよう！&url={{ request.build_absolute_uri|urlencode }}"
+      target="_blank"
+      class="btn-sm btn-primary"
+    >
+      <i class="fa-regular fa-share-from-square"></i>
+      <span>シェアする</span>
+    </a>
   </div>
 
-  <div class="bookshelf-section">
-    <div class="mb-6 user-bookshelf-title">
-      <h4>{{ user.username }}さんの本棚</h4>
-
-      <a href="https://twitter.com/intent/tweet?text={{ user.username }}さんの本棚をチェックしよう！&url={{ request.build_absolute_uri|urlencode }}" target="_blank" class="btn-sm btn-primary">
-        <i class="fa-regular fa-share-from-square"></i>
-        <span>シェアする</span>
-      </a>
-    </div>
-    
-    {% include 'components/bookshelf.html' %}
-  </div>
+  {% include 'components/bookshelf.html' %}
+</div>
 {% endblock %}

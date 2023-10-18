@@ -1,4 +1,4 @@
-/* 検索 */
+/* 検索ボックス */
 .search-section {
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -28,57 +28,19 @@
   max-width: 240px;
 }
 
+/* 検索結果 */
+.result-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 
 /* 書籍結果 */
 .book-noresult {
   display: flex;
   flex-direction: column;
   gap: 12px;
-}
-
-.book-resuls-section {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.book-result-item {
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
-}
-
-.book-result-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #1e90ff;
-  text-decoration: none;
-}
-
-.book-result-title:hover {
-  text-decoration: underline;
-}
-
-.book-result-image img {
-  width: 80px;
-  height: auto;
-}
-
-.book-result-info {
-  flex-grow: 1;
-  padding: 0 20px;
-}
-
-.book-result-tools {
-  padding-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.book-add-button {
-  width: 120px;
 }
 
 /* 著者 */

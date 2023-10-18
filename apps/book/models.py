@@ -111,6 +111,9 @@ class Bookshelf(models.Model):
                 result.append({"book": book, "reading_record": None})
 
         return result
+    
+    def contains(self, book: Book):
+        return self.books.filter(id=book.id).exists()
 
 
 class BookshelfBook(models.Model):

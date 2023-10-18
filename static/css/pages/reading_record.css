@@ -6,9 +6,6 @@
   gap: 24px;
 }
 
-.book-detail-left {
-}
-
 .book-detail-middle {
   display: flex;
   flex-direction: column;
@@ -42,9 +39,6 @@
 }
 
 /* メモ */
-.memo-section {
-}
-
 .record-item {
   display: flex;
   flex-direction: row;

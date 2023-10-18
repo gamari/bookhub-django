@@ -58,10 +58,7 @@
 
 /* ツールバー */
 .toolbar-section {
-  margin-top: 32px;
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
+  padding-left: 12px;
 }
 
 .toolbar-button {
@@ -100,5 +97,9 @@
     justify-content: start;
     align-items: start;
     gap: 32px;
+  }
+
+  .toolbar-section {
+    padding-left: 0;
   }
 }

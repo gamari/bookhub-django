@@ -50,3 +50,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
         from apps.follow.models import Follow
 
         return Follow.objects.filter(follower=self, followed=target_user).exists()
+    
+    def bookshelf(self):
+        from apps.book.models import Bookshelf
+        return Bookshelf.objects.get(user=self)
