@@ -5,18 +5,12 @@
     {% book_icon book "md" %}
     
     <div class="mt-4">
-      {% comment %} TODO JSで登録処理を追加する {% endcomment %}
-      {% if is_registered %}
-      <button class="btn-sm w-full">
-          <span>+</span>
-          <span>本棚から削除</span>
-      </button>
-      {% else %}
-      <button class="btn-sm btn-primary w-full">
-          <span>+</span>
-          <span>本棚に登録</span>
-      </button>
-      {% endif %}
+      <button 
+        class="btn-sm w-full book-shelf-toggle {% if is_registered %}{% else %}btn-primary{% endif %}" data-book-id="{{ book.id }}" 
+        data-is-registered="{% if is_registered %}true{% else %}false{% endif %}"
+      >
+        <span>{% if is_registered %}本棚から削除{% else %}本棚に登録{% endif %}</span>
+     </button>
     </div>
   </div>
 

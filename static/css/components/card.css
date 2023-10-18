@@ -8,6 +8,24 @@
   padding: 16px 24px;
 }
 
+.card > h3 {
+  font-size: 1rem;
+  color: #1e90ff;
+  font-weight: 700;
+}
+
+.card .info {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.card > h4 {
+  font-size: 0.8rem;
+  color: #1e90ff;
+  font-weight: 700;
+}
+
+
 /* PC版 */
 @media screen and (min-width: 768px) {
   .card {

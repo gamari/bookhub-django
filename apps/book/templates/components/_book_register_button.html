@@ -1,0 +1,17 @@
+{% if user.is_authenticated %}
+    {% if book_on_shelf %}
+    <a href="{% url 'remove_from_shelf' book.id %}" class="btn-sm btn-warning">
+        <i class="fa-solid fa-trash"></i>
+        <span>本棚から削除</span>
+    </a>
+    <a href="{% url 'reading_record' book.id %}" class="btn-sm">
+        <i class="fa-regular fa-note-sticky"></i>
+        <span>記録画面へ</span>
+    </a>
+    {% else %}
+    <a href="{% url 'add_to_shelf' book.id %}" class="btn-sm btn-primary">
+        <i class="fa-solid fa-book"></i>
+        <span>本棚に追加</span>
+    </a>
+    {% endif %}
+{% endif %}
