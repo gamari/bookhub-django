@@ -39,20 +39,26 @@ class DateUtils(object):
         ) - timedelta(days=1)
         return first_day_of_month, last_day_of_month
 
-
-def create_ogp_image(title, book_covers):
+def create_ogp_image(title):
     # 新しい画像を生成
     width, height = 1200, 630  # OGP 推奨サイズ
     img = Image.new('RGB', (width, height), color='white')
-
     d = ImageDraw.Draw(img)
-    # タイトルを描画 (実際には、適切なフォントや位置を選択する必要があります)
-    font = ImageFont.truetype("arial.ttf", 50)
-    d.text((30, 30), title, fill="black", font=font)
 
-    # 書籍のカバーを描画
-    for idx, book_cover in enumerate(book_covers):
-        book_image = Image.open(book_cover)
-        img.paste(book_image, (idx * (book_image.width + 20), height - book_image.height - 20))
+    # デフォルトのビットマップフォントを使用
+    font = ImageFont.load_default()
 
-    img.save('ogp_image.jpg')
+    # TODO 検証用に文字を上書き
+    title = "test"
+
+    # テキストのサイズと位置を計算
+    text_width, text_height = d.textsize(title, font=font)
+    text_x = (width - text_width) / 2
+    text_y = (height - text_height) / 2
+
+    # テキストを描画
+    d.text((text_x, text_y), title, fill="black", font=font)
+
+    img_path = 'ogp_image.jpg'
+    img.save(img_path)
+    return img_path

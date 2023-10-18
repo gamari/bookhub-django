@@ -58,11 +58,13 @@ def delete_selection(request, selection_id):
     return redirect("mypage")
 
 
+# TODO OGPを実装する（未完成）
 def generate_ogp(request, selection_id):
     selection = BookSelection.objects.get(id=selection_id)
-    book_covers = [book.cover_image.path for book in selection.books.all()[:3]]  # 最初の3つの書籍
+    book_covers = [book.thumbnail for book in selection.books.all()[:3]]
 
-    image_path = create_ogp_image(selection.title, book_covers)
+    # image_path = create_ogp_image(selection.title, book_covers)
+    image_path = create_ogp_image(selection.title)
 
     with open(image_path, 'rb') as img:
         return HttpResponse(img.read(), content_type="image/jpeg")

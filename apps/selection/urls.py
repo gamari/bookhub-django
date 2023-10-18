@@ -7,6 +7,6 @@ urlpatterns = [
     path("selection/<uuid:selection_id>/", apps.selection.views.selection_detail, name="selection_detail"),
     path("selection/<uuid:selection_id>/delete/", apps.selection.views.delete_selection, name="delete_selection"),
 
-    # OGP
+    # TODO OGP 未完成
     path('ogp/<uuid:selection_id>/', apps.selection.views.generate_ogp, name='generate_ogp'),
 ]
