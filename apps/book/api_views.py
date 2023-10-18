@@ -32,7 +32,6 @@ def api_book_on_shelf(request, book_id):
             return JsonResponse({"message": "追加に成功しました。"}, status=200)
         except Exception as e:
             return JsonResponse({"error": "本棚に追加できませんでした。"}, status=400)
-
     elif request.method == "DELETE":
         try:
             usecase = RemoveBookFromShelfUsecase(book_service)
@@ -40,6 +39,5 @@ def api_book_on_shelf(request, book_id):
             return JsonResponse({"message": "削除に成功しました。"}, status=200)
         except Exception as e:
             return JsonResponse({"error": "本棚から削除できませんでした。"}, status=400)
-
     else:
         return JsonResponse({"error": "Method not allowed"}, status=405)

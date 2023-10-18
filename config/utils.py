@@ -1,5 +1,6 @@
 from collections import defaultdict
 from datetime import date, timedelta, datetime
+from PIL import Image, ImageDraw, ImageFont
 
 
 class DateUtils(object):
@@ -37,3 +38,21 @@ class DateUtils(object):
             month=first_day_of_month.month % 12 + 1, day=1
         ) - timedelta(days=1)
         return first_day_of_month, last_day_of_month
+
+
+def create_ogp_image(title, book_covers):
+    # 新しい画像を生成
+    width, height = 1200, 630  # OGP 推奨サイズ
+    img = Image.new('RGB', (width, height), color='white')
+
+    d = ImageDraw.Draw(img)
+    # タイトルを描画 (実際には、適切なフォントや位置を選択する必要があります)
+    font = ImageFont.truetype("arial.ttf", 50)
+    d.text((30, 30), title, fill="black", font=font)
+
+    # 書籍のカバーを描画
+    for idx, book_cover in enumerate(book_covers):
+        book_image = Image.open(book_cover)
+        img.paste(book_image, (idx * (book_image.width + 20), height - book_image.height - 20))
+
+    img.save('ogp_image.jpg')

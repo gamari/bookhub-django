@@ -15,7 +15,6 @@ def book_search(request):
 
     # TODO 検証のため
     # mode = "detail"
-    mode = "no"
 
     if mode == "detail":
         search_service = GoogleBooksService(

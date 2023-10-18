@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
 from config.exceptions import ApplicationException
@@ -7,6 +8,7 @@ from apps.book.domain.repositories import BookSelectionRepository
 from apps.book.domain.services import BookSelectionDomainService
 from apps.book.forms import BookSelectionForm
 from apps.selection.models import BookSelection
+from config.utils import create_ogp_image
 
 
 @login_required
@@ -54,3 +56,13 @@ def delete_selection(request, selection_id):
     selection = BookSelection.objects.get(id=selection_id)
     selection.delete()
     return redirect("mypage")
+
+
+def generate_ogp(request, selection_id):
+    selection = BookSelection.objects.get(id=selection_id)
+    book_covers = [book.cover_image.path for book in selection.books.all()[:3]]  # 最初の3つの書籍
+
+    image_path = create_ogp_image(selection.title, book_covers)
+
+    with open(image_path, 'rb') as img:
+        return HttpResponse(img.read(), content_type="image/jpeg")

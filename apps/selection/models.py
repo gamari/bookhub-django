@@ -16,3 +16,24 @@ class BookSelection(models.Model):
     books = models.ManyToManyField(Book, related_name="in_selections", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+# TODO お気に入り機能
+class FavoriteSelection(models.Model):
+    id: uuid.UUID = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="favorite_selections")
+    book_selection = models.ForeignKey(BookSelection, on_delete=models.CASCADE, related_name="favorited_by")
+
+    class Meta:
+        unique_together = ('user', 'book_selection')
+
+# TODO いいね機能
+class LikeSelection(models.Model):
+    id: uuid.UUID = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="liked_selections")
+    book_selection = models.ForeignKey(BookSelection, on_delete=models.CASCADE, related_name="liked_by")
+
+    class Meta:
+        unique_together = ('user', 'book_selection')

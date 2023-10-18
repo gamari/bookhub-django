@@ -7,6 +7,10 @@
   マイページ
 {% endblock %}
 
+{% block meta%}
+  <meta property="og:image" content="https://gamari-devs.xyz/ogp/{{selection.id}}/" />
+{% endblock %}
+
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/components/contribution.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
@@ -38,7 +42,14 @@
       <p class="my-2">{{ selection.description }}</p>
     </div>
 
-    <div class="bookshelf">
+    <div class="mt-2">
+      {% comment %} TODO 良いね機能を作る {% endcomment %}
+      <i class="fa-regular fa-heart" style="color: #666;"></i>
+      {% comment %} お気に入り機能 {% endcomment %}
+      <i class="fa-regular fa-star" style="color: #666;"></i>
+    </div>
+
+    <div class="bookshelf mt-4">
     {% for book in selection.books.all %}
       <a href="{% url 'book_detail' book.id %}">
         <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
@@ -46,10 +57,11 @@
     {% endfor %}
     </div>
 
-    <div>
-      <p>シェアする</p>
-      <div>
-        {% comment %} TODO sharebottonを配置する {% endcomment %}
+    <div class="mt-4">
+      <span class="badge">シェアする</span>
+
+      <div class="p-4">
+        {% include 'components/book_share_x.html' %}
       </div>
     </div>
 

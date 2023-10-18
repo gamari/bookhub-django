@@ -90,10 +90,10 @@ def add_book_to_shelf(request, book_id):
 
 @login_required
 def remove_book_from_shelf(request, book_id):
-    # TODO 記録を削除したい
     book_service = BookDomainService(BookRepository(), BookshelfRepository())
     usecase = RemoveBookFromShelfUsecase(book_service)
     usecase.execute(book_id, request.user)
 
     return redirect("book_detail", book_id=book_id)
+
 

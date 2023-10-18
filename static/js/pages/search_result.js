@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("test2")
     let buttons = document.querySelectorAll('.book-shelf-toggle');
 
     buttons.forEach(button => {
@@ -9,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let url = `/api/bookshelf/books/${bookId}/`;
             let method = isRegistered ? 'DELETE' : 'POST';
 
-            let csrfToken = getCsrftoken();
+            let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
             fetch(url, {
                 method: method,
