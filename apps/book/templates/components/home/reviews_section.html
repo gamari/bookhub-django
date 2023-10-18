@@ -1,7 +1,9 @@
+{% load review_tags %}
+
 <section>
   <h2>最新のレビュー</h2>
 
   <div class="content">
-    {% include 'components/review_list.html' %}
+    {% review_list reviews %}
   </div>
 </section>
