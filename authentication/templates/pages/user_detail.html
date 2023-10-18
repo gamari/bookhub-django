@@ -1,5 +1,7 @@
 {% extends 'base.html' %} 
 {% load static %} 
+{% load book_tags %}
+
 {% block title %} {{user.username}} {% endblock %} 
 
 {% block css %}
@@ -30,6 +32,6 @@
     </a>
   </div>
 
-  {% include 'components/bookshelf.html' %}
+  {% bookshelf books %}
 </div>
 {% endblock %}

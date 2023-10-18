@@ -1,5 +1,6 @@
 from django.utils import timezone
 from apps.book.forms import BookSelectionForm
+from apps.ranking.domain.services import RankingDomainService
 from config.exceptions import ApplicationException
 
 from config.utils import DateUtils
@@ -14,7 +15,6 @@ from apps.record.domain.services import (
 )
 from apps.review.domain.services import ReviewDomainService
 from apps.review.forms import ReviewForm
-from apps.ranking.models import WeeklyRanking, WeeklyRankingEntry
 
 
 class ShowHomePageUsecase(Usecase):
@@ -25,10 +25,12 @@ class ShowHomePageUsecase(Usecase):
         record_service: RecordDomainService,
         review_service: ReviewDomainService,
         memo_service: MemoDomainService,
+        ranking_service: RankingDomainService,
     ):
         self.record_service = record_service
         self.review_service = review_service
         self.memo_service = memo_service
+        self.ranking_service = ranking_service
 
     def run(self):
         first_day_of_month, last_day_of_month = DateUtils.get_month_range_of_today()
@@ -36,28 +38,13 @@ class ShowHomePageUsecase(Usecase):
             first_day_of_month, last_day_of_month, limit=3
         )
         latest_reviews = self.review_service.get_latest_reviews(limit=3)
-
-        # ランキングを取得する
-        # TODO リファクタリングする
-        try:
-            latest_ranking = WeeklyRanking.objects.latest("end_date")
-
-            if latest_ranking is None:
-                ranking_entries = None
-            else:
-                ranking_entries = WeeklyRankingEntry.objects.filter(
-                    ranking=latest_ranking
-                ).order_by("-added_count")
-        except:
-            ranking_entries = None
-
+        ranking_entries = self.ranking_service.get_latest_ranking_entries()
         memos = self.memo_service.get_memos(limit=4)
 
         context = {
             "top_book_results": top_book_results,
             "reviews": latest_reviews,
             "ranking_entries": ranking_entries,
-            "rating_range": range(1, 6),
             "memos": memos,
         }
 

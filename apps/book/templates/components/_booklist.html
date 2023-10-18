@@ -1,0 +1,14 @@
+<div class="bookshelf">
+    {% for book in books %}
+      <a 
+        href="{% url 'book_detail' book.id %}" 
+        class="book"
+      >
+        <img 
+          src="{{ book.thumbnail }}" 
+          alt="{{ book.title }}" 
+          class="book-image" 
+        />
+      </a>
+    {% endfor %}
+  </div>

@@ -16,11 +16,13 @@
 
 .about-title {
   color: #1e90ff;
-  font-weight: bold;
   margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .about-feature {
+  position: relative;
   background-color: white;
   padding: 16px;
   border-radius: 4px;
@@ -32,12 +34,9 @@
 }
 
 .about-image {
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 /* タイムラインセクション  */
@@ -87,7 +86,6 @@
   font-size: 12px;
   padding-left: 12px;
 }
-
 
 
 /* お知らせセクション */

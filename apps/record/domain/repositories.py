@@ -19,11 +19,12 @@ class ReadingMemoRepository(object):
             .values("date_str", "count")
         )
 
+    def fetch_memos(self, limit):
+        return ReadingMemo.objects.filter(user__is_active=True).order_by("-created_at")[:limit]
+
     def fetch_memo_by_id(self, memo_id):
         return ReadingMemo.objects.get(id=memo_id)
 
-    def fetch_memos(self, limit):
-        return ReadingMemo.objects.filter(user__is_active=True).order_by("-created_at")[:limit]
     
     def fetch_memos_by_user(self, user, limit):
         return ReadingMemo.objects.filter(user=user).order_by("-created_at")[:limit]

@@ -19,6 +19,7 @@ from apps.book.domain.services import (
     BookSelectionDomainService,
     BookshelfDomainService,
 )
+from apps.ranking.domain.services import RankingDomainService
 from apps.record.domain.repositories import (
     ReadingMemoRepository,
     ReadingRecordRepository,
@@ -36,8 +37,9 @@ def home(request):
     record_service = RecordDomainService(ReadingRecordRepository())
     review_service = ReviewDomainService(ReviewRepository())
     memo_service = MemoDomainService(ReadingMemoRepository())
+    ranking_service = RankingDomainService()
 
-    usecase = ShowHomePageUsecase(record_service, review_service, memo_service)
+    usecase = ShowHomePageUsecase(record_service, review_service, memo_service, ranking_service)
     context = usecase.execute()
 
     return render(request, "pages/home.html", context)
