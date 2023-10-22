@@ -1,15 +1,20 @@
+.memo-container {
+  background-color: white;
+  border: 1px solid #e6e6e6;
+}
+
 /* メモフォーム */
 #memoForm {
+  padding: 24px;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   align-items: start;
   gap: 24px;
-  max-width: 450px;
 }
 
 .memo-textarea {
-  width: 92%;
+  width: 100%;
   padding: 12px;
   resize: none;
   border: 1px solid #ccc;
@@ -24,48 +29,33 @@
 
 /* Memoリスト */
 #memoList {
-  list-style-type: none;
-  padding: 0;
-  width: 100%;
+  border-top: 1px solid #ccc;
 }
 
 .memo-item {
   position: relative;
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #e0e0e0;
-  background-color: #e1f2ff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  width: 92%;
+  border-bottom: 1px solid #ccc;
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
 }
 
-.memo-item p:first-child {
-  font-size: 0.8em;
-  color: #888;
-  margin-bottom: 10px;
+.memo-user {
+  width: 60px;
 }
 
-.memo-item p:nth-child(2) {
-  font-size: 1rem;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  font-size: 14px;
-  color: #3d3d3d;
+.memo-info {
+  flex-grow: 1;
 }
 
-.memo-item-delete-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 5px;
-  font-size: 1.2rem;
-  color: #888;
-  cursor: pointer;
+.memo-created-at {
+  font-size: 12px;
+  color: #555;
 }
 
-
-@media screen and (min-width: 768px) {
-    /* PC版 */
+.memo-content {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 16px;
+  color: #666;
 }

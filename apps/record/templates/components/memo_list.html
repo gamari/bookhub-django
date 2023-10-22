@@ -1,14 +1,23 @@
+{% load user_tags %}
+
 <ol id="memoList">
   {% for memo in memos %}
     <li class="memo-item">
-      <p>{{ memo.created_at }}</p>
-      <p>{{ memo.content }}</p>
-      <button 
-        class="memo-item-delete-button" 
-        data-memo-id="{{ memo.id }}" 
-        data-action="{% url 'memo_detail_api' memo.id %}">
-          <i class="fa-regular fa-trash-can" style="color: #160160160;"></i>
-        </button>
+      <div class="memo-user">
+        {% user_icon request.user "sm" %}
+      </div>
+
+      <div class="memo-info">
+        <p class="memo-created-at">{{ memo.created_at }}</p>
+        <p class="memo-content">{{ memo.content }}</p>
+        <button 
+          class="memo-item-delete-button" 
+          data-memo-id="{{ memo.id }}" 
+          data-action="{% url 'memo_detail_api' memo.id %}">
+            <i class="fa-lg fa-regular fa-trash-can" style="color: #666;"></i>
+          </button>
+
+      </div>
     </li>
     {% empty %}
     <p id="no-memo-title">メモが存在しません</p>

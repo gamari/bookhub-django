@@ -65,11 +65,17 @@ class CreateMemoUsecase(Usecase):
         book = self.book_repo.find_by_id(book_id)
         memo: ReadingMemo = self.memo_service.create_memo_from_form(form, user, book)
 
+        user = {
+            "id": memo.user.id,
+            "username": memo.user.username,
+        }
+
         return {
             "id": memo.id,
             "result": "success",
             "content": memo.content,
             "created_at": memo.created_at.strftime("%Y年%m月%d日%H:%M"),
+            "user": user,
         }
 
 

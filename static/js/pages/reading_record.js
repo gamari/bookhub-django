@@ -43,11 +43,50 @@ function createDeleteButton(data) {
 }
 
 
+function createUserIcon(user) {
+    let userIcon = document.createElement('a');
+    userIcon.href = `/users/${user.username}/`;
+    userIcon.classList.add('user-icon-sm', 'user-icon');
+    if (user.profile_image) {
+        let img = document.createElement('img');
+        img.src = user.profile_image;
+        img.alt = user.username;
+        userIcon.appendChild(img);
+    } else {
+        let icon = document.createElement('i');
+        icon.classList.add('fa-regular', 'fa-face-smile', 'fa-xl');
+        icon.style.color = '#888';
+        userIcon.appendChild(icon);
+    }
+    return userIcon;
+}
+
+
 function createMemoElement(data) {
+    let memoUser = document.createElement("div");
+    memoUser.classList.add('memo-user');
+    let userIcon = createUserIcon(data.user);
+    memoUser.appendChild(userIcon);
+    memoUser.appendChild(userIcon);
+
+    let memoInfo = document.createElement("div");
+    memoInfo.classList.add('memo-info');
+    let memoCreatedAt = document.createElement('p');
+    memoCreatedAt.classList.add('memo-created-at');
+    memoCreatedAt.textContent = data.created_at;
+    memoInfo.appendChild(memoCreatedAt);
+    let memoContent = document.createElement('p');
+    memoContent.classList.add('memo-content');
+    memoContent.textContent = data.content;
+    memoInfo.appendChild(memoContent);
+    memoInfo.appendChild(createDeleteButton(data));
+
     let newMemo = document.createElement('li');
     newMemo.classList.add('memo-item');
-    newMemo.innerHTML = `<p>${data.created_at}</p><p>${data.content}</p>`;
-    newMemo.appendChild(createDeleteButton(data));
+    newMemo.dataset.memoId = data.id;
+    newMemo.appendChild(memoUser);
+    newMemo.appendChild(memoInfo);
+
     return newMemo;
 }
 
