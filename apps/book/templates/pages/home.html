@@ -10,14 +10,16 @@
 
 {% block title %}BookHub{% endblock %} 
 
+
+{% block header_content %}
+  {% include 'components/home/search_section.html' %}
+{% endblock %}
+
+
 {% block content %}
-
-{% include 'components/home/search_section.html' %}
-{% include 'components/home/timeline_section.html' %}
-{% comment %} {% include 'components/home/features_section.html' %} {% endcomment %}
-{% include 'components/home/ranking_section.html' %}
-{% include 'components/home/reviews_section.html' %}
-{% include 'components/home/top_books.html' %}
-{% include 'components/home/news_section.html' %}
-
+    {% include 'components/home/timeline_section.html' %}
+    {% include 'components/home/ranking_section.html' %}
+    {% include 'components/home/reviews_section.html' %}
+    {% include 'components/home/top_books.html' %}
+    {% include 'components/home/news_section.html' %}
 {% endblock %}

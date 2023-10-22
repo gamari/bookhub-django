@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="section detail-section card">
+  <section class="detail-section card">
     <div class="detail-image">
       
       {% book_icon book "md" %}
@@ -65,9 +65,9 @@
         <span class="text-sm">{{ registers }}人</span>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="section">
+  <section>
     <h3>書籍紹介</h3>
 
     {% if book.description %}
@@ -75,9 +75,9 @@
     {% else %}
      <p class="description-content card-sm">書籍紹介がありません</p>
     {% endif %}
-  </div>
+  </section>
 
-  <div class="reviews-section">
+  <section class="reviews-section">
     <div class="review-title-container">
       <h3>レビュー</h3>
 
@@ -94,7 +94,7 @@
     </div>
 
     {% review_list reviews %}
-  </div>
+  </section>
 
   <!-- モーダル機能 -->
   {% include 'components/review_modal.html' %}

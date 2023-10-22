@@ -21,13 +21,6 @@ main {
   min-height: 100vh;
 }
 
-section {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  box-sizing: border-box;
-}
-
 .page-title {
   font-size: 1rem;
   color: #1e90ff;
@@ -35,21 +28,30 @@ section {
 }
 
 .container {
-  display: relative;
-  max-width: 800px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  /* gap: 96px; */
-  gap: 24px;
   padding-top: 108px;
-  padding-bottom: 64px;
+  padding-bottom: 64px; 
+}
+
+.header-content {
+  /* TODO */
+  width: 100%;
 }
 
 .content {
-  padding-left: 12px;
-  padding-right: 12px;
+  display: flex;
+  flex-direction: row;
 }
+
+.main-content {
+  flex-grow: 1;
+}
+
+.right-content {
+  /* TODO */
+}
+
+
 
 section h1, section h2, section h3, section h4 {
   padding-left: 12px;
@@ -97,6 +99,7 @@ h4 {
   cursor: pointer;
   text-decoration: none;
   font-size: 1rem;
+  box-sizing: border-box;
 }
 
 .btn-sm {
@@ -111,6 +114,7 @@ h4 {
   padding: 4px 8px;
   flex-shrink: 0;
   flex-grow: 0;
+  box-sizing: border-box;
 }
 
 .btn:hover {
@@ -180,7 +184,6 @@ h4 {
 
   .container {
     max-width: 800px;
-    /* gap: 48px; */
     padding-bottom: 64px;
     padding-right: 32px;
     padding-left: 32px;

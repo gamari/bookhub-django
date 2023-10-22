@@ -12,6 +12,7 @@
 {% endblock %}
 
 {% block content %}
+<section class="center">
   <form method="post" class="form-card max-w-md">
     {% csrf_token %}
 
@@ -45,4 +46,5 @@
       </a>
     </div>
   </form>
+</section>
 {% endblock %}

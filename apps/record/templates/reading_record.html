@@ -8,9 +8,7 @@
 
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/components/modal.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/memo.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/form.css' %}" />
   <link rel="stylesheet" href="{% static 'css/pages/reading_record.css' %}" />
 {% endblock %} 
@@ -21,38 +19,39 @@
   <script src="{% static 'js/pages/reading_record.js' %}"></script>
 {% endblock %} 
 
+
 {% block content %}
-  <section>
-    <h3 class="mb-4">読書記録</h3>
-    
-    <div class="card book-detail-section">
-      <div class="book-detail-left">
-        {% book_icon book "md" %}
+<section>
+  <h3 class="mb-4">読書記録</h3>
+  
+  <div class="card book-detail-section">
+    <div class="book-detail-left">
+      {% book_icon book "md" %}
 
-        <div class="center mt-4">
-          <a href="{% url 'remove_from_shelf' book.id %}" class="btn-sm btn-warning">
-            <i class="fa-solid fa-trash"></i>
-            <span>本棚から削除</span>
-          </a>
-        </div>
+      <div class="center mt-4">
+        <a href="{% url 'remove_from_shelf' book.id %}" class="btn-sm btn-warning">
+          <i class="fa-solid fa-trash"></i>
+          <span>本棚から削除</span>
+        </a>
       </div>
-
-      <div class="book-detail-middle">
-        {% include 'components/book_title_sm.html' %} 
-        {% include 'components/book_authors.html' %} 
-        {% include 'components/book_publication_date.html' %}
-      </div>
-
-      {% include 'components/record.html' %}
     </div>
-  </section>
 
-  <section class="section card">
-    <h3>メモ</h3>
+    <div class="book-detail-middle">
+      {% include 'components/book_title_sm.html' %} 
+      {% include 'components/book_authors.html' %} 
+      {% include 'components/book_publication_date.html' %}
+    </div>
 
-    {% include 'components/memo_form.html' %} 
-    {% include 'components/memo_list.html' %}
-  </section>
+    {% include 'components/record.html' %}
+  </div>
+</section>
 
-  {% include 'components/review_modal.html' %} 
+<section class="section card">
+  <h3>メモ</h3>
+
+  {% include 'components/memo_form.html' %} 
+  {% include 'components/memo_list.html' %}
+</section>
+
+{% include 'components/review_modal.html' %} 
 {% endblock %}
