@@ -24,6 +24,9 @@ class ReadingRecord(models.Model):
     finished_at = models.DateField(null=True, blank=True)
     notes = models.TextField(blank=True)
 
+    class Meta:
+        unique_together = ("user", "book")
+
     def __str__(self):
         return f"[{self.finished_at}]{self.user}は{self.book}を読んでいます"
 

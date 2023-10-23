@@ -1,17 +1,17 @@
 {% load book_tags %}
 
 <div class="content bookshelf">
-  {% for result in books %}
-  <a href="{% url 'reading_record' result.book.id %}" class="book">
+  {% for book in books %}
+  <a href="{% url 'reading_record' book.id %}" class="book">
     <img
-      src="{{ result.book.thumbnail }}"
-      alt="{{ result.book.title }}"
+      src="{{ book.thumbnail }}"
+      alt="{{ book.title }}"
       class="book-image book-image-md"
     />
 
-    {% if result.reading_record.finished_at %}
+    {% if book.reading_record.0.finished_at %}
       <span class="book-done-icon"><i class="fa-solid fa-check"></i></span>
-    {% elif result.reading_record.started_at %}
+    {% elif book.reading_record.0.started_at %}
       <span class="book-play-icon"><i class="fa-solid fa-play"></i></span>
     {% endif %}
   </a>

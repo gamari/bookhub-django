@@ -1,11 +1,12 @@
-import uuid
+import uuid, logging
 
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.db.models import Avg
+from django.db.models import OuterRef, Subquery, Avg, Prefetch
+
+logger = logging.getLogger("app_logger")
 
 Account = get_user_model()
-
 
 class Genre(models.Model):
     """ジャンル。"""
@@ -98,10 +99,15 @@ class Bookshelf(models.Model):
 
     def get_books_with_reading_records(self, user):
         from apps.record.models import ReadingRecord
-        books = self.get_books()
-        reading_records = ReadingRecord.objects.filter(user=user)
+        books_with_records = self.books.all().prefetch_related(
+            Prefetch(
+                "readingrecord_set",
+                queryset=ReadingRecord.objects.filter(user=user),
+                to_attr="reading_record"
+            )
+        )
 
-        return books
+        return books_with_records
     
     def contains(self, book: Book):
         return self.books.filter(id=book.id).exists()
