@@ -1,22 +1,24 @@
 {% extends 'base.html' %} 
 {% load static %} 
-
-{% block title %} お問い合わせページ {% endblock %} 
-
-{% block css %}
-{% endblock %} 
+{% block title %} お問い合わせページ{% endblock %} 
+{% block css %} {% endblock %} 
 
 {% block content %}
 <section>
-    <h3>活動履歴に関して</h3>
+  <h3>活動履歴に関して</h3>
 
-    <div class="card">
-        <h4>活動履歴の色付けに関して</h4>
-        
-        <p class="border p-4">
-            <span>活動履歴はメモの個数に依存して色が変わります。</span>
-            <span>また、アルゴリズムは定期的に変更されるため、色味が変更される場合が存在するのでご注意ください。</span>
-        </p>
+  <div class="card mt-4">
+    <h4>活動履歴の色付けに関して</h4>
+
+    <div class="border p-4  mt-4">
+      <p>活動履歴は該当日につけたメモの個数に依存して色が変わります。</p>
+      <p>
+        また、活動履歴のアルゴリズムに関しては検討中のため、今後定期的に色合いが変更される場合がございますのでご注意ください。
+      </p>
+      <p>
+        具体的なアルゴリズムが決まり次第、下記にて記載いたします。
+      </p>
     </div>
+  </div>
 </section>
 {% endblock %}

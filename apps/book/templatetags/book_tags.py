@@ -10,7 +10,7 @@ register = template.Library()
 def book_icon(book, size="md", user=None):
     is_show = False
     is_registered = False
-    
+
     if user is not None and user.is_authenticated:
         bookshelf: Bookshelf = user.bookshelf
         is_registered = bookshelf.contains(book)
@@ -28,8 +28,9 @@ def book_icon(book, size="md", user=None):
     elif size == "md":
         return mark_safe(render_to_string('components/_book_image_md.html', context))
     else:
-        return mark_safe("<!-- Invalid image size specified -->")
+        return mark_safe("表示が間違っています")
 
+# TODO 以下二つがややこしい
 @register.simple_tag
 def bookshelf(books):
     """本棚を表示する"""

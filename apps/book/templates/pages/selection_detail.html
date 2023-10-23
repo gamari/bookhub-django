@@ -17,6 +17,10 @@
   <link rel="stylesheet" href="{% static 'css/pages/selection_detail.css' %}" />
 {% endblock %}
 
+{% block js %}
+  <script src="{% static 'js/services/book/register.js' %}"></script>
+{% endblock %}
+
 
 {% block content %}
 <section class="card">
@@ -47,7 +51,7 @@
 
     <div class="bookshelf mt-6">
     {% for book in selection.books.all %}
-      {% book_icon book "md" %}
+      {% book_icon book "md" user %}
     {% endfor %}
     </div>
 

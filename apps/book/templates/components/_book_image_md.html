@@ -16,14 +16,17 @@
   </a>
 
   {% if is_show %}
-  <button
-    class="btn-sm w-full book-shelf-toggle {% if is_registered %}{% else %}btn-primary{% endif %}"
-    data-book-id="{{ book.id }}"
-    data-is-registered="{% if is_registered %}true{% else %}false{% endif %}"
-  >
-    <span
-      >{% if is_registered %}本棚から削除{% else %}本棚に登録{% endif %}</span
+  <div class="mt-4">
+    <button
+      class="btn-sm w-full book-shelf-toggle {% if is_registered %}{% else %}btn-primary{% endif %}"
+      data-book-id="{{ book.id }}"
+      data-is-registered="{% if is_registered %}true{% else %}false{% endif %}"
     >
-  </button>
+      <span
+        >{% if is_registered %}本棚から削除{% else %}本棚に登録{% endif %}</span
+      >
+    </button>
+  </div>
+
   {% endif %}
 </div>

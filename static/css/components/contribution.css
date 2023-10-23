@@ -6,7 +6,7 @@
 }
 
 .current-day {
-  border: 2px solid #1e90ff;
+  /* border: 2px solid #1e90ff; */
   border-radius: 100%;
   box-shadow: 0px 0px 10px 0px rgba(0, 123, 255, 0.5);
 }
@@ -40,10 +40,12 @@
 
 .contribution-day[data-count="3"] {
   background-color: #30a14e;
+  color: white;
 }
 
 .contribution-day[data-count="4"] {
   background-color: #216e39;
+  color: white;
 }
 
 /* 4以上の活動の場合の色。必要に応じて増やしてください。 */
