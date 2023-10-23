@@ -51,7 +51,7 @@
       >
         <i 
           id="like-icon" 
-          class="fa-regular fa-heart" 
+          class="fa-regular fa-heart cursor-pointer" 
           data-liked="{{ is_liked }}" 
           data-selection-id="{{ selection.id }}" 
         
@@ -75,7 +75,5 @@
         {% include 'components/book_share_x.html' %}
       </div>
     </div>
-
 </section>
-
 {% endblock %}

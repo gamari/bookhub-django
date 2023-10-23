@@ -182,3 +182,7 @@
   text-decoration: none;
   text-decoration-color: transparent;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
