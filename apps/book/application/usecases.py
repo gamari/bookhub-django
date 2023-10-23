@@ -1,11 +1,12 @@
 from django.utils import timezone
 
 from apps.ranking.domain.services import RankingDomainService
+from apps.selection.application.usecases import BookSelectionDomainService
 
 from config.utils import DateUtils
 from config.application.usecases import Usecase
 
-from apps.book.domain.services import BookDomainService, BookSelectionDomainService, BookshelfDomainService
+from apps.book.domain.services import BookDomainService, BookshelfDomainService
 from apps.book.models import Bookshelf
 from apps.record.domain.services import (
     ActivityDomainService,

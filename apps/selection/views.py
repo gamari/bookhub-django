@@ -7,7 +7,7 @@ from config.exceptions import ApplicationException
 from apps.selection.application.usecases import CreateBookSelectionUsecase, EditBookSelectionUsecase
 from apps.selection.application.usecases import DetailBookSelectionUsecase
 from apps.book.domain.repositories import BookSelectionRepository
-from apps.book.domain.services import BookSelectionDomainService
+from apps.selection.application.usecases import BookSelectionDomainService
 from apps.book.forms import BookSelectionForm
 from apps.selection.models import BookSelection
 from config.utils import create_ogp_image

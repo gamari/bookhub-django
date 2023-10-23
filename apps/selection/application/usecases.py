@@ -1,11 +1,6 @@
-from apps.book.domain.services import BookSelectionDomainService
-from apps.book.forms import BookSelectionForm
-from apps.selection.models import BookSelection
+from apps.selection.domain.services import BookSelectionDomainService
 from config.application.usecases import Usecase
-from config.exceptions import ApplicationException
 
-
-from django.core.exceptions import PermissionDenied
 
 
 class CreateBookSelectionUsecase(Usecase):
@@ -13,42 +8,16 @@ class CreateBookSelectionUsecase(Usecase):
         self.book_selection_service = book_selection_service
 
     def run(self, body, user):
-        form = BookSelectionForm(body)
-        if form.is_valid():
-            selection = form.save(commit=False)
-            selection.user = user
-            selection.save()
-            form.save_m2m()
-            return selection.id
-        else:
-            raise ApplicationException(form.errors)
-
+        return self.book_selection_service.save_selection(body, user)
 
 class EditBookSelectionUsecase(Usecase):
     def __init__(self, book_selection_service: BookSelectionDomainService):
         self.book_selection_service = book_selection_service
 
     def run(self, body, user, selection_id):
-        try:
-            existing_selection = BookSelection.objects.get(id=selection_id)
-
-            if existing_selection.user != user:
-                raise PermissionDenied(
-                    "編集権限がありません。"
-                )
-
-            form = BookSelectionForm(body, instance=existing_selection)
-            if form.is_valid():
-                selection = form.save(commit=False)
-                selection.user = user
-                selection.save()
-                form.save_m2m()
-                return selection.id
-            else:
-                raise ApplicationException(form.errors)
-
-        except BookSelection.DoesNotExist:
-            raise ApplicationException("セレクションが存在しません。")
+        existing_selection = self.book_selection_service.get_selection_by_id(selection_id)
+        self.book_selection_service.ensure_user_is_owner(existing_selection, user)
+        return self.book_selection_service.save_selection(body, user, existing_selection)
 
 
 class DetailBookSelectionUsecase(Usecase):

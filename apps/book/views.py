@@ -16,7 +16,6 @@ from apps.book.domain.repositories import (
 from apps.book.models import Bookshelf
 from apps.book.domain.services import (
     BookDomainService,
-    BookSelectionDomainService,
     BookshelfDomainService,
 )
 from apps.ranking.domain.services import RankingDomainService
@@ -31,6 +30,7 @@ from apps.record.domain.services import (
 )
 from apps.review.domain.repositories import ReviewRepository
 from apps.review.domain.services import ReviewDomainService
+from apps.selection.application.usecases import BookSelectionDomainService
 
 
 def home(request):
