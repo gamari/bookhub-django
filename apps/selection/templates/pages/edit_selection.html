@@ -9,7 +9,7 @@
 {% endblock %} 
 
 {% block js %}
-<script src="{% static 'js/pages/create_selection.js' %}"></script>
+<script src="{% static 'js/services/selection_service.js' %}"></script>
 {% endblock %} 
 
 {% block content %}
@@ -37,7 +37,9 @@
 
     <div class="selection-list" style="display: flex">
       {% for book in form.books.field.queryset %}
-      <div class="book-selection selection-panel">
+      <div 
+        class="book-selection selection-panel {% if book in selection.books.all %}selected selection-selected{% endif %}"
+      >
         <img
           src="{{ book.thumbnail }}"
           alt="{{ book.title }}"
@@ -47,6 +49,7 @@
           type="checkbox"
           name="{{ form.books.name }}"
           value="{{ book.id }}"
+          {% if book in selection.books.all %}checked{% endif %}
           style="display: none"
         />
       </div>

@@ -4,7 +4,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.core.exceptions import PermissionDenied
 
 from config.exceptions import ApplicationException
-from apps.selection.application.usecases import CreateBookSelectionUsecase, EditBookSelectionUsecase
+from apps.selection.application.usecases import (
+    CreateBookSelectionUsecase,
+    EditBookSelectionUsecase,
+)
 from apps.selection.application.usecases import DetailBookSelectionUsecase
 from apps.book.domain.repositories import BookSelectionRepository
 from apps.selection.application.usecases import BookSelectionDomainService
@@ -12,7 +15,7 @@ from apps.book.forms import BookSelectionForm
 from apps.selection.models import BookSelection
 from config.utils import create_ogp_image
 
-
+# TODO リファクタリングする
 @login_required
 def create_selection(request):
     error_message = None
@@ -37,6 +40,7 @@ def create_selection(request):
             "error_message": error_message,
         },
     )
+
 
 @login_required
 def edit_selection(request, selection_id):
@@ -63,10 +67,10 @@ def edit_selection(request, selection_id):
         "pages/edit_selection.html",
         {
             "form": form,
+            "selection": selection,
             "error_message": error_message,
         },
     )
-
 
 
 def selection_detail(request, selection_id):
@@ -76,11 +80,7 @@ def selection_detail(request, selection_id):
 
     context = usecase.execute(selection_id)
 
-    return render(
-        request,
-        "pages/selection_detail.html",
-        context
-    )
+    return render(request, "pages/selection_detail.html", context)
 
 
 @login_required
@@ -98,5 +98,5 @@ def generate_ogp(request, selection_id):
     # image_path = create_ogp_image(selection.title, book_covers)
     image_path = create_ogp_image(selection.title)
 
-    with open(image_path, 'rb') as img:
+    with open(image_path, "rb") as img:
         return HttpResponse(img.read(), content_type="image/jpeg")
