@@ -30,14 +30,14 @@
           >{{selection.title}}</a>
         </div>
 
-        <div class="row-center gap-2 ">
+        <div class="row-center gap-2 p-2">
           {% user_icon selection.user 'xs' %}
           <span class="text-info text-sm">{{ selection.user.username }}</span>
         </div>
       </div>
 
+      {% comment %} 操作パネル {% endcomment %}
       <div class="row mt-4 gap-2 px-2">
-
         <a href="{% url 'edit_selection' selection.id %}">
           <i class="fa-regular fa-pen-to-square fa-xl" style="color: #6b6b6b;"></i>
 

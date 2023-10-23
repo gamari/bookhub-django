@@ -2,8 +2,6 @@ from django import template
 from django.template.loader import render_to_string
 
 from apps.follow.domain.services import FollowService
-from authentication.domain.repositories import AccountRepository
-from authentication.domain.services import AccountDomainService
 
 register = template.Library()
 

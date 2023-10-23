@@ -15,4 +15,4 @@ def user_icon(user, size="md"):
     elif size == "md":
         return mark_safe(render_to_string('components/_user_icon_md.html', context))
     else:
-        return mark_safe("<!-- Invalid icon size specified -->")
+        return mark_safe("表示が間違ってます。")

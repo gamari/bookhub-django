@@ -15,7 +15,7 @@ function getCookie(name) {
 }
 
 function deleteListener(button) {
-    const isOk = confirm('メモを削除しますか？');
+    const isOk = confirm('削除してもよろしいですか？');
 
     if (!isOk) return;
 
