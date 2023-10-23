@@ -21,11 +21,12 @@
 }
 
 .book-image-md {
-  height: 150px;
   width: 120px;
+  height: 150px;
 }
 
 .book-image-sm {
+  width: 60px;
   height: 80px;
 }
 

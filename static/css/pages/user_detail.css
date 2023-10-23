@@ -12,6 +12,7 @@
 }
 
 .user-left {
+  width: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,4 +25,10 @@
   flex-direction: row;
   align-items: center;
   gap: 12px;
+}
+
+
+.user-description {
+  white-space: pre-wrap;
+  padding-right: 16px;
 }

@@ -14,7 +14,7 @@
 {% block content %}
   <div class="page-title">アカウント設定</div>
 
-  <div class="setting-section">
+  <section class="setting-section">
     <div class="card">
       <form method="post" action="{% url 'setting' %}" enctype="multipart/form-data">
         {% csrf_token %}
@@ -91,7 +91,7 @@
       </form>
       {% endif %}
     </div>
-  </div>
+  </section>
 
   <div class="mb-10">
     <a href="{% url 'logout' %}" class="btn btn-danger">ログアウト</a>

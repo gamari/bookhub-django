@@ -3,11 +3,19 @@
 <div class="content bookshelf">
   {% for result in books %}
   <a href="{% url 'reading_record' result.book.id %}" class="book">
+    {% if result.book.thumbnail %}
     <img
       src="{{ result.book.thumbnail }}"
       alt="{{ result.book.title }}"
       class="book-image book-image-md"
     />
+    {% else %}
+    <img
+      src="https://via.placeholder.com/60x80"
+      alt="{{ book.title }}"
+    />
+    {% endif %}
+    
 
     {% if result.reading_record.finished_at %}
       <span class="book-done-icon"><i class="fa-solid fa-check"></i></span>

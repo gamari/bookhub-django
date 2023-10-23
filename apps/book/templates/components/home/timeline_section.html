@@ -1,4 +1,5 @@
 {% load user_tags %}
+{% load book_tags %}
 
 <section>
   <h2 class="text-info">最新のタイムライン</h2>
@@ -8,13 +9,7 @@
     <div class="card-sm timeline-panel">
       <div class="timeline-panel-header">
         <div>
-          <a href="{% url 'book_detail' memo.book.id %}">
-            <img
-              src="{{ memo.book.thumbnail }}"
-              alt="{{ memo.book.title }}"
-              class="timeline-panel-image"
-            />
-          </a>
+          {% book_icon memo.book "sm" %}
         </div>
 
         <div>

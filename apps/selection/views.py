@@ -89,7 +89,7 @@ class EditSelectionView(View, BaseViewMixin):
             return self.render_error("編集権限がありません。", self.template_name, **context)
         except ApplicationException as e:
             context = self._get_context_for_error(selection_id=kwargs.get("selection_id"), user=request.user)
-            return self.render_error("編集権限がありません。", self.template_name, **context)
+            return self.render_error("エラーが発生しました。", self.template_name, **context)
 
 
     def _get_context_for_error(self, selection_id, user):
