@@ -8,7 +8,7 @@
 .current-day {
   /* border: 2px solid #1e90ff; */
   border-radius: 100%;
-  box-shadow: 0px 0px 10px 0px rgba(0, 123, 255, 0.5);
+  border: 1.5px solid #1e90ff;
 }
 
 .day-label {

@@ -36,8 +36,11 @@
       >{{ memo.book.title }}</a>
       <p class="timeline-panel-content">{{ memo.content }}</p>
     </div>
-    {% empty %}
-    <div class="card-sm">存在しません</div>
     {% endfor %}
   </div>
+
+  {% if not memos %}
+  <div class="card-sm">存在しません</div>
+  {% endif %}
+
 </section>

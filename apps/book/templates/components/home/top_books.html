@@ -1,7 +1,7 @@
 <section>
   <h2>よく読まれています</h2>
 
-  <div class="content top-books-container">
+  <div class="top-books-container">
     {% for result in top_book_results %}
     <a href="{% url 'book_detail' result.book__id %}" class="book"
       ><img
@@ -9,6 +9,11 @@
         alt="{{ result.book__title }}"
         class="book-image"
     /></a>
+    {% empty %}
     {% endfor %}
   </div>
+
+  {% if not top_book_results %}
+    <div class="card-sm">存在しません</div>
+  {% endif %}
 </section>

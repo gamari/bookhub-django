@@ -12,7 +12,7 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     rating = models.PositiveIntegerField(
-        choices=rating_choices, default=3, blank=False, null=False
+        choices=rating_choices, default=3
     )
     content = models.TextField(max_length=2000, blank=True, default="")
     created_at = models.DateTimeField(auto_now_add=True)

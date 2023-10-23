@@ -2,11 +2,12 @@ import uuid, logging
 
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.db.models import OuterRef, Subquery, Avg, Prefetch
+from django.db.models import Avg, Prefetch
 
 logger = logging.getLogger("app_logger")
 
 Account = get_user_model()
+
 
 class Genre(models.Model):
     """ジャンル。"""
@@ -29,6 +30,7 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
+
 class BookCategory(models.Model):
     """
     書籍カテゴリ。
@@ -36,10 +38,10 @@ class BookCategory(models.Model):
     小説 = novel
     ライトノベル = light_novel
     """
+
     id = models.CharField(max_length=255, primary_key=True)
     name = models.CharField(verbose_name="表示名", max_length=255)
     description = models.TextField(verbose_name="説明", null=True, blank=True)
-
 
 
 class Book(models.Model):
@@ -51,18 +53,18 @@ class Book(models.Model):
     title = models.CharField("書籍名", max_length=255)
     description = models.TextField("書籍説明", null=True, blank=True)
     category = models.ForeignKey(
-        BookCategory, 
-        verbose_name="カテゴリ", 
+        BookCategory,
+        verbose_name="カテゴリ",
         on_delete=models.SET_NULL,
         null=True,
-        blank=True
+        blank=True,
     )
-    authors = models.ManyToManyField(Author)
+    authors = models.ManyToManyField(Author, through="BookAuthor")
     thumbnail = models.URLField("サムネイル", null=True, blank=True)
     published_date = models.DateField("出版日", null=True, blank=True)
     publisher = models.CharField("出版社", max_length=255, null=True, blank=True)
     views = models.IntegerField("閲覧数", default=0)
-    genres = models.ManyToManyField(Genre)
+    genres = models.ManyToManyField(Genre, through="BookGenre")
     is_clean = models.BooleanField("整備されたデータ判定", default=False)
 
     def __str__(self):
@@ -99,25 +101,49 @@ class Bookshelf(models.Model):
 
     def get_books_with_reading_records(self, user):
         from apps.record.models import ReadingRecord
+
         books_with_records = self.books.all().prefetch_related(
             Prefetch(
                 "readingrecord_set",
                 queryset=ReadingRecord.objects.filter(user=user),
-                to_attr="reading_record"
+                to_attr="reading_record",
             )
         )
 
         return books_with_records
-    
+
     def contains(self, book: Book):
         return self.books.filter(id=book.id).exists()
 
 
+### 以下中間テーブル
+
+
 class BookshelfBook(models.Model):
-    """中間テーブル"""
+    """BookshelfとBookの中間テーブル"""
 
     bookshelf = models.ForeignKey(Bookshelf, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
+class BookAuthor(models.Model):
+    """BookとAuthorの中間テーブル"""
+
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("book", "author")
+
+
+class BookGenre(models.Model):
+    """BookとGenreの中間テーブル"""
+
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("book", "genre")
