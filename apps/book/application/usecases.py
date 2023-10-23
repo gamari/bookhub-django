@@ -1,10 +1,6 @@
 from django.utils import timezone
-from django.core.exceptions import PermissionDenied
 
-from apps.book.forms import BookSelectionForm
 from apps.ranking.domain.services import RankingDomainService
-from apps.selection.models import BookSelection
-from config.exceptions import ApplicationException
 
 from config.utils import DateUtils
 from config.application.usecases import Usecase
@@ -189,56 +185,5 @@ class RemoveBookFromShelfUsecase(Usecase):
 
         return {}
 
-class CreateBookSelectionUsecase(Usecase):
-    def __init__(self, book_selection_service: BookSelectionDomainService):
-        self.book_selection_service = book_selection_service
-    
-    def run(self, body, user):
-        form = BookSelectionForm(body)
-        if form.is_valid():
-            selection = form.save(commit=False)
-            selection.user = user
-            selection.save()
-            form.save_m2m()
-            print(selection)
-            print(selection.id)
-            return selection.id
-        else:
-            raise ApplicationException(form.errors)
 
-class DetailBookSelectionUsecase(Usecase):
-    def __init__(self, book_selection_service: BookSelectionDomainService):
-        self.book_selection_service = book_selection_service
-    
-    def run(self, selection_id):
-        selection = self.book_selection_service.get_selection_by_id(selection_id)
-        return {"selection": selection}
-
-
-# TODO Selectionアプリに移動させる
-class EditBookSelectionUsecase(Usecase):
-    def __init__(self, book_selection_service: BookSelectionDomainService):
-        self.book_selection_service = book_selection_service
-
-    def run(self, body, user, selection_id):
-        try:
-            # 既存のセレクションを取得
-            existing_selection = BookSelection.objects.get(id=selection_id)
-            
-            # 現在のユーザーがセレクションの所有者であることを確認
-            if existing_selection.user != user:
-                raise PermissionDenied("You don't have permission to edit this selection.")
-
-            form = BookSelectionForm(body, instance=existing_selection)
-            if form.is_valid():
-                selection = form.save(commit=False)
-                selection.user = user
-                selection.save()
-                form.save_m2m()
-                return selection.id
-            else:
-                raise ApplicationException(form.errors)
-
-        except BookSelection.DoesNotExist:
-            raise ApplicationException("Selection not found.")
 

@@ -4,7 +4,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.core.exceptions import PermissionDenied
 
 from config.exceptions import ApplicationException
-from apps.book.application.usecases import CreateBookSelectionUsecase, DetailBookSelectionUsecase, EditBookSelectionUsecase
+from apps.selection.application.usecases import CreateBookSelectionUsecase, EditBookSelectionUsecase
+from apps.selection.application.usecases import DetailBookSelectionUsecase
 from apps.book.domain.repositories import BookSelectionRepository
 from apps.book.domain.services import BookSelectionDomainService
 from apps.book.forms import BookSelectionForm
