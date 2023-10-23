@@ -41,6 +41,9 @@
 }
 
 .user-icon-xs {
+  border-radius: 100%;
+  overflow: hidden;
+  border: 1px solid #ddd;
   width: 30px;
   height: 30px; 
 }

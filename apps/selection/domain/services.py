@@ -1,7 +1,7 @@
 from apps.book.domain.repositories import BookSelectionRepository
 from apps.book.forms import BookSelectionForm
 from apps.selection.models import BookSelection
-from config.exceptions import ApplicationException
+from config.exceptions import ApplicationException, NotOwnerError
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
 
@@ -18,7 +18,7 @@ class BookSelectionDomainService(object):
     
     def ensure_user_is_owner(self, selection: BookSelection, user: User):
         if selection.user != user:
-            raise PermissionDenied("編集権限がありません。")
+            raise NotOwnerError()
 
     def get_or_create(self, user) -> BookSelection:
         return self.book_selection_repo.get_or_create(user)

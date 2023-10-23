@@ -13,6 +13,12 @@ class CreateBookSelectionUsecase(Usecase):
 class EditBookSelectionUsecase(Usecase):
     def __init__(self, book_selection_service: BookSelectionDomainService):
         self.book_selection_service = book_selection_service
+    
+    @classmethod
+    def build(cls):
+        book_selection_service = BookSelectionDomainService.initialize()
+        return cls(book_selection_service)
+
 
     def run(self, body, user, selection_id):
         existing_selection = self.book_selection_service.get_selection_by_id(selection_id)

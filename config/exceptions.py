@@ -9,3 +9,10 @@ class ApplicationException(Exception):
         message = "\n".join(error_messages)
         self.message = message
         super().__init__(message)
+
+class NotOwnerError(Exception):
+    pass
+
+
+class InvalidInputError(Exception):
+    pass

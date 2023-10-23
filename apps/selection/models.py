@@ -17,23 +17,23 @@ class BookSelection(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 # TODO お気に入り機能
-class FavoriteSelection(models.Model):
-    id: uuid.UUID = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False
-    )
-    user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="favorite_selections")
-    book_selection = models.ForeignKey(BookSelection, on_delete=models.CASCADE, related_name="favorited_by")
+# class FavoriteSelection(models.Model):
+#     id: uuid.UUID = models.UUIDField(
+#         primary_key=True, default=uuid.uuid4, editable=False
+#     )
+#     user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="favorite_selections")
+#     book_selection = models.ForeignKey(BookSelection, on_delete=models.CASCADE, related_name="favorited_by")
 
-    class Meta:
-        unique_together = ('user', 'book_selection')
+#     class Meta:
+#         unique_together = ('user', 'book_selection')
 
-# TODO いいね機能
-class LikeSelection(models.Model):
-    id: uuid.UUID = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False
-    )
-    user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="liked_selections")
-    book_selection = models.ForeignKey(BookSelection, on_delete=models.CASCADE, related_name="liked_by")
+# # TODO いいね機能
+# class LikeSelection(models.Model):
+#     id: uuid.UUID = models.UUIDField(
+#         primary_key=True, default=uuid.uuid4, editable=False
+#     )
+#     user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="liked_selections")
+#     book_selection = models.ForeignKey(BookSelection, on_delete=models.CASCADE, related_name="liked_by")
 
-    class Meta:
-        unique_together = ('user', 'book_selection')
+#     class Meta:
+#         unique_together = ('user', 'book_selection')

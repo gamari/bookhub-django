@@ -1,8 +1,9 @@
 {% load book_tags %}
 {% load user_tags %}
 
-<section id="selection-section" style="display: none">
-  <div class="row-center mb-6 gap-2">
+{% comment %} <section id="selection-section" style="display: none"> {% endcomment %}
+<section id="selection-section">
+  <div class="row-center mb-10 gap-2">
     <h3>セレクション</h3>
     <div>
       <a href="{% url 'create_selection' %}" class="btn-sm btn-primary"
@@ -17,18 +18,16 @@
       <div class="selection-panel">
         <a
           href="{% url 'selection_detail' selection.id %}"
-          class="selection-title selection-image center"
+          class="selection-image center"
         >
           <i class="fa-solid fa-book fa-2xl" style="color: #787878;"></i>
         </a>
 
-        <div class="p-2">
+        <div class="p-2 selection-title-container">
           <a
             href="{% url 'selection_detail' selection.id %}"
             class="selection-title"
-          >
-            {{selection.title}}
-          </a>
+          >{{selection.title}}</a>
         </div>
 
         <div class="row-center gap-2 ">
@@ -37,17 +36,17 @@
         </div>
       </div>
 
-      <div class="row mt-4 gap-2">
+      <div class="row mt-4 gap-2 px-2">
 
-        <a href="{% url 'edit_selection' selection.id %}" class="btn-sm btn-primary">編集
-          <i class="fa-regular fa-pen-to-square fa-2xl" style="color: #6b6b6b;"></i>
+        <a href="{% url 'edit_selection' selection.id %}">
+          <i class="fa-regular fa-pen-to-square fa-xl" style="color: #6b6b6b;"></i>
 
         </a>
 
         <form action="{% url 'delete_selection' selection.id %}" method="POST">
           {% csrf_token %}
           <button type="submit">
-            <i class="fa-solid fa-trash fa-lg" style="color: #fe3939;"></i>
+            <i class="fa-solid fa-trash fa-xl"  style="color: #6b6b6b;"></i>
           </button>
         </form>
       </div>
