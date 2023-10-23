@@ -16,9 +16,9 @@
 {% endblock %} 
 
 {% block content %}
-<div class="content">{% include 'components/user_panel.html' %}</div>
+<section>{% include 'components/user_panel.html' %}</section>
 
-<div class="bookshelf-section">
+<section>
   <div class="mb-6 user-bookshelf-title">
     <h4>{{ user.username }}さんの本棚</h4>
 
@@ -32,6 +32,6 @@
     </a>
   </div>
 
-  {% bookshelf books %}
-</div>
+  {% booklist books %}
+</section>
 {% endblock %}

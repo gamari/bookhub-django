@@ -1,6 +1,8 @@
 .memo-container {
   background-color: white;
-  border: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
 }
 
 /* メモフォーム */
@@ -28,16 +30,22 @@
 
 /* Memoリスト */
 #memoList {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 
 .memo-item {
   position: relative;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
   padding: 2rem;
   display: flex;
   flex-direction: row;
 }
+
+#memoList .memo-item:last-child {
+  border-bottom: none;
+}
+
 
 .memo-user {
   width: 60px;

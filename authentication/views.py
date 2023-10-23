@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
@@ -11,6 +13,8 @@ from authentication.models import Account
 from apps.book.domain.repositories import BookshelfRepository
 
 
+logger = logging.getLogger("app_logger")
+
 class AccountUpdateView(UpdateView):
     model = Account
     form_class = AccountUpdateForm
@@ -23,7 +27,6 @@ class AccountUpdateView(UpdateView):
 
 def delete_profile_image(request):
     if request.method != "POST":
-        # TODO エラー処理する
         return redirect("setting")
     user = request.user
     user.profile_image = None
@@ -34,6 +37,7 @@ def delete_profile_image(request):
 def user_detail(request, username):
     usercase = UserDetailShowUsecase(username, request.user, BookshelfRepository())
     context = usercase.execute()
+    logger.info(context["books"])
     return render(request, "pages/user_detail.html", context)
 
 

@@ -94,23 +94,14 @@ class Bookshelf(models.Model):
         self.books.remove(book)
 
     def get_books(self):
-        return self.books.all()
+        return self.books.all().prefetch_related()
 
     def get_books_with_reading_records(self, user):
         from apps.record.models import ReadingRecord
         books = self.get_books()
         reading_records = ReadingRecord.objects.filter(user=user)
 
-        result = []
-        for book in books:
-            record = reading_records.filter(book=book).first()
-
-            if record:
-                result.append({"book": book, "reading_record": record})
-            else:
-                result.append({"book": book, "reading_record": None})
-
-        return result
+        return books
     
     def contains(self, book: Book):
         return self.books.filter(id=book.id).exists()

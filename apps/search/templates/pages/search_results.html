@@ -3,9 +3,6 @@
 {% load static %}
 
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/components/card.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/penel.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/panel.css' %}" />
   <link rel="stylesheet" href="{% static 'css/pages/search_results.css' %}" />
 {% endblock %}
@@ -23,11 +20,18 @@
   <section>
     <h3>検索する</h3>
 
-    <div class="content">
-
-      <form action="{% url 'book_search' %}" method="get" class=" col gap-4 card">
+    <div>
+      <form action="{% url 'book_search' %}" method="get" class="col gap-4 card w-full">
         {% csrf_token %}
-        <input type="text" name="query" value="{{ query }}" class="search-input" autocomplete="off" placeholder="書籍名で検索…" />
+        
+        <input 
+          type="text" 
+          name="query" 
+          value="{{ query }}" 
+          class="search-input w-full" 
+          autocomplete="off" 
+          placeholder="書籍名で検索…" 
+        />
         
         <div class="search-buttons-container">
           <button type="submit" class="btn-sm btn-primary">
