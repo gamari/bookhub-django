@@ -13,16 +13,19 @@ register = template.Library()
 @register.simple_tag
 def search_panel(book, user: User=None):
     is_registered = False
+    is_show = False
 
     if user.is_authenticated:
         bookshelf: Bookshelf = user.bookshelf
-        print(book)
         is_registered = bookshelf.contains(book)
-        print(is_registered)
+        is_show = True
 
+    print(is_show)
     context = {
         'book': book,
-        'is_registered': is_registered
+        'is_registered': is_registered,
+        'is_show': is_show,
+        'user': user,
     }
 
     return mark_safe(render_to_string('components/_search_panel.html', context))

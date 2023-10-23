@@ -4,12 +4,12 @@
 {% block title %} セレクションを作成{% endblock %} 
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/components/form.css' %}" />
-<link rel="stylesheet" href="{% static 'css/components/selection.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/form.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/selection.css' %}" />
 {% endblock %} 
 
 {% block js %}
-<script src="{% static 'js/services/selection_service.js' %}"></script>
+  <script src="{% static 'js/services/selection_service.js' %}"></script>
 {% endblock %} 
 
 {% block content %}
@@ -35,30 +35,8 @@
       </label>
     </div>
 
-    {% comment %} TODO 検索機能を作りたい {% endcomment %}
-
-    <div class="selection-list" style="display: flex">
-      {% for book in form.books.field.queryset %}
-      <div class="book-selection selection-panel">
-        <img
-          src="{{ book.thumbnail }}"
-          alt="{{ book.title }}"
-          class="book-image book-image-md"
-        />
-        <input
-          type="checkbox"
-          name="{{ form.books.name }}"
-          value="{{ book.id }}"
-          style="display: none"
-        />
-      </div>
-      {% empty %}
-      <div class="p-4 border bg-info">
-        <p>本棚に書籍を追加してください</p>
-      </div>
-      {% endfor %}
-    </div>
-
+    {% include "components/_book_selection.html" %}
+    
     <button type="submit" class="mt-4 btn btn-primary">
       作成<span id="selected-count"></span>
     </button>

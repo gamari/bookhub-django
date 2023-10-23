@@ -1,0 +1,21 @@
+<div class="selection-list" style="display: flex">
+  {% for book in form.books.field.queryset %}
+  <div class="book-selection">
+    <img
+      src="{{ book.thumbnail }}"
+      alt="{{ book.title }}"
+      class="book-image book-image-md"
+    />
+    <input
+      type="checkbox"
+      name="{{ form.books.name }}"
+      value="{{ book.id }}"
+      style="display: none"
+    />
+  </div>
+  {% empty %}
+  <div class="p-4 border bg-info">
+    <p>本棚に書籍を追加してください</p>
+  </div>
+  {% endfor %}
+</div>

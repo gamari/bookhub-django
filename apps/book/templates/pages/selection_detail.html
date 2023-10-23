@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load user_tags %}
+{% load book_tags %}
 
 {% block title %}
   マイページ
@@ -12,11 +13,6 @@
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/components/contribution.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/follow.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/selection.css' %}" />
   <link rel="stylesheet" href="{% static 'css/pages/selection_detail.css' %}" />
 {% endblock %}
@@ -49,15 +45,13 @@
       <i class="fa-regular fa-star" style="color: #666;"></i>
     </div>
 
-    <div class="bookshelf mt-4">
+    <div class="bookshelf mt-6">
     {% for book in selection.books.all %}
-      <a href="{% url 'book_detail' book.id %}">
-        <img src="{{ book.thumbnail }}" alt="{{ book.title }}" />
-      </a>
+      {% book_icon book "md" %}
     {% endfor %}
     </div>
 
-    <div class="mt-4">
+    <div class="mt-10">
       <span class="badge">シェアする</span>
 
       <div class="p-4">

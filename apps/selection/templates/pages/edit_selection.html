@@ -4,8 +4,8 @@
 {% block title %}セレクションを編集{% endblock %} 
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/components/form.css' %}" />
-<link rel="stylesheet" href="{% static 'css/components/selection.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/form.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/selection.css' %}" />
 {% endblock %} 
 
 {% block js %}
@@ -35,37 +35,14 @@
       </label>
     </div>
 
-    <div class="selection-list" style="display: flex">
-      {% for book in form.books.field.queryset %}
-      <div 
-        class="book-selection selection-panel {% if book in selection.books.all %}selected selection-selected{% endif %}"
-      >
-        <img
-          src="{{ book.thumbnail }}"
-          alt="{{ book.title }}"
-          class="book-image book-image-md"
-        />
-        <input
-          type="checkbox"
-          name="{{ form.books.name }}"
-          value="{{ book.id }}"
-          {% if book in selection.books.all %}checked{% endif %}
-          style="display: none"
-        />
-      </div>
-      {% empty %}
-      <div class="p-4 border bg-info">
-        <p>本棚に書籍を追加してください</p>
-      </div>
-      {% endfor %}
-    </div>
+    {% include "components/_book_selection.html" %}
 
     <button type="submit" class="mt-4 btn btn-primary">
       更新<span id="selected-count"></span>
     </button>
 
     {% if error_message %}
-    <p class="mt-4 form-error">{{ error_message }}</p>
+      <p class="mt-4 form-error">{{ error_message }}</p>
     {% endif %}
   </form>
 </section>

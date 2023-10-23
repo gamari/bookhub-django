@@ -72,8 +72,11 @@ class EditSelectionView(View, BaseViewMixin):
         return super().dispatch(*args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        return self.render_edit_selection_page(
-            kwargs.get("selection_id"), user=request.user
+        selection_id = kwargs.get("selection_id")
+        selection = get_object_or_404(BookSelection, id=selection_id)
+        form = BookSelectionForm(instance=selection, user=request.user)
+        return render(
+            self.request, self.template_name, {"form": form, "selection": selection}
         )
 
     def post(self, request, *args, **kwargs):
@@ -88,12 +91,6 @@ class EditSelectionView(View, BaseViewMixin):
             context = self._get_context_for_error(selection_id=kwargs.get("selection_id"), user=request.user)
             return self.render_error("編集権限がありません。", self.template_name, **context)
 
-    def render_edit_selection_page(self, selection_id, user):
-        selection = get_object_or_404(BookSelection, id=selection_id)
-        form = BookSelectionForm(instance=selection, user=user)
-        return render(
-            self.request, self.template_name, {"form": form, "selection": selection}
-        )
 
     def _get_context_for_error(self, selection_id, user):
         selection = get_object_or_404(BookSelection, id=selection_id)

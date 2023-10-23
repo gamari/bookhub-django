@@ -1,9 +1,10 @@
-<a href="{% url 'book_detail' book.id %}" class="book">
+<div class="column gap-2">
+  <a href="{% url 'book_detail' book.id %}" class="book">
     {% if book.thumbnail %}
-    <img 
-      src="{{ book.thumbnail }}" 
-      alt="{{ book.title }}" 
-      class="book-image book-image-md" 
+    <img
+      src="{{ book.thumbnail }}"
+      alt="{{ book.title }}"
+      class="book-image book-image-md"
     />
     {% else %}
     <img
@@ -12,5 +13,17 @@
       class="book-image"
     />
     {% endif %}
-</a>
-  
+  </a>
+
+  {% if is_show %}
+  <button
+    class="btn-sm w-full book-shelf-toggle {% if is_registered %}{% else %}btn-primary{% endif %}"
+    data-book-id="{{ book.id }}"
+    data-is-registered="{% if is_registered %}true{% else %}false{% endif %}"
+  >
+    <span
+      >{% if is_registered %}本棚から削除{% else %}本棚に登録{% endif %}</span
+    >
+  </button>
+  {% endif %}
+</div>
