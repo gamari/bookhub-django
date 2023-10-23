@@ -1,10 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
     const btnBookshelf = document.getElementById('btn-bookshelf');
     const btnReviews = document.getElementById('btn-reviews');
+    const btnSelection = document.getElementById('btn-selection');
+    const btnTimeline = document.getElementById('btn-timeline');
+    
     const sectionBookshelf = document.getElementById('bookshelf-section');
     const sectionReviews = document.getElementById('reviews-section');
-    const btnSelection = document.getElementById('btn-selection');
     const sectionSelection = document.getElementById('selection-section');
+    const sectionTimeline = document.getElementById('timeline-section');
+
+    btnTimeline.addEventListener('click', function () {
+        reset();
+        sectionTimeline.style.display = 'block';
+        btnTimeline.classList.add('badge-info');
+    });
+
 
     btnSelection.addEventListener('click', function () {
         reset();
@@ -28,8 +38,10 @@ document.addEventListener('DOMContentLoaded', function () {
         sectionBookshelf.style.display = 'none';
         sectionReviews.style.display = 'none';
         sectionSelection.style.display = 'none';
+        sectionTimeline.style.display = 'none';
         btnBookshelf.classList.remove('badge-info');
         btnReviews.classList.remove('badge-info');
         btnSelection.classList.remove('badge-info');
+        btnTimeline.classList.remove('badge-info');
     }
 });
