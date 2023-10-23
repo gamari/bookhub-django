@@ -1,6 +1,6 @@
 from django.urls import path
 
-from apps.book import api_views
+from apps.book import views_api
 
 from . import views
 
@@ -16,5 +16,5 @@ urlpatterns = [
     path('books/<int:book_id>/remove_from_shelf/', views.remove_book_from_shelf, name='remove_from_shelf'),
 
     # API
-    path("api/bookshelf/books/<int:book_id>/", api_views.api_book_on_shelf, name="api_book_on_shelf"),
+    path("api/bookshelf/books/<int:book_id>/", views_api.api_book_on_shelf, name="api_book_on_shelf"),
 ]

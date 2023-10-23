@@ -1,4 +1,5 @@
 from apps.selection.domain.services import BookSelectionDomainService
+from apps.selection.models import BookSelectionLike
 from config.application.usecases import Usecase
 
 
@@ -29,7 +30,22 @@ class EditBookSelectionUsecase(Usecase):
 class DetailBookSelectionUsecase(Usecase):
     def __init__(self, book_selection_service: BookSelectionDomainService):
         self.book_selection_service = book_selection_service
+    
+    @classmethod
+    def build(cls):
+        book_selection_service = BookSelectionDomainService.initialize()
+        return cls(book_selection_service)
 
-    def run(self, selection_id):
+    def run(self, selection_id, user):
         selection = self.book_selection_service.get_selection_by_id(selection_id)
-        return {"selection": selection}
+        is_liked = BookSelectionLike.objects.filter(user=user, selection=selection).exists()
+        return {"selection": selection, "is_liked": is_liked }
+
+# TODO
+# class LikeSelectionUsecase(Usecase):
+#     def __init__(self, book_selection_service: BookSelectionDomainService):
+#         self.book_selection_service = book_selection_service
+
+#     def run(self, selection_id, user):
+#         selection = self.book_selection_service.get_selection_by_id(selection_id)
+#         return self.book_selection_service.like_selection(selection, user)

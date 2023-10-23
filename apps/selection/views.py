@@ -99,11 +99,9 @@ class EditSelectionView(View, BaseViewMixin):
 
 
 def selection_detail(request, selection_id):
-    usecase = DetailBookSelectionUsecase(
-        BookSelectionDomainService(BookSelectionRepository())
-    )
+    usecase = DetailBookSelectionUsecase.build()
 
-    context = usecase.execute(selection_id)
+    context = usecase.execute(selection_id, request.user)
 
     return render(request, "pages/selection_detail.html", context)
 

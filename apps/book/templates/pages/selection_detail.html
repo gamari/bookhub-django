@@ -19,6 +19,7 @@
 
 {% block js %}
   <script src="{% static 'js/services/book/register.js' %}"></script>
+  <script src="{% static 'js/pages/selection_detail.js' %}"></script>
 {% endblock %}
 
 
@@ -44,9 +45,21 @@
 
     <div class="mt-2">
       {% comment %} TODO 良いね機能を作る {% endcomment %}
-      <i class="fa-regular fa-heart" style="color: #666;"></i>
-      {% comment %} お気に入り機能 {% endcomment %}
-      <i class="fa-regular fa-star" style="color: #666;"></i>
+      <div
+        id="like-btn"
+        style="color: {{ is_liked|yesno:"#FF0000,#666" }};"
+      >
+        <i 
+          id="like-icon" 
+          class="fa-regular fa-heart" 
+          data-liked="{{ is_liked }}" 
+          data-selection-id="{{ selection.id }}" 
+        
+        ></i>
+        <span id="like-count">
+          {{ selection.total_likes }}
+        </span>
+      </div>
     </div>
 
     <div class="bookshelf mt-6">

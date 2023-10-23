@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from . import views, views_api
 
 urlpatterns = [
     path("selection/<uuid:selection_id>/", views.selection_detail, name="selection_detail"),
@@ -10,4 +10,7 @@ urlpatterns = [
 
     # TODO OGP 未完成
     path('ogp/<uuid:selection_id>/', views.generate_ogp, name='generate_ogp'),
+
+    # API
+    path('api/selection/<uuid:selection_id>/like/', views_api.like_book_selection, name='api_like_book_selection'),
 ]
