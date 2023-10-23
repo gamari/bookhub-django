@@ -5,21 +5,20 @@
   {% for account in accounts %}
   {% comment %} TODO gridにする {% endcomment %}
   <div class="account-line">
-    <div class="col-center">
+    <div class="account-user-icon">
       {% user_icon account "sm" %}
-      <div class="account-info">{{ account.username }}</div>
+      <div class="account-info account-username">{{ account.username }}</div>
     </div>
 
-    <div>
+    <div class="account-description">
       {{ account.description }}
     </div>
 
 
-    <div>
+    <div class="account-followe-button">
       {% if request.user.id != account.id %} 
         {% follow_button request.user account %} 
         {% else %}
-        {% comment %} TODO フォローボタンを配置する {% endcomment %}
         <div></div>
       {% endif %}
 

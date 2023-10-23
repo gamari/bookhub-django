@@ -1,3 +1,3 @@
 from django.db import models
 
-# Create your models here.
+# TODO 検索履歴を作りたい

@@ -6,9 +6,12 @@ class BookSearchByTitleUsecase(Usecase):
 
     def __init__(self, search_service):
         self.search_service = search_service
-
+    
     def run(self, mode, page, query):
         results_list, total_pages = self.search_service.search(query, page)
+
+        # TODO サービス層に移動する
+        # SearchHistory.objects.create(search_word=query)
 
         context = {
             "results": results_list,

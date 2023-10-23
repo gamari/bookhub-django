@@ -3,6 +3,20 @@
     border-radius: 8px;
 }
 
+.account-user-icon {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.account-username {
+    font-size: 12px;
+    color: #666;
+}
+
 .account-line {
     display: flex;
     flex-direction: row;
@@ -13,4 +27,17 @@
 
 .account-info {
     flex-grow: 1;
+}
+
+.account-description {
+    font-size: 14px;
+    color: #718096;
+}
+
+.account-followe-button {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
