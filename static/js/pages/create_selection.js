@@ -1,5 +1,15 @@
 document.addEventListener("DOMContentLoaded", function() {
     const bookSelections = document.querySelectorAll(".book-selection");
+    const selectedCountElem = document.getElementById("selected-count");
+
+    function updateSelectedCount() {
+        const checkedBooks = document.querySelectorAll(".book-selection.selected").length;
+        if (checkedBooks > 0) {
+            selectedCountElem.textContent = ` (${checkedBooks}件の選択)`;
+        } else {
+            selectedCountElem.textContent = "";
+        }
+    }
 
     bookSelections.forEach((book) => {
         book.addEventListener("click", function() {
@@ -13,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 this.classList.remove("selected");
                 this.classList.remove("selection-selected")
             }
+
+            updateSelectedCount();
         });
     });
 });

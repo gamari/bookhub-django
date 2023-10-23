@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
+from django.core.exceptions import PermissionDenied
 
 from config.exceptions import ApplicationException
-from apps.book.application.usecases import CreateBookSelectionUsecase, DetailBookSelectionUsecase
+from apps.book.application.usecases import CreateBookSelectionUsecase, DetailBookSelectionUsecase, EditBookSelectionUsecase
 from apps.book.domain.repositories import BookSelectionRepository
 from apps.book.domain.services import BookSelectionDomainService
 from apps.book.forms import BookSelectionForm
@@ -35,6 +36,36 @@ def create_selection(request):
             "error_message": error_message,
         },
     )
+
+@login_required
+def edit_selection(request, selection_id):
+    error_message = None
+    selection = get_object_or_404(BookSelection, id=selection_id)
+
+    if request.user != selection.user:
+        raise PermissionDenied
+
+    if request.method == "POST":
+        try:
+            selection_service = BookSelectionDomainService(BookSelectionRepository())
+            usecase = EditBookSelectionUsecase(selection_service)
+            usecase.execute(request.POST, request.user, selection_id)
+
+            return redirect("selection_detail", selection_id=selection_id)
+        except ApplicationException as e:
+            error_message = e.message
+
+    form = BookSelectionForm(instance=selection, user=request.user)
+
+    return render(
+        request,
+        "pages/edit_selection.html",
+        {
+            "form": form,
+            "error_message": error_message,
+        },
+    )
+
 
 
 def selection_detail(request, selection_id):

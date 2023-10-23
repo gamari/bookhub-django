@@ -11,7 +11,8 @@
 }
 
 .book-image {
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  display: block;
+  object-fit: fill;
 }
 
 .book-image:hover {
@@ -26,6 +27,11 @@
 
 .book-image-sm {
   height: 80px;
+}
+
+.book-image-full {
+  height: 100%;
+  width: 100%;
 }
 
 
