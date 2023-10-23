@@ -8,22 +8,7 @@ from apps.book.application.usecases import (
     ShowMyPageUsecase,
     RemoveBookFromShelfUsecase,
 )
-from apps.book.domain.repositories import (
-    BookRepository,
-    BookshelfRepository,
-)
 from apps.book.models import Bookshelf
-from apps.book.domain.services import (
-    BookDomainService,
-)
-from apps.record.domain.repositories import (
-    ReadingRecordRepository,
-)
-from apps.record.domain.services import (
-    RecordDomainService,
-)
-from apps.review.domain.repositories import ReviewRepository
-from apps.review.domain.services import ReviewDomainService
 
 
 def home(request):
@@ -42,11 +27,7 @@ def mypage(request):
 
 
 def book_detail_page(request, book_id):
-    """書籍詳細"""
-    book_service = BookDomainService(BookRepository(), BookshelfRepository())
-    review_service = ReviewDomainService(ReviewRepository())
-
-    usecase = ShowBookDetailPageUsecase(book_service, review_service)
+    usecase = ShowBookDetailPageUsecase.build()
     context = usecase.execute(book_id, request.user)
 
     return render(request, "pages/book_detail.html", context)
@@ -59,10 +40,7 @@ def bookshelf_list_page(request, bookshelf_id):
 
 @login_required
 def add_book_to_shelf(request, book_id):
-    book_service = BookDomainService(BookRepository(), BookshelfRepository())
-    reading_record_service = RecordDomainService(ReadingRecordRepository())
-
-    usecase = AddBookToShelfUsecase(book_service, reading_record_service)
+    usecase = AddBookToShelfUsecase.build()
     usecase.execute(book_id, request.user)
 
     return redirect("book_detail", book_id=book_id)
@@ -70,8 +48,7 @@ def add_book_to_shelf(request, book_id):
 
 @login_required
 def remove_book_from_shelf(request, book_id):
-    book_service = BookDomainService(BookRepository(), BookshelfRepository())
-    usecase = RemoveBookFromShelfUsecase(book_service)
+    usecase = RemoveBookFromShelfUsecase.build()
     usecase.execute(book_id, request.user)
 
     return redirect("book_detail", book_id=book_id)

@@ -7,7 +7,6 @@ register = template.Library()
 @register.simple_tag
 def user_icon(user, size="md"):
     context = {'user': user}
-    print(size)
     
     if size == "xs":
         return mark_safe(render_to_string('components/_user_icon_xs.html', context))

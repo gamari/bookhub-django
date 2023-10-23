@@ -1,9 +1,7 @@
 import time
 import logging
 
-logger = logging.getLogger(__name__)
-
-# TODO ログの処理を実装する
+logger = logging.getLogger("app_logger")
 
 class Usecase(object):
     def execute(self, *args, **kwargs):
@@ -17,8 +15,7 @@ class Usecase(object):
             elapsed_time = end_time - start_time
 
             # TODO 1秒以上の処理をログに残す
-            # logger.info(f"{self.__class__.__name__} executed in {elapsed_time:.2f} seconds")
-            print(f"[{self.__class__.__name__}] {elapsed_time:.2f} 秒かかりました")
+            logger.info(f"[{self.__class__.__name__}] {elapsed_time:.2f} 秒かかりました")
 
             return result
         except Exception as e:
