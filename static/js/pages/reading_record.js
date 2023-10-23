@@ -45,7 +45,7 @@ function createDeleteButton(data) {
 
 function createUserIcon(user) {
     let userIcon = document.createElement('a');
-    userIcon.href = `/users/${user.username}/`;
+    userIcon.href = `/user/${user.username}/`;
     userIcon.classList.add('user-icon-sm', 'user-icon');
     if (user.profile_image) {
         let img = document.createElement('img');
