@@ -14,28 +14,17 @@ class BookSelection(models.Model):
     books = models.ManyToManyField(Book, through='SelectionBookRelation', related_name="in_selections", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def total_likes(self):
+        return self.likes.count()
 
-# TODO お気に入り機能
-# class FavoriteSelection(models.Model):
-#     id: uuid.UUID = models.UUIDField(
-#         primary_key=True, default=uuid.uuid4, editable=False
-#     )
-#     user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="favorite_selections")
-#     book_selection = models.ForeignKey(BookSelection, on_delete=models.CASCADE, related_name="favorited_by")
+class BookSelectionLike(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="selection_likes")
+    selection = models.ForeignKey(BookSelection, on_delete=models.CASCADE, related_name="likes")
+    created_at = models.DateTimeField(auto_now_add=True)
 
-#     class Meta:
-#         unique_together = ('user', 'book_selection')
-
-# # TODO いいね機能
-# class LikeSelection(models.Model):
-#     id: uuid.UUID = models.UUIDField(
-#         primary_key=True, default=uuid.uuid4, editable=False
-#     )
-#     user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="liked_selections")
-#     book_selection = models.ForeignKey(BookSelection, on_delete=models.CASCADE, related_name="liked_by")
-
-#     class Meta:
-#         unique_together = ('user', 'book_selection')
+    class Meta:
+        unique_together = ['user', 'selection'] 
 
 
 ### 以下中間テーブル
@@ -44,7 +33,7 @@ class SelectionBookRelation(models.Model):
     """BookSelectionとBookの中間テーブル。"""
     selection = models.ForeignKey(BookSelection, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    order = models.PositiveIntegerField()
+    order = models.PositiveIntegerField(default=0)
 
     class Meta:
         unique_together = ('selection', 'book')
