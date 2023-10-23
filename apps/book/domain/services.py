@@ -37,3 +37,7 @@ class BookshelfDomainService(object):
     def get_or_create(self, user) -> Bookshelf:
         return self.bookshelf_repo.get_or_create(user)
 
+    @classmethod
+    def initialize(cls):
+        bookshelf_repo = BookshelfRepository()
+        return cls(bookshelf_repo)

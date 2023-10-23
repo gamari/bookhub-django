@@ -1,6 +1,9 @@
+import logging
 from datetime import datetime, timedelta
 
 from apps.review.models import Review
+
+logger = logging.getLogger("app_logger")
 
 
 class ReviewRepository(object):
@@ -23,14 +26,15 @@ class ReviewRepository(object):
 
         today = datetime.today()
         first_day_of_month = today.replace(day=1, hour=0, minute=0, second=0)
-        print(first_day_of_month)
         last_day_of_month = (first_day_of_month + timedelta(days=32)).replace(
             day=1,
             hour=23,
             minute=59,
             second=59,
         ) - timedelta(days=1)
-        print(last_day_of_month)
+        
+        logger.info(first_day_of_month)
+        logger.info(last_day_of_month)
 
         return Review.objects.filter(
             user=user, created_at__range=(first_day_of_month, last_day_of_month)

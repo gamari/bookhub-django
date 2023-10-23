@@ -1,11 +1,11 @@
-from django.utils import timezone
+import logging
 
-from apps.ranking.domain.services import RankingDomainService
-from apps.selection.application.usecases import BookSelectionDomainService
+from django.utils import timezone
 
 from config.utils import DateUtils
 from config.application.usecases import Usecase
-
+from apps.ranking.domain.services import RankingDomainService
+from apps.selection.application.usecases import BookSelectionDomainService
 from apps.book.domain.services import BookDomainService, BookshelfDomainService
 from apps.book.models import Bookshelf
 from apps.record.domain.services import (
@@ -16,9 +16,22 @@ from apps.record.domain.services import (
 from apps.review.domain.services import ReviewDomainService
 from apps.review.forms import ReviewForm
 
+logger = logging.getLogger("app_logger")
+
 
 class ShowHomePageUsecase(Usecase):
     """ホーム画面を表示する。"""
+
+    @classmethod
+    def build(cls):
+        record_service = RecordDomainService.initialize()
+        review_service = ReviewDomainService.initialize()
+        memo_service = MemoDomainService.initialize()
+        ranking_service = RankingDomainService.initialize()
+
+        return cls(
+            record_service, review_service, memo_service, ranking_service,
+        )
 
     def __init__(
         self,
@@ -53,6 +66,22 @@ class ShowHomePageUsecase(Usecase):
 
 class ShowMyPageUsecase(Usecase):
     """マイページを表示する。"""
+
+    @classmethod
+    def build(cls):
+        bookshelf_service = BookshelfDomainService.initialize()
+        activity_service = ActivityDomainService.initialize()
+        record_service = RecordDomainService.initialize()
+        review_service = ReviewDomainService.initialize()
+        selection_service = BookSelectionDomainService.initialize()
+
+        return cls(
+            bookshelf_service,
+            activity_service,
+            record_service,
+            review_service,
+            selection_service,
+        )
 
     def __init__(
         self,
@@ -95,8 +124,6 @@ class ShowMyPageUsecase(Usecase):
         # セレクション
         selections = self.selection_service.get_selections_for_user(user)
 
-        print(selections)
-
         return {
             "books": books,
             "activity_data": activity_data,
@@ -108,6 +135,7 @@ class ShowMyPageUsecase(Usecase):
             "following_count": following_count,
             "follower_count": follower_count,
             "selections": selections,
+            "today": today
         }
 
 

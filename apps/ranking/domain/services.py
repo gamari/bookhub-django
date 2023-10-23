@@ -4,6 +4,10 @@ from apps.ranking.models import WeeklyRanking, WeeklyRankingEntry
 class RankingDomainService(object):
     """ランキングに関するドメインサービス"""
 
+    @classmethod
+    def initialize(cls):
+        return cls()
+
     def get_latest_ranking_entries(self):
         try:
             latest_ranking = WeeklyRanking.objects.latest("end_date")

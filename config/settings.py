@@ -103,7 +103,6 @@ SOCIALACCOUNT_PROVIDERS = {
 
 LOGIN_REDIRECT_URL = "/mypage/"
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -122,6 +121,40 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = "authentication.Account"
 LOGIN_URL = "login"
 SOCIALACCOUNT_LOGIN_ON_GET = True
+
+# ログ設定
+LOGGING = {
+    'version': 1,
+    # 'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '[{levelname}][{module}.{funcName}()] {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        # ここで独自のロガーを定義
+        'app_logger': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        # Djangoのログはエラーだけ表示
+        'django': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    },
+}
+
+
 
 
 # 国際化設定

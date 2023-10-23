@@ -7,6 +7,11 @@ class ReviewDomainService(object):
     def __init__(self, review_repo: ReviewRepository):
         self.review_repo = review_repo
 
+    @classmethod
+    def initialize(cls):
+        review_repo = ReviewRepository()
+        return cls(review_repo)
+
     def get_latest_review_for_user(self, book, user):
         if user.is_authenticated:
             return self.review_repo.fetch_latest_review_by_user(book, user)

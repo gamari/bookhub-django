@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
-
 {% load static %}
 {% load user_tags %}
+
 
 {% block title %}
   マイページ
 {% endblock %}
 
+
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/components/contribution.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/follow.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/selection.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/table.css' %}" />
   <link rel="stylesheet" href="{% static 'css/pages/mypage.css' %}" />
 {% endblock %}
+
 
 {% block js %}
   <script src="{% static 'js/pages/mypage.js' %}"></script>

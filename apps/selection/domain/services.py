@@ -11,6 +11,11 @@ class BookSelectionDomainService(object):
     def __init__(self, book_selection_repo: BookSelectionRepository):
         self.book_selection_repo = book_selection_repo
     
+    @classmethod
+    def initialize(cls):
+        book_selection_repo = BookSelectionRepository()
+        return cls(book_selection_repo)
+    
     def ensure_user_is_owner(self, selection: BookSelection, user: User):
         if selection.user != user:
             raise PermissionDenied("編集権限がありません。")

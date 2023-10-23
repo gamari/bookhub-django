@@ -6,9 +6,7 @@ register = template.Library()
 
 @register.simple_tag
 def book_icon(book, size="md"):
-    print(book)
     context = {'book': book}
-    
     
     if size == "sm":
         return mark_safe(render_to_string('components/_book_image_sm.html', context))

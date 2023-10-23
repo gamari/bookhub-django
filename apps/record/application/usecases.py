@@ -68,6 +68,7 @@ class CreateMemoUsecase(Usecase):
         user = {
             "id": memo.user.id,
             "username": memo.user.username,
+            "profile_image": memo.user.profile_image.url if memo.user.profile_image else None,
         }
 
         return {

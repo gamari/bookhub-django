@@ -10,36 +10,24 @@ from apps.book.application.usecases import (
 )
 from apps.book.domain.repositories import (
     BookRepository,
-    BookSelectionRepository,
     BookshelfRepository,
 )
 from apps.book.models import Bookshelf
 from apps.book.domain.services import (
     BookDomainService,
-    BookshelfDomainService,
 )
-from apps.ranking.domain.services import RankingDomainService
 from apps.record.domain.repositories import (
-    ReadingMemoRepository,
     ReadingRecordRepository,
 )
 from apps.record.domain.services import (
-    ActivityDomainService,
-    MemoDomainService,
     RecordDomainService,
 )
 from apps.review.domain.repositories import ReviewRepository
 from apps.review.domain.services import ReviewDomainService
-from apps.selection.application.usecases import BookSelectionDomainService
 
 
 def home(request):
-    record_service = RecordDomainService(ReadingRecordRepository())
-    review_service = ReviewDomainService(ReviewRepository())
-    memo_service = MemoDomainService(ReadingMemoRepository())
-    ranking_service = RankingDomainService()
-
-    usecase = ShowHomePageUsecase(record_service, review_service, memo_service, ranking_service)
+    usecase = ShowHomePageUsecase.build()
     context = usecase.execute()
 
     return render(request, "pages/home.html", context)
@@ -47,15 +35,7 @@ def home(request):
 
 @login_required
 def mypage(request):
-    bookshelf_service = BookshelfDomainService(BookshelfRepository())
-    activity_service = ActivityDomainService(ReadingMemoRepository())
-    record_service = RecordDomainService(ReadingRecordRepository())
-    review_service = ReviewDomainService(ReviewRepository())
-    selection_service = BookSelectionDomainService(BookSelectionRepository())
-
-    usecase = ShowMyPageUsecase(
-        bookshelf_service, activity_service, record_service, review_service,selection_service
-    )
+    usecase = ShowMyPageUsecase.build()
     context = usecase.execute(request.user)
 
     return render(request, "pages/mypage.html", context)

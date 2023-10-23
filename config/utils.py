@@ -7,13 +7,13 @@ class DateUtils(object):
     @staticmethod
     def head_of_calendar(first_date: date) -> date:
         """1日からカレンダーの先頭を計算する。"""
-        days_until_sunday = first_date.weekday()
+        days_until_sunday = (first_date.weekday() + 1) % 7
         return first_date - timedelta(days=days_until_sunday)
 
     @staticmethod
     def end_of_calendar(last_date: date) -> date:
         """最終日からカレンダーの末尾を計算する"""
-        days_from_last_saturday = 6 - last_date.weekday()
+        days_from_last_saturday = 5 - last_date.weekday()
         return last_date + timedelta(days=days_from_last_saturday)
 
     @staticmethod

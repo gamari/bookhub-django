@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.core.exceptions import PermissionDenied
+from django.views import View
 
 from config.exceptions import ApplicationException
 from apps.selection.application.usecases import (
@@ -15,62 +15,90 @@ from apps.book.forms import BookSelectionForm
 from apps.selection.models import BookSelection
 from config.utils import create_ogp_image
 
-# TODO リファクタリングする
-@login_required
-def create_selection(request):
-    error_message = None
 
-    if request.method == "POST":
+class CreateSelectionView(View):
+    template_name = "pages/create_selection.html"
+
+    def get(self, request, *args, **kwargs):
+        return self.render_create_selection_page(user=request.user)
+
+    def post(self, request, *args, **kwargs):
+        service = self.get_book_selection_service()
+        usecase = CreateBookSelectionUsecase(service)
         try:
-            selection_service = BookSelectionDomainService(BookSelectionRepository())
-            usecase = CreateBookSelectionUsecase(selection_service)
             selection_id = usecase.execute(request.POST, request.user)
-
             return redirect("selection_detail", selection_id=selection_id)
         except ApplicationException as e:
-            error_message = e.message
+            return self.render_error(e.message, user=request.user)
 
-    form = BookSelectionForm(user=request.user)
+    def render_create_selection_page(self, user):
+        form = BookSelectionForm(user=user)
+        return render(
+            self.request,
+            self.template_name,
+            {
+                "form": form,
+            }
+        )
 
-    return render(
-        request,
-        "pages/create_selection.html",
-        {
-            "form": form,
-            "error_message": error_message,
-        },
-    )
+    def render_error(self, message, user):
+        form = BookSelectionForm(user=user)
+        return render(
+            self.request,
+            self.template_name,
+            {
+                "form": form,
+                "error_message": message,
+            }
+        )
+
+    @staticmethod
+    def get_book_selection_service():
+        return BookSelectionDomainService(BookSelectionRepository())
 
 
-@login_required
-def edit_selection(request, selection_id):
-    error_message = None
-    selection = get_object_or_404(BookSelection, id=selection_id)
+class EditSelectionView(View):
+    template_name = "pages/edit_selection.html"
 
-    if request.user != selection.user:
-        raise PermissionDenied
+    def get(self, request, *args, **kwargs):
+        return self.render_edit_selection_page(
+            kwargs.get("selection_id"), user=request.user
+        )
 
-    if request.method == "POST":
+    def post(self, request, *args, **kwargs):
+        service = self.get_book_selection_service()
+        usecase = EditBookSelectionUsecase(service)
         try:
-            selection_service = BookSelectionDomainService(BookSelectionRepository())
-            usecase = EditBookSelectionUsecase(selection_service)
-            usecase.execute(request.POST, request.user, selection_id)
-
-            return redirect("selection_detail", selection_id=selection_id)
+            usecase.execute(request.POST, request.user, kwargs.get("selection_id"))
+            return redirect("selection_detail", selection_id=kwargs.get("selection_id"))
         except ApplicationException as e:
-            error_message = e.message
+            return self.render_error(
+                e.message, kwargs.get("selection_id"), user=request.user
+            )
 
-    form = BookSelectionForm(instance=selection, user=request.user)
+    def render_edit_selection_page(self, selection_id, user):
+        selection = get_object_or_404(BookSelection, id=selection_id)
+        form = BookSelectionForm(instance=selection, user=user)
+        return render(
+            self.request, self.template_name, {"form": form, "selection": selection}
+        )
 
-    return render(
-        request,
-        "pages/edit_selection.html",
-        {
-            "form": form,
-            "selection": selection,
-            "error_message": error_message,
-        },
-    )
+    def render_error(self, message, selection_id, user):
+        selection = get_object_or_404(BookSelection, id=selection_id)
+        form = BookSelectionForm(instance=selection, user=user)
+        return render(
+            self.request,
+            self.template_name,
+            {
+                "form": form,
+                "selection": selection,
+                "error_message": message,
+            },
+        )
+
+    @staticmethod
+    def get_book_selection_service():
+        return BookSelectionDomainService(BookSelectionRepository())
 
 
 def selection_detail(request, selection_id):

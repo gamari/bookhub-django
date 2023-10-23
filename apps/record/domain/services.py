@@ -11,6 +11,11 @@ class RecordDomainService(object):
 
     def __init__(self, reading_record_repo: ReadingRecordRepository) -> None:
         self.reading_record_repo = reading_record_repo
+
+    @classmethod
+    def initialize(cls):
+        reading_record_repo = ReadingRecordRepository()
+        return cls(reading_record_repo)
     
     def get_or_create_record(self, user, book):
         return self.reading_record_repo.fetch_or_create(user, book)
@@ -29,6 +34,11 @@ class MemoDomainService(object):
     """メモドメインサービス。"""
     def __init__(self, memo_repo: ReadingMemoRepository) -> None:
         self.memo_repo = memo_repo
+    
+    @classmethod
+    def initialize(cls):
+        memo_repo = ReadingMemoRepository()
+        return cls(memo_repo)
 
     def get_memos(self, limit: int):
         return self.memo_repo.fetch_memos(limit)
@@ -48,6 +58,11 @@ class MemoDomainService(object):
 class ActivityDomainService(object):
     def __init__(self, reading_memo_repo: ReadingMemoRepository):
         self.reading_memo_repo = reading_memo_repo
+    
+    @classmethod
+    def initialize(cls):
+        reading_memo_repo = ReadingMemoRepository()
+        return cls(reading_memo_repo)
 
     def fetch_activities(
         self, user, start_date: datetime.date, end_date: datetime.date

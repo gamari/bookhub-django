@@ -1,9 +1,12 @@
-/* TODO リファクタリングする（activitiesに合わせる） */
 .contribution-calendar {
   display: none;
   width: 180px;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
+}
+
+.current-day {
+  border: 2px solid red;
 }
 
 .day-label {
