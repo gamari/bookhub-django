@@ -39,10 +39,11 @@ class GoogleBooksService(SearchDomainService):
         api_result = self.api_client.fetch_books(query, page)
         book_items = api_result.get("items", [])
 
+        logger.debug(str(len(book_items)) + "件を検証します。")
         books_data = GoogleBooksMapper.to_books(book_items)
+        logger.debug(str(len(books_data)) + "件の書籍を登録します。")
 
-        logger.info(str(len(books_data)) + "件の書籍を登録します")
-
+        # TODO isbn otherどちらもない場合は登録したくない
         books = self.book_service.get_or_create_books(books_data)
 
         total_items = api_result.get("totalItems", 0)

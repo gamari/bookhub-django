@@ -23,6 +23,7 @@ class BookRepository(object):
 
     @staticmethod
     def get_or_create(book_data):
+        # TODO repositoryにこの責任量は多すぎるのでService層に移動する
         # 作者処理
         author_objects = []
         for author_name in book_data.get("authors", []):
@@ -47,6 +48,7 @@ class BookRepository(object):
                 thumbnail=book_data["thumbnail"],
                 isbn_10=book_data["isbn_10"],
                 isbn_13=book_data["isbn_13"],
+                other=book_data["other"],
                 published_date=published_date,
                 publisher=book_data["publisher"],
             )
