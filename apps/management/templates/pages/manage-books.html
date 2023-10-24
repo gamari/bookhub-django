@@ -1,0 +1,38 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block css %}
+{% comment %} TODO {% endcomment %}
+{% endblock %} 
+
+{% block title %}管理者画面{% endblock %} 
+
+
+{% block content %}
+<section>
+    <div class="col gap-4">
+
+        {% for book in books %}
+        <div class="bg-white p-4">
+            <div>
+
+                {{ book.title }}
+            </div>
+            <div>
+                <span>閲覧数</span>
+                <span>
+                    {{ book.views }}
+                </span>
+            </div>
+            <div>
+                {{ book.is_clean }}
+            </div>
+
+            <div>
+                <a href="{% url 'management_book_edit' book.id %}" class="btn-sm btn-primary">編集する</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
