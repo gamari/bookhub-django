@@ -10,14 +10,14 @@ function createElement(tag, options = {}) {
     return el;
 }
 
-function createDeleteButton(data) {
+function createDeleteButton(data, classes="") {
     const deleteIcon = createElement('i', {
         classes: ['fa-regular', 'fa-trash-can', 'fa-xl'],
         attributes: { style: 'color: #666' }
     });
 
     const deleteButton = createElement('button', {
-        classes: ['memo-item-delete-button'],
+        classes: [classes],
         attributes: {
             dataset: {
                 memoId: data.id,
@@ -48,7 +48,7 @@ function createIconOrImage(source, alt, classes, isIcon = false) {
 
 function createUserIcon(user) {
     const iconOrImage = user.profile_image ?
-        createIconOrImage(user.profile_image, user.username, ['user-icon-sm', 'user-icon']) :
+        createIconOrImage(user.profile_image, user.username, ['user-icon-xs', 'user-icon']) :
         createIconOrImage(null, '#888', ['fa-regular', 'fa-face-smile'], true);
     return createElement('a', {
         classes: ['user-icon-sm', 'user-icon'],
@@ -66,20 +66,23 @@ function createBookIcon(book) {
 }
 
 function createMemoElement(data) {
-    const memoUser = createElement('div', { classes: ['memo-user'] });
-    memoUser.append(createUserIcon(data.user), createBookIcon(data.book));
+    const memoImage = createElement('div', { classes: ['memo-item__image'] });
+    memoImage.append(createBookIcon(data.book));
 
-    const memoInfo = createElement('div', { classes: ['memo-info'] });
+    const memoInfo = createElement('div', { classes: ['memo-item__info'] });
+    const memoInfoHeader = createElement('div', { classes: ['memo-item__info-header'] });
+    memoInfoHeader.append(createUserIcon(data.user), createElement('p', { classes: ['memo-item__info-time'], content: data.created_at }));
+
     memoInfo.append(
-        createElement('p', { classes: ['memo-created-at'], content: data.created_at }),
-        createElement('p', { classes: ['memo-content'], content: data.content })
+        memoInfoHeader,
+        createElement('p', { classes: ['memo-item__content'], content: data.content })
     );
 
-    const memoTool = createElement('div', { classes: ['memo-tools'] });
-    memoTool.appendChild(createDeleteButton(data));
+    const memoTool = createElement('div', { classes: ['memo-item__tool'] });
+    memoTool.appendChild(createDeleteButton(data, "memo-item__delete"));
 
     const newMemo = createElement('li', { classes: ['memo-item'], attributes: { dataset: { memoId: data.id } } });
-    newMemo.append(memoUser, memoInfo, memoTool);
+    newMemo.append(memoImage, memoInfo, memoTool);
 
     return newMemo;
 }

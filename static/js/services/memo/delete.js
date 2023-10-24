@@ -35,7 +35,7 @@ function deleteListener(button) {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    const deleteButtonList = document.querySelectorAll('.memo-item-delete-button')
+    const deleteButtonList = document.querySelectorAll('.memo-item__delete')
     deleteButtonList.forEach(function (button) {
         button.addEventListener('click', function (event) {
             deleteListener(button);

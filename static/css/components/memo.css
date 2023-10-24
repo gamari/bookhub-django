@@ -3,7 +3,7 @@
 }
 
 /* メモフォーム */
-#memoForm {
+#memo-form {
   padding: 24px;
   padding-top: 32px;
   padding-bottom: 32px;
@@ -31,7 +31,7 @@
 }
 
 /* Memoリスト */
-#memoList {
+#memo-list {
   border: 1px solid #ddd;
   background-color: white;
 }
@@ -45,30 +45,35 @@
   gap: 2rem;
 }
 
-#memoList .memo-item:last-child {
+#memo-list .memo-item:last-child {
   border-bottom: none;
 }
 
-
-.memo-user {
+.memo-item__image {
   width: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 24px;
 }
 
-.memo-info {
+.memo-item__info {
   flex-grow: 1;
 }
 
-.memo-created-at {
+.memo-item__info-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.memo-item__info-time {
   font-size: 12px;
   color: #555;
 }
 
-.memo-content {
+.memo-item__content {
+  margin-top: 16px;
   flex-grow: 1;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -77,6 +82,14 @@
   white-space: pre-wrap;
 }
 
-.memo-tools {
+.memo-item__tool {
   width: 60px;
+}
+
+.memo-item__delete {
+
+}
+
+#no-memo-title {
+    padding: 24px;
 }

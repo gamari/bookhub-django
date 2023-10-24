@@ -1,4 +1,4 @@
-<form id="memoForm" data-action="{% url 'create_memo_api' book.id %}">
+<form id="memo-form" data-action="{% url 'create_memo_api' book.id %}">
   {% csrf_token %}
   {{ form.content }}
 
@@ -6,7 +6,7 @@
     <div class="error">{{ form.content.errors }}</div>
   {% endif %}
 
-  <button id="createMemoButton" class="btn btn-primary">
+  <button id="create-memo-button" class="btn btn-primary">
     <i class="fa-regular fa-file"></i>
     <span>メモを追加</span>
   </button>

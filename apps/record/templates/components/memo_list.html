@@ -1,23 +1,24 @@
-{% load user_tags %}
+{% load user_tags %} 
 {% load book_tags %}
 
-<ol id="memoList">
+<ol id="memo-list">
   {% for memo in memos %}
+  {% comment %} TODO コンポーネント化する {% endcomment %}
   <li class="memo-item">
-    <div class="memo-user">
-      {% user_icon memo.user "sm" %}
-      {% book_icon memo.book "sm" %}
+    <div class="memo-item__image">{% book_icon memo.book "sm" %}</div>
+
+    <div class="memo-item__info">
+      <div class="memo-item__info-header">
+        {% user_icon memo.user "xs" %}
+        <p class="memo-item__info-time">{{ memo.created_at }}</p>
+      </div>
+      <p class="memo-item__content">{{ memo.content }}</p>
     </div>
 
-    <div class="memo-info">
-      <p class="memo-created-at">{{ memo.created_at }}</p>
-      <p class="memo-content mt-2">{{ memo.content }}</p>
-    </div>
-
-    <div class="memo-tools">
+    <div class="memo-item__tool">
       {% if memo.user == request.user %}
       <button
-        class="memo-item-delete-button"
+        class="memo-item__delete"
         data-memo-id="{{ memo.id }}"
         data-action="{% url 'memo_detail_api' memo.id %}"
       >
@@ -27,6 +28,6 @@
     </div>
   </li>
   {% empty %}
-  <div id="no-memo-title" class="p-10">メモが存在しません</div>
+  <div id="no-memo-title">メモが存在しません</div>
   {% endfor %}
 </ol>

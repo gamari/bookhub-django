@@ -19,9 +19,9 @@ async function createMemo(url, body_data, csrf_token) {
 
 
 function initialize() {
-    const memoList = document.querySelector("#memoList");
-    const memoForm = document.querySelector("#memoForm");
-    const createMemoButton = document.querySelector("#createMemoButton");
+    const memoList = document.querySelector("#memo-list");
+    const memoForm = document.querySelector("#memo-form");
+    const createMemoButton = document.querySelector("#create-memo-button");
     const memoContent = document.querySelector("#id_content");
     const noMemoTitle = document.querySelector("#no-memo-title");
 
