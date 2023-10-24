@@ -21,8 +21,13 @@
   color: #666;
 }
 
-.follow-count {
-  font-size: 1rem;
+#following-count {
+  font-size: bold;
+  color: #1e90ff;
+}
+
+#followers-count {
+  font-size: bold;
   color: #1e90ff;
 }
 
