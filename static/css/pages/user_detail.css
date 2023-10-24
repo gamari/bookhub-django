@@ -31,4 +31,6 @@
 .user-description {
   white-space: pre-wrap;
   padding-right: 16px;
+  font-size: 14px;
+  color: #666;
 }
