@@ -24,8 +24,6 @@
     <link href="https://use.fontawesome.com/releases/v6.4.2/css/all.css" rel="stylesheet" />
 
     {% block css %}{% endblock %}
-    
-    {% block js %}{% endblock %}
 
     <title>
       {% block title %}
@@ -65,5 +63,8 @@
         <p>&copy; 2023 BookHub</p>
       </div>
     </footer>
+
+    <script src="{% static 'js/base.js' %}"></script>
+    {% block js %}{% endblock %}
   </body>
 </html>

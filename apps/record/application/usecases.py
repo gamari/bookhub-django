@@ -46,6 +46,7 @@ class RecordReadingHistoryUsecase(Usecase):
         memos = ReadingMemo.objects.filter(user=user, book=book).order_by("-created_at")
         form = ReadingMemoForm()
 
+
         return {
             "book": book,
             "record": record,
@@ -68,6 +69,16 @@ class CreateMemoUsecase(Usecase):
     ):
         self.book_repo = book_repo
         self.memo_service = memo_service
+    
+    @classmethod
+    def build(cls):
+        book_repo = BookRepository()
+        memo_service = MemoDomainService(ReadingMemoRepository())
+
+        return cls(
+            book_repo,
+            memo_service,
+        )
 
     def run(self, form_data, user, book_id):
         form = ReadingMemoForm(form_data)
@@ -76,6 +87,13 @@ class CreateMemoUsecase(Usecase):
 
         book = self.book_repo.find_by_id(book_id)
         memo: ReadingMemo = self.memo_service.create_memo_from_form(form, user, book)
+
+        book = self.book_repo.find_by_id(book_id)
+        book_detail = {
+            "id": book.id,
+            "title": book.title,
+            "thumbnail": book.thumbnail if book.thumbnail else None,
+        }
 
         user = {
             "id": memo.user.id,
@@ -89,6 +107,7 @@ class CreateMemoUsecase(Usecase):
             "content": memo.content,
             "created_at": memo.created_at.strftime("%Y年%m月%d日%H:%M"),
             "user": user,
+            "book": book_detail
         }
 
 
