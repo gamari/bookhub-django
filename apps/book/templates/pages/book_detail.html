@@ -89,7 +89,7 @@
       {% endif %}
     </div>
 
-    {% review_list reviews %}
+    {% review_list reviews request.user.is_authenticated %}
   </section>
 
   <!-- モーダル機能 -->

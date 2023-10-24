@@ -182,16 +182,16 @@ class ShowBookDetailPageUsecase(Usecase):
     def run(self, book_id, user):
         book = self.book_service.find_book_by_id(book_id)
 
-        # 閲覧数のカウントアップ
-        book.views += 1
-        book.save()
-
         latest_review = self.review_service.get_latest_review_for_user(book, user)
         avg_rating = book.get_avg_rating()
         reviews = book.get_reviews()
         book_on_shelf = self.book_service.is_book_on_shelf(book, user)
         registers = Bookshelf.objects.filter(books__id=book.id).count()
 
+        # 閲覧数のカウントアップ
+        book.views += 1
+        book.save()
+        
         context = {
             "book": book,
             "review_form": ReviewForm(instance=latest_review),

@@ -41,6 +41,24 @@
 
       {% comment %} <a class="review-item__content" href="{% url 'book_detail' review.book.id %}"></a> {% endcomment %}
       <p class="review-item__content">{{ review.content }}</p>
+
+      <div>
+        {% comment %} TODO　良いね機能を実装する {% endcomment %}
+        <div
+          id="like-btn"
+          style="color: {{ is_liked|yesno:"#FF0000,#666" }};"
+        >
+          <i 
+            id="like-icon" 
+            class="fa-regular fa-heart {{ is_authenticated|yesno:"cursor-pointer," }}" 
+            {% comment %} data-liked="{{ is_liked }}" 
+            data-selection-id="{{ selection.id }}"  {% endcomment %}
+          ></i>
+          <span id="like-count">
+            {{ review.like_count }}
+          </span>
+        </div>
+      </div>
     </div>
     {% empty %}
     <div class="card-sm">レビューが存在しません</div>

@@ -13,7 +13,6 @@ Account = get_user_model()
 
 
 def user_reviews(request, user_id):
-    # TODO refactoring
     account = get_object_or_404(Account, pk=user_id)
     reviews = Review.objects.filter(user=account)
     rating_range = range(1, 6)
