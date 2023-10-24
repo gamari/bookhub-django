@@ -1,5 +1,4 @@
-/* TODO review-commentにする */
-.reviews-container {
+.review-list {
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -8,45 +7,60 @@
 
 .review-item {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 8px;
   margin-bottom: 16px;
   background-color: white;
-  padding: 12px 24px;
+  padding: 16px 32px;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
 
-.review-user-container {
+.review-item__image {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.review-item__header {
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: 16px;
+  align-items: center;
+}
+
+.review-item__username {
+  font-size: 16px;
+  color: #666;
+}
+
+.review-item__time {
+  font-size: 14px;
+  color: #888;
+}
+
+.review-item__title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #1e90ff;
+}
+
+.review-item__content {
+  margin-top: 16px;
+  white-space: pre-wrap;
+  font-size: 16px;
+  color: #555;
+}
+
+.review-item__user-info {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
   align-items: center;
 }
 
 .review-rating {
-  margin-top: 24px;
-}
-
-.review-content {
-  white-space: pre-wrap;
-}
-
-/* ホーム用のライン */
-.review-line {
-  display: flex;
-  flex-direction: row;
-  gap: 24px;
-  text-decoration: none;
-}
-
-.review-user {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: center;
-}
-
-.review-content {
-  margin-top: 4px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }

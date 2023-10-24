@@ -2,40 +2,7 @@
 {% load book_tags %}
 
 <section>
-  <h2 class="text-info">最新のタイムライン</h2>
-  
-  <div class="timeline-panel-container mt-4">
-    {% for memo in memos %}
-    <div class="card-sm timeline-panel">
-      <div class="timeline-panel-header">
-        <div>
-          {% book_icon memo.book "sm" %}
-        </div>
+  <h2 class="text-info mb-4">最新のタイムライン</h2>
 
-        <div>
-          <div class="row-center gap-2 mb-2">
-            {% user_icon memo.user "sm" %}
-            <span class="text-info">{{ memo.user.username }}</span>
-          </div>
-
-          <div class="timeline-panel-date">
-            {{ memo.created_at | date:"Y年m月d日 H時i分" }}
-          </div>
-        </div>
-      </div>
-
-      
-      <a 
-        class="timeline-panel-title"
-        href="{% url 'book_detail' memo.book.id %}"
-      >{{ memo.book.title }}</a>
-      <p class="timeline-panel-content">{{ memo.content }}</p>
-    </div>
-    {% endfor %}
-  </div>
-
-  {% if not memos %}
-  <div class="card-sm">存在しません</div>
-  {% endif %}
-
+  {% include 'components/memo_list.html' %}
 </section>

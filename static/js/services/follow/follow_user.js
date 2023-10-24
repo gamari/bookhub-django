@@ -47,7 +47,7 @@ function updateButtonState(button, isFollowed) {
         button.classList.remove("btn-primary");
         button.setAttribute("data-is-follow", "True");
     } else {
-        button.textContent = "フォロー";
+        button.textContent = "フォローする";
         button.classList.add("btn-primary");
         button.setAttribute("data-is-follow", "False");
     }

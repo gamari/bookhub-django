@@ -7,13 +7,12 @@
       ><img
         src="{{ result.book__thumbnail }}"
         alt="{{ result.book__title }}"
-        class="book-image"
+        class="book-image book-image-md"
     /></a>
-    {% empty %}
     {% endfor %}
   </div>
 
   {% if not top_book_results %}
-    <div class="card-sm">存在しません</div>
+  <div class="card-sm">存在しません</div>
   {% endif %}
 </section>

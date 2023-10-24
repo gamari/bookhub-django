@@ -1,47 +1,47 @@
 {% load user_tags %}
+{% load book_tags %}
 
-<div class="reviews-container">
+<div class="review-list">
   {% for review in reviews %}
-    <div class="review-line card-sm">
-      <div>
-        <a href="{% url 'book_detail' review.book.id %}">
-          <img 
-            src="{{ review.book.thumbnail }}" 
-            alt="{{ book.title }}" 
-            class="book-image-sm" 
-          />
-        </a>
-      </div>
-
-      <div class="review-container">
-        <div class="review-user-container">
-          <div>
-            {% user_icon review.user "sm" %}
-          </div>
-          <div class="user-username">{{ review.user.username }}</div>
+    <div class="review-item">
+      <div class="review-item__header">
+        <div class="review-item__image">
+          {% book_icon review.book "sm" %}
+          <i class="fa-solid fa-pen" style="color: #888;"></i>
         </div>
-
-        <div class="rating-container">
-          {% if review.rating %}
-            {% for i in rating_range %}
-              {% if i <= review.rating %}
-                <i class="fa-solid fa-star" style="color: #ffdc2e;"></i>
-              {% else %}
-                <i class="far fa-star"></i>
-              {% endif %}
-            {% endfor %}
-          {% else %}
-            レビューがありません
-          {% endif %}
-        </div>
-
-        <a href="{% url 'book_detail' review.book.id %}" class="book-title_sm"><span class="text-sm text-primary">{{ review.book.title }}</span></a>
-
 
         <div>
-          <div class="review-content">{{ review.content }}</div>
+          <div class="review-item__user-info">
+            <div>
+              {% user_icon review.user "sm" %}
+            </div>
+            <div>
+              <div class="review-item__username">{{ review.user.username }}</div>
+              <div class="review-item__time">{{review.created_at}}</div>
+            </div>
+          </div>
+
+          <div class="review-rating">
+            {% if review.rating %}
+              {% for i in rating_range %}
+                {% if i <= review.rating %}
+                  <i class="fa-solid fa-star" style="color: #ffdc2e;"></i>
+                {% else %}
+                  <i class="far fa-star"></i>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              レビューがありません
+            {% endif %}
+          </div>
+
+          <a href="{% url 'book_detail' review.book.id %}" class="review-item__title">{{ review.book.title }}</a>
         </div>
       </div>
+
+      <a class="review-item__content"
+      href="{% url 'book_detail' review.book.id %}"
+      >{{ review.content }}</a>
     </div>
     {% empty %}
     <div class="card-sm">レビューが存在しません</div>

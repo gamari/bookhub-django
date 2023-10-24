@@ -4,7 +4,10 @@
 <ol id="memo-list">
   {% for memo in memos %}
   <li class="memo-item">
-    <div class="memo-item__image">{% book_icon memo.book "sm" %}</div>
+    <div class="memo-item__image">
+      {% book_icon memo.book "sm" %}
+      {% comment %} <i class="fa-regular fa-note-sticky fa-lg" style="color: #aaa;"></i> {% endcomment %}
+    </div>
 
     <div class="memo-item__info">
       <div class="memo-item__info-header">
@@ -32,7 +35,7 @@
   {% endfor %}
 
   {% if not memos %}
-  <p id="no-memo-title" class="card-sm">メモはありません</p>
+  <p id="no-memo-title">メモはありません</p>
   {% endif %}
 </ol>
 
