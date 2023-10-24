@@ -12,3 +12,5 @@ class Contact(models.Model):
     email = models.EmailField()
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    is_responded = models.BooleanField(default=False)
+    memo = models.TextField(blank=True, null=True, verbose_name="備考欄")

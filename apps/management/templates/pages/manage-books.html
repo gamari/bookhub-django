@@ -5,6 +5,12 @@
 {% block title %}管理者画面{% endblock %} 
 
 {% block content %}
+
+<div>
+  <a href="{% url 'management_dashboard' %}">管理者ダッシュボードへ</a>
+</div>
+
+
 <section>
   <div class="col gap-4">
     {% for book in books %}

@@ -9,13 +9,12 @@
 
 
 {% block content %}
+
 <section>
-    {% comment %}  {% endcomment %}
     <form method="post" class="card-sm">
         {% csrf_token %}
-        {{ form.as_p }}  <!-- フォームをシンプルに表示 -->
+        {{ form.as_p }}
         <input type="submit" value="更新">
     </form>
-    
 </section>
 {% endblock %}

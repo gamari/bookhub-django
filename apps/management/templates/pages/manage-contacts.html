@@ -1,0 +1,38 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block css %} {% comment %} TODO {% endcomment %} {% endblock %} 
+
+{% block title %}お問い合わせ一覧{% endblock %} 
+
+{% block content %}
+
+<div>
+  <a href="{% url 'management_dashboard' %}">管理者ダッシュボードへ</a>
+</div>
+
+
+<section class="mt-10">
+    {% for contact in contacts %}
+    <div class="card">
+        <div>
+            <span>お問い合わせ日:</span>
+            <span>{{contact.created_at}}</span>
+        </div>
+        <div>
+            <span>連絡先: </span>
+            <span>
+
+                {{ contact.email }}
+            </span>
+        </div>
+        <div class="border p-4 my-4">{{ contact.content }}</div>
+
+        <div class="row gap-4">
+            <button class="btn-sm btn-primary">対応済み</button>
+            <button class="btn-sm">削除</button>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}

@@ -19,7 +19,10 @@
   color: #555;
 }
 
-/* 背景 */
+/* ボーダー */
+.border {
+  border: 1px solid #b1b1b1;
+}
 
 
 /* 背景 */
@@ -157,9 +160,7 @@
   padding-right: 24px;
 }
 
-.border {
-  border: 1px solid #b1b1b1;
-}
+
 
 /* Gap */
 .gap-2 {
