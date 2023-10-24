@@ -5,6 +5,21 @@
   text-decoration: none;
 }
 
+.user-name {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #666;
+  text-decoration: none;
+}
+
+.user-description {
+  font-size: 0.8rem;
+  color: #666;
+  text-decoration: none;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
 .user-icon {
   position: relative;
   display: flex;
@@ -48,13 +63,6 @@
   height: 30px; 
 }
 
-
-.user-username {
-  font-size: 0.8rem;
-  font-weight: bold;
-  color: #666;
-}
-
 /* フォロワー関係 */
 .follow-container {
   display: flex;
@@ -71,4 +79,42 @@
 .follow-label {
   font-size: 0.8rem;
   color: #434343;
+}
+
+/* フォロワーリスト */
+.follow-list {
+  border: 1px solid #ddd;
+}
+
+.follow-panel {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+  gap: 16px;
+}
+
+.follow-list .follow-panel:last-child {
+  border-bottom: none;
+}
+
+.follow-panel__user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  width: 100px;
+  gap: 12px;
+}
+
+.follow-panel__description {
+  flex-grow: 1;
+}
+
+.follow-panel__tool {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

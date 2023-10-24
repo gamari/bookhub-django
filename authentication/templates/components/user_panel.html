@@ -5,7 +5,7 @@
   <div class="user-left">
     {% user_icon user "md" %}
 
-    <div class="user-username">{{ user.username }}</div>
+    <div class="user-name">{{ user.username }}</div>
 
     {% if is_self %}
       <div></div>
@@ -21,7 +21,7 @@
       </div>
 
       <div>
-        <div>
+        <div class="pc-show">
           {% if user.description %}
           <p class="user-description">{{ user.description }}</p>
           {% endif %}

@@ -1,22 +1,31 @@
 {% load follow_tags %}
 {% load user_tags %}
 
-<div class="account-list-container">
+<div class="follow-list">
   {% for account in accounts %}
-  {% comment %} TODO gridにする {% endcomment %}
-  <div class="account-line">
-    <div class="account-user-icon">
+  <div class="follow-panel">
+    <div class="follow-panel__user">
       {% user_icon account "sm" %}
-      <div class="account-info account-username">{{ account.username }}</div>
+      <div class="user-name">{{ account.username }}</div>
+
+      <div class="mb-show">
+        {% if request.user.id != account.id %}
+          {% follow_button request.user account %} 
+          {% else %}
+          <div></div>
+        {% endif %}
+      </div>
     </div>
 
-    <div class="account-description">
-      {{ account.description }}
+    <div class="follow-panel__description">
+      {% if account.description %}
+        <p class="user-description">{{ account.description }}</p>
+        {% endif %}
     </div>
 
 
-    <div class="account-followe-button">
-      {% if request.user.id != account.id %} 
+    <div class="pc-show follow-panel__tool pc-show">
+      {% if request.user.id != account.id %}
         {% follow_button request.user account %} 
         {% else %}
         <div></div>
@@ -25,6 +34,6 @@
     </div>
   </div>
   {% empty %}
-  <div class="follower-line">存在しません</div>
+    <div class="follow-panel">存在しません</div>
   {% endfor %}
 </div>

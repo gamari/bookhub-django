@@ -20,8 +20,15 @@
 }
 
 /* 背景 */
+
+
+/* 背景 */
 .bg-info {
   background-color: rgb(250, 250, 250);
+}
+
+.bg-red {
+  background-color: #ff604f;
 }
 
 
@@ -185,4 +192,26 @@
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+/* PCだけ表示する */
+.pc-show {
+  display: none !important;
+}
+
+@media screen and (min-width: 768px) {
+  .pc-show {
+    display: block !important;
+  }
+}
+
+/* モバイル時にだけ表示する */
+.mb-show {
+  display: block !important;
+}
+
+@media screen and (min-width: 768px) {
+  .mb-show {
+    display: none !important;
+  }
 }

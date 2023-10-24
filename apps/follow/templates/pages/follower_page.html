@@ -3,8 +3,7 @@
 {% load follow_tags %} 
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/components/account.css' %}" />
-<link rel="stylesheet" href="{% static 'css/pages/follower.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pages/follower.css' %}" />
 {% endblock %} 
 
 {% block title %} {{ account.username }}さんのフォロワー {% endblock %} 
@@ -15,8 +14,9 @@
 
 {% block content %}
 <section>
-  <h3>
-    <a href="{% url 'user_detail' account.username%}" class="text-primary">{{ account.username }}</a>さんのフォロワー</h3>
+  <h3 class="mb-4">
+    <a href="{% url 'user_detail' account.username%}" class="text-primary">{{ account.username }}</a>さんのフォロワー
+  </h3>
 
     {% include 'components/account_list.html' with followers=accounts %}
 </section>
