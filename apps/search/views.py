@@ -24,7 +24,11 @@ def book_search(request):
     else:
         search_service = BookSearchService()
 
-    usecase = BookSearchByTitleUsecase(search_service)
-    context = usecase.execute(mode, page, query)
+    try:
+        usecase = BookSearchByTitleUsecase(search_service)
+        context = usecase.execute(mode, page, query)
 
-    return render(request, "pages/search_results.html", context)
+        return render(request, "pages/search_results.html", context)
+    except ValueError as e:
+        context = {"error_message": str(e)}
+        return render(request, "pages/search_results.html", context)

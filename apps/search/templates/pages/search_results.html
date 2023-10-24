@@ -29,7 +29,8 @@
           value="{{ query }}" 
           class="search-input w-full" 
           autocomplete="off" 
-          placeholder="書籍名で検索…" 
+          placeholder="書籍名で検索…(50)" 
+          maxlength="50"
         />
         
         <div class="search-buttons-container">
@@ -39,6 +40,10 @@
           </button>
           <button type="submit" name="mode" value="detail" class="btn-sm">詳細検索</button>
         </div>
+
+        {% if error_message %}
+          <p class="error">{{ error_message }}</p>
+        {% endif %}
       </form>
     </div>
   </section>

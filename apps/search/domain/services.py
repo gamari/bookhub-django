@@ -1,8 +1,11 @@
+import logging
 from abc import ABC, abstractmethod
 
 from apps.book.domain.repositories import BookRepository
 from apps.book.domain.services import BookDomainService
 from apps.book.infrastructure.mappers import GoogleBooksMapper
+
+logger = logging.getLogger("app_logger")
 
 
 # 検索ドメイン
@@ -38,7 +41,7 @@ class GoogleBooksService(SearchDomainService):
 
         books_data = GoogleBooksMapper.to_books(book_items)
 
-        print(str(len(books_data)) + "件の書籍を登録します")
+        logger.info(str(len(books_data)) + "件の書籍を登録します")
 
         books = self.book_service.get_or_create_books(books_data)
 
