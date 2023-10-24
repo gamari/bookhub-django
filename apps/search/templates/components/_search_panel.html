@@ -1,21 +1,16 @@
 {% load book_tags %}
 
-<div class="row gap-6 search-panel">
-  <div class="col center">
-    {% book_icon book "md" user %}
-  </div>
+<div class="search-panel">
+  <div class="col center">{% book_icon book "md" user %}</div>
 
   <div>
-    <a 
-      href="{% url 'book_detail' book.id %}" 
-      class="book-result-title"
-    >
+    <a href="{% url 'book_detail' book.id %}" class="book-result-title">
       {{ book.title }}
     </a>
 
     <ul class="authors-container mt-4">
       {% for author in book.authors.all %}
-      <li class="info">
+      <li>
         <i class="fa-regular fa-user fa-sm"></i>
         <span>{{ author.name }}</span>
       </li>
@@ -27,11 +22,10 @@
       {% endfor %}
     </ul>
 
-    <div class="info">
+    <div class="">
       <i class="fa-regular fa-calendar fa-sm"></i>
       <span>{{ book.published_date|default_if_none:'-' }}</span>
+      <p class="mt-4">{{ book.description|truncatechars:80 }}</p>
     </div>
-
-    <p class="mt-4">{{ book.description|truncatechars:80 }}</p>
   </div>
 </div>

@@ -1,9 +1,13 @@
+import logging 
+
 from django import template
 from django.utils.safestring import mark_safe
 from django.template.loader import render_to_string
 from django.contrib.auth import get_user_model
 
 from apps.book.models import Bookshelf
+
+logger = logging.getLogger("app_logger")
 
 User = get_user_model()
 
@@ -20,7 +24,6 @@ def search_panel(book, user: User=None):
         is_registered = bookshelf.contains(book)
         is_show = True
 
-    print(is_show)
     context = {
         'book': book,
         'is_registered': is_registered,

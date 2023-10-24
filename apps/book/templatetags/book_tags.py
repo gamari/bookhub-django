@@ -1,8 +1,12 @@
+import logging
+
 from django import template
 from django.utils.safestring import mark_safe
 from django.template.loader import render_to_string
 
 from apps.book.models import Bookshelf
+
+logger = logging.getLogger("app_logger")
 
 register = template.Library()
 
