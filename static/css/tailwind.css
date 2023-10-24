@@ -61,6 +61,13 @@
   align-items: center;
 }
 
+.row-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .col-center {
   display: flex;
   flex-direction: column;
@@ -173,6 +180,14 @@
 
 .gap-6 {
   gap: 24px;
+}
+
+.gap-8 {
+  gap: 32px;
+}
+
+.gap-10 {
+  gap: 40px;
 }
 
 /* テキスト */

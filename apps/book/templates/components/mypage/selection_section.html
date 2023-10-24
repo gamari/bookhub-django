@@ -35,19 +35,38 @@
         </div>
       </div>
 
-      {% comment %} 操作パネル {% endcomment %}
-      <div class="row mt-4 gap-2 px-2">
-        <a href="{% url 'edit_selection' selection.id %}">
-          <i class="fa-regular fa-pen-to-square fa-xl" style="color: #6b6b6b;"></i>
+      {% comment %} TODO CSSを綺麗にする {% endcomment %}
+      <div class="row mt-4 row-between px-2">
+        <div class="row-center gap-2">
+          <div
+            style="color: {{ is_liked|yesno:"#FF0000,#666" }};"
+          >
+            <i 
+              id="like-icon" 
+              class="fa-regular fa-heart" 
+              data-liked="{{ is_liked }}" 
+              data-selection-id="{{ selection.id }}" 
+            
+            ></i>
+            <span id="like-count">
+              {{ selection.total_likes }}
+            </span>
+          </div>
 
-        </a>
+          <a href="{% url 'edit_selection' selection.id %}">
+            <i class="fa-regular fa-pen-to-square fa-xl" style="color: #6b6b6b;"></i>
+  
+          </a>
+        </div>  
 
-        <form action="{% url 'delete_selection' selection.id %}" method="POST">
-          {% csrf_token %}
-          <button type="submit">
-            <i class="fa-solid fa-trash fa-xl"  style="color: #6b6b6b;"></i>
-          </button>
-        </form>
+        <div>
+          <form action="{% url 'delete_selection' selection.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">
+              <i class="fa-solid fa-trash fa-lg"  style="color: #6b6b6b;"></i>
+            </button>
+          </form>
+        </div>
       </div>
     </div>
 

@@ -47,22 +47,38 @@
     </div>
 
     <div class="mt-2">
-      {% comment %} TODO 良いね機能を作る {% endcomment %}
-      <div
-        id="like-btn"
-        style="color: {{ is_liked|yesno:"#FF0000,#666" }};"
-      >
-        <i 
-          id="like-icon" 
-          class="fa-regular fa-heart cursor-pointer" 
-          data-liked="{{ is_liked }}" 
-          data-selection-id="{{ selection.id }}" 
-        
-        ></i>
-        <span id="like-count">
-          {{ selection.total_likes }}
-        </span>
-      </div>
+      {% comment %} TODO リファクタリングする {% endcomment %}
+      {% if user.is_authenticated %}
+        <div
+          id="like-btn"
+          style="color: {{ is_liked|yesno:"#FF0000,#666" }};"
+        >
+          <i 
+            id="like-icon" 
+            class="fa-regular fa-heart cursor-pointer" 
+            data-liked="{{ is_liked }}" 
+            data-selection-id="{{ selection.id }}" 
+          
+          ></i>
+          <span id="like-count">
+            {{ selection.total_likes }}
+          </span>
+        </div>
+      {% else %}
+        <div
+          style="color: {{ is_liked|yesno:"#FF0000,#666" }};"
+        >
+          <i 
+            class="fa-regular fa-heart cursor-pointer" 
+            data-liked="{{ is_liked }}" 
+            data-selection-id="{{ selection.id }}" 
+          
+          ></i>
+          <span id="like-count">
+            {{ selection.total_likes }}
+          </span>
+        </div>
+      {% endif %}
     </div>
 
     <div class="bookshelf mt-6">

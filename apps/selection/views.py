@@ -30,9 +30,8 @@ class CreateSelectionView(View):
         return self.render_create_selection_page(user=request.user)
 
     def post(self, request, *args, **kwargs):
-        service = self.get_book_selection_service()
-        usecase = CreateBookSelectionUsecase(service)
         try:
+            usecase = CreateBookSelectionUsecase.build()
             selection_id = usecase.execute(request.POST, request.user)
             return redirect("selection_detail", selection_id=selection_id)
         except ApplicationException as e:

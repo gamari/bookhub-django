@@ -26,3 +26,17 @@ class Review(models.Model):
     
     def is_latest(self):
         return self == self.book.get_reviews().first()
+    
+    @property
+    def like_count(self):
+        # TODO 検証する
+        return self.reviewlike_set.count()
+
+
+class ReviewLike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("user", "review")

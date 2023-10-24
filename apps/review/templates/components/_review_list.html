@@ -39,9 +39,8 @@
         </div>
       </div>
 
-      <a class="review-item__content"
-      href="{% url 'book_detail' review.book.id %}"
-      >{{ review.content }}</a>
+      {% comment %} <a class="review-item__content" href="{% url 'book_detail' review.book.id %}"></a> {% endcomment %}
+      <p class="review-item__content">{{ review.content }}</p>
     </div>
     {% empty %}
     <div class="card-sm">レビューが存在しません</div>
