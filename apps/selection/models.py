@@ -25,7 +25,16 @@ class BookSelectionLike(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ['user', 'selection'] 
+        unique_together = ['user', 'selection']
+
+# お気に入り
+class BookSelectionFavorite(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="selection_favorites")
+    selection = models.ForeignKey(BookSelection, on_delete=models.CASCADE, related_name="favorites")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ['user', 'selection']
 
 
 ### 以下中間テーブル

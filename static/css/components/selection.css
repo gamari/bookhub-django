@@ -5,6 +5,10 @@
     gap: 32px;
 }
 
+.book-selection {
+    cursor: pointer;
+}
+
 .selection-panel {
     cursor: pointer;
     border: 4px solid transparent;

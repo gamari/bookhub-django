@@ -48,12 +48,14 @@ function createIconOrImage(source, alt, classes, isIcon = false) {
 
 function createUserIcon(user) {
     const iconOrImage = user.profile_image ?
-        createIconOrImage(user.profile_image, user.username, ['user-icon-xs', 'user-icon']) :
+        createIconOrImage(user.profile_image, user.username, ['user-icon-sm', 'user-icon']) :
         createIconOrImage(null, '#888', ['fa-regular', 'fa-face-smile'], true);
-    return createElement('a', {
+    const userIcon = createElement('a', {
         classes: ['user-icon-sm', 'user-icon'],
         attributes: { href: `/user/${user.username}/` }
-    }).appendChild(iconOrImage);
+    })
+    userIcon.appendChild(iconOrImage);
+    return userIcon;
 }
 
 function createBookIcon(book) {
@@ -66,12 +68,23 @@ function createBookIcon(book) {
 }
 
 function createMemoElement(data) {
+    console.log(data);
     const memoImage = createElement('div', { classes: ['memo-item__image'] });
     memoImage.append(createBookIcon(data.book));
 
     const memoInfo = createElement('div', { classes: ['memo-item__info'] });
     const memoInfoHeader = createElement('div', { classes: ['memo-item__info-header'] });
-    memoInfoHeader.append(createUserIcon(data.user), createElement('p', { classes: ['memo-item__info-time'], content: data.created_at }));
+    const headerInfo = createElement('div', { classes: ['memo-item__header-info'] });
+    headerInfo.append(
+        createElement('p', { classes: ['memo-item__info-username'], content: data.user.username }),
+        createElement('p', { classes: ['memo-item__info-time'], content: data.created_at })
+    );
+    const userIcon = createUserIcon(data.user);
+    console.log(userIcon);
+    memoInfoHeader.append(
+        userIcon, 
+        headerInfo
+    );
 
     memoInfo.append(
         memoInfoHeader,

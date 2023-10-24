@@ -60,3 +60,9 @@ startappをして次の手順を行う
 ## Command
 
 python manage.py collectstatic
+
+
+**マイグレーションを戻す**
+
+python manage.py showmigrations
+python manage.py migrate [app_name] [migration_name]

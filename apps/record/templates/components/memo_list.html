@@ -1,18 +1,22 @@
 {% load user_tags %} 
-{% load book_tags %}
+{% load book_tags %} 
 
+
+{% if memos %}
 <ol id="memo-list">
   {% for memo in memos %}
-  {% comment %} TODO コンポーネント化する {% endcomment %}
   <li class="memo-item">
     <div class="memo-item__image">{% book_icon memo.book "sm" %}</div>
 
     <div class="memo-item__info">
       <div class="memo-item__info-header">
-        {% user_icon memo.user "xs" %}
-        <p class="memo-item__info-time">{{ memo.created_at }}</p>
+        {% user_icon memo.user "sm" %}
+        <div>
+          <p>{{memo.user.username}}</p>
+          <p class="memo-item__info-time">{{ memo.created_at }}</p>
+        </div>
       </div>
-      <p class="memo-item__content">{{ memo.content }}</p>
+      <div class="memo-item__content">{{ memo.content }}</div>
     </div>
 
     <div class="memo-item__tool">
@@ -27,7 +31,8 @@
       {%endif%}
     </div>
   </li>
-  {% empty %}
-  <div id="no-memo-title">メモが存在しません</div>
   {% endfor %}
 </ol>
+{% else %}
+<p class="card-sm">メモはありません</p>
+{% endif %}

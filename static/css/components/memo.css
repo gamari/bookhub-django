@@ -1,9 +1,10 @@
 .memo-container {
-  background-color: white;
 }
 
 /* メモフォーム */
 #memo-form {
+  margin-bottom: 32px;
+  background-color: white;
   padding: 24px;
   padding-top: 32px;
   padding-bottom: 32px;
@@ -11,9 +12,7 @@
   flex-direction: column;
   align-items: start;
   gap: 24px;
-  border-top: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+  border: 1px solid #ccc;
 }
 
 .memo-textarea {
@@ -75,8 +74,6 @@
 .memo-item__content {
   margin-top: 16px;
   flex-grow: 1;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
   font-size: 16px;
   color: #666;
   white-space: pre-wrap;
@@ -91,5 +88,4 @@
 }
 
 #no-memo-title {
-    padding: 24px;
 }
