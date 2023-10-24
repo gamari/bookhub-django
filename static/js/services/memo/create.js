@@ -38,9 +38,11 @@ function initialize() {
 
         try {
             const data = await createMemo(postUrl, formData, getCookie('csrfmiddlewaretoken'));
-            memoList.append(createMemoElement(data));
+
+            console.log(memoList)
+            noMemoTitle.remove();
+            memoList.prepend(createMemoElement(data));
             memoContent.value = '';
-            if (noMemoTitle) noMemoTitle.remove();
         } catch (error) {
             console.error("Error creating memo:", error);
         }

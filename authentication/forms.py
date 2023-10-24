@@ -51,9 +51,9 @@ class AccountUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(AccountUpdateForm, self).__init__(*args, **kwargs)
         self.fields["email"].widget.attrs.update({"class": "max-w-sm"})
-        self.fields["username"].widget.attrs.update({"class": "max-w-sm"})
+        self.fields["username"].widget.attrs.update({"class": "max-w-sm", "maxlength": 20, "placeholder": "ユーザー名を入力……(20)"})
         self.fields["profile_image"].widget.attrs.update({"class": "form-input-file"})
-        self.fields["description"].widget = forms.Textarea(attrs={"rows": 5, "class": "max-w-lg"})
+        self.fields["description"].widget = forms.Textarea(attrs={"rows": 5, "class": "max-w-lg", "maxlength": 200, "placeholder": "自己紹介を入力……(200)"})
 
     class Meta:
         model = Account

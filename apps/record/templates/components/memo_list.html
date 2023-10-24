@@ -1,8 +1,6 @@
 {% load user_tags %} 
-{% load book_tags %} 
+{% load book_tags %}
 
-
-{% if memos %}
 <ol id="memo-list">
   {% for memo in memos %}
   <li class="memo-item">
@@ -32,7 +30,9 @@
     </div>
   </li>
   {% endfor %}
+
+  {% if not memos %}
+  <p id="no-memo-title" class="card-sm">メモはありません</p>
+  {% endif %}
 </ol>
-{% else %}
-<p class="card-sm">メモはありません</p>
-{% endif %}
+

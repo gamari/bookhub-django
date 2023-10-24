@@ -12,8 +12,8 @@ class ReadingMemoForm(forms.ModelForm):
             'content': forms.Textarea(attrs={
                 'rows': 4, 
                 'class': 'memo-textarea', 
-                'placeholder': '感想やページ数をメモ……(500文字以内)',
-                "maxLength": "500"
+                'placeholder': 'メモ……(250)',
+                "maxLength": "250"
             }),
         }
 

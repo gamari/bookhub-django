@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "apps.ranking.apps.RankingConfig",
     "apps.selection.apps.SelectionConfig",
     "apps.search.apps.SearchConfig",
+    "apps.management.apps.ManagementConfig",
 ]
 
 MIDDLEWARE = [

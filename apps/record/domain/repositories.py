@@ -47,6 +47,7 @@ class ReadingMemoRepository(object):
         
         if order_by:
             memos = memos.order_by(order_by)
+
         if limit:
             memos = memos[:limit]
 

@@ -15,6 +15,7 @@ urlpatterns = [
     path("", include("apps.ranking.urls")),
     path("", include("apps.search.urls")),
     path("", include("apps.selection.urls")),
+    path("", include("apps.management.urls")),
 ]
 
 # ファイル設定
