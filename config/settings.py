@@ -125,44 +125,45 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 
 # ログ設定
 LOGGING = {
-    'version': 1,
-    # 'disable_existing_loggers': True,
-    'formatters': {
-        'verbose': {
-            'format': '[{levelname}][{module}.{funcName}()] {message}',
-            'style': '{',
+    "version": 1,
+    "formatters": {
+        "verbose": {
+            "format": "[{levelname}][{module}.{funcName}()] {message}",
+            "style": "{",
         },
     },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose',
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+        "file": {
+            "level": "ERROR",
+            "class": "logging.FileHandler",
+            'filename': os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs/error.log'),
+            "formatter": "verbose",
         },
     },
-    'loggers': {
-        # ここで独自のロガーを定義
-        'app_logger': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': False,
+    "loggers": {
+        "app_logger": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": False,
         },
-        # Djangoのログはエラーだけ表示
-        'django': {
-            'handlers': ['console'],
-            'level': 'ERROR',
-            'propagate': False,
+        "django": {
+            "handlers": ["file"],
+            "level": "ERROR",
+            "propagate": False,
         },
     },
 }
-
-
 
 
 # 国際化設定
 
 LANGUAGE_CODE = "ja"
 TIME_ZONE = "Asia/Tokyo"
-USE_TZ = False  # 日本国内向けのため、タイムゾーンを無効化
+USE_TZ = False
 USE_I18N = True
 USE_L10N = True
 

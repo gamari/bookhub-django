@@ -1,0 +1,10 @@
+[ERROR][log.log_response()] Internal Server Error: /
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/workspaces/django/apps/book/views.py", line 15, in home
+    raise Exception("test")
+Exception: test
+[ERROR][basehttp.log_message()] "GET / HTTP/1.1" 500 63607
