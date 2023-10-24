@@ -3,6 +3,29 @@ from django import forms
 from apps.book.models import Book, Bookshelf
 from apps.selection.models import BookSelection
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+class BookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = [
+            'id', 
+            'isbn_10', 'isbn_13', 'other', 
+            'title', 'description', 
+            'category', 
+            'thumbnail', 
+            'published_date', 
+            'publisher', 
+            'views', 
+            'is_clean'
+        ]
+        widgets = {
+            'published_date': DateInput(),
+        }
+
+
+# TODO selectionアプリに移動させる
 class BookSelectionForm(forms.ModelForm):
     title = forms.CharField(
         widget=forms.TextInput(

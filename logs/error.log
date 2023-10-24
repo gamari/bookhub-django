@@ -8,3 +8,23 @@ Traceback (most recent call last):
     raise Exception("test")
 Exception: test
 [ERROR][basehttp.log_message()] "GET / HTTP/1.1" 500 63607
+[ERROR][log.log_response()] Internal Server Error: /manage/book/1/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/workspaces/django/apps/management/views.py", line 28, in management_book_edit
+    return redirect('管理画面のURLまたは適切な場所へのリダイレクト')
+  File "/usr/local/lib/python3.9/site-packages/django/shortcuts.py", line 41, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "/usr/local/lib/python3.9/site-packages/django/shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/urls/base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/urls/resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for '管理画面のURLまたは適切な場所へのリダイレクト' not found. '管理画面のURLまたは適切な場所へのリダイレクト' is not a valid view function or pattern name.
+[ERROR][basehttp.log_message()] "POST /manage/book/1/ HTTP/1.1" 500 92068

@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import user_passes_test
+from apps.book.forms import BookForm
 
 from apps.book.models import Book
 
@@ -17,11 +18,18 @@ def management_books(request):
     }
     return render(request, "pages/manage-books.html", context)
 
-# 書籍編集ページ
 @user_passes_test(lambda u: u.is_superuser)
 def management_book_edit(request, book_id):
     book = Book.objects.get(id=book_id)
+    if request.method == "POST":
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('management_books')
+    else:
+        form = BookForm(instance=book)
     context = {
         "book": book,
+        "form": form,
     }
     return render(request, "pages/manage-book-edit.html", context)

@@ -1,38 +1,42 @@
 {% extends 'base.html' %} 
 {% load static %} 
-
-{% block css %}
-{% comment %} TODO {% endcomment %}
-{% endblock %} 
+{% block css %} {% comment %} TODO {% endcomment %} {% endblock %} 
 
 {% block title %}管理者画面{% endblock %} 
 
-
 {% block content %}
 <section>
-    <div class="col gap-4">
+  <div class="col gap-4">
+    {% for book in books %}
+    <div class="bg-white p-4">
+      <div>{{ book.title }}</div>
 
-        {% for book in books %}
-        <div class="bg-white p-4">
-            <div>
-
-                {{ book.title }}
-            </div>
-            <div>
-                <span>閲覧数</span>
-                <span>
-                    {{ book.views }}
-                </span>
-            </div>
-            <div>
-                {{ book.is_clean }}
-            </div>
-
-            <div>
-                <a href="{% url 'management_book_edit' book.id %}" class="btn-sm btn-primary">編集する</a>
-            </div>
+      <div class="row gap-4">
+        <div>
+          <span>閲覧数</span>
+          <span> {{ book.views }} </span>
         </div>
-        {% endfor %}
+        <div>{{ book.is_clean }}</div>
+      </div>
+
+      <div>
+        ISBN10: {{ book.isbn_10 }}
+      </div>
+      <div>
+        ISBN:13: {{ book.isbn_13 }}
+      </div>
+      <div>
+        OTHER: {{ book.other }}
+      </div>
+
+      <div>
+        <a
+          href="{% url 'management_book_edit' book.id %}"
+          class="btn-sm btn-primary"
+          >編集する</a>
+      </div>
     </div>
+    {% endfor %}
+  </div>
 </section>
 {% endblock %}

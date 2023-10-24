@@ -11,6 +11,11 @@
 {% block content %}
 <section>
     {% comment %}  {% endcomment %}
-    <div>編集画面</div>
+    <form method="post" class="card-sm">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- フォームをシンプルに表示 -->
+        <input type="submit" value="更新">
+    </form>
+    
 </section>
 {% endblock %}
