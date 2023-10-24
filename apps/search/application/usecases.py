@@ -14,8 +14,9 @@ class BookSearchByTitleUsecase(Usecase):
 
         results_list, total_pages = self.search_service.search(query, page)
 
-        # TODO サービス層に移動する
-        SearchHistory.objects.create(query=query)
+        if page == 1:
+            # TODO サービス層に移動する
+            SearchHistory.objects.create(query=query)
 
         context = {
             "results": results_list,

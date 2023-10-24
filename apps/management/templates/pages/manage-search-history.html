@@ -1,0 +1,22 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block css %} {% comment %} TODO　{% endcomment %} {% endblock %} 
+
+{% block title %}管理者画面{% endblock %} 
+
+{% block content %}
+<div>
+  <a href="{% url 'management_dashboard' %}">管理者ダッシュボードへ</a>
+</div>
+
+<section>
+  <div class="card">
+    {% for history in histories %}
+        <div>
+            <span>{{history.created_at}}</span>
+            <span>{{history.query}}</span>
+        </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

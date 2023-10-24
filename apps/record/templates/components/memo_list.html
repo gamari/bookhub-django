@@ -6,7 +6,6 @@
   <li class="memo-item">
     <div class="memo-item__image">
       {% book_icon memo.book "sm" %}
-      {% comment %} <i class="fa-regular fa-note-sticky fa-lg" style="color: #aaa;"></i> {% endcomment %}
     </div>
 
     <div class="memo-item__info">
@@ -21,6 +20,7 @@
     </div>
 
     <div class="memo-item__tool">
+      {% comment %} TODO ホーム画面では非表示にさせたい {% endcomment %}
       {% if memo.user == request.user %}
       <button
         class="memo-item__delete"

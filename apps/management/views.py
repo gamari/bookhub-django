@@ -5,6 +5,7 @@ from apps.book.forms import BookForm
 
 from apps.book.models import Book
 from apps.contact.models import Contact
+from apps.search.models import SearchHistory
 
 @user_passes_test(lambda u: u.is_superuser)
 def management_dashboard(request):
@@ -35,7 +36,6 @@ def management_book_edit(request, book_id):
     }
     return render(request, "pages/manage-book-edit.html", context)
 
-# お問い合わせ一覧
 @user_passes_test(lambda u: u.is_superuser)
 def management_contacts(request):
     contacts = Contact.objects.all().order_by("-created_at")[:10]
@@ -44,6 +44,14 @@ def management_contacts(request):
         "contacts": contacts,
     }
     return render(request, "pages/manage-contacts.html", context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def management_search_history(request):
+    histories = SearchHistory.objects.all().order_by("-created_at")[:50]
+    context = {
+        "histories": histories,
+    }
+    return render(request, "pages/manage-search-history.html", context)
 
 
 # お知らせ機能
