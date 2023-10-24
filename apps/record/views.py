@@ -10,20 +10,14 @@ from apps.record.application.usecases import (
     DeleteMemoUsecase,
     RecordReadingHistoryUsecase,
 )
-from apps.record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
-from apps.record.domain.services import MemoDomainService, RecordDomainService
+from apps.record.domain.repositories import ReadingMemoRepository
+from apps.record.domain.services import MemoDomainService
 from apps.record.models import ReadingRecord
-from apps.review.domain.repositories import ReviewRepository
-from apps.review.domain.services import ReviewDomainService
 
 
 @login_required
 def reading_record_page(request, book_id):
-    book_service = BookDomainService(BookRepository(), BookshelfRepository())
-    reading_service = RecordDomainService(ReadingRecordRepository())
-    review_service = ReviewDomainService(ReviewRepository())
-
-    usecase = RecordReadingHistoryUsecase(reading_service, book_service, review_service)
+    usecase = RecordReadingHistoryUsecase.build()
 
     context = usecase.execute(book_id, request.user)
 

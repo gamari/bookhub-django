@@ -23,6 +23,18 @@ class RecordReadingHistoryUsecase(Usecase):
         self.book_service = book_service
         self.review_service = review_service
 
+    @classmethod
+    def build(cls):
+        reading_record_service = RecordDomainService.initialize()
+        book_service = BookDomainService.initialize()
+        review_service = ReviewDomainService.initialize()
+
+        return cls(
+            reading_record_service,
+            book_service,
+            review_service,
+        )
+
     def run(self, book_id, user):
         book = self.book_service.find_book_by_id(book_id)
 

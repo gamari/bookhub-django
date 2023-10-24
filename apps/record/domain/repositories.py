@@ -6,6 +6,15 @@ from apps.record.models import ReadingMemo, ReadingRecord
 
 
 class ReadingMemoRepository(object):
+    def fetch_memo_by_id(self, memo_id):
+        return ReadingMemo.objects.get(id=memo_id)
+
+    def fetch_memos_by_user(self, user, limit):
+        return self._fetch_memos(user=user, limit=limit)
+    
+    def fetch_memos_for_users(self, users, limit=5):
+        return self._fetch_memos(user__in=users, limit=limit)
+
     def fetch_memos_by_user_within_date_range(self, user, start_date, end_date):
         """指定した期間内のメモを取得する"""
         return (
@@ -21,13 +30,7 @@ class ReadingMemoRepository(object):
 
     def fetch_memos(self, limit):
         return ReadingMemo.objects.filter(user__is_active=True).order_by("-created_at")[:limit]
-
-    def fetch_memo_by_id(self, memo_id):
-        return ReadingMemo.objects.get(id=memo_id)
-
-    
-    def fetch_memos_by_user(self, user, limit):
-        return ReadingMemo.objects.filter(user=user).order_by("-created_at")[:limit]
+  
 
     def delete(self, memo):
         memo.delete()
@@ -35,6 +38,19 @@ class ReadingMemoRepository(object):
     def save(self, memo):
         memo.save()
         return memo
+    
+    def _fetch_memos(self, **kwargs):
+        limit = kwargs.pop('limit', None)
+        order_by = kwargs.pop('order_by', None)
+
+        memos = ReadingMemo.objects.filter(**kwargs)
+        
+        if order_by:
+            memos = memos.order_by(order_by)
+        if limit:
+            memos = memos[:limit]
+
+        return memos
 
 
 class ReadingRecordRepository(object):

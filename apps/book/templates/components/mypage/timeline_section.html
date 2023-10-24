@@ -1,7 +1,7 @@
-{% load book_tags %}
+{% load book_tags %} 
 {% load user_tags %}
 
-<section id="timeline-section" style="display: none">
-    {% comment %} TODO {% endcomment %}
-    timeline section
+{% comment %} <section id="timeline-section" style="display: none"> {% endcomment %}
+<section id="timeline-section">
+    {% include 'components/memo_list.html' %}
 </section>

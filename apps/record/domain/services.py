@@ -1,4 +1,5 @@
 from datetime import datetime
+from apps.follow.models import Follow
 from config.utils import DateUtils
 
 from apps.record.domain.aggregates import ActivityCollection
@@ -40,11 +41,17 @@ class MemoDomainService(object):
         memo_repo = ReadingMemoRepository()
         return cls(memo_repo)
 
-    def get_memos(self, limit: int):
+    def get_memos(self, limit: int = None):
         return self.memo_repo.fetch_memos(limit)
 
-    def get_memos_by_user(self, user, limit: int):
+    def get_memos_by_user(self, user, limit: int = None):
         return self.memo_repo.fetch_memos_by_user(user, limit)
+    
+    def get_memos_of_user_and_followings(self, user, limit):
+        """ユーザーとフォローしているユーザーのメモを取得する"""
+        followings = Follow.objects.filter(follower=user).values_list('followed', flat=True)
+        users_to_fetch = list(followings) + [user]
+        return self.memo_repo.fetch_memos_for_users(users_to_fetch, limit)
 
     def create_memo_from_form(self, form: ReadingMemoForm, user, book):
         # TODO userとbookを入れてから保存する

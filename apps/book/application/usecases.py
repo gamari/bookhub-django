@@ -77,6 +77,7 @@ class ShowMyPageUsecase(Usecase):
         record_service = RecordDomainService.initialize()
         review_service = ReviewDomainService.initialize()
         selection_service = BookSelectionDomainService.initialize()
+        memo_service = MemoDomainService.initialize()
 
         return cls(
             bookshelf_service,
@@ -84,6 +85,7 @@ class ShowMyPageUsecase(Usecase):
             record_service,
             review_service,
             selection_service,
+            memo_service
         )
 
     def __init__(
@@ -93,12 +95,14 @@ class ShowMyPageUsecase(Usecase):
         record_service: RecordDomainService,
         review_service: ReviewDomainService,
         selection_service: BookSelectionDomainService,
+        memo_service: MemoDomainService,
     ):
         self.bookshelf_service = bookshelf_service
         self.activity_service = activity_service
         self.record_service = record_service
         self.review_service = review_service
         self.selection_service = selection_service
+        self.memo_service = memo_service
 
     def run(self, user):
         today = timezone.now().date()
@@ -112,6 +116,8 @@ class ShowMyPageUsecase(Usecase):
         reviews = self._fetch_review_data(user)
         following_count, follower_count = self._fetch_follow_data(user)
         selections = self._fetch_selection_data(user)
+        memos = self._fetch_timeline_data(user)
+
 
         return {
             "books": books,
@@ -125,6 +131,7 @@ class ShowMyPageUsecase(Usecase):
             "follower_count": follower_count,
             "selections": selections,
             "today": today,
+            "memos": memos,
         }
     
     def _fetch_book_data(self, user):
@@ -150,6 +157,10 @@ class ShowMyPageUsecase(Usecase):
     def _fetch_selection_data(self, user):
         selections = self.selection_service.get_selections_for_user(user)
         return selections
+    
+    def _fetch_timeline_data(self, user):
+        memos = self.memo_service.get_memos_of_user_and_followings(user, limit=5)
+        return memos
 
 
 class ShowBookDetailPageUsecase(Usecase):
