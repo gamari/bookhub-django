@@ -77,9 +77,17 @@ class Book(models.Model):
         avg_rating = self.review_set.aggregate(avg_rating=Avg("rating"))["avg_rating"]
         return round(avg_rating, 2) if avg_rating is not None else None
 
-    def get_reviews(self):
-        """書籍のレビューを取得する。"""
-        return self.review_set.all().order_by("-created_at")
+    def get_reviews(self, user=None):
+        reviews = self.review_set.all().order_by("-created_at")
+
+        logger.debug(user)
+        
+        if user and user.is_authenticated:
+            for review in reviews:
+                review.is_liked = review.is_liked_by(user)
+                logger.debug(review.is_liked)
+                
+        return reviews
 
 
 class Bookshelf(models.Model):

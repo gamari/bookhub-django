@@ -45,8 +45,8 @@
     <div class="mt-4 row">
       <div
         class="like-btn"
-        style="color: {{ is_liked|yesno:"#FF0000,#666" }};"
-        data-liked="{{ is_liked }}"
+        style="color: {{ review.is_liked|yesno:"#FF0000,#666" }};"
+        data-liked="{{ review.is_liked|yesno:"true,false" }}"
         data-selection-id="{{ review.id }}"
       >
         <i 

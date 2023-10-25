@@ -184,7 +184,7 @@ class ShowBookDetailPageUsecase(Usecase):
 
         latest_review = self.review_service.get_latest_review_for_user(book, user)
         avg_rating = book.get_avg_rating()
-        reviews = book.get_reviews()
+        reviews = book.get_reviews(user)
         book_on_shelf = self.book_service.is_book_on_shelf(book, user)
         registers = Bookshelf.objects.filter(books__id=book.id).count()
 

@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
                 if (response.ok) {
                     likeButton.dataset.liked = !isLiked;
-                    likeIcon.style.color = !isLiked ? "#FF0000" : "#666";
+                    likeButton.style.color = !isLiked ? "#FF0000" : "#666";
 
                     if (isLiked) {
                         likeCountElem.textContent = parseInt(likeCountElem.textContent) - 1;

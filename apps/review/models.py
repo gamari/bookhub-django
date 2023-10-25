@@ -1,3 +1,5 @@
+import logging
+
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -7,6 +9,7 @@ rating_choices = [(i, str(i)) for i in range(1, 6)]
 
 User = get_user_model()
 
+logger = logging.getLogger("app_logger")
 
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -30,9 +33,10 @@ class Review(models.Model):
     @property
     def like_count(self):
         return self.reviewlike_set.count()
-
+    
     def is_liked_by(self, user):
-        return self.reviewlike_set.filter(user=user).exists()
+        return ReviewLike.objects.filter(user=user, review=self).exists()
+
 
 
 class ReviewLike(models.Model):
