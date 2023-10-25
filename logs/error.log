@@ -304,3 +304,5 @@ Traceback (most recent call last):
     for field_errors in errors.values():
 AttributeError: 'str' object has no attribute 'values'
 [ERROR][basehttp.log_message()] "GET /selection/11b0a576-5788-4add-8e80-9a8284635f53/ HTTP/1.1" 500 98858
+[ERROR][log.log_response()] Internal Server Error: /api/follow/d4ed85e9-b10a-4773-8fb5-ca22e81c72d5/
+[ERROR][basehttp.log_message()] "POST /api/follow/d4ed85e9-b10a-4773-8fb5-ca22e81c72d5/ HTTP/1.1" 500 79

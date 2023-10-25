@@ -2,6 +2,9 @@
 param1: フォローされる側
 param2: フォローする側
 {% endcomment %}
+{% if is_authenticated %}
+{% if is_self %}
+{% else %}
 <button
   id="followButton_{{ target_account.id }}"
   data-follow-button
@@ -12,3 +15,5 @@ param2: フォローする側
 >
   {% if is_following %}フォロー解除{% else %}フォローする{% endif %}
 </button>
+{% endif %}
+{% endif %}

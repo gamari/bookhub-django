@@ -7,11 +7,7 @@
 
     <div class="user-name">{{ user.username }}</div>
 
-    {% if is_self %}
-      <div></div>
-    {% else %} 
-      {% follow_button request.user user %} 
-    {% endif %}
+    {% follow_button request.user user %} 
   </div>
 
   <div class="user-panel-info">
