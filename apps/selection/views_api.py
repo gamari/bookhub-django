@@ -1,14 +1,15 @@
-from django.http import JsonResponse, HttpResponseBadRequest
-from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 from .models import BookSelection, BookSelectionLike
 
-# TODO CSRFの検討を行う
-@csrf_exempt
-def like_book_selection(request, selection_id):
-    if request.method == "POST":
+class LikeBookSelectionApiView(APIView):
+    """いいね機能API"""
+    
+    def post(self, request, selection_id):
         user = request.user
-        print(selection_id)
         selection = get_object_or_404(BookSelection, id=selection_id)
 
         existing_like = BookSelectionLike.objects.filter(user=user, selection=selection).first()
@@ -20,6 +21,5 @@ def like_book_selection(request, selection_id):
             BookSelectionLike.objects.create(user=user, selection=selection)
             action = "liked"
 
-        return JsonResponse({'action': action})
+        return Response({'action': action})
 
-    return HttpResponseBadRequest("メソッドが間違っています。")

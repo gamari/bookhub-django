@@ -390,3 +390,35 @@ Traceback (most recent call last):
     raise NoReverseMatch(msg)
 django.urls.exceptions.NoReverseMatch: Reverse for 'terms_of_service' not found. 'terms_of_service' is not a valid view function or pattern name.
 [ERROR][basehttp.log_message()] "GET /register/ HTTP/1.1" 500 157623
+[ERROR][log.log_response()] Internal Server Error: /api/selection/127a752b-c2b0-43e7-90a0-9116d50f8219/like/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 494, in dispatch
+    self.headers = self.default_response_headers  # deprecate?
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 156, in default_response_headers
+    'Allow': ', '.join(self.allowed_methods),
+TypeError: can only join an iterable
+[ERROR][basehttp.log_message()] "POST /api/selection/127a752b-c2b0-43e7-90a0-9116d50f8219/like/ HTTP/1.1" 500 78100
+[ERROR][log.log_response()] Internal Server Error: /api/selection/127a752b-c2b0-43e7-90a0-9116d50f8219/like/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 494, in dispatch
+    self.headers = self.default_response_headers  # deprecate?
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 156, in default_response_headers
+    'Allow': ', '.join(self.allowed_methods),
+TypeError: can only join an iterable
+[ERROR][basehttp.log_message()] "POST /api/selection/127a752b-c2b0-43e7-90a0-9116d50f8219/like/ HTTP/1.1" 500 78120
