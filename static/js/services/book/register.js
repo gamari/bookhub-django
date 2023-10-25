@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
+                alert('本棚の登録に失敗しました。');
             });
         });
     });

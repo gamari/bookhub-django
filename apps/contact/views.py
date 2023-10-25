@@ -17,3 +17,7 @@ def contact_page(request):
 
 def help_activity_page(request):
     return render(request, "pages/help_activity.html")
+
+# 利用規約ページ
+def terms_page(request):
+    return render(request, "pages/terms.html")

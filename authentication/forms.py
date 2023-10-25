@@ -21,6 +21,7 @@ class RegisterForm(forms.Form):
         widget=forms.PasswordInput(attrs={"class": "form-input"})
     )
     username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-input"}))
+    terms_agreed = forms.BooleanField(required=True)
 
     def clean_username(self):
         username = self.cleaned_data.get("username")
@@ -43,7 +44,7 @@ class RegisterForm(forms.Form):
         if len(password) < 4:
             raise ValidationError("4文字以上を入力してください")
         return password
-
+    
 # TODO リファクタリングする
 class AccountUpdateForm(forms.ModelForm):
     """更新用フォーム"""
