@@ -12,8 +12,8 @@
       <div class="memo-item__info-header">
         {% user_icon memo.user "sm" %}
         <div>
-          <p>{{memo.user.username}}</p>
-          <p class="memo-item__info-time">{{ memo.created_at }}</p>
+          <p class="user-name__md">{{memo.user.username}}</p>
+          <p class="book-time__sm">{{ memo.created_at }}</p>
         </div>
       </div>
       <div class="memo-item__content">{{ memo.content }}</div>

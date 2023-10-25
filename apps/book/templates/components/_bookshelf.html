@@ -1,6 +1,6 @@
 {% load book_tags %}
 
-<div class="content bookshelf">
+<div class="bookshelf">
   {% for book in books %}
   <a href="{% url 'reading_record' book.id %}" class="book">
     {% if book.thumbnail %}

@@ -4,6 +4,19 @@ from apps.book.models import Book
 from apps.review.forms import ReviewForm
 from apps.review.models import Review
 
+class RemoveReviewUsecase(object):
+    """レビューを削除する。"""
+
+    def __init__(self, user, review_id) -> None:
+        self.user = user
+        self.review_id = review_id
+
+    def execute(self):
+        review = get_object_or_404(Review, id=self.review_id, user=self.user)
+        review.delete()
+        return {"message": "Review deleted successfully."}, 200
+
+
 
 class ReviewUsecase(object):
     """レビューする。"""

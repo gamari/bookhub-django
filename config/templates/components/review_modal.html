@@ -14,13 +14,18 @@
 
         <div class="form-group">{{ review_form.content }}</div>
 
-        <div class="modal-footer">
-          <button id="review-submit" type="button" class="btn-sm btn-primary">
-            レビューを送信
-          </button>
-          <button type="button" class="btn-sm" id="closeReviewModalButton">
-            閉じる
-          </button>
+        <div class="modal-footer row-between">
+          <div class="row-center gap-2">
+            <button id="review-submit" type="button" class="btn-sm btn-primary">
+              送信
+            </button>
+            <button type="button" class="btn-sm" id="closeReviewModalButton">
+              閉じる
+            </button>
+          </div>
+
+          {% comment %} TODO 実装する {% endcomment %}
+          <button type="button" class="btn-sm btn-danger">取り消す</button>
         </div>
       </form>
     </div>
