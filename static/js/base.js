@@ -12,3 +12,11 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+/**
+ * metaに登録されている。
+ */
+function getCsrfToken() {
+    let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    return csrfToken;
+}

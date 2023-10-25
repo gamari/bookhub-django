@@ -29,8 +29,10 @@ class Review(models.Model):
     
     @property
     def like_count(self):
-        # TODO 検証する
         return self.reviewlike_set.count()
+
+    def is_liked_by(self, user):
+        return self.reviewlike_set.filter(user=user).exists()
 
 
 class ReviewLike(models.Model):

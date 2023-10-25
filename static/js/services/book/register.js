@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let url = `/api/bookshelf/books/${bookId}/`;
             let method = isRegistered ? 'DELETE' : 'POST';
 
-            let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            let csrfToken = getCsrfToken()
 
             fetch(url, {
                 method: method,

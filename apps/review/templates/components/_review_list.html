@@ -1,66 +1,64 @@
-{% load user_tags %}
-{% load book_tags %}
+{% load user_tags %} {% load book_tags %}
 
 <div class="review-list">
   {% for review in reviews %}
-    <div class="review-item">
-      <div class="review-item__header">
-        <div class="review-item__image">
-          {% book_icon review.book "sm" %}
-          <i class="fa-solid fa-pen" style="color: #888;"></i>
-        </div>
-
-        <div>
-          <div class="review-item__user-info">
-            <div>
-              {% user_icon review.user "sm" %}
-            </div>
-            <div>
-              <div class="review-item__username">{{ review.user.username }}</div>
-              <div class="review-item__time">{{review.created_at}}</div>
-            </div>
-          </div>
-
-          <div class="review-rating">
-            {% if review.rating %}
-              {% for i in rating_range %}
-                {% if i <= review.rating %}
-                  <i class="fa-solid fa-star" style="color: #ffdc2e;"></i>
-                {% else %}
-                  <i class="far fa-star"></i>
-                {% endif %}
-              {% endfor %}
-            {% else %}
-              レビューがありません
-            {% endif %}
-          </div>
-
-          <a href="{% url 'book_detail' review.book.id %}" class="review-item__title">{{ review.book.title }}</a>
-        </div>
+  <div class="review-item">
+    <div class="review-item__header">
+      <div class="review-item__image">
+        {% book_icon review.book "sm" %}
+        <i class="fa-solid fa-pen" style="color: #888"></i>
       </div>
 
-      {% comment %} <a class="review-item__content" href="{% url 'book_detail' review.book.id %}"></a> {% endcomment %}
-      <p class="review-item__content">{{ review.content }}</p>
-
-      <div class="mt-4">
-        {% comment %} TODO　良いね機能を実装する {% endcomment %}
-        <div
-          id="like-btn"
-          style="color: {{ is_liked|yesno:"#FF0000,#666" }};"
-        >
-          <i 
-            id="like-icon" 
-            class="fa-regular fa-heart {{ is_authenticated|yesno:"cursor-pointer," }}" 
-            {% comment %} data-liked="{{ is_liked }}" 
-            data-selection-id="{{ selection.id }}"  {% endcomment %}
-          ></i>
-          <span id="like-count">
-            {{ review.like_count }}
-          </span>
+      <div>
+        <div class="review-item__user-info">
+          <div>{% user_icon review.user "sm" %}</div>
+          <div>
+            <div class="review-item__username">{{ review.user.username }}</div>
+            <div class="review-item__time">{{review.created_at}}</div>
+          </div>
         </div>
+
+        <div class="review-rating">
+          {% if review.rating %} 
+            {% for i in rating_range %} 
+              {% if i <= review.rating %}
+              <i class="fa-solid fa-star" style="color: #ffdc2e"></i>
+              {% else %}
+              <i class="far fa-star"></i>
+              {% endif %} 
+            {% endfor %} 
+          {% else %}
+          レビューがありません
+          {% endif %}
+        </div>
+
+        <a
+          href="{% url 'book_detail' review.book.id %}"
+          class="review-item__title"
+          >{{ review.book.title }}</a
+        >
       </div>
     </div>
-    {% empty %}
-    <div class="card-sm">レビューが存在しません</div>
+
+    <p class="review-item__content">{{ review.content }}</p>
+
+    <div class="mt-4 row">
+      <div
+        class="like-btn"
+        style="color: {{ is_liked|yesno:"#FF0000,#666" }};"
+        data-liked="{{ is_liked }}"
+        data-selection-id="{{ review.id }}"
+      >
+        <i 
+            class="like-icon fa-regular fa-heart {{ is_authenticated|yesno:"cursor-pointer," }}"
+        ></i>
+        <span class="like-count">
+            {{ review.like_count }}
+        </span>
+       </div>
+    </div>
+  </div>
+  {% empty %}
+  <div class="card-sm">レビューが存在しません</div>
   {% endfor %}
 </div>
