@@ -19,10 +19,13 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                isRegistered = !isRegistered;
-                updateButton(button, isRegistered);
-                button.setAttribute('data-is-registered', isRegistered);
+                if (data.success) {
+                    isRegistered = !isRegistered;
+                    updateButton(button, isRegistered);
+                    button.setAttribute('data-is-registered', isRegistered);
+                } else {
+                    alert('本棚の登録に失敗しました。');
+                }
             })
             .catch(error => {
                 console.error('Error:', error);

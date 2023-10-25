@@ -18,10 +18,9 @@ def follow_button(user, target):
     follow_service = FollowService()
     is_following = follow_service.is_following(user.id, target.id)
     is_self = user.id == target.id
-    
+
     logger.debug(user.id)
     logger.debug(target.id)
-    logger.debug(is_self)
 
     return render_to_string('tags/follow_button.html', {
         'user': user,
