@@ -9,6 +9,10 @@
 
 {% block css %}{% endblock %}
 
+{% block js %}
+<script src="{% static 'js/pages/register.js' %}"></script>
+{% endblock %}
+
 {% block content %}
   {% if error %}
     <p>{{ error }}</p>
@@ -69,7 +73,7 @@
     <div class="mt-10 google-login-btn">
       <h4 class="mb-2 mb-4">その他登録</h4>
 
-      <a href="{% provider_login_url 'google' next=next %}">
+      <a href="{% provider_login_url 'google' next=next %}" id="google-auth-link">
           <span class="google-icon"></span>
           <span class="google-btn-text">Googleで登録</span>
       </a>
