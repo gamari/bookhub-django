@@ -63,8 +63,8 @@ class AccountUpdateForm(forms.ModelForm):
     def clean_username(self):
         username = self.cleaned_data.get("username")
 
-        if len(username) < 1 or len(username) > 12:
-            raise ValidationError("ユーザー名は1～12文字で入力してください。")
+        if len(username) < 1 or len(username) > 20:
+            raise ValidationError("ユーザー名は1～20文字で入力してください。")
 
         return username
     

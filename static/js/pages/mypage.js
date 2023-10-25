@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
+    initializeContentToggle();
+    initializeForms();
+});
+
+function initializeContentToggle() {
     const btnBookshelf = document.getElementById('btn-bookshelf');
     const btnReviews = document.getElementById('btn-reviews');
     const btnSelection = document.getElementById('btn-selection');
@@ -44,4 +49,17 @@ document.addEventListener('DOMContentLoaded', function () {
         btnSelection.classList.remove('badge-info');
         btnTimeline.classList.remove('badge-info');
     }
-});
+}
+
+function initializeForms() {
+    const deleteForms = document.querySelectorAll('.delete-form');
+    deleteForms.forEach(deleteForm => {
+        deleteForm.addEventListener('submit', function (event) {
+            console.log("SUBMIT")
+            const confirmation = confirm("削除しますか？");
+            if (!confirmation) {
+                event.preventDefault();
+            }
+        });
+    });
+}

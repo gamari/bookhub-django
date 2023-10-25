@@ -17,15 +17,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     'X-CSRFToken': csrfToken
                 }
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    isRegistered = !isRegistered;
-                    updateButton(button, isRegistered);
-                    button.setAttribute('data-is-registered', isRegistered);
-                } else {
-                    alert('本棚の登録に失敗しました。');
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`${response.status} ${response.statusText}`);
                 }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                isRegistered = !isRegistered;
+                updateButton(button, isRegistered);
+                button.setAttribute('data-is-registered', isRegistered);
             })
             .catch(error => {
                 alert('本棚の登録に失敗しました。');
