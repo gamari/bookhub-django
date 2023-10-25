@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.db.models import Q
+from django.db.models import Q, Avg
 
 from apps.book.models import Author, Book, Bookshelf
 from apps.selection.models import BookSelection
@@ -20,6 +20,16 @@ class BookRepository(object):
     @staticmethod
     def find_by_id(book_id):
         return Book.objects.get(id=book_id)
+    
+    @staticmethod
+    def get_reviews_of(book):
+        return book.review_set.all().order_by("-created_at")
+    
+    @staticmethod
+    def get_avg_rating_of(book):
+        """書籍の平均評価を取得する。"""
+        avg_rating = book.review_set.aggregate(avg_rating=Avg("rating"))["avg_rating"]
+        return round(avg_rating, 2) if avg_rating is not None else None
 
     @staticmethod
     def get_or_create(book_data):
@@ -89,6 +99,11 @@ class BookshelfRepository:
     @staticmethod
     def has_book_for_user(book, user):
         return Bookshelf.objects.filter(user=user, books=book).exists()
+    
+    @staticmethod
+    def count_books_on_shelf(book):
+        return Bookshelf.objects.filter(books__id=book.id).count()
+
 
 class BookSelectionRepository(object):
     @staticmethod

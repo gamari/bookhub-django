@@ -1,5 +1,9 @@
+import logging
+
 from apps.book.domain.repositories import BookRepository, BookshelfRepository
 from apps.book.models import Bookshelf
+
+logger = logging.getLogger("app_logger")
 
 
 class BookDomainService(object):
@@ -22,6 +26,10 @@ class BookDomainService(object):
         if not user.is_authenticated:
             return False
         return self.bookshelf_repository.has_book_for_user(book, user)
+    
+    def count_books_on_shelf(self, book):
+        return self.bookshelf_repository.count_books_on_shelf(book)
+    
 
     def get_or_create_books(self, books_data):
         books = []
@@ -34,6 +42,25 @@ class BookDomainService(object):
     # TODO 削除予定
     def get_or_create_bookshelf(self, user):
         return self.bookshelf_repository.get_or_create(user)
+    
+    def get_reviews_of_book(self, book, user=None):
+        """本に対するレビューを取得する。"""
+        reviews = self.book_repository.get_reviews_of(book)
+
+        if user and user.is_authenticated:
+            for review in reviews:
+                review.is_liked = review.is_liked_by(user)
+
+        return reviews
+    
+    def increment_views_of_book(self, book):
+        book.views += 1
+        book.save()
+    
+    def get_avg_rating_of_book(self, book):
+        """書籍の平均評価を取得する。"""
+        avg_rating = self.book_repository.get_avg_rating_of(book)
+        return round(avg_rating, 2) if avg_rating is not None else None
 
 
 class BookshelfDomainService(object):

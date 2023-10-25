@@ -69,25 +69,7 @@ class Book(models.Model):
     is_clean = models.BooleanField("整備されたデータ判定", default=False)
 
     def __str__(self):
-        # return f"[{self.isbn_10} | {self.isbn_13}] {self.title}"
         return f"{self.title}"
-
-    def get_avg_rating(self):
-        """書籍の平均評価を取得する。"""
-        avg_rating = self.review_set.aggregate(avg_rating=Avg("rating"))["avg_rating"]
-        return round(avg_rating, 2) if avg_rating is not None else None
-
-    def get_reviews(self, user=None):
-        reviews = self.review_set.all().order_by("-created_at")
-
-        logger.debug(user)
-        
-        if user and user.is_authenticated:
-            for review in reviews:
-                review.is_liked = review.is_liked_by(user)
-                logger.debug(review.is_liked)
-                
-        return reviews
 
 
 class Bookshelf(models.Model):
