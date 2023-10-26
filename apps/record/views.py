@@ -2,8 +2,6 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from apps.book.domain.repositories import BookRepository, BookshelfRepository
-from apps.book.domain.services import BookDomainService
 from apps.book.models import Book
 from apps.record.application.usecases import (
     CreateMemoUsecase,
@@ -11,7 +9,6 @@ from apps.record.application.usecases import (
     RecordReadingHistoryUsecase,
 )
 from apps.record.domain.repositories import ReadingMemoRepository
-from apps.record.domain.services import MemoDomainService
 from apps.record.models import ReadingRecord
 
 
@@ -24,6 +21,7 @@ def reading_record_page(request, book_id):
     return render(request, "reading_record.html", context)
 
 
+# TODO 移動させてAPIViewで書き換える
 # API系
 @login_required
 def create_memo_api(request, book_id):

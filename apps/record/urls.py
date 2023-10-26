@@ -1,4 +1,5 @@
 from django.urls import path
+from apps.record import views_api
 
 from apps.record.views import (
     create_memo_api,
@@ -29,4 +30,5 @@ urlpatterns = [
         create_memo_api,
         name="create_memo_api",
     ),
+    path("api/memos/", views_api.ReadingMemoViewSet.as_view({"get": "list"})),
 ]

@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 from apps.follow.models import Follow
 from config.utils import DateUtils
@@ -6,6 +7,7 @@ from apps.record.domain.aggregates import ActivityCollection
 from apps.record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
 from apps.record.forms import ReadingMemoForm
 
+logger = logging.getLogger("app_logger")
 
 class RecordDomainService(object):
     """記録ドメインサービス。"""
@@ -47,14 +49,16 @@ class MemoDomainService(object):
     def get_memos_by_user(self, user, limit: int = None):
         return self.memo_repo.fetch_memos_by_user(user, limit)
     
-    def get_memos_of_user_and_followings(self, user, limit):
+    def get_memos_of_followings_and_me(self, user, limit=None, since_date=None):
         """ユーザーとフォローしているユーザーのメモを取得する"""
         followings = Follow.objects.filter(follower=user).values_list('followed', flat=True)
         users_to_fetch = list(followings) + [user]
-        return self.memo_repo.fetch_memos_for_users(users_to_fetch, limit)
+        logger.debug(f'{users_to_fetch}')
+        order_by = '-created_at'
+        return self.memo_repo.fetch_memos_for_users(users_to_fetch, limit, since_date, order_by)
+
 
     def create_memo_from_form(self, form: ReadingMemoForm, user, book):
-        # TODO userとbookを入れてから保存する
         memo = form.save(commit=False)
         memo.user = user
         memo.book = book

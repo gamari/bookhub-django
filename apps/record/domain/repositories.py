@@ -1,9 +1,12 @@
+import logging
 from datetime import datetime, timedelta
 from django.db.models import Count
 from django.db.models.functions import TruncDate
 
 from apps.record.models import ReadingMemo, ReadingRecord
 
+
+logger = logging.getLogger("app_logger")
 
 class ReadingMemoRepository(object):
     def fetch_memo_by_id(self, memo_id):
@@ -12,8 +15,9 @@ class ReadingMemoRepository(object):
     def fetch_memos_by_user(self, user, limit):
         return self._fetch_memos(user=user, limit=limit)
     
-    def fetch_memos_for_users(self, users, limit=5):
-        return self._fetch_memos(user__in=users, limit=limit)
+    def fetch_memos_for_users(self, users, limit=5, since_date=None, order_by=None):
+        return self._fetch_memos(user__in=users, limit=limit, since_date=since_date, order_by=order_by)
+
 
     def fetch_memos_by_user_within_date_range(self, user, start_date, end_date):
         """指定した期間内のメモを取得する"""
@@ -42,15 +46,21 @@ class ReadingMemoRepository(object):
     def _fetch_memos(self, **kwargs):
         limit = kwargs.pop('limit', None)
         order_by = kwargs.pop('order_by', None)
+        since_date = kwargs.pop('since_date', None)
 
         memos = ReadingMemo.objects.filter(**kwargs)
         
+        if since_date:
+            logger.debug(f'since_date: {since_date}')
+            memos = memos.filter(created_at__gt=since_date)
+        
         if order_by:
+            logger.debug(f'order_by: {order_by}')
             memos = memos.order_by(order_by)
 
         if limit:
             memos = memos[:limit]
-
+        
         return memos
 
 

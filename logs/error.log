@@ -1027,3 +1027,249 @@ Traceback (most recent call last):
     return func(self._wrapped, *args)
 TypeError: 'AnonymousUser' object is not iterable
 [ERROR][basehttp.log_message()] "GET /detail/33/ HTTP/1.1" 500 130782
+[ERROR][log.log_response()] Internal Server Error: /api/memos/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/workspaces/django/apps/record/views_api.py", line 18, in list
+    memos = service.get_memos_of_followings_and_me(request.user, limit=5, since_date=since_date)
+  File "/workspaces/django/apps/record/domain/services.py", line 54, in get_memos_of_followings_and_me
+    return self.memo_repo.fetch_memos_for_users(users_to_fetch, limit, since_date)
+  File "/workspaces/django/apps/record/domain/repositories.py", line 16, in fetch_memos_for_users
+    return self._fetch_memos(user__in=users, limit=limit, since_date=since_date)
+  File "/workspaces/django/apps/record/domain/repositories.py", line 57, in _fetch_memos
+    query = query.filter(created_at__gte=since_date)
+UnboundLocalError: local variable 'query' referenced before assignment
+[ERROR][basehttp.log_message()] "GET /api/memos/ HTTP/1.1" 500 106653
+[ERROR][log.log_response()] Internal Server Error: /api/memos/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/workspaces/django/apps/record/views_api.py", line 18, in list
+    memos = service.get_memos_of_followings_and_me(request.user, limit=5, since_date=since_date)
+  File "/workspaces/django/apps/record/domain/services.py", line 54, in get_memos_of_followings_and_me
+    return self.memo_repo.fetch_memos_for_users(users_to_fetch, limit, since_date)
+  File "/workspaces/django/apps/record/domain/repositories.py", line 16, in fetch_memos_for_users
+    return self._fetch_memos(user__in=users, limit=limit, since_date=since_date)
+  File "/workspaces/django/apps/record/domain/repositories.py", line 57, in _fetch_memos
+    query = query.filter(created_at__gte=since_date)
+UnboundLocalError: local variable 'query' referenced before assignment
+[ERROR][basehttp.log_message()] "GET /api/memos/ HTTP/1.1" 500 106655
+[ERROR][log.log_response()] Internal Server Error: /api/memos/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/workspaces/django/apps/record/views_api.py", line 18, in list
+    memos = service.get_memos_of_followings_and_me(request.user, limit=5, since_date=since_date)
+  File "/workspaces/django/apps/record/domain/services.py", line 57, in get_memos_of_followings_and_me
+    return self.memo_repo.fetch_memos_for_users(users_to_fetch, limit, since_date)
+  File "/workspaces/django/apps/record/domain/repositories.py", line 16, in fetch_memos_for_users
+    return self._fetch_memos(user__in=users, limit=limit, since_date=since_date)
+  File "/workspaces/django/apps/record/domain/repositories.py", line 57, in _fetch_memos
+    query = query.filter(created_at__gte=since_date)
+UnboundLocalError: local variable 'query' referenced before assignment
+[ERROR][basehttp.log_message()] "GET /api/memos/ HTTP/1.1" 500 106649
+[ERROR][log.log_response()] Internal Server Error: /api/memos/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/workspaces/django/apps/record/views_api.py", line 18, in list
+    memos = service.get_memos_of_followings_and_me(request.user, limit=5, since_date=since_date)
+  File "/workspaces/django/apps/record/domain/services.py", line 57, in get_memos_of_followings_and_me
+    return self.memo_repo.fetch_memos_for_users(users_to_fetch, limit, since_date)
+  File "/workspaces/django/apps/record/domain/repositories.py", line 19, in fetch_memos_for_users
+    return self._fetch_memos(user__in=users, limit=limit, since_date=since_date)
+  File "/workspaces/django/apps/record/domain/repositories.py", line 61, in _fetch_memos
+    query = query.filter(created_at__gte=since_date)
+UnboundLocalError: local variable 'query' referenced before assignment
+[ERROR][basehttp.log_message()] "GET /api/memos/ HTTP/1.1" 500 106693
+[ERROR][log.log_response()] Internal Server Error: /api/memos/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/workspaces/django/apps/record/views_api.py", line 18, in list
+    memos = service.get_memos_of_followings_and_me(request.user, limit=5, since_date=since_date)
+  File "/workspaces/django/apps/record/domain/services.py", line 57, in get_memos_of_followings_and_me
+    return self.memo_repo.fetch_memos_for_users(users_to_fetch, limit, since_date)
+  File "/workspaces/django/apps/record/domain/repositories.py", line 19, in fetch_memos_for_users
+    return self._fetch_memos(user__in=users, limit=limit, since_date=since_date)
+  File "/workspaces/django/apps/record/domain/repositories.py", line 61, in _fetch_memos
+    memos = memos.filter(created_at__gte=since_date)
+  File "/usr/local/lib/python3.9/site-packages/django/db/models/query.py", line 941, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/db/models/query.py", line 953, in _filter_or_exclude
+    assert not self.query.is_sliced, \
+AssertionError: Cannot filter a query once a slice has been taken.
+[ERROR][basehttp.log_message()] "GET /api/memos/ HTTP/1.1" 500 115365
+[ERROR][log.log_response()] Internal Server Error: /api/memos/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/workspaces/django/apps/record/views_api.py", line 18, in list
+    memos = service.get_memos_of_followings_and_me(request.user, limit=5, since_date=since_date)
+  File "/workspaces/django/apps/record/domain/services.py", line 57, in get_memos_of_followings_and_me
+    return self.memo_repo.fetch_memos_for_users(users_to_fetch, limit, since_date)
+  File "/workspaces/django/apps/record/domain/repositories.py", line 19, in fetch_memos_for_users
+    return self._fetch_memos(user__in=users, limit=limit, since_date=since_date)
+  File "/workspaces/django/apps/record/domain/repositories.py", line 61, in _fetch_memos
+    memos = memos.filter(created_at__gte=since_date)
+  File "/usr/local/lib/python3.9/site-packages/django/db/models/query.py", line 941, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/db/models/query.py", line 953, in _filter_or_exclude
+    assert not self.query.is_sliced, \
+AssertionError: Cannot filter a query once a slice has been taken.
+[ERROR][basehttp.log_message()] "GET /api/memos/ HTTP/1.1" 500 115365
+[ERROR][log.log_response()] Internal Server Error: /api/memos/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/workspaces/django/apps/record/views_api.py", line 18, in list
+    memos = service.get_memos_of_followings_and_me(request.user, limit=5, since_date=since_date)
+NameError: name 'since_date' is not defined
+[ERROR][basehttp.log_message()] "GET /api/memos/ HTTP/1.1" 500 91396
+[ERROR][log.log_response()] Internal Server Error: /api/memos/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/workspaces/django/apps/record/views_api.py", line 18, in list
+    memos = service.get_memos_of_followings_and_me(request.user, limit=5, since_date=since_date)
+  File "/workspaces/django/apps/record/domain/services.py", line 58, in get_memos_of_followings_and_me
+    return self.memo_repo.fetch_memos_for_users(users_to_fetch, limit, since_date, order_by)
+TypeError: fetch_memos_for_users() takes from 2 to 4 positional arguments but 5 were given
+[ERROR][basehttp.log_message()] "GET /api/memos/ HTTP/1.1" 500 97361
+[ERROR][log.log_response()] Internal Server Error: /api/memos/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/workspaces/django/apps/record/views_api.py", line 18, in list
+    memos = service.get_memos_of_followings_and_me(request.user, limit=5, since_date=since_date)
+  File "/workspaces/django/apps/record/domain/services.py", line 58, in get_memos_of_followings_and_me
+    return self.memo_repo.fetch_memos_for_users(users_to_fetch, limit, since_date, order_by)
+TypeError: fetch_memos_for_users() takes from 2 to 4 positional arguments but 5 were given
+[ERROR][basehttp.log_message()] "GET /api/memos/ HTTP/1.1" 500 97361

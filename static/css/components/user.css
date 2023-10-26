@@ -7,13 +7,14 @@
 
 .user-name__sm {
   font-size: 0.8rem;
+  font-weight: 600;
   color: #666;
   text-decoration: none;
 }
 
 .user-name__md {
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   color: #666;
   text-decoration: none;
 }

@@ -68,7 +68,6 @@ function createBookIcon(book) {
 }
 
 function createMemoElement(data) {
-    console.log(data);
     const memoImage = createElement('div', { classes: ['memo-item__image'] });
     memoImage.append(createBookIcon(data.book));
 
@@ -76,7 +75,7 @@ function createMemoElement(data) {
     const memoInfoHeader = createElement('div', { classes: ['memo-item__info-header'] });
     const headerInfo = createElement('div', { classes: ['memo-item__header-info'] });
     headerInfo.append(
-        createElement('p', { classes: ['memo-item__info-username'], content: data.user.username }),
+        createElement('p', { classes: ['user-name__md'], content: data.user.username }),
         createElement('p', { classes: ['memo-item__info-time'], content: data.created_at })
     );
     const userIcon = createUserIcon(data.user);

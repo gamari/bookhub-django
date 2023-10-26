@@ -5,6 +5,7 @@ from rest_framework.response import Response
 
 from .models import BookSelection, BookSelectionLike
 
+
 class LikeBookSelectionApiView(APIView):
     """いいね機能API"""
     

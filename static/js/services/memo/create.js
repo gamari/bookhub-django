@@ -38,9 +38,9 @@ function initialize() {
 
         try {
             const data = await createMemo(postUrl, formData, getCookie('csrfmiddlewaretoken'));
-
             console.log(memoList)
-            noMemoTitle.remove();
+
+            if (noMemoTitle) noMemoTitle.remove();
             memoList.prepend(createMemoElement(data));
             memoContent.value = '';
         } catch (error) {
