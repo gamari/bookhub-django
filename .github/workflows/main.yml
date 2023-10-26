@@ -24,7 +24,7 @@ jobs:
           cd ${{ secrets.MAIN_DIR }}
           echo "git pull開始"
           git pull
-          docker compose restart
-          docker compose exec web python manage.py collectstatic --noinput
-          docker compose exec web python manage.py migrate
+          docker-compose restart
+          docker-compose exec web python manage.py collectstatic --noinput
+          docker-compose exec web python manage.py migrate
           echo "デプロイ完了"
