@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     getMemoListButton.addEventListener('click', function() {
         let csrfToken = getCsrfToken()
-
+        getMemoListButton.style.display = 'none';
         fetch('/api/memos/', {
             method: 'GET',
             headers: {
@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }).then(response => response.json())
         .then(data => {
+            getMemoListButton.style.display = 'block';
             data.forEach(data => {
                 memoList.appendChild(createMemoElement(data));
             })

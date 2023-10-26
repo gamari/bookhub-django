@@ -13,6 +13,8 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="").split(",")
 
 GOOGLE_BOOKS_API_KEY = config("GOOGLE_BOOKS_API_KEY", default="")
 
+APP_NAME = "Yomi友"
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -83,12 +85,25 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # データベース
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+else:
+    POSTGRES_DB = config("POSTGRES_DB", default="")
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': POSTGRES_DB,
+            'USER': 'your_postgresql_user',
+            'PASSWORD': 'your_postgresql_password',
+            'HOST': 'db',
+            'PORT': '5432',
+        }
+    }
 
 
 # 認証関係
