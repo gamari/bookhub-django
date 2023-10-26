@@ -16,12 +16,13 @@
     />
     {% endif %}
     
-
     {% if result.reading_record.finished_at %}
-      <span class="book-done-icon"><i class="fa-solid fa-check"></i></span>
+    <span class="book-done-icon"><i class="fa-solid fa-check"></i></span>
     {% elif result.reading_record.started_at %}
-      <span class="book-play-icon"><i class="fa-solid fa-play"></i></span>
+    <span class="book-play-icon"><i class="fa-solid fa-play"></i></span>
     {% endif %}
+
+    <div class="book-title__hover">{{ book.title }}</div>
   </a>
 
   {% empty %}

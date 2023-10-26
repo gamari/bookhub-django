@@ -18,6 +18,8 @@
     {% elif book.reading_record.0.started_at %}
     <span class="book-play-icon"><i class="fa-solid fa-play"></i></span>
     {% endif %}
+
+    <div class="book-title__hover">{{ book.title }}</div>
   </a>
 
   {% empty %}
