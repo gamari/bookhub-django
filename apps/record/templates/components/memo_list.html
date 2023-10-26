@@ -28,7 +28,7 @@
 
     <div class="memo-item__tool">
       {% comment %} TODO ホーム画面では非表示にさせたい {% endcomment %}
-      {% if memo.user == request.user %}
+      {% if show and memo.user == request.user %}
       <button
         class="memo-item__delete"
         data-memo-id="{{ memo.id }}"

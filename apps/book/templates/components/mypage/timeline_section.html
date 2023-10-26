@@ -1,8 +1,12 @@
 {% load book_tags %} 
 {% load user_tags %}
 
-<section id="timeline-section" style="display: none">
+{% comment %} <section id="timeline-section" style="display: none"> {% endcomment %}
+<section id="timeline-section">
     <h3 class="mb-6">最新のタイムライン</h3>
     
-    {% include 'components/memo_list.html' %}
+    {% include 'components/memo_list.html' with show=True %}
+
+    <button id="get-memo-list-btn" class="btn-sm btn-primary">更新</button>
+    <div class="loading">読み込み中</div>
 </section>

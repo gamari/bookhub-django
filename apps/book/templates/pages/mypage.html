@@ -20,12 +20,15 @@
 
 
 {% block js %}
+  <script src="{% static 'js/create_element.js' %}"></script>
   <script src="{% static 'js/pages/mypage.js' %}"></script>
   <script src="{% static 'js/services/memo/delete.js' %}"></script>
+  <script src="{% static 'js/services/memo/get_list.js' %}"></script>
 {% endblock %}
 
 
 {% block content %}
+  {% include 'components/mypage/top_section.html' %}
   {% include 'components/mypage/top_section.html' %}
   {% include 'components/mypage/content_section.html' %}
 {% endblock %}
