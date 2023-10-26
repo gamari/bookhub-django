@@ -99,8 +99,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': POSTGRES_DB,
-            'USER': 'your_postgresql_user',
-            'PASSWORD': 'your_postgresql_password',
+            'USER': POSTGRES_USER,
+            'PASSWORD': POSTGRES_PASSWORD,
             'HOST': 'db',
             'PORT': '5432',
         }
