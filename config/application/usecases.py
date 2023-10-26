@@ -2,20 +2,21 @@ import time
 import logging
 
 logger = logging.getLogger("app_logger")
+time_logger = logging.getLogger("time_logger")
 
 class Usecase(object):
     def execute(self, *args, **kwargs):
         start_time = time.time()
 
-        # 実際のビジネスロジックの実行
         try:
             result = self.run(*args, **kwargs)
 
             end_time = time.time()
             elapsed_time = end_time - start_time
 
-            # TODO 1秒以上の処理をログに残す
-            logger.info(f"[{self.__class__.__name__}] {elapsed_time:.2f} 秒かかりました")
+            time_logger.debug(f"[{self.__class__.__name__}] {elapsed_time:.2f} 秒かかりました。\n\n")
+            if elapsed_time > 3:
+                time_logger.warning(f"[{self.__class__.__name__}] {elapsed_time:.2f} 秒かかりました")
 
             return result
         except Exception as e:

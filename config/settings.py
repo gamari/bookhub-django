@@ -146,10 +146,16 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         },
-        "file": {
+        "error_file": {
             "level": "ERROR",
             "class": "logging.FileHandler",
             'filename': os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs/error.log'),
+            "formatter": "verbose",
+        },
+        "time_file": {
+            "level": "WARNING",
+            "class": "logging.FileHandler",
+            'filename': os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs/time.log'),
             "formatter": "verbose",
         },
     },
@@ -160,10 +166,15 @@ LOGGING = {
             "propagate": False,
         },
         "django": {
-            "handlers": ["file"],
+            "handlers": ["error_file"],
             "level": "ERROR",
             "propagate": False,
         },
+        "time_logger": {
+            "handlers": ["time_file", "console"],
+            "level": "DEBUG",
+            "propagate": False,
+        }
     },
 }
 
