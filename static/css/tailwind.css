@@ -24,6 +24,10 @@
   border: 1px solid #b1b1b1;
 }
 
+.border-l-4 {
+  border-left: 4px solid #b1b1b1;
+}
+
 
 /* 背景 */
 .bg-info {
@@ -167,6 +171,29 @@
   padding-right: 24px;
 }
 
+.pl-2 {
+  padding-left: 8px;
+}
+
+.pl-4 {
+  padding-left: 16px;
+}
+
+.pl-6 {
+  padding-left: 24px;
+}
+
+.pr-2 {
+  padding-right: 8px;
+}
+
+.pr-4 {
+  padding-right: 16px;
+}
+
+.pr-6 {
+  padding-right: 24px;
+}
 
 
 /* Gap */

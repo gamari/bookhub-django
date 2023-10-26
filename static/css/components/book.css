@@ -37,11 +37,18 @@
 }
 
 /* タイトル */
-.book-title_sm {
+.book-title__xs {
+  font-size: 0.7rem;
+  font-weight: bold;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.book-title__sm {
   font-size: 0.8rem;
   font-weight: bold;
-  margin-top: 4px;
   text-decoration: none;
+  font-weight: 600;
 }
 
 .book-title__hover {

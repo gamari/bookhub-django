@@ -16,6 +16,13 @@
           <p class="book-time__sm">{{ memo.created_at }}</p>
         </div>
       </div>
+
+      <div>
+        <a href="{% url 'book_detail' memo.book.id  %}" class="book-title__sm text-primary">
+          {{memo.book.title}}
+        </a>
+      </div>
+
       <div class="memo-item__content">{{ memo.content }}</div>
     </div>
 
