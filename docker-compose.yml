@@ -25,7 +25,5 @@ services:
     image: postgres:latest
     volumes:
       - pgdata:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: your_database_name
-      POSTGRES_USER: your_postgresql_user
-      POSTGRES_PASSWORD: your_postgresql_password
+    env_file:
+      - .env

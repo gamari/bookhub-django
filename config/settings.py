@@ -13,8 +13,7 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="").split(",")
 
 GOOGLE_BOOKS_API_KEY = config("GOOGLE_BOOKS_API_KEY", default="")
 
-APP_NAME = "Yomi友"
-
+APP_NAME = "Yommy"
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -94,6 +93,8 @@ if DEBUG:
     }
 else:
     POSTGRES_DB = config("POSTGRES_DB", default="")
+    POSTGRES_USER = config("POSTGRES_USER", default="")
+    POSTGRES_PASSWORD = config("POSTGRES_PASSWORD", default="")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
