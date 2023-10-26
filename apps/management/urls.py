@@ -8,4 +8,6 @@ urlpatterns = [
     path('manage/book/<int:book_id>/', views.management_book_edit, name='management_book_edit'),
     path('manage/contacts/', views.management_contacts, name='management_contacts'),
     path('manage/search-history/', views.management_search_history, name='management_search_history'),
+    path('manage/notices/', views.management_notices, name='management_notices'),
+    path('manage/notice/create/', views.management_notice_create, name='management_notice_create'),
 ]

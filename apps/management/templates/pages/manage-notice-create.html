@@ -1,0 +1,16 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block css %}
+{% comment %} TODO {% endcomment %}
+{% endblock %} 
+
+{% block title %}お知らせ作成{% endblock %} 
+
+
+{% block content %}
+<section>
+    {{form.as_p}}
+    {% comment %} TODO 作成処理を追加する {% endcomment %}
+</section>
+{% endblock %}

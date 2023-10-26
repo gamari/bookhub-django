@@ -5,7 +5,37 @@ from apps.book.forms import BookForm
 
 from apps.book.models import Book
 from apps.contact.models import Contact
+from apps.management.forms import NoticeForm
+from apps.management.models import Notice
 from apps.search.models import SearchHistory
+
+@user_passes_test(lambda u: u.is_superuser)
+def management_notices(request):
+    """お知らせ一覧画面。"""
+    notices = Notice.objects.all().order_by("-created_at")
+
+    context = {
+        "notices": notices,
+    }
+    return render(request, "pages/manage-notices.html", context)
+
+# お知らせ作成
+@user_passes_test(lambda u: u.is_superuser)
+def management_notice_create(request):
+    """お知らせ作成画面。"""
+    if request.method == "POST":
+        form = NoticeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('management_notices')
+    else:
+        form = NoticeForm()
+    context = {
+        "form": form,
+    }
+    return render(request, "pages/manage-notice-create.html", context)
+
+
 
 @user_passes_test(lambda u: u.is_superuser)
 def management_dashboard(request):
