@@ -33,6 +33,7 @@ BookHubアプリ。
 - staticファイルの準備
   - docker compose exec web python manage.py collectstatic
 - docker compose up -d --build
+- docker compose exec web python manage.py showmigrations
 - docker compose exec web python manage.py migrate
 - 週間ランキングの作成をする（準備中）
 
