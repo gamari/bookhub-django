@@ -1,4 +1,4 @@
-name: デプロイ
+name: デプロイ(deployブランチ)
 
 on:
   push:
