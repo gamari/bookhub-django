@@ -3,6 +3,8 @@ from pathlib import Path
 
 from decouple import config
 
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY")
@@ -80,31 +82,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
-
-
-# データベース
-
-if DEBUG:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
-else:
-    POSTGRES_DB = config("POSTGRES_DB", default="")
-    POSTGRES_USER = config("POSTGRES_USER", default="")
-    POSTGRES_PASSWORD = config("POSTGRES_PASSWORD", default="")
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': POSTGRES_DB,
-            'USER': POSTGRES_USER,
-            'PASSWORD': POSTGRES_PASSWORD,
-            'HOST': 'db',
-            'PORT': '5432',
-        }
-    }
 
 
 # 認証関係
@@ -193,6 +170,33 @@ LOGGING = {
         }
     },
 }
+
+
+
+# 環境差分の設定
+if DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
+else:
+    SECURE_SSL_REDIRECT = True
+    POSTGRES_DB = config("POSTGRES_DB", default="")
+    POSTGRES_USER = config("POSTGRES_USER", default="")
+    POSTGRES_PASSWORD = config("POSTGRES_PASSWORD", default="")
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': POSTGRES_DB,
+            'USER': POSTGRES_USER,
+            'PASSWORD': POSTGRES_PASSWORD,
+            'HOST': 'db',
+            'PORT': '5432',
+        }
+    }
+
 
 
 # 国際化設定
