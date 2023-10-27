@@ -197,7 +197,8 @@ else:
         }
     }
     APP_URL = config("APP_URL", default="")
-    MEDIA_URL = f"{APP_URL}/media/"
+    # MEDIA_URL = f"{APP_URL}/media/"
+    MEDIA_URL = "/media/"
 
 
 
