@@ -29,6 +29,7 @@ services:
       - web
     volumes:
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./media:/code/media
       - ./static_root:/code/static_root
       - /etc/letsencrypt:/etc/letsencrypt
 volumes:
