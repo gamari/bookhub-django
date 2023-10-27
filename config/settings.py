@@ -175,6 +175,7 @@ LOGGING = {
 
 # 環境差分の設定
 if DEBUG:
+    print("ローカル")
     SECURE_SSL_REDIRECT = False
     DATABASES = {
         "default": {
@@ -184,6 +185,7 @@ if DEBUG:
     }
     MEDIA_URL = "/media/"
 else:
+    print("本番環境")
     SECURE_SSL_REDIRECT = False
     DATABASES = {
         "default": {
