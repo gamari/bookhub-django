@@ -10,4 +10,5 @@ urlpatterns = [
     path('manage/search-history/', views.management_search_history, name='management_search_history'),
     path('manage/notices/', views.management_notices, name='management_notices'),
     path('manage/notice/create/', views.management_notice_create, name='management_notice_create'),
+    path('manage/notice/<int:notice_id>/edit/', views.management_notice_edit, name='management_notice_edit'),
 ]

@@ -35,6 +35,25 @@ def management_notice_create(request):
     }
     return render(request, "pages/manage-notice-create.html", context)
 
+# お知らせの編集
+@user_passes_test(lambda u: u.is_superuser)
+def management_notice_edit(request, notice_id):
+    """お知らせ編集画面。"""
+    notice = Notice.objects.get(id=notice_id)
+    if request.method == "POST":
+        form = NoticeForm(request.POST, instance=notice)
+        if form.is_valid():
+            form.save()
+            return redirect('management_notices')
+    else:
+        form = NoticeForm(instance=notice)    
+    
+    context = {
+        "form": form,
+    }
+    
+    return render(request, "pages/manage-notice-edit.html", context)
+
 
 
 @user_passes_test(lambda u: u.is_superuser)

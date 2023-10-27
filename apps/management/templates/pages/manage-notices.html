@@ -17,7 +17,12 @@
 
     <div class="col gap-4">
         {% for notice in notices %}
-        <div>{{ notice.title }}</div>
+        <div class="row gap-4">
+            <div>{{ notice.title }}</div>
+            <div>
+                <a href="{% url 'management_notice_edit' notice.id %}" class="btn">編集</a>
+            </div>
+        </div>
         {% endfor %}
     </div>
 </section>

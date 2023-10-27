@@ -10,11 +10,12 @@
 
 {% block content %}
 <section>
-    <form action="{% url 'management_notice_create' %}" method="POST">
+    <form action="{% url 'management_notice_edit' form.instance.id %}" method="POST">
+
         {% csrf_token %}
         {{form.as_p}}
         {% comment %} TODO 作成処理を追加する {% endcomment %}
-        <button class="btn">作成</button>
+        <button class="btn">編集</button>
     </form>
 </section>
 {% endblock %}
