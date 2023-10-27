@@ -15,8 +15,14 @@ class ReadingMemoRepository(object):
     def fetch_memos_by_user(self, user, limit):
         return self._fetch_memos(user=user, limit=limit)
     
-    def fetch_memos_for_users(self, users, limit=5, since_date=None, order_by=None):
-        return self._fetch_memos(user__in=users, limit=limit, since_date=since_date, order_by=order_by)
+    def fetch_memos_for_users(self, users, limit=5, since_date=None, previous_date=None, order_by=None):
+        return self._fetch_memos(
+            user__in=users, 
+            limit=limit, 
+            since_date=since_date, 
+            previous_date=previous_date, 
+            order_by=order_by
+        )
 
 
     def fetch_memos_by_user_within_date_range(self, user, start_date, end_date):
@@ -47,12 +53,18 @@ class ReadingMemoRepository(object):
         limit = kwargs.pop('limit', None)
         order_by = kwargs.pop('order_by', None)
         since_date = kwargs.pop('since_date', None)
+        previous_date = kwargs.pop('previous_date', None)
+        logger.debug(f'kwargs: {kwargs}')
 
         memos = ReadingMemo.objects.filter(**kwargs)
         
         if since_date:
             logger.debug(f'since_date: {since_date}')
             memos = memos.filter(created_at__gt=since_date)
+        
+        if previous_date:
+            logger.debug(f'previous_date: {previous_date}')
+            memos = memos.filter(created_at__lt=previous_date)
         
         if order_by:
             logger.debug(f'order_by: {order_by}')

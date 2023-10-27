@@ -49,13 +49,13 @@ class MemoDomainService(object):
     def get_memos_by_user(self, user, limit: int = None):
         return self.memo_repo.fetch_memos_by_user(user, limit)
     
-    def get_memos_of_followings_and_me(self, user, limit=None, since_date=None):
+    def get_memos_of_followings_and_me(self, user, limit=None, since_date=None, previous_date=None):
         """ユーザーとフォローしているユーザーのメモを取得する"""
+        logger.debug(f"{limit}")
         followings = Follow.objects.filter(follower=user).values_list('followed', flat=True)
         users_to_fetch = list(followings) + [user]
-        logger.debug(f'{users_to_fetch}')
         order_by = '-created_at'
-        return self.memo_repo.fetch_memos_for_users(users_to_fetch, limit, since_date, order_by)
+        return self.memo_repo.fetch_memos_for_users(users_to_fetch, limit, since_date, previous_date, order_by)
 
 
     def create_memo_from_form(self, form: ReadingMemoForm, user, book):

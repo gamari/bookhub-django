@@ -1,3 +1,4 @@
+import logging
 from datetime import date
 
 from django.db import models
@@ -8,6 +9,7 @@ from apps.book.models import Book
 
 User = get_user_model()
 
+logger = logging.getLogger("app_logger")
 
 # TODO 紐づけ先をReadingRecordにすべき
 class ReadingMemo(models.Model):
@@ -15,7 +17,9 @@ class ReadingMemo(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     content = models.TextField(max_length=1000)
     created_at = models.DateTimeField(auto_now_add=True)
-
+    
+    def get_isoformat_created_at(self):
+        return self.created_at.strftime('%Y-%m-%d %H:%M:%S')
 
 class ReadingRecord(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

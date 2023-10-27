@@ -3,7 +3,7 @@
 
 <ol id="memo-list">
   {% for memo in memos %}
-  <li class="memo-item">
+  <li class="memo-item" data-date="{{ memo.get_isoformat_created_at }}">
     <div class="memo-item__image">
       {% book_icon memo.book "sm" %}
     </div>

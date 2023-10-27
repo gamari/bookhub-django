@@ -167,7 +167,7 @@ class ShowMyPageUsecase(Usecase):
         return selections
     
     def _fetch_timeline_data(self, user):
-        memos = self.memo_service.get_memos_of_followings_and_me(user, limit=5)
+        memos = self.memo_service.get_memos_of_followings_and_me(user, limit=1)
         return memos
 
 

@@ -11,10 +11,11 @@ class ReadingMemoViewSet(viewsets.ReadOnlyModelViewSet):
 
     def list(self, request, *args, **kwargs):
         since_date = request.query_params.get('since_date')
+        previous_date = request.query_params.get('previous_date')
 
         service = MemoDomainService.initialize()
 
-        memos = service.get_memos_of_followings_and_me(request.user, limit=5, since_date=since_date)
+        memos = service.get_memos_of_followings_and_me(request.user, limit=1, since_date=since_date, previous_date=previous_date)
 
         serializer = self.get_serializer(memos, many=True)
         return Response(serializer.data)
