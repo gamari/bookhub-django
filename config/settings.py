@@ -4,7 +4,6 @@ from pathlib import Path
 from decouple import config
 
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY")
@@ -175,14 +174,15 @@ LOGGING = {
 
 # 環境差分の設定
 if DEBUG:
+    SECURE_SSL_REDIRECT = False
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
+    MEDIA_URL = "/media/"
 else:
-    SECURE_SSL_REDIRECT = True
     POSTGRES_DB = config("POSTGRES_DB", default="")
     POSTGRES_USER = config("POSTGRES_USER", default="")
     POSTGRES_PASSWORD = config("POSTGRES_PASSWORD", default="")
@@ -196,6 +196,9 @@ else:
             'PORT': '5432',
         }
     }
+    APP_URL = config("APP_URL", default="")
+    MEDIA_URL = f"{APP_URL}/media/"
+
 
 
 
@@ -210,7 +213,7 @@ USE_L10N = True
 
 # 静的ファイル設定
 
-MEDIA_URL = "/media/"
+
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 STATIC_URL = "/static/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static/"),)
