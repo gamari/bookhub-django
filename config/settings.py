@@ -10,7 +10,7 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 # ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="").split(",")
-ALLOWED_HOSTS = ["gamari-devs.com", "localhost"]
+ALLOWED_HOSTS = ["gamari-devs.com", "localhost", "3.113.152.147"]
 
 print(f"ALLOWED_HOSTS: {ALLOWED_HOSTS}")
 
@@ -198,7 +198,7 @@ if DEBUG:
     }
 else:
     print("本番環境")
-    SECURE_SSL_REDIRECT=True
+    SECURE_SSL_REDIRECT=False
     CSRF_COOKIE_SECURE=True
     SESSION_COOKIE_SECURE=True
     DATABASES = {
