@@ -183,19 +183,26 @@ if DEBUG:
     }
     MEDIA_URL = "/media/"
 else:
-    POSTGRES_DB = config("POSTGRES_DB", default="")
-    POSTGRES_USER = config("POSTGRES_USER", default="")
-    POSTGRES_PASSWORD = config("POSTGRES_PASSWORD", default="")
+    SECURE_SSL_REDIRECT = False
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': POSTGRES_DB,
-            'USER': POSTGRES_USER,
-            'PASSWORD': POSTGRES_PASSWORD,
-            'HOST': 'db',
-            'PORT': '5432',
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
         }
     }
+    # POSTGRES_DB = config("POSTGRES_DB", default="")
+    # POSTGRES_USER = config("POSTGRES_USER", default="")
+    # POSTGRES_PASSWORD = config("POSTGRES_PASSWORD", default="")
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql',
+    #         'NAME': POSTGRES_DB,
+    #         'USER': POSTGRES_USER,
+    #         'PASSWORD': POSTGRES_PASSWORD,
+    #         'HOST': 'db',
+    #         'PORT': '5432',
+    #     }
+    # }
     APP_URL = config("APP_URL", default="")
     # MEDIA_URL = f"{APP_URL}/media/"
     MEDIA_URL = "/media/"
