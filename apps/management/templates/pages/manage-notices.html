@@ -21,6 +21,7 @@
             <div>{{ notice.title }}</div>
             <div>
                 <a href="{% url 'management_notice_edit' notice.id %}" class="btn">編集</a>
+                <a href="{% url 'management_notice_delete' notice.id %}" class="btn btn-danger">削除</a>
             </div>
         </div>
         {% endfor %}

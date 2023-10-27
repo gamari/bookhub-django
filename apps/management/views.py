@@ -1,5 +1,6 @@
+import logging 
+
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
 from django.contrib.auth.decorators import user_passes_test
 from apps.book.forms import BookForm
 
@@ -8,6 +9,8 @@ from apps.contact.models import Contact
 from apps.management.forms import NoticeForm
 from apps.management.models import Notice
 from apps.search.models import SearchHistory
+
+logger = logging.getLogger("app_logger")
 
 @user_passes_test(lambda u: u.is_superuser)
 def management_notices(request):
@@ -19,7 +22,6 @@ def management_notices(request):
     }
     return render(request, "pages/manage-notices.html", context)
 
-# お知らせ作成
 @user_passes_test(lambda u: u.is_superuser)
 def management_notice_create(request):
     """お知らせ作成画面。"""
@@ -35,7 +37,6 @@ def management_notice_create(request):
     }
     return render(request, "pages/manage-notice-create.html", context)
 
-# お知らせの編集
 @user_passes_test(lambda u: u.is_superuser)
 def management_notice_edit(request, notice_id):
     """お知らせ編集画面。"""
@@ -53,6 +54,18 @@ def management_notice_edit(request, notice_id):
     }
     
     return render(request, "pages/manage-notice-edit.html", context)
+
+# お知らせの削除
+@user_passes_test(lambda u: u.is_superuser)
+def management_notice_delete(request, notice_id):
+    if request.user.is_superuser:
+        notice = Notice.objects.get(id=notice_id)
+        notice.delete()
+        logger.info("削除しました")
+        return redirect('management_notices')
+
+    logger.info("削除できません")
+    return redirect('management_notices')
 
 
 
