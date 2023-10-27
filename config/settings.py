@@ -171,22 +171,33 @@ LOGGING = {
     },
 }
 
+# 国際化設定
 
+LANGUAGE_CODE = "ja"
+TIME_ZONE = "Asia/Tokyo"
+USE_TZ = False
+USE_I18N = True
+USE_L10N = True
+
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+STATIC_URL = "/static/"
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static/"),)
+STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 # 環境差分の設定
 if DEBUG:
     print("ローカル")
-    SECURE_SSL_REDIRECT = False
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
-    MEDIA_URL = "/media/"
 else:
     print("本番環境")
-    SECURE_SSL_REDIRECT = False
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -206,29 +217,8 @@ else:
     #         'PORT': '5432',
     #     }
     # }
-    APP_URL = config("APP_URL", default="")
+    # APP_URL = config("APP_URL", default="")
     # MEDIA_URL = f"{APP_URL}/media/"
-    MEDIA_URL = "/media/"
 
-
-
-
-# 国際化設定
-
-LANGUAGE_CODE = "ja"
-TIME_ZONE = "Asia/Tokyo"
-USE_TZ = False
-USE_I18N = True
-USE_L10N = True
-
-
-# 静的ファイル設定
-
-
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-STATIC_URL = "/static/"
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "static/"),)
-STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
