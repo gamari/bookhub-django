@@ -1,8 +1,13 @@
+import logging
+
 from django.shortcuts import get_object_or_404
 
 from apps.book.models import Book
 from apps.review.forms import ReviewForm
 from apps.review.models import Review
+from config.application.usecases import Usecase
+
+logger = logging.getLogger("app_logger")
 
 class RemoveReviewUsecase(object):
     """レビューを削除する。"""
@@ -39,6 +44,21 @@ class ReviewUsecase(object):
                 review.user = self.user
                 review.book = book
             review.save()
-            return {"message": "Review submitted successfully."}, 200
         else:
-            return {"error": "Invalid form submission."}, 400
+            raise ValueError(form.errors)
+
+class DeleteReviewUsecase(Usecase):
+    """レビューを削除する。"""
+
+    def __init__(self, user, book_id) -> None:
+        self.user = user
+        self.book_id = book_id
+
+    def execute(self):
+        review = Review.objects.get(book_id=self.book_id, user=self.user)
+        if review.user != self.user:
+            logger.debug(review.user)
+            logger.debug(self.user)
+            raise ValueError("Invalid user")
+        review.delete()
+        

@@ -1,8 +1,10 @@
+import logging
 from django import forms
 from django.core.exceptions import ValidationError
 
 from .models import Review
 
+logger = logging.getLogger("app_logger")
 
 class ReviewForm(forms.ModelForm):
     class Meta:
@@ -21,12 +23,6 @@ class ReviewForm(forms.ModelForm):
                 }
             ),
         }
-
-    def clean_content(self):
-        content = self.cleaned_data.get("content")
-        if len(content) < 0:
-            raise ValidationError("内容は0文字以上でなければなりません。")
-        return content
 
     def clean_rating(self):
         rating = self.cleaned_data.get("rating")

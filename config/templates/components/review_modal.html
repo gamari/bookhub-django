@@ -6,7 +6,7 @@
       <form
         id="reviewForm"
         method="post"
-        action="{% url 'review_create' book.id %}"
+        action="{% url 'api_review_detail' book.id %}"
       >
         {% csrf_token %}
 
@@ -24,8 +24,16 @@
             </button>
           </div>
 
-          {% comment %} TODO 実装する {% endcomment %}
-          <button type="button" class="btn-sm btn-danger">取り消す</button>
+          {% if review_form.instance.id %}
+          <button 
+            id="delete-review" 
+            type="button" 
+            class="btn-sm btn-danger"
+            data-url="{% url 'api_review_detail' book.id %}"
+          >
+            取り消す
+          </button>
+          {% endif %}
         </div>
       </form>
     </div>

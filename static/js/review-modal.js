@@ -1,49 +1,72 @@
-// TODO pages/reading_recordに移す
-// TODO 処理をリファクタリングする
 document.addEventListener("DOMContentLoaded", function () {
+    const reviewModal = document.getElementById('reviewModal');
     const openReviewModalButton = document.getElementById('openReviewModalButton');
     const closeReviewModalButton = document.getElementById('closeReviewModalButton');
     const reviewSubmitButton = document.getElementById('review-submit');
+    const reviewForm = document.getElementById('reviewForm');
 
-    if (openReviewModalButton) {
-        openReviewModalButton.addEventListener('click', function () {
-            document.getElementById('reviewModal').style.display = 'block';
+    const deleteReviewButton = document.querySelector('#delete-review');
+
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    function openModal() {
+        reviewModal.style.display = 'block';
+    }
+
+    function closeModal() {
+        reviewModal.style.display = 'none';
+    }
+
+    function submitReview() {
+        const formData = new FormData(reviewForm);
+        const reviewUrl = reviewForm.getAttribute('action');
+
+        fetch(reviewUrl, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error(data.error);
+            } else {
+                location.reload();
+            }
+        })
+        .catch(error => {
+            console.error('Error submitting review:', error)
         });
     }
 
-    if (closeReviewModalButton) {
-        closeReviewModalButton.addEventListener('click', function () {
-            document.getElementById('reviewModal').style.display = 'none';
+    function deleteReview() {
+        const deleteUrl = deleteReviewButton.getAttribute('data-url');
+        console.log(deleteUrl); 
+
+        fetch(deleteUrl, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': csrfToken,
+            },
+        })
+        .then(response => {
+            if (response.status === 204) {
+                location.reload()
+            } else {
+                console.error('削除に失敗しました。');
+            }
+        })
+        .catch(error => {
+            console.error('削除に失敗しました。', error)
         });
     }
 
-    if (reviewSubmitButton) {
-        reviewSubmitButton.addEventListener('click', function () {
-            const reviewForm = document.getElementById('reviewForm');
-            const formData = new FormData(reviewForm);
-            const reviewUrl = reviewForm.getAttribute('action');
+    if (openReviewModalButton) openReviewModalButton.addEventListener('click', openModal);
+    if (closeReviewModalButton) closeReviewModalButton.addEventListener('click', closeModal);
+    if (reviewSubmitButton) reviewSubmitButton.addEventListener('click', submitReview);
 
-            fetch(reviewUrl, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-                },
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        console.error(data.error);
-                        // handle error (show message to user or something)
-                    } else {
-                        // 画面をリロードする
-                        location.reload();
-                    }
-                })
-                .catch(error => console.error('Error submitting review:', error));
-
-        });
-    }
+    // 削除ボタンの処理
+    if (deleteReviewButton) deleteReviewButton.addEventListener("click", deleteReview);
 });
-
-

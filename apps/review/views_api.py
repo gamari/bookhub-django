@@ -1,7 +1,13 @@
 import logging
 
-from rest_framework import generics
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from rest_framework.response import Response
+from rest_framework.generics import CreateAPIView, DestroyAPIView
+from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound, ValidationError
+
+from apps.review.application.usecases import DeleteReviewUsecase, ReviewUsecase
 
 from .models import  ReviewLike
 from .serializers import ReviewLikeSerializer
@@ -9,7 +15,32 @@ from .serializers import ReviewLikeSerializer
 
 logger = logging.getLogger("app_logger")
 
-class ReviewLikeAPIView(generics.CreateAPIView):
+class ReviewDetailAPIView(APIView):
+    @method_decorator(login_required)
+    def post(self, request, book_id, *args, **kwargs):
+        logger.debug(request.data)
+        usecase = ReviewUsecase(request.user, book_id, request.data)
+
+        usecase.execute()
+        return Response({
+            "message": "作成に成功しました"
+        }, status=201)
+    
+    @method_decorator(login_required)
+    def delete(self, request, *args, **kwargs):
+        book_id = self.kwargs.get('book_id')
+        logger.debug(book_id)
+
+        usecase = DeleteReviewUsecase(request.user, book_id)
+        usecase.execute()
+        
+        return Response({
+            "message": "削除に成功しました"
+        }, status=204)
+
+
+class ReviewLikeAPIView(CreateAPIView):
+    """ReviewいいねAPI。"""
     queryset = ReviewLike.objects.all()
     serializer_class = ReviewLikeSerializer
 
@@ -23,7 +54,8 @@ class ReviewLikeAPIView(generics.CreateAPIView):
         
         serializer.save(user=user, review_id=review_id)
 
-class ReviewUnLikeAPIView(generics.DestroyAPIView):
+class ReviewUnLikeAPIView(DestroyAPIView):
+    """Reviewいいね解除API。"""
     queryset = ReviewLike.objects.all()
     serializer_class = ReviewLikeSerializer
     lookup_field = 'pk'

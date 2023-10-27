@@ -13,6 +13,10 @@ def book_search(request):
     mode = request.GET.get("mode", "")
     page = int(request.GET.get("page", 1))
 
+    # queryが無い場合はページを表示
+    if not query:
+        return render(request, "pages/search_results.html")
+
     # TODO 検証のため
     # mode = "detail"
 

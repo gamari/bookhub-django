@@ -19,6 +19,7 @@
   <section>
     <h3 class="mb-4">検索する</h3>
 
+
     <div>
       <form action="{% url 'book_search' %}" method="get" class="col gap-4 card w-full">
         {% csrf_token %}
@@ -49,6 +50,7 @@
   </section>
   
 
+  {% if query %}
   {% include "components/_result_list.html" %}
 
   <section>
@@ -64,4 +66,5 @@
       {% endif %}
     </span>
   </section>
+  {% endif %}
 {% endblock %}
