@@ -21,3 +21,6 @@ def help_activity_page(request):
 # 利用規約ページ
 def terms_page(request):
     return render(request, "pages/terms.html")
+
+def privacy_page(request):
+    return render(request, "pages/privacy.html")
