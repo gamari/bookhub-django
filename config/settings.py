@@ -201,27 +201,21 @@ else:
     SECURE_SSL_REDIRECT=False
     CSRF_COOKIE_SECURE=True
     SESSION_COOKIE_SECURE=True
+    POSTGRES_DB = config("POSTGRES_DB", default="")
+    POSTGRES_USER = config("POSTGRES_USER", default="")
+    POSTGRES_PASSWORD = config("POSTGRES_PASSWORD", default="")
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': POSTGRES_DB,
+            'USER': POSTGRES_USER,
+            'PASSWORD': POSTGRES_PASSWORD,
+            'HOST': 'db',
+            'PORT': '5432',
         }
     }
-    # POSTGRES_DB = config("POSTGRES_DB", default="")
-    # POSTGRES_USER = config("POSTGRES_USER", default="")
-    # POSTGRES_PASSWORD = config("POSTGRES_PASSWORD", default="")
-    # DATABASES = {
-    #     'default': {
-    #         'ENGINE': 'django.db.backends.postgresql',
-    #         'NAME': POSTGRES_DB,
-    #         'USER': POSTGRES_USER,
-    #         'PASSWORD': POSTGRES_PASSWORD,
-    #         'HOST': 'db',
-    #         'PORT': '5432',
-    #     }
-    # }
-    # APP_URL = config("APP_URL", default="")
-    # MEDIA_URL = f"{APP_URL}/media/"
+    APP_URL = config("APP_URL", default="")
+    MEDIA_URL = f"{APP_URL}/media/"
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
