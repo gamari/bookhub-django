@@ -159,7 +159,7 @@ LOGGING = {
             "propagate": False,
         },
         "django": {
-            "handlers": ["error_file"],
+            "handlers": ["error_file", "console"],
             "level": "ERROR",
             "propagate": False,
         },
