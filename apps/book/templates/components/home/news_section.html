@@ -1,9 +1,15 @@
 <section>
   <h2 class="mb-4">お知らせ</h2>
 
+  {% comment %} TODO 詳細ページを作成する {% endcomment %}
+  {% if latest_notice %}
   <div>
-    <div class=" card-sm">
-      <p>Yommy（よみー）のα版が公開されました！</p>
+    <div class="card-sm row-center gap-4">
+      <div class="text-sm text-info">{{ latest_notice.created_at|date:"Y/m/d" }}</div>
+      <p>{{ latest_notice.title }}</p>
     </div>
   </div>
+  {%  else %}
+  <div class="card-sm">お知らせがありません</div>
+  {% endif %}
 </section>
