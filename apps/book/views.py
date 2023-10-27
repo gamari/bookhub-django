@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
@@ -12,10 +13,11 @@ from apps.book.models import Bookshelf
 
 
 def home(request):
-    usecase = ShowHomePageUsecase.build()
-    context = usecase.execute()
+    # usecase = ShowHomePageUsecase.build()
+    # context = usecase.execute()
 
-    return render(request, "pages/home.html", context)
+    # return render(request, "pages/home.html", context)
+    return HttpResponse("Hello, world. You're at the polls index.")
 
 
 @login_required

@@ -142,13 +142,13 @@ LOGGING = {
         "error_file": {
             "level": "ERROR",
             "class": "logging.FileHandler",
-            'filename': os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs/error.log'),
+            'filename': os.path.join(BASE_DIR, 'logs/error.log'),
             "formatter": "verbose",
         },
         "time_file": {
             "level": "WARNING",
             "class": "logging.FileHandler",
-            'filename': os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs/time.log'),
+            'filename': os.path.join(BASE_DIR, 'logs/time.log'),
             "formatter": "verbose",
         },
     },
