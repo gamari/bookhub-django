@@ -13,11 +13,10 @@ from apps.book.models import Bookshelf
 
 
 def home(request):
-    # usecase = ShowHomePageUsecase.build()
-    # context = usecase.execute()
+    usecase = ShowHomePageUsecase.build()
+    context = usecase.execute()
 
-    # return render(request, "pages/home.html", context)
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return render(request, "pages/home.html", context)
 
 
 @login_required
