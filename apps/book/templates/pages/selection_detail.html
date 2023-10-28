@@ -9,7 +9,10 @@
 {% endblock %}
 
 {% block meta%}
-  <meta property="og:image" content="https://gamari-devs.xyz/ogp/{{selection.id}}/" />
+  {% comment %} <meta property="og:image" content="https://gamari-devs.xyz/ogp/{{selection.id}}/" /> {% endcomment %}
+  {% with first_book=selection.get_first_book %}
+    <meta property="og:image" content="{{ first_book.thumbnail.url }}" />
+  {% endwith %}
 {% endblock %}
 
 {% block css %}

@@ -28,10 +28,11 @@
 
 .user-description {
   font-size: 0.8rem;
-  color: #666;
   text-decoration: none;
   word-break: break-all;
   white-space: pre-wrap;
+  padding-left: 12px;
+  border-left: 4px solid #888;
 }
 
 .user-icon {
