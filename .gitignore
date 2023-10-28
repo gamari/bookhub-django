@@ -7,3 +7,4 @@ static_root/**
 media/
 Temp.md
 logs/**
+static/js/firebase.js

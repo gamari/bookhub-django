@@ -26,6 +26,10 @@ BookHubアプリ。
 - [ ] .envを用意して下さい。
   - .env-sampleを参考に用意してください。
 
+-  Firebaseの設定
+  - [ ] Firebaseのプロジェクトを作成してください
+  - [ ] static/js/firebase.jsを作成してください
+
 
 ## デプロイ
 

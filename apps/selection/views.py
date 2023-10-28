@@ -64,10 +64,6 @@ class CreateSelectionView(View):
             }
         )
 
-    @staticmethod
-    def get_book_selection_service():
-        return BookSelectionDomainService(BookSelectionRepository())
-
 
 class EditSelectionView(View, BaseViewMixin):
     template_name = "pages/edit_selection.html"
@@ -79,9 +75,13 @@ class EditSelectionView(View, BaseViewMixin):
     def get(self, request, *args, **kwargs):
         selection_id = kwargs.get("selection_id")
         selection = get_object_or_404(BookSelection, id=selection_id)
+        logger.debug(selection)
         form = BookSelectionForm(instance=selection, user=request.user)
+        context = {"form": form, "selection": selection}
         return render(
-            self.request, self.template_name, {"form": form, "selection": selection}
+            self.request, 
+            self.template_name, 
+            context
         )
 
     def post(self, request, *args, **kwargs):

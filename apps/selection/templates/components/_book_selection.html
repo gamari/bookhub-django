@@ -11,6 +11,7 @@
       name="{{ form.books.name }}"
       value="{{ book.id }}"
       style="display: none"
+      {% if book in selection.books.all %} checked {% endif %}
     />
   </div>
   {% empty %}
