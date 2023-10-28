@@ -2,6 +2,22 @@
 {% load static %} 
 {% load book_tags %}
 
+
+{% block meta%}
+  {% with first_book=selection.get_first_book %}
+    <meta property="og:image" content="{{ user.profile_image.url }}" />
+    <meta property="og:title" content="{{ user.username }}" />
+    <meta property="og:description" content="{{user.username}}さんの本棚を見る！" />
+    <meta property="og:type" content="article" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ user.username }}">
+    <meta name="twitter:description" content="{{ user.username }}さんの本棚を見る！">
+    <meta name="twitter:image" content="{{ user.profile_image.url }}">
+  {% endwith %}
+{% endblock %}
+
 {% block title %} {{user.username}} {% endblock %} 
 
 {% block css %}

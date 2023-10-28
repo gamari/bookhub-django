@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block meta%}
-  {% comment %} <meta property="og:image" content="https://gamari-devs.xyz/ogp/{{selection.id}}/" /> {% endcomment %}
   {% with first_book=selection.get_first_book %}
     <meta property="og:image" content="{{ first_book.thumbnail }}" />
     <meta property="og:title" content="{{ selection.title }}" />
@@ -103,7 +102,7 @@
       <span class="badge">シェアする</span>
 
       <div class="p-4">
-        {% include 'components/book_share_x.html' %}
+        {% include 'components/book_share_x.html' with title=selection.title %}
       </div>
     </div>
 </section>
