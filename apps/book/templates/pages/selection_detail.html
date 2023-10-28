@@ -14,8 +14,18 @@
     <meta property="og:image" content="{{ first_book.thumbnail }}" />
     <meta property="og:title" content="{{ selection.title }}" />
     <meta property="og:description" content="{{ selection.description }}" />
+    <meta property="og:type" content="article" />
+    
+    <meta property="og:title" content="{{ selection.title }}" />
+    <meta property="og:description" content="{{ selection.description }}" />
     <meta property="og:image" content="{{ first_book.thumbnail.url }}" />
     <meta property="og:type" content="article" />
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ selection.title }}">
+    <meta name="twitter:description" content="{{ selection.description }}">
+    <meta name="twitter:image" content="{{ first_book.thumbnail }}">
   {% endwith %}
 {% endblock %}
 
