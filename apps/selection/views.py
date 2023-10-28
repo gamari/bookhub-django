@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -18,6 +20,8 @@ from apps.selection.models import BookSelection
 from config.utils import create_ogp_image
 from config.views import BaseViewMixin
 
+logger = logging.getLogger("app_logger")
+
 
 class CreateSelectionView(View):
     template_name = "pages/create_selection.html"
@@ -27,18 +31,7 @@ class CreateSelectionView(View):
         return super().dispatch(*args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        return self.render_create_selection_page(user=request.user)
-
-    def post(self, request, *args, **kwargs):
-        try:
-            usecase = CreateBookSelectionUsecase.build()
-            selection_id = usecase.execute(request.POST, request.user)
-            return redirect("selection_detail", selection_id=selection_id)
-        except ApplicationException as e:
-            return self.render_error(e.message, user=request.user)
-
-    def render_create_selection_page(self, user):
-        form = BookSelectionForm(user=user)
+        form = BookSelectionForm(user=request.user)
         return render(
             self.request,
             self.template_name,
@@ -47,8 +40,21 @@ class CreateSelectionView(View):
             }
         )
 
-    def render_error(self, message, user):
-        form = BookSelectionForm(user=user)
+    def post(self, request, *args, **kwargs):
+        try:
+            usecase = CreateBookSelectionUsecase.build()
+            selection_id = usecase.execute(request.POST, request.user)
+            return redirect("selection_detail", selection_id=selection_id)
+        except ApplicationException as e:
+            logger.exception(e)
+            return self._render_error(e.message, request)
+        except Exception as e:
+            logger.exception(e)
+            return self._render_error("エラーが発生しました。", request)
+
+
+    def _render_error(self, message, request):
+        form = BookSelectionForm(user=request.user)
         return render(
             self.request,
             self.template_name,
