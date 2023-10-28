@@ -23,11 +23,4 @@ sudo usermod -aG docker $USER
 
 再起動する
 
-## nginx.confの作成
-
-- docker/nginx/nginx.confの作成
-
-
-## Docker compose up
-
-docker compose up -d
+次の設定に進む（現状では立ち上がらない）
