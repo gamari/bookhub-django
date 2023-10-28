@@ -1,6 +1,3 @@
-{% load book_tags %}
-{% load user_tags %}
-
 <section id="selection-section" style="display: none">
   <div class="row-center mb-6 gap-2">
     <h3>セレクション</h3>
@@ -11,67 +8,5 @@
     </div>
   </div>
 
-  <div class="selection-list w-full">
-    {% for selection in selections %}
-    <div>
-      <div class="selection-panel">
-        <a
-          href="{% url 'selection_detail' selection.id %}"
-          class="selection-image center"
-        >
-          <i class="fa-solid fa-book fa-2xl" style="color: #787878;"></i>
-        </a>
-
-        <div class="p-2 selection-title-container">
-          <a
-            href="{% url 'selection_detail' selection.id %}"
-            class="selection-title"
-          >{{selection.title}}</a>
-        </div>
-
-        <div class="row-center gap-2 p-2">
-          {% user_icon selection.user 'xs' %}
-          <span class="text-info text-sm">{{ selection.user.username }}</span>
-        </div>
-      </div>
-
-      {% comment %} TODO CSSを綺麗にする {% endcomment %}
-      <div class="row mt-4 row-between px-2">
-        <div class="row-center gap-2">
-          <div
-            style="color: {{ is_liked|yesno:"#FF0000,#666" }};"
-          >
-            <i 
-              id="like-icon" 
-              class="fa-regular fa-heart" 
-              data-liked="{{ is_liked }}" 
-              data-selection-id="{{ selection.id }}" 
-            
-            ></i>
-            <span id="like-count">
-              {{ selection.total_likes }}
-            </span>
-          </div>
-
-          <a href="{% url 'edit_selection' selection.id %}">
-            <i class="fa-regular fa-pen-to-square fa-xl" style="color: #6b6b6b;"></i>
-  
-          </a>
-        </div>  
-
-        <div>
-          <form class="delete-form" action="{% url 'delete_selection' selection.id %}" method="POST">
-            {% csrf_token %}
-            <button type="submit">
-              <i class="fa-solid fa-trash fa-lg"  style="color: #6b6b6b;"></i>
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    {% empty %}
-      <p class="card-sm w-full">セレクションがありません</p>
-    {% endfor %}
-  </div>
+  {% include "components/_selection_list.html" with show_tool=True %}
 </section>

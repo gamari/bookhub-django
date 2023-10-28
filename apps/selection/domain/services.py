@@ -21,16 +21,19 @@ class BookSelectionDomainService(object):
             raise NotOwnerError()
 
     def get_or_create(self, user) -> BookSelection:
-        return self.book_selection_repo.get_or_create(user)
+        return self.book_selection_repo.fetch_or_create(user)
 
     def get_selections_for_user(self, user):
-        return self.book_selection_repo.get_selections_for_user(user)
+        return self.book_selection_repo.fetch_selections_for_user(user)
 
     def get_selection_by_id(self, selection_id: int) -> BookSelection:
         try:
             return BookSelection.objects.get(id=selection_id)
         except BookSelection.DoesNotExist:
             raise ApplicationException("セレクションが存在しません。")
+    
+    def get_latest_selection_list(self):
+        return self.book_selection_repo.fetch_latest_selection_list()
 
     def save_selection(self, selection_data, user, existing_selection=None):
         form = BookSelectionForm(selection_data, instance=existing_selection)

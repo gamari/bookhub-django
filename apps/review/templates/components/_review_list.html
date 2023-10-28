@@ -14,8 +14,10 @@
         <div class="review-item__user-info">
           <div>{% user_icon review.user "sm" %}</div>
           <div>
-            <div class="user-name__md">{{ review.user.username }}</div>
-            <div class="book-time__sm">{{review.created_at|date:"Y/m/d H:i"}}</div>
+            <div class="user-name__md">
+              <a href="{% url 'user_detail' review.user.username %}">{{ review.user.username }}</a>
+            </div>
+            <div class="time">{{review.created_at|date:"Y/m/d H:i"}}</div>
           </div>
         </div>
 
@@ -33,15 +35,11 @@
           {% endif %}
         </div>
 
-        <a
-          href="{% url 'book_detail' review.book.id %}"
-          class="review-item__title"
-          >{{ review.book.title }}</a
-        >
+        <a href="{% url 'book_detail' review.book.id %}" class="text-sm">{{ review.book.title }}</a>
       </div>
     </div>
 
-    <p class="review-item__content">{{ review.content }}</p>
+    <p class="mt-4">{{ review.content }}</p>
 
     <div class="mt-4 row">
       <div

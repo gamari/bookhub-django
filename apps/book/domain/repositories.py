@@ -107,14 +107,18 @@ class BookshelfRepository:
 
 class BookSelectionRepository(object):
     @staticmethod
-    def get_or_create(user):
+    def fetch_or_create(user):
         book_selection, created = BookSelection.objects.get_or_create(user=user)
         return book_selection
 
     @staticmethod
-    def get_selections_for_user(user):
+    def fetch_selections_for_user(user):
         return BookSelection.objects.filter(user=user)
     
     @staticmethod
-    def get_selection_by_id(selection_id):
+    def fetch_selection_by_id(selection_id):
         return BookSelection.objects.get(id=selection_id)
+    
+    @staticmethod
+    def fetch_latest_selection_list(limit=4):
+        return BookSelection.objects.order_by("-created_at")[:limit]

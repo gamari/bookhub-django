@@ -4,6 +4,7 @@
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
 <link rel="stylesheet" href="{% static 'css/components/memo.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/selection.css' %}" />
 <link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
 {% endblock %} 
 
@@ -18,6 +19,7 @@
 {% block content %}
   {% include 'components/home/news_section.html' %}
   {% include 'components/home/timeline_section.html' %}
+  {% include 'components/home/selection_section.html' %}
   {% comment %} {% include 'components/home/ranking_section.html' %} {% endcomment %}
   {% include 'components/home/reviews_section.html' %}
   {% include 'components/home/top_books.html' %}

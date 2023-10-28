@@ -12,18 +12,20 @@
       <div class="memo-item__info-header">
         {% user_icon memo.user "sm" %}
         <div>
-          <p class="user-name__md">{{memo.user.username}}</p>
-          <p class="book-time__sm">{{ memo.created_at|date:"Y/m/d H:i" }}</p>
+          <p class="user-name__md">
+            <a href="{% url 'user_detail' memo.user.username %}">{{memo.user.username}}</a>
+          </p>
+          <p class="time">{{ memo.created_at|date:"Y/m/d H:i" }}</p>
         </div>
       </div>
 
       <div>
-        <a href="{% url 'book_detail' memo.book.id  %}" class="book-title__sm text-primary">
+        <a href="{% url 'book_detail' memo.book.id  %}" class="text-sm">
           {{memo.book.title}}
         </a>
       </div>
 
-      <div class="memo-item__content">{{ memo.content }}</div>
+      <p class="mt-4">{{ memo.content }}</p>
     </div>
 
     <div class="memo-item__tool">
