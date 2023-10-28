@@ -9,7 +9,11 @@
           href="{% url 'selection_detail' selection.id %}"
           class="selection-image center"
         >
-          <i class="fa-solid fa-book fa-2xl" style="color: #787878;"></i>
+        {% if selection.get_first_book %}
+           <img src="{{ selection.get_first_book.thumbnail }}" alt="selection-image" class="selection-image" alt="画像...">
+           {% else %}
+            <i class="fa-solid fa-book fa-2xl" style="color: #787878;"></i>
+          {% endif %}
         </a>
 
         

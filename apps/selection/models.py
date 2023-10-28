@@ -1,8 +1,10 @@
-import uuid
+import uuid, logging
+
 from django.db import models
 
 from apps.book.models import Account, Book
 
+logger = logging.getLogger("app_logger")
 
 class BookSelection(models.Model):
     id: uuid.UUID = models.UUIDField(
@@ -18,6 +20,12 @@ class BookSelection(models.Model):
     @property
     def total_likes(self):
         return self.likes.count()
+    
+    @property
+    def get_first_book(self):
+        book = self.books.first()
+        logger.debug(f"get_first_book: {book}")
+        return book
 
 class BookSelectionLike(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="selection_likes")
@@ -26,6 +34,8 @@ class BookSelectionLike(models.Model):
 
     class Meta:
         unique_together = ['user', 'selection']
+    
+
 
 # お気に入り
 class BookSelectionFavorite(models.Model):
