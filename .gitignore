@@ -8,3 +8,4 @@ media/
 Temp.md
 logs/**
 static/js/firebase.js
+backup/**
