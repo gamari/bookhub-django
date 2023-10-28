@@ -13,8 +13,6 @@ from apps.selection.application.usecases import (
     EditBookSelectionUsecase,
 )
 from apps.selection.application.usecases import DetailBookSelectionUsecase
-from apps.book.domain.repositories import BookSelectionRepository
-from apps.selection.application.usecases import BookSelectionDomainService
 from apps.book.forms import BookSelectionForm
 from apps.selection.models import BookSelection
 from config.utils import create_ogp_image
@@ -47,14 +45,14 @@ class CreateSelectionView(View):
             return redirect("selection_detail", selection_id=selection_id)
         except ApplicationException as e:
             logger.exception(e)
-            return self._render_error(e.message, request)
+            form = BookSelectionForm(request.POST, user=request.user)
+            return self._render_error(e.message, request, form)
         except Exception as e:
             logger.exception(e)
-            return self._render_error("エラーが発生しました。", request)
+            form = BookSelectionForm(request.POST, user=request.user)
+            return self._render_error("エラーが発生しました。", request, form)
 
-
-    def _render_error(self, message, request):
-        form = BookSelectionForm(user=request.user)
+    def _render_error(self, message, request, form):
         return render(
             self.request,
             self.template_name,

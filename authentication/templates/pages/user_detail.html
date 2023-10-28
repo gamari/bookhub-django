@@ -5,16 +5,24 @@
 
 {% block meta%}
   {% with first_book=selection.get_first_book %}
-    <meta property="og:image" content="{{ user.profile_image.url }}" />
     <meta property="og:title" content="{{ user.username }}" />
     <meta property="og:description" content="{{user.username}}さんの本棚を見る！" />
     <meta property="og:type" content="article" />
+    {% if user.profile_image%}
+      <meta property="og:image" content="{{ user.profile_image.url }}" />
+    {% else %}
+      <meta property="og:image" content="{% static 'images/logo.png' %}" />
+    {% endif %}
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ user.username }}">
     <meta name="twitter:description" content="{{ user.username }}さんの本棚を見る！">
-    <meta name="twitter:image" content="{{ user.profile_image.url }}">
+    {% if user.profile_image %}
+      <meta name="twitter:image" content="{{ user.profile_image.url }}">
+    {% else %}
+      <meta name="twitter:image" content="{% static 'images/logo.png' %}">
+    {% endif %}
   {% endwith %}
 {% endblock %}
 
