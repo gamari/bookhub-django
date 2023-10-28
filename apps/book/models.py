@@ -2,7 +2,7 @@ import uuid, logging
 
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.db.models import Avg, Prefetch
+from django.db.models import Prefetch
 
 logger = logging.getLogger("app_logger")
 
@@ -70,6 +70,12 @@ class Book(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+    
+    def save(self, *args, **kwargs):
+        if self.thumbnail and self.thumbnail.startswith("http:"):
+            # Mixed Content対策
+            self.thumbnail = self.thumbnail.replace("http:", "https:")
+        super(Book, self).save(*args, **kwargs)
 
 
 class Bookshelf(models.Model):

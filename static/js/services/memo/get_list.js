@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function initialize() {
         // memoListの一番古い日付を残す
-        console.log(memoList.lastElementChild)
         oldestDate = memoList.lastElementChild.dataset.date;
     }
 

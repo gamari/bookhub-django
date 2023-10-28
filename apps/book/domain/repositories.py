@@ -120,5 +120,5 @@ class BookSelectionRepository(object):
         return BookSelection.objects.get(id=selection_id)
     
     @staticmethod
-    def fetch_latest_selection_list(limit=4):
+    def fetch_latest_selection_list(limit=6):
         return BookSelection.objects.order_by("-created_at")[:limit]
