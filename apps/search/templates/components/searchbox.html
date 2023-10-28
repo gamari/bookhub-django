@@ -1,6 +1,13 @@
-<form action="{% url 'book_search' %}" method="GET" class="searchbox-container">
+<form action="{% url 'book_search' %}" method="GET" class="searchbox-container pc-show">
   <input type="text" name="query" placeholder="書籍名で検索…" class="searchbox-input" autocomplete="off" />
   <button type="submit" class="searchbox-icon">
+    <i class="fas fa-search"></i>
+  </button>
+</form>
+
+<form action="{% url 'book_search' %}" method="GET" class="mb-show" >
+  <input type="hidden" class="searchbox-input" autocomplete="off" />
+  <button type="submit" class="searchbox-icon-circle">
     <i class="fas fa-search"></i>
   </button>
 </form>

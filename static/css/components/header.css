@@ -12,7 +12,7 @@
 }
 
 .logo {
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
   padding: 0.8rem;
@@ -58,6 +58,15 @@
 }
 
 .searchbox-icon {
+  padding: 0.5rem;
+  color: black;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background-color: #ddd;
+}
+
+.searchbox-icon-circle {
+  border-radius: 100%;
   padding: 0.5rem;
   color: black;
   border: 1px solid transparent;

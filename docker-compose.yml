@@ -19,7 +19,6 @@ services:
     volumes:
       - .:/code
       - ./static_root:/code/static_root
-
   nginx:
     image: nginx:latest
     ports:
