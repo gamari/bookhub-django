@@ -4,7 +4,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('accounts/', include('allauth.urls')),
+    # path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.socialaccount.providers.google.urls')),  # Google認証のみ利用
+
 
     path("", include("authentication.urls")),
     path("", include("apps.book.urls")),

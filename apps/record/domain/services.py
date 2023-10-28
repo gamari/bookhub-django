@@ -43,8 +43,8 @@ class MemoDomainService(object):
         memo_repo = ReadingMemoRepository()
         return cls(memo_repo)
 
-    def get_memos(self, limit: int = None):
-        return self.memo_repo.fetch_memos(limit)
+    def get_latest_memos(self, limit: int = None):
+        return self.memo_repo.fetch_latest_memos(limit)
 
     def get_memos_by_user(self, user, limit: int = None):
         return self.memo_repo.fetch_memos_by_user(user, limit)
@@ -57,8 +57,8 @@ class MemoDomainService(object):
         order_by = '-created_at'
         return self.memo_repo.fetch_memos_for_users(users_to_fetch, limit, since_date, previous_date, order_by)
 
-
     def create_memo_from_form(self, form: ReadingMemoForm, user, book):
+        # TODO DDD的にformはドメインが持つべきかを検討する
         memo = form.save(commit=False)
         memo.user = user
         memo.book = book
@@ -67,6 +67,8 @@ class MemoDomainService(object):
 
 
 class ActivityDomainService(object):
+    """活動履歴ドメイン"""
+
     def __init__(self, reading_memo_repo: ReadingMemoRepository):
         self.reading_memo_repo = reading_memo_repo
     

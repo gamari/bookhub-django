@@ -60,7 +60,7 @@ class ShowHomePageUsecase(Usecase):
         )
         latest_reviews = self.review_service.get_latest_reviews(limit=3)
         ranking_entries = self.ranking_service.get_latest_ranking_entries()
-        memos = self.memo_service.get_memos(limit=4)
+        memos = self.memo_service.get_latest_memos(limit=4)
         latest_notice = self.notice_service.get_latest_notice()
         logger.info(f"{latest_notice}")
 

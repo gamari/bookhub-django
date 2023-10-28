@@ -40,6 +40,9 @@ class ReadingMemoRepository(object):
 
     def fetch_memos(self, limit):
         return ReadingMemo.objects.filter(user__is_active=True).order_by("-created_at")[:limit]
+    
+    def fetch_latest_memos(self, limit):
+        return ReadingMemo.objects.filter(user__is_active=True).order_by("-created_at")[:limit]
   
 
     def delete(self, memo):
