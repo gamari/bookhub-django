@@ -11,7 +11,11 @@
 {% block meta%}
   {% comment %} <meta property="og:image" content="https://gamari-devs.xyz/ogp/{{selection.id}}/" /> {% endcomment %}
   {% with first_book=selection.get_first_book %}
+    <meta property="og:image" content="{{ first_book.thumbnail }}" />
+    <meta property="og:title" content="{{ selection.title }}" />
+    <meta property="og:description" content="{{ selection.description }}" />
     <meta property="og:image" content="{{ first_book.thumbnail.url }}" />
+    <meta property="og:type" content="article" />
   {% endwith %}
 {% endblock %}
 
