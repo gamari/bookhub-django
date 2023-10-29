@@ -27,6 +27,15 @@
   <link href="{% static 'css/components/review.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/modal.css' %}" rel="stylesheet" />
   <link href="{% static 'css/pages/book_detail.css' %}" rel="stylesheet" />
+
+  <style>
+    .amazon-logo {
+      height: 100px;
+    }
+    .amazon-logo:hover {
+      opacity: 0.8;
+    }
+  </style>
 {% endblock %}
 
 {% block js %}
@@ -77,7 +86,15 @@
         <span class="text-sm">{{ registers }}人</span>
       </div>
 
-      {% comment %} TODO 購入ボタン {% endcomment %}
+      <div>
+        <div>
+          {% if book.amazon_url %}
+          <a href="{{ book.amazon_url }}" target="_blank" rel="noopener noreferrer">
+            <img src="{% static 'images/amazon.png' %}" class="amazon-logo" alt="Amazon Logo">
+          </a>
+          {% endif %}
+        </div>
+      </div>
     </div>
   </section>
 

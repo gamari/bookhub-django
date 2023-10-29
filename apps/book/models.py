@@ -71,6 +71,9 @@ class Book(models.Model):
     views = models.IntegerField("閲覧数", default=0)
     genres = models.ManyToManyField(Genre, through="BookGenre")
     is_clean = models.BooleanField("整備されたデータ判定", default=False)
+    amazon_url = models.URLField("Amazonの購入URL", null=True, blank=True)
+
+
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
