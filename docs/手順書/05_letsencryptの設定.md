@@ -18,3 +18,5 @@ sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 sudo certbot certonly --standalone
 - 説明に答える
 
+- 証明書の確認
+ls /etc/letsencrypt

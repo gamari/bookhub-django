@@ -12,9 +12,9 @@
       <div class="memo-item__info-header">
         {% user_icon memo.user "sm" %}
         <div>
-          <p class="user-name__md">
+          <div class="user-name__md">
             <a href="{% url 'user_detail' memo.user.username %}">{{memo.user.username}}</a>
-          </p>
+          </div>
           <p class="time">{{ memo.created_at|date:"Y/m/d H:i" }}</p>
         </div>
       </div>
@@ -44,7 +44,7 @@
   {% endfor %}
 
   {% if not memos %}
-  <p id="no-memo-title">メモはありません</p>
+  <p id="no-memo-title">メモが存在しません</p>
   {% endif %}
 </ol>
 

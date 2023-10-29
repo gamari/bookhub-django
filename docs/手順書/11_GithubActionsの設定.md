@@ -1,0 +1,2 @@
+- deployブランチにする
+- GithubActionsを設定する

@@ -1,26 +1,19 @@
-{% extends 'base.html' %}
-
-{% load static %}
-
-{% block title %}
-  書籍詳細
-{% endblock %}
+{% extends 'base.html' %} 
+{% load static %} 
 
 {% block css %}
-  <link href="{% static 'css/pages/book_detail.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/book.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/user.css' %}" />
+{% endblock %} 
 
-  <link href="{% static 'css/components/book.css' %}" rel="stylesheet" />
-  <link href="{% static 'css/components/review.css' %}" rel="stylesheet" />
-  <link href="{% static 'css/components/review_modal.css' %}" rel="stylesheet" />
-  <link href="{% static 'css/components/card.css' %}" rel="stylesheet" />
-  <link href="{% static 'css/components/form.css' %}" rel="stylesheet" />
-  <link href="{% static 'css/components/user.css' %}" rel="stylesheet" />
-{% endblock %}
-
-{% block js %}
-  <script src="{% static 'js/review-modal.js' %}"></script>
-{% endblock %}
+{% block title %}BookHub{% endblock %} 
 
 {% block content %}
-<div>エラーページです</div>
+
+<section>
+    <p class="card-sm">エラーが発生しました</p>
+</section>
+
 {% endblock %}

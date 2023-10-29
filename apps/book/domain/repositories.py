@@ -15,7 +15,7 @@ class AuthorRepository(object):
 class BookRepository(object):
     @staticmethod
     def search_by_title(query):
-        return list(Book.objects.filter(title__icontains=query).order_by("-views"))
+        return list(Book.objects.filter(title__icontains=query).order_by("isbn_10").order_by("-isbn_13").order_by("-views"))
 
     @staticmethod
     def find_by_id(book_id):

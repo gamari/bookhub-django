@@ -5,26 +5,27 @@ on:
     branches:
       - deploy
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
 
-    - name: Lightsailにデプロイ(deploy)
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.DEPLOY_HOST }}
-        username: ${{ secrets.DEPLOY_USER }}
-        port: ${{ secrets.DEPLOY_PORT }}
-        key: ${{ secrets.DEPLOY_KEY }}
-        script: |
-          cd ${{ secrets.DEPLOY_DIR }}
-          echo "git pull開始"
-          git pull
-          docker-compose restart
-          docker-compose exec web python manage.py collectstatic --noinput
-          docker-compose exec web python manage.py migrate
-          echo "デプロイ完了"
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     timeout-minutes: 5 
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v4
+
+#     - name: Lightsailにデプロイ(deploy)
+#       uses: appleboy/ssh-action@master
+#       with:
+#         host: ${{ secrets.DEPLOY_HOST }}
+#         username: ${{ secrets.DEPLOY_USER }}
+#         port: ${{ secrets.DEPLOY_PORT }}
+#         key: ${{ secrets.DEPLOY_KEY }}
+#         script: |
+#           cd ${{ secrets.DEPLOY_DIR }}
+#           echo "git pull開始"
+#           git pull
+#           docker-compose restart
+#           docker-compose exec web python manage.py collectstatic --noinput
+#           docker-compose exec web python manage.py migrate
+#           echo "デプロイ完了"

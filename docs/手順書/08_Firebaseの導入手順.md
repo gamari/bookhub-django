@@ -13,3 +13,8 @@
 - ファイルをfirebase.jsとして作成し、base.htmlに読み込む
 - あとはトラッキングしてくれる
 
+## コピー
+
+static/js/firebase.js
+にコピーする
+
