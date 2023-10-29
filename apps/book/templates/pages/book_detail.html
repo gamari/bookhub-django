@@ -26,7 +26,7 @@
       {% book_icon book "md" %}
 
       <div>
-        {% include 'components/book_share_x.html' %}
+        {% include 'components/book_share_x.html' with title=book.title %}
       </div>
     </div>
 
@@ -61,6 +61,8 @@
         <span class="badge">登録者数</span>
         <span class="text-sm">{{ registers }}人</span>
       </div>
+
+      {% comment %} TODO 購入ボタン {% endcomment %}
     </div>
   </section>
 
@@ -85,7 +87,7 @@
         </button>
       {% else %}
         <p>
-          レビューを投稿するには<a href="{% url 'login' %}">ログイン</a>してください。
+          レビューするには<a href="{% url 'login' %}">ログイン</a>
         </p>
       {% endif %}
     </div>

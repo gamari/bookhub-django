@@ -4,42 +4,43 @@
 <ol id="memo-list">
   {% for memo in memos %}
   <li class="memo-item" data-date="{{ memo.get_isoformat_created_at }}">
-    <div class="memo-item__image">
-      {% book_icon memo.book "sm" %}
-    </div>
-
-    <div class="memo-item__info">
-      <div class="memo-item__info-header">
-        {% user_icon memo.user "sm" %}
-        <div>
-          <div class="user-name__md">
-            <a href="{% url 'user_detail' memo.user.username %}">{{memo.user.username}}</a>
+    <div class="memo-item__header">
+      <div class="memo-item__image">
+        {% book_icon memo.book "sm" %}
+      </div>
+  
+      <div class="memo-item__info">
+        <div class="memo-item__info-header">
+          {% user_icon memo.user "sm" %}
+          <div>
+            <div class="user-name__md">
+              <a href="{% url 'user_detail' memo.user.username %}">{{memo.user.username}}</a>
+            </div>
+            <p class="time">{{ memo.created_at|date:"Y/m/d H:i" }}</p>
           </div>
-          <p class="time">{{ memo.created_at|date:"Y/m/d H:i" }}</p>
+        </div>
+  
+        <div>
+          <a href="{% url 'book_detail' memo.book.id  %}" class="text-sm">
+            {{memo.book.title}}
+          </a>
         </div>
       </div>
 
-      <div>
-        <a href="{% url 'book_detail' memo.book.id  %}" class="text-sm">
-          {{memo.book.title}}
-        </a>
+      <div class="memo-item__tool">
+        {% comment %} TODO ホーム画面では非表示にさせたい {% endcomment %}
+        {% if show and memo.user == request.user %}
+        <button
+          class="memo-item__delete"
+          data-memo-id="{{ memo.id }}"
+          data-action="{% url 'memo_detail_api' memo.id %}"
+        >
+          <i class="fa-xl fa-regular fa-trash-can" style="color: #666"></i>
+        </button>
+        {%endif%}
       </div>
-
-      <p class="mt-4">{{ memo.content }}</p>
     </div>
-
-    <div class="memo-item__tool">
-      {% comment %} TODO ホーム画面では非表示にさせたい {% endcomment %}
-      {% if show and memo.user == request.user %}
-      <button
-        class="memo-item__delete"
-        data-memo-id="{{ memo.id }}"
-        data-action="{% url 'memo_detail_api' memo.id %}"
-      >
-        <i class="fa-xl fa-regular fa-trash-can" style="color: #666"></i>
-      </button>
-      {%endif%}
-    </div>
+    <p class="mt-4">{{ memo.content }}</p>
   </li>
   {% endfor %}
 

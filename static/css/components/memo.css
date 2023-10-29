@@ -39,8 +39,15 @@
   border-bottom: 1px solid #ccc;
   padding: 2rem;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 2rem;
+}
+
+.memo-item__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
 }
 
 #memo-list .memo-item:last-child {
@@ -80,7 +87,7 @@
 }
 
 .memo-item__tool {
-  width: 60px;
+  width: 30px;
 }
 
 .memo-item__delete {
