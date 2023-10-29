@@ -43,6 +43,15 @@ BookHubアプリ。
 
 - CICDによるデプロイ
 
+```
+git pull
+docker compose exec web python manage.py collectstatic
+yes
+docker compose exec web python manage.py migrate
+docker compose restart
+```
+
+
 ## DB操作
 
 - python manage.py shell

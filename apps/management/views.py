@@ -1,7 +1,9 @@
+from datetime import datetime
 import logging 
 
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import user_passes_test
+from apps.book.domain.repositories import BookRepository
 from apps.book.forms import BookForm
 
 from apps.book.models import Book
@@ -76,7 +78,8 @@ def management_dashboard(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def management_books(request):
-    books = Book.objects.all().filter(is_clean=False).order_by("-views")[:10]
+    repository = BookRepository()
+    books = repository.fetch_most_viewed_books()
     context = {
         "books": books,
     }
@@ -97,6 +100,16 @@ def management_book_edit(request, book_id):
         "form": form,
     }
     return render(request, "pages/manage-book-edit.html", context)
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def management_book_soft_delete(request, book_id):
+    logger.info("削除します")
+    book = Book.objects.get(id=book_id)
+    book.delete()
+    logger.info("削除しました")
+    logger.info(book)
+    return redirect('management_books')
 
 @user_passes_test(lambda u: u.is_superuser)
 def management_contacts(request):

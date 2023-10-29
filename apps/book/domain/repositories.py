@@ -16,6 +16,14 @@ class AuthorRepository(object):
 
 
 class BookRepository(object):
+    @classmethod
+    def fetch_books(cls, limit=20):
+        return Book.objects.all().order_by("-created_at")[:limit]
+
+    @classmethod
+    def fetch_most_viewed_books(cls, limit=20):
+        return Book.objects.all().order_by("-views")[:limit]
+
     @staticmethod
     def search_by_title(query):
         return list(Book.objects.filter(title__icontains=query).order_by("isbn_10").order_by("-isbn_13").order_by("-views"))

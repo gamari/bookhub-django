@@ -67,11 +67,8 @@ class Book(models.Model):
     views = models.IntegerField("閲覧数", default=0)
     genres = models.ManyToManyField(Genre, through="BookGenre")
     is_clean = models.BooleanField("整備されたデータ判定", default=False)
-    is_active = models.BooleanField("有効判定", default=True)
-
-    # TODO 実装する
-    # created_at = models.DateTimeField(auto_now_add=True)
-    # updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     def __str__(self):
         return f"{self.title}"
@@ -105,7 +102,7 @@ class Bookshelf(models.Model):
         from apps.record.models import ReadingRecord
 
         # TODO 作成順に入れたい
-        books_with_records = self.books.all().prefetch_related(
+        books_with_records = self.get_books().prefetch_related(
             Prefetch(
                 "readingrecord_set",
                 queryset=ReadingRecord.objects.filter(user=user),
