@@ -43,10 +43,18 @@ class BookSelectionForm(forms.ModelForm):
             }
         ),
     )
+    is_public = forms.ChoiceField(
+        widget=forms.RadioSelect,
+        choices=[
+            (True, '公開'),
+            (False, '非公開'),
+        ],
+        initial=False,
+    )
 
     class Meta:
         model = BookSelection
-        fields = ['title', 'books', 'description']
+        fields = ['title', 'books', 'description', 'is_public']
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)

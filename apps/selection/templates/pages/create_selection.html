@@ -36,6 +36,10 @@
     </div>
 
     {% include "components/_book_selection.html" %}
+
+    <div class="mt-4">
+      {{ form.is_public }}
+    </div>
     
     <button type="submit" class="mt-4 btn btn-primary">
       作成<span id="selected-count"></span>

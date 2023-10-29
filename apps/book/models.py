@@ -69,6 +69,10 @@ class Book(models.Model):
     is_clean = models.BooleanField("整備されたデータ判定", default=False)
     is_active = models.BooleanField("有効判定", default=True)
 
+    # TODO 実装する
+    # created_at = models.DateTimeField(auto_now_add=True)
+    # updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return f"{self.title}"
     

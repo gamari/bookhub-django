@@ -15,6 +15,7 @@ class BookSelection(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="selections")
     books = models.ManyToManyField(Book, through='SelectionBookRelation', related_name="in_selections", blank=True)
     views = models.PositiveIntegerField(default=0)
+    is_public = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

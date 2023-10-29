@@ -1,3 +1,5 @@
+import logging
+
 from datetime import datetime
 
 from django.db.models import Q, Avg
@@ -5,6 +7,7 @@ from django.db.models import Q, Avg
 from apps.book.models import Author, Book, Bookshelf
 from apps.selection.models import BookSelection
 
+logger = logging.getLogger("app_logger")
 
 class AuthorRepository(object):
     @staticmethod
@@ -106,19 +109,23 @@ class BookshelfRepository:
 
 
 class BookSelectionRepository(object):
-    @staticmethod
+    @classmethod
     def fetch_or_create(user):
         book_selection, created = BookSelection.objects.get_or_create(user=user)
         return book_selection
 
-    @staticmethod
-    def fetch_selections_for_user(user):
-        return BookSelection.objects.filter(user=user)
+    @classmethod
+    def fetch_selections_for_user(cls, user):
+        return cls._fetch_selection().filter(user=user)
     
-    @staticmethod
-    def fetch_selection_by_id(selection_id):
+    @classmethod
+    def fetch_selection_by_id(cls, selection_id):
         return BookSelection.objects.get(id=selection_id)
     
-    @staticmethod
-    def fetch_latest_selection_list(limit=6):
-        return BookSelection.objects.order_by("-created_at")[:limit]
+    @classmethod
+    def fetch_latest_selection_list(cls, limit=6):
+        return cls._fetch_selection().order_by("-created_at")[:limit]
+    
+    @classmethod
+    def _fetch_selection(cls, is_public=True):
+        return BookSelection.objects.all().filter(is_public=is_public)
