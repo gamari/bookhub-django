@@ -106,7 +106,7 @@ class Bookshelf(models.Model):
                 queryset=ReadingRecord.objects.filter(user=user),
                 to_attr="reading_record",
             )
-        ).order_by("-readingrecord__finished_at")
+        )
 
         return books_with_records
 
