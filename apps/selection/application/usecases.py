@@ -47,6 +47,9 @@ class DetailBookSelectionUsecase(Usecase):
             is_liked = BookSelectionLike.objects.filter(user=user, selection=selection).exists()
         else:
             is_liked = False
+        
+        selection.inclement_views()
+
         return {"selection": selection, "is_liked": is_liked }
 
 # TODO

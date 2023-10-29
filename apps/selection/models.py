@@ -14,6 +14,7 @@ class BookSelection(models.Model):
     description = models.TextField("セレクション説明", null=True, blank=True)
     user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="selections")
     books = models.ManyToManyField(Book, through='SelectionBookRelation', related_name="in_selections", blank=True)
+    views = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -26,6 +27,10 @@ class BookSelection(models.Model):
         book = self.books.first()
         logger.debug(f"get_first_book: {book}")
         return book
+    
+    def inclement_views(self):
+        self.views += 1
+        self.save()
 
 class BookSelectionLike(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="selection_likes")
