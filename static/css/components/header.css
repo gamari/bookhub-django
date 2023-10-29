@@ -45,7 +45,7 @@
 .searchbox-container {
   display: none;
   flex-direction: row;
-  border: 1px solid #d2d2d2;
+  border: 1px solid #aaa;
   font-size: 16px;
 }
 
