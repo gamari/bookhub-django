@@ -72,6 +72,7 @@ class BookRepository(object):
                 other=book_data["other"],
                 published_date=published_date,
                 publisher=book_data["publisher"],
+                views=book_data["views"],
             )
         except Exception as e:
             print(e)

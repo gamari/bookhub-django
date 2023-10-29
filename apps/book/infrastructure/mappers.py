@@ -38,6 +38,11 @@ class GoogleBooksMapper(object):
             published_date = volume_info.get("publishedDate", "")
             publisher = volume_info.get("publisher", "")
 
+            if isbn_10:
+                views = 5
+            else:
+                views = 0
+
             book = {
                 "title": title,
                 "description": description,
@@ -48,6 +53,7 @@ class GoogleBooksMapper(object):
                 "authors": authors,
                 "published_date": published_date,
                 "publisher": publisher,
+                "views": views,
             }
             books.append(book)
 

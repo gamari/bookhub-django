@@ -28,4 +28,12 @@
       <p class="mt-4">{{ book.description|truncatechars:80 }}</p>
     </div>
   </div>
+
+  <div class="search-type">
+    {% if book.isbn_10 %}
+    <span>1</span>
+    {% else %}
+    <span>9</span>
+    {% endif %}
+  </div>
 </div>
