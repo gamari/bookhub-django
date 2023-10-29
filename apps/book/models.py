@@ -100,6 +100,7 @@ class Bookshelf(models.Model):
     def get_books_with_reading_records(self, user):
         from apps.record.models import ReadingRecord
 
+        # TODO 作成順に入れたい
         books_with_records = self.books.all().prefetch_related(
             Prefetch(
                 "readingrecord_set",
