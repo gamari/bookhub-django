@@ -92,6 +92,10 @@
           <a href="{{ book.amazon_url }}" target="_blank" rel="noopener noreferrer">
             <img src="{% static 'images/amazon.png' %}" class="amazon-logo" alt="Amazon Logo">
           </a>
+          {% else %}
+          <a href="https://www.amazon.co.jp/s?k={{book.title}}&linkCode=ll2&tag=yommy-22&linkId=21ce06eccdc77bca6b1be589ceed7a39&language=ja_JP&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer">
+            <img src="{% static 'images/amazon.png' %}" class="amazon-logo" alt="Amazon Logo">
+          </a>
           {% endif %}
         </div>
       </div>
