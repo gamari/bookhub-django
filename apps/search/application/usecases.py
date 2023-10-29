@@ -9,8 +9,11 @@ class BookSearchByTitleUsecase(Usecase):
         self.search_service = search_service
     
     def run(self, mode, page, query):
+        if not query:
+            raise ValueError("検索文字を入力してください。")
+
         if len(query) > 50:
-            raise ValueError("検索文字列が長すぎます")
+            raise ValueError("検索文字列が長すぎます。")
 
         results_list, total_pages = self.search_service.search(query, page)
 

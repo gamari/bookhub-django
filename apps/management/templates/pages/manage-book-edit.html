@@ -7,6 +7,9 @@
 
 {% block title %}管理者画面{% endblock %} 
 
+{% block js %}
+<script src="{% static 'js/services/search/book_list.js' %}"></script>
+{% endblock %}
 
 {% block content %}
 
@@ -16,5 +19,23 @@
         {{ form.as_p }}
         <input type="submit" value="更新">
     </form>
+</section>
+
+<section>
+    <div class="card-sm">
+        <input type="text" id="query" placeholder="検索">
+        <button 
+          id="search-btn"
+          class="btn btn-primary"
+          data-book-id="{{ book.id }}"
+          data-url="{% url 'api_book_search' %}"
+        >検索</button>
+    </div>
+</section>
+
+<section>
+    <ul id="book-list">
+        <div>list</div>
+    </ul>
 </section>
 {% endblock %}

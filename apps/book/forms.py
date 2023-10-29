@@ -23,4 +23,10 @@ class BookForm(forms.ModelForm):
             'published_date': DateInput(),
         }
 
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.views += 5
+        if commit:
+            instance.save()
+        return instance
 

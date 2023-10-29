@@ -10,6 +10,7 @@ from apps.book.models import Book
 from apps.contact.models import Contact
 from apps.management.forms import NoticeForm
 from apps.management.models import Notice
+from apps.record.models import ReadingMemo
 from apps.search.models import SearchHistory
 
 logger = logging.getLogger("app_logger")
@@ -101,9 +102,31 @@ def management_book_edit(request, book_id):
     }
     return render(request, "pages/manage-book-edit.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
+def management_book_merge(request, source_id, target_id):
+    target_book = Book.objects.get(id=target_id)
+    source_book = Book.objects.get(id=source_id)
+
+    # 関連データの更新
+    # メモ
+    memos = ReadingMemo.objects.filter(book=source_book)
+    for memo in memos:
+        memo.book = target_book
+        memo.save()
+
+    # レビュー
+    # セレクション
+
+    # 本の情報の更新
+    target_book.title = source_book.title
+    target_book.description = source_book.description
+
+    target_book.save()
+    source_book.delete()
+
 
 @user_passes_test(lambda u: u.is_superuser)
-def management_book_soft_delete(request, book_id):
+def management_delete_book(request, book_id):
     logger.info("削除します")
     book = Book.objects.get(id=book_id)
     book.delete()
