@@ -67,6 +67,7 @@ class Book(models.Model):
     views = models.IntegerField("閲覧数", default=0)
     genres = models.ManyToManyField(Genre, through="BookGenre")
     is_clean = models.BooleanField("整備されたデータ判定", default=False)
+    is_active = models.BooleanField("有効判定", default=True)
 
     def __str__(self):
         return f"{self.title}"
@@ -105,7 +106,7 @@ class Bookshelf(models.Model):
                 queryset=ReadingRecord.objects.filter(user=user),
                 to_attr="reading_record",
             )
-        )
+        ).order_by("-readingrecord__finished_at")
 
         return books_with_records
 

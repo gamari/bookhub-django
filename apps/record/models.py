@@ -27,6 +27,8 @@ class ReadingRecord(models.Model):
     started_at = models.DateField(null=True, blank=True)
     finished_at = models.DateField(null=True, blank=True)
     notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     class Meta:
         unique_together = ("user", "book")
