@@ -1,11 +1,23 @@
 <div class="selection-list" style="display: flex">
   {% for book in form.books.field.queryset %}
   <div class="book-selection">
-    <img
+    <div class="relative">
+      {% if book.thumbnail %}
+      <img
       src="{{ book.thumbnail }}"
       alt="{{ book.title }}"
       class="book-image book-image-md"
     />
+    {% else %}
+    <img
+      src="https://via.placeholder.com/120x150"
+      alt="{{ book.title }}"
+      class="book-image"
+      />
+      {% endif %}
+      <div class="book-title__hover">{{ book.title }}</div>
+    </div>
+      
     <input
       type="checkbox"
       name="{{ form.books.name }}"
