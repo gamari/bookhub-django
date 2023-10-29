@@ -7,6 +7,7 @@ urlpatterns = [
     path('manage/books/', views.management_books, name='management_books'),
     path('manage/book/<int:book_id>/', views.management_book_edit, name='management_book_edit'),
     path('manage/book/<int:book_id>/delete/', views.management_delete_book, name='management_book_delete'),
+    path('manage/books/<int:source_id>/merge/<int:target_id>/', views.management_book_merge, name='management_book_merge'),
     path('manage/contacts/', views.management_contacts, name='management_contacts'),
     path('manage/search-history/', views.management_search_history, name='management_search_history'),
     path('manage/notices/', views.management_notices, name='management_notices'),

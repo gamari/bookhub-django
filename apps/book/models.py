@@ -45,7 +45,11 @@ class BookCategory(models.Model):
 
 
 class Book(models.Model):
-    """書籍。"""
+    """
+    書籍モデル
+    関係ある場所
+    - ReadingMemo, Review, BookshelfBook
+    """
 
     id = models.AutoField(primary_key=True)
     isbn_10 = models.CharField(max_length=10, unique=True, null=True, blank=True)

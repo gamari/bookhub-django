@@ -1,17 +1,20 @@
 from datetime import datetime
-import logging 
+import logging
+from django.http import HttpResponseRedirect 
 
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import user_passes_test
 from apps.book.domain.repositories import BookRepository
 from apps.book.forms import BookForm
 
-from apps.book.models import Book
+from apps.book.models import Book, BookAuthor, BookGenre, Bookshelf, BookshelfBook
 from apps.contact.models import Contact
 from apps.management.forms import NoticeForm
 from apps.management.models import Notice
 from apps.record.models import ReadingMemo
+from apps.review.models import Review
 from apps.search.models import SearchHistory
+from apps.selection.models import SelectionBookRelation
 
 logger = logging.getLogger("app_logger")
 
@@ -102,10 +105,24 @@ def management_book_edit(request, book_id):
     }
     return render(request, "pages/manage-book-edit.html", context)
 
+# TODO マージ処理を完成させる
 @user_passes_test(lambda u: u.is_superuser)
 def management_book_merge(request, source_id, target_id):
+    """
+    source_id= 合体させる
+    target_id= 大元
+    """
     target_book = Book.objects.get(id=target_id)
     source_book = Book.objects.get(id=source_id)
+
+    if target_book.id == source_book.id:
+        logger.info("同じ本です")
+        return redirect('management_books')
+
+
+    logger.info("マージします")
+    logger.info(target_book)
+    logger.info(source_book)
 
     # 関連データの更新
     # メモ
@@ -115,14 +132,45 @@ def management_book_merge(request, source_id, target_id):
         memo.save()
 
     # レビュー
+    reviews = Review.objects.filter(book=source_book)
+    for review in reviews:
+        review.book = target_book
+        review.save()
+    
+    # 本棚
+    bookshelf_books = BookshelfBook.objects.filter(book=source_book)
+    for bookshelf_book in bookshelf_books:
+        bookshelf_book.book = target_book
+        bookshelf_book.save()
+    
+    book_authors = BookAuthor.objects.filter(book=source_book)
+    for book_author in book_authors:
+        book_author.book = target_book
+        book_author.save()
+    
+    book_genres = BookGenre.objects.filter(book=source_book)
+    for book_genre in book_genres:
+        book_genre.book = target_book
+        book_genre.save()
+
     # セレクション
+    source_selection_books = SelectionBookRelation.objects.filter(book=source_book)
+    logger.info(source_selection_books)
+
+    try:
+        for selection_book in source_selection_books:
+            selection_book.book = target_book
+            selection_book.save()
+    except:
+        logger.info("失敗")
 
     # 本の情報の更新
-    target_book.title = source_book.title
-    target_book.description = source_book.description
+    # target_book.title = source_book.title
+    # target_book.description = source_book.description
 
     target_book.save()
     source_book.delete()
+    return redirect('management_books')
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -151,5 +199,3 @@ def management_search_history(request):
     }
     return render(request, "pages/manage-search-history.html", context)
 
-
-# お知らせ機能

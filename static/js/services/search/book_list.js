@@ -6,20 +6,10 @@ function createBookElement(book, target_id) {
     bookElement.appendChild(title);
 
     // マージボタン
-    const mergeBtn = document.createElement('button');
+    const mergeBtn = document.createElement('a');
     mergeBtn.textContent = 'マージ';
     mergeBtn.classList.add('btn', 'btn-primary');
-    mergeBtn.dataset.bookId = book.id;
-    mergeBtn.dataset.bookTitle = book.title;
-    mergeBtn.dataset.bookAuthor = book.author;
-    mergeBtn.dataset.bookPublisher = book.publisher;
-    mergeBtn.dataset.bookIsbn = book.isbn;
-
-    mergeBtn.addEventListener('click', function() {
-
-        console.log("merge", book.id, target_id);
-    });
-
+    mergeBtn.href = `/manage/books/${target_id}/merge/${book.id}/`;
     bookElement.appendChild(mergeBtn);
 
     return bookElement;
