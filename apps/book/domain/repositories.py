@@ -22,7 +22,7 @@ class BookRepository(object):
 
     @classmethod
     def fetch_most_viewed_books(cls, limit=20):
-        return Book.objects.all().order_by("-views")[:limit]
+        return Book.objects.all().filter(is_clean=False).order_by("-views")[:limit]
 
     @staticmethod
     def search_by_title(query):

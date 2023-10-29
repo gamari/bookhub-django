@@ -1,13 +1,11 @@
-from datetime import datetime
 import logging
-from django.http import HttpResponseRedirect 
 
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import user_passes_test
 from apps.book.domain.repositories import BookRepository
 from apps.book.forms import BookForm
 
-from apps.book.models import Book, BookAuthor, BookGenre, Bookshelf, BookshelfBook
+from apps.book.models import Book, BookAuthor, BookGenre, BookshelfBook
 from apps.contact.models import Contact
 from apps.management.forms import NoticeForm
 from apps.management.models import Notice
