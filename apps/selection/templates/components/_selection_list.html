@@ -55,7 +55,14 @@
           </a>
         </div>  
 
-        <div>
+        <div class="row-center gap-2">
+          <div>
+            {% if selection.is_public %}
+            <div style="color: #6b6b6b; border: 1px solid #666; padding: 2px;">公開</div>
+            {% else %}
+              <div style="color: #6b6b6b;">非公開</div>
+            {% endif %}
+          </div>
           <form class="delete-form" action="{% url 'delete_selection' selection.id %}" method="POST">
             {% csrf_token %}
             <button type="submit">

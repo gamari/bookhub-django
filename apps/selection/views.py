@@ -13,7 +13,7 @@ from apps.selection.application.usecases import (
     EditBookSelectionUsecase,
 )
 from apps.selection.application.usecases import DetailBookSelectionUsecase
-from apps.book.forms import BookSelectionForm
+from apps.selection.forms import BookSelectionForm
 from apps.selection.models import BookSelection
 from config.utils import create_ogp_image
 from config.views import BaseViewMixin

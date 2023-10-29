@@ -1,6 +1,7 @@
 from apps.selection.domain.services import BookSelectionDomainService
 from apps.selection.models import BookSelectionLike
 from config.application.usecases import Usecase
+from config.exceptions import ApplicationException
 
 
 
@@ -43,6 +44,10 @@ class DetailBookSelectionUsecase(Usecase):
 
     def run(self, selection_id, user):
         selection = self.book_selection_service.get_selection_by_id(selection_id)
+
+        if not selection.is_public and selection.user != user:
+            raise ApplicationException("非公開です。")
+
         if user.is_authenticated:
             is_liked = BookSelectionLike.objects.filter(user=user, selection=selection).exists()
         else:

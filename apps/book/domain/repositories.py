@@ -116,7 +116,7 @@ class BookSelectionRepository(object):
 
     @classmethod
     def fetch_selections_for_user(cls, user):
-        return cls._fetch_selection().filter(user=user)
+        return BookSelection.objects.all().filter(user=user)
     
     @classmethod
     def fetch_selection_by_id(cls, selection_id):

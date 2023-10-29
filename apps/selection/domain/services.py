@@ -1,5 +1,5 @@
 from apps.book.domain.repositories import BookSelectionRepository
-from apps.book.forms import BookSelectionForm
+from apps.selection.forms import BookSelectionForm
 from apps.selection.models import BookSelection
 from config.exceptions import ApplicationException, NotOwnerError
 from django.core.exceptions import PermissionDenied
