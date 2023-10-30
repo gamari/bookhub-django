@@ -103,25 +103,20 @@
     </div>
   </section>
 
-  <section>
-    <h3>書籍紹介</h3>
+  {% comment %} TODO 記事紹介を {% endcomment %}
+  
 
-    {% if book.description %}
-     <p class="description-content card-sm">{{ book.description }}</p>
-    {% else %}
-     <p class="description-content card-sm">書籍紹介がありません</p>
-    {% endif %}
-  </section>
-
-  <div class="toolbar-section my-4">
+  <div class="toolbar-section mb-10">
     <div>
       <button id="btn-reviews" class="badge badge-info">レビュー</button>
       <button id="btn-timeline" class="badge">タイムライン</button>
+      <button id="btn-book-detail" class="badge">書籍紹介</button>
     </div>
   </div>
 
   {% include 'components/detail/_review_section.html' %}
   {% include 'components/detail/_timeline_section.html' %}
+  {% include 'components/detail/_book_detail_section.html' %}
 
   {% include 'components/review_modal.html' %}
 {% endblock %}
