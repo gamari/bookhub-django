@@ -51,4 +51,8 @@ class AICreateSelectionAPIView(APIView):
         usecase = AICreateSelectionUsecase.build()
         selection = usecase.run(demand, request.user)
         serializer = BookSelectionSerializer(selection)
+
+        request.user.available_selections -= 1
+        request.user.save()
+
         return Response(serializer.data, status=201)
