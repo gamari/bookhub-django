@@ -2,7 +2,6 @@ from apps.book.domain.repositories import BookSelectionRepository
 from apps.selection.forms import BookSelectionForm
 from apps.selection.models import BookSelection
 from config.exceptions import ApplicationException, NotOwnerError
-from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -45,3 +44,11 @@ class BookSelectionDomainService(object):
             return selection.id
         else:
             raise ApplicationException(form.errors)
+    
+    def create_selection_by_book_ids(self,description, book_ids, user):
+        """書籍IDのリストからセレクションを作成する。"""
+        # TODO title, descriptionは仮
+        title = "AIによるセレクション"
+        selection = BookSelection.objects.create(user=user, title=title, description=description)
+        selection.books.set(book_ids)
+        return selection

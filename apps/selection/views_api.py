@@ -1,10 +1,16 @@
+import logging
+
 from django.shortcuts import get_object_or_404
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from apps.selection.application.usecases import AICreateSelectionUsecase
+from apps.selection.serializers import BookSelectionSerializer
+
 from .models import BookSelection, BookSelectionLike
 
+logger = logging.getLogger("app_logger")
 
 class LikeBookSelectionApiView(APIView):
     """いいね機能API"""
@@ -24,3 +30,11 @@ class LikeBookSelectionApiView(APIView):
 
         return Response({'action': action})
 
+
+class AICreateSelectionAPIView(APIView):
+    def post(self, request):
+        demand = request.data.get("demand")
+        usecase = AICreateSelectionUsecase.build()
+        selection = usecase.run(demand, request.user)
+        serializer = BookSelectionSerializer(selection)
+        return Response(serializer.data, status=201)

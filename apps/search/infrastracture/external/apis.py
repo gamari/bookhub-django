@@ -60,15 +60,33 @@ class GoogleBooksURLBuilder(URLBuilder):
 class GoogleBooksAPIClient(object):
     BASE_URL = "https://www.googleapis.com/books/v1/volumes"
 
-    def fetch_books(self, query, page):
-        start_index = (int(page) - 1) * 10
+    def fetch_books(self, query, page, limit=10):
+        start_index = (int(page) - 1) * limit
         url = (
             GoogleBooksURLBuilder(GoogleBooksAPIClient.BASE_URL)
             # .with_query(query)
             .with_query_in_title(query)
             # .with_query_in_description(query)
             .with_start_index(start_index)
-            # .with_max_results(10)
+            .with_max_results(limit)
+            .with_lang_restrict("ja")
+            .with_country("JP")
+            .with_print_type("books")
+            .with_order_by("relevance")
+            .with_api_key(GOOGLE_BOOKS_API_KEY)
+            .build()
+        )
+        print(url)
+        response = requests.get(url)
+        return response.json() if response.status_code == 200 else {}
+    
+    def search_books_by_description(self, query, page, limit=10):
+        start_index = (int(page) - 1) * limit
+        url = (
+            GoogleBooksURLBuilder(GoogleBooksAPIClient.BASE_URL)
+            .with_query_in_description(query)
+            .with_start_index(start_index)
+            .with_max_results(limit)
             .with_lang_restrict("ja")
             .with_country("JP")
             .with_print_type("books")

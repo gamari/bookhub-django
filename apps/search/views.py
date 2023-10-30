@@ -5,6 +5,7 @@ from apps.book.domain.services import BookDomainService
 from apps.search.application.usecases import BookSearchByTitleUsecase
 from apps.search.domain.services import BookSearchService, GoogleBooksService
 from apps.search.infrastracture.external.apis import GoogleBooksAPIClient
+from apps.search.models import SearchHistory
 
 
 def book_search(request):
@@ -31,6 +32,12 @@ def book_search(request):
     try:
         usecase = BookSearchByTitleUsecase(search_service)
         context = usecase.execute(mode, page, query)
+
+        if page == 1:
+            if request.user.is_authenticated:
+                SearchHistory.objects.create(query=query, user=request.user)
+            else:
+                SearchHistory.objects.create(query=query)
 
         return render(request, "pages/search_results.html", context)
     except ValueError as e:

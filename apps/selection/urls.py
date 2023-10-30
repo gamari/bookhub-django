@@ -13,4 +13,5 @@ urlpatterns = [
 
     # API
     path('api/selection/<uuid:selection_id>/like/', views_api.LikeBookSelectionApiView.as_view(), name='api_like_book_selection'),
+    path("api/ai/selection/", views_api.AICreateSelectionAPIView.as_view(), name="api_ai_create_selection"),
 ]

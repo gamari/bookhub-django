@@ -10,8 +10,10 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="").split(",")
-
 print(f"ALLOWED_HOSTS: {ALLOWED_HOSTS}")
+
+OPEN_AI_KEY = config("OPEN_AI_KEY", default="")
+
 
 GOOGLE_BOOKS_API_KEY = config("GOOGLE_BOOKS_API_KEY", default="")
 

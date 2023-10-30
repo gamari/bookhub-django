@@ -47,11 +47,9 @@ document.addEventListener('DOMContentLoaded', function() {
     btnGetMemoList.addEventListener('click', function() {
         timelinePage++;
         const url = `/api/books/${bookId}/memos/?page=${timelinePage}`;
-        console.log(url);
         fetch(url)
             .then(response => response.json())
             .then(memos => {
-                console.log(memos)
                 memos.forEach(memo => {
                     const newMemo = createMemoElement(memo, false);
                     memoList.appendChild(newMemo);
