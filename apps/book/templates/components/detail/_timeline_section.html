@@ -5,5 +5,9 @@
 
     <div class="center pt-4 mt-10">
         <i id="get-memo-list-btn"  class="fa-xl fa-solid fa-rotate-right cursor-pointer" style="color: #1e90ff;"></i>
+
+        {% if book %}
+        <input type="hidden" id="book-id" value="{{book.id}}" />
+        {% endif %}
     </div>
 </div>

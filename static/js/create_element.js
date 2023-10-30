@@ -11,6 +11,7 @@ function createElement(tag, options = {}) {
 }
 
 function createDeleteButton(data, classes = "") {
+    console.log(data);
     const deleteIcon = createElement('i', {
         classes: ['fa-regular', 'fa-trash-can', 'fa-xl'],
         attributes: { style: 'color: #666' }
@@ -67,13 +68,16 @@ function createBookIcon(book) {
     }).appendChild(bookImage);
 }
 
-function createMemoElement(data) {
+function createMemoElement(data, show_delete = true) {
     
     const memoHeader = createElement('div', { classes: ['memo-item__header'] });
     const memoImage = createElement('div', { classes: ['memo-item__image'] });
     const memoInfo = createElement('div', { classes: ['memo-item__info'] });
     const memoTool = createElement('div', { classes: ['memo-item__tool'] });
-    memoTool.appendChild(createDeleteButton(data, "memo-item__delete"));
+
+    if (show_delete) {
+        memoTool.appendChild(createDeleteButton(data, "memo-item__delete"));
+    }
     
     memoImage.append(createBookIcon(data.book));
     memoHeader.append(
