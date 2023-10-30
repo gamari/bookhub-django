@@ -1,3 +1,5 @@
+import logging
+
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -5,6 +7,8 @@ from rest_framework.views import APIView
 from apps.record.domain.services import MemoDomainService
 from .models import ReadingMemo
 from .serializers import ReadingMemoSerializer
+
+logger = logging.getLogger("app_logger")
 
 class ReadingMemoViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ReadingMemo.objects.all()
@@ -27,6 +31,8 @@ class GetMemoListByBookAPIView(APIView):
 
         service = MemoDomainService.initialize()
         memos = service.get_memos_of_book_with_paginate(book_id, page)
+
+        logger.info(memos)
 
         serializer = ReadingMemoSerializer(memos, many=True)
         return Response(serializer.data)

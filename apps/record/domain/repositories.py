@@ -27,15 +27,19 @@ class ReadingMemoRepository(object):
     
     def fetch_memos_by_book_with_paginate(self, book, page=1):
         # TODO page_sizeは後から10にする
-        page_size=1 
+        page_size=10
         memos = self._fetch_memos(book=book)
         paginator = Paginator(memos, page_size)
+
         try:
             current_page_memos = paginator.page(page)
         except PageNotAnInteger:
+            logger.debug('page is not integer')
             current_page_memos = paginator.page(1)
         except EmptyPage:
-            current_page_memos = paginator.page(paginator.num_pages)
+            logger.debug('page is empty')
+            # current_page_memos = paginator.page(paginator.num_pages)
+            return []
         
         return current_page_memos
 
