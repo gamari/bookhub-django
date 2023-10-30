@@ -2,27 +2,20 @@
 {% load user_tags %}
 
 <div class="selection-list w-full">
-    {% for selection in selections %}
-    <div>
+  {% for selection in selections %}
+    <div id="selection-panel-{{ selection.id }}">
       <div class="selection-panel">
-        <a
-          href="{% url 'selection_detail' selection.id %}"
-          class="selection-image center"
-        >
-        {% if selection.get_first_book %}
-           <img src="{{ selection.get_first_book.thumbnail }}" alt="selection-image" class="selection-image" alt="画像...">
-           {% else %}
+        <a href="{% url 'selection_detail' selection.id %}" class="selection-image center">
+          {% if selection.get_first_book %}
+            <img src="{{ selection.get_first_book.thumbnail }}" alt="selection-image" class="selection-image" alt="画像..." />
+          {% else %}
             <i class="fa-solid fa-book fa-2xl" style="color: #787878;"></i>
           {% endif %}
         </a>
 
-        
         <div class="p-2 selection-title-container">
-          <div class="time">{{selection.updated_at|date:"Y/m/d"}}</div>
-          <a
-            href="{% url 'selection_detail' selection.id %}"
-            class="text-sm"
-          >{{selection.title}}</a>
+          <div class="time">{{ selection.updated_at|date:'Y/m/d' }}</div>
+          <a href="{% url 'selection_detail' selection.id %}" class="text-sm">{{ selection.title }}</a>
         </div>
 
         <div class="row-center gap-2 p-2">
@@ -32,49 +25,37 @@
       </div>
 
       {% if show_tool %}
-      <div class="row mt-4 row-between px-2">
-        <div class="row-center gap-2">
-          <div
-            style="color: {{ is_liked|yesno:"#FF0000,#666" }};"
-          >
-            <i 
-              id="like-icon" 
-              class="fa-regular fa-heart" 
-              data-liked="{{ is_liked }}" 
-              data-selection-id="{{ selection.id }}" 
-            
-            ></i>
-            <span id="like-count">
-              {{ selection.total_likes }}
-            </span>
+        <div class="row mt-4 row-between px-2">
+          <div class="row-center gap-2">
+            <div style="color: {{ is_liked|yesno:'#FF0000,#666' }};">
+              <i id="like-icon" class="fa-regular fa-heart" data-liked="{{ is_liked }}" data-selection-id="{{ selection.id }}"></i>
+              <span id="like-count">{{ selection.total_likes }}</span>
+            </div>
+
+            <a href="{% url 'edit_selection' selection.id %}"><i class="fa-regular fa-pen-to-square fa-xl" style="color: #6b6b6b;"></i></a>
           </div>
 
-          <a href="{% url 'edit_selection' selection.id %}">
-            <i class="fa-regular fa-pen-to-square fa-xl" style="color: #6b6b6b;"></i>
-  
-          </a>
-        </div>  
+          <div class="row-center gap-2">
+            <div>
+              {% if selection.is_public %}
+                <div style="color: #6b6b6b; border: 1px solid #666; padding: 2px;">公開</div>
+              {% else %}
+                <div style="color: #6b6b6b;">非公開</div>
+              {% endif %}
+            </div>
 
-        <div class="row-center gap-2">
-          <div>
-            {% if selection.is_public %}
-            <div style="color: #6b6b6b; border: 1px solid #666; padding: 2px;">公開</div>
-            {% else %}
-              <div style="color: #6b6b6b;">非公開</div>
-            {% endif %}
+            <button 
+              class="delete-btn"
+              type="button"
+              data-id="{{ selection.id }}"
+              data-panel-id="selection-panel-{{ selection.id }}"
+            ><i class="fa-solid fa-trash fa-lg" style="color: #6b6b6b;"></i></button>
           </div>
-          <form class="delete-form" action="{% url 'delete_selection' selection.id %}" method="POST">
-            {% csrf_token %}
-            <button type="submit">
-              <i class="fa-solid fa-trash fa-lg"  style="color: #6b6b6b;"></i>
-            </button>
-          </form>
         </div>
-      </div>
       {% endif %}
     </div>
 
     {% empty %}
-      <p class="card-sm w-full">セレクションが存在しません</p>
-    {% endfor %}
-  </div>
+    <p class="card-sm w-full">セレクションが存在しません</p>
+  {% endfor %}
+</div>

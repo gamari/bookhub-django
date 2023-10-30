@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     initializeContentToggle();
-    initializeForms();
+    initializeDeleteButtons();
 });
 
 function initializeContentToggle() {
@@ -51,14 +51,25 @@ function initializeContentToggle() {
     }
 }
 
-function initializeForms() {
-    const deleteForms = document.querySelectorAll('.delete-form');
-    deleteForms.forEach(deleteForm => {
-        deleteForm.addEventListener('submit', function (event) {
-            console.log("SUBMIT")
+function initializeDeleteButtons() {
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    deleteButtons.forEach((deleteButton) => {
+        deleteButton.addEventListener('click', async function (event) {
+            const id = deleteButton.dataset.id;
             const confirmation = confirm("削除しますか？");
             if (!confirmation) {
                 event.preventDefault();
+            }
+
+            try {
+                await deleteSelection(id);
+                
+                // selectionの削除処理
+                const panelId = deleteButton.dataset.panelId;
+                const panel = document.getElementById(panelId);
+                panel.remove();
+            } catch (e) {
+                alert("削除に失敗しました。")
             }
         });
     });

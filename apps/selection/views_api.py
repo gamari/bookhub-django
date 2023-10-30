@@ -16,6 +16,19 @@ logger = logging.getLogger("app_logger")
 
 Account = get_user_model()
 
+
+class SelectionDetailAPIView(APIView):
+    def delete(self, request, selection_id):
+        logger.debug(f"id={selection_id}を削除します")
+        selection = get_object_or_404(BookSelection, id=selection_id)
+
+        if selection.user.id != request.user.id:
+            return Response({"detail": "他のユーザーのセレクションは削除できません。"}, status=status.HTTP_400_BAD_REQUEST)
+
+        selection.delete()
+        return Response({"detail": "セレクションを削除しました。"}, status=status.HTTP_200_OK)
+
+
 class LikeBookSelectionApiView(APIView):
     """いいね機能API"""
     
@@ -39,7 +52,7 @@ class AICreateSelectionAPIView(APIView):
     def post(self, request):
         demand = request.data.get("demand")
 
-        if request.user.available_selections <= 0:
+        if not request.user.is_staff and request.user.available_selections <= 0:
             return Response({"detail": "利用可能なセレクション数を超えています。"}, status=status.HTTP_400_BAD_REQUEST)
 
         # 楽観的ロック

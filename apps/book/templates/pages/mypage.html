@@ -2,11 +2,9 @@
 {% load static %}
 {% load user_tags %}
 
-
 {% block title %}
   マイページ
 {% endblock %}
-
 
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/components/contribution.css' %}" />
@@ -18,14 +16,13 @@
   <link rel="stylesheet" href="{% static 'css/pages/mypage.css' %}" />
 {% endblock %}
 
-
 {% block js %}
   <script src="{% static 'js/create_element.js' %}"></script>
-  <script src="{% static 'js/pages/mypage.js' %}"></script>
   <script src="{% static 'js/services/memo/delete.js' %}"></script>
+  <script src="{% static 'js/services/selection/delete.js' %}"></script>
   <script src="{% static 'js/services/memo/get_list.js' %}"></script>
+  <script src="{% static 'js/pages/mypage.js' %}"></script>
 {% endblock %}
-
 
 {% block content %}
   {% include 'components/mypage/top_section.html' %}

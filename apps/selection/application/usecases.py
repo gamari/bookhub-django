@@ -91,12 +91,9 @@ class AICreateSelectionUsecase(Usecase):
         return cls()
 
     def run(self, demand, user):
-        if len(demand) > 200 or len(demand) < 10:
-            raise ApplicationException("要望は10文字以上200文字以内で入力してください。")
+        if len(demand) > 100 or len(demand) < 10:
+            raise ApplicationException("要望は10文字以上100文字以内で入力してください。")
         
-        # 
-
-
         ai_service = AiDomainService()
         title = ai_service.create_selection_title(demand)
         logger.info(f"{title}で検索します。")

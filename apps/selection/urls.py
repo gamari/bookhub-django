@@ -12,6 +12,7 @@ urlpatterns = [
     path('ogp/<uuid:selection_id>/', views.generate_ogp, name='generate_ogp'),
 
     # API
+    path("api/selection/<uuid:selection_id>/", views_api.SelectionDetailAPIView.as_view(), name="api_selection_detail"),
     path('api/selection/<uuid:selection_id>/like/', views_api.LikeBookSelectionApiView.as_view(), name='api_like_book_selection'),
     path("api/ai/selection/", views_api.AICreateSelectionAPIView.as_view(), name="api_ai_create_selection"),
 ]
