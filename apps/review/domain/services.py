@@ -17,7 +17,7 @@ class ReviewDomainService(object):
             return self.review_repo.fetch_latest_review_by_user(book, user)
         else:
             return None
-
+    
     def get_reviews_by_user_within_this_month(self, user):
         return self.review_repo.fetch_reviews_by_user_within_this_month(user)
     

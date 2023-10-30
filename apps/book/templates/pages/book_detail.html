@@ -2,7 +2,6 @@
 {% load static %}
 {% load user_tags %}
 {% load book_tags %}
-{% load review_tags %}
 
 {% block title %}
   書籍詳細
@@ -25,6 +24,7 @@
 
 {% block css %}
   <link href="{% static 'css/components/review.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/components/memo.css' %}" rel="stylesheet" />
   <link href="{% static 'css/components/modal.css' %}" rel="stylesheet" />
   <link href="{% static 'css/pages/book_detail.css' %}" rel="stylesheet" />
 
@@ -41,6 +41,7 @@
 {% block js %}
   <script src="{% static 'js/services/review/like.js' %}"></script>
   <script src="{% static 'js/review-modal.js' %}"></script>
+  <script src="{% static 'js/pages/book/detail.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -112,25 +113,15 @@
     {% endif %}
   </section>
 
-  <section class="reviews-section">
-    <div class="review-title-container">
-      <h3>レビュー</h3>
-
-      {% if user.is_authenticated %}
-        <button type="button" class="btn-sm btn-primary" id="openReviewModalButton">
-          <i class="fa-solid fa-pen"></i>
-          <span>レビューを書く</span>
-        </button>
-      {% else %}
-        <p>
-          レビューするには<a href="{% url 'login' %}">ログイン</a>
-        </p>
-      {% endif %}
+  <div class="toolbar-section my-4">
+    <div>
+      <button id="btn-reviews" class="badge badge-info">レビュー</button>
+      <button id="btn-timeline" class="badge">タイムライン</button>
     </div>
+  </div>
 
-    {% review_list reviews request.user.is_authenticated %}
-  </section>
+  {% include 'components/detail/_review_section.html' %}
+  {% include 'components/detail/_timeline_section.html' %}
 
-  <!-- モーダル機能 -->
   {% include 'components/review_modal.html' %}
 {% endblock %}

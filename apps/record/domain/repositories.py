@@ -2,6 +2,7 @@ import logging
 from datetime import datetime, timedelta
 from django.db.models import Count
 from django.db.models.functions import TruncDate
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from apps.record.models import ReadingMemo, ReadingRecord
 
@@ -23,6 +24,20 @@ class ReadingMemoRepository(object):
             previous_date=previous_date, 
             order_by=order_by
         )
+    
+    def fetch_memos_by_book_with_paginate(self, book, page=1):
+        # TODO page_sizeは後から10にする
+        page_size=1 
+        memos = self._fetch_memos(book=book)
+        paginator = Paginator(memos, page_size)
+        try:
+            current_page_memos = paginator.page(page)
+        except PageNotAnInteger:
+            current_page_memos = paginator.page(1)
+        except EmptyPage:
+            current_page_memos = paginator.page(paginator.num_pages)
+        
+        return current_page_memos
 
 
     def fetch_memos_by_user_within_date_range(self, user, start_date, end_date):

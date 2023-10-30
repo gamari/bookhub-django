@@ -183,17 +183,22 @@ class ShowBookDetailPageUsecase(Usecase):
     """書籍詳細画面を表示する。"""
 
     def __init__(
-        self, book_service: BookDomainService, review_service: ReviewDomainService
+        self, 
+        book_service: BookDomainService, 
+        review_service: ReviewDomainService,
+        memo_service: MemoDomainService
     ):
         self.book_service = book_service
         self.review_service = review_service
+        self.memo_service = memo_service
 
     @classmethod
     def build(cls):
         book_service = BookDomainService.initialize()
         review_service = ReviewDomainService.initialize()
+        memo_service = MemoDomainService.initialize()
 
-        return cls(book_service, review_service)
+        return cls(book_service, review_service, memo_service)
 
     def run(self, book_id, user):
         book = self.book_service.find_book_by_id(book_id)
@@ -202,6 +207,7 @@ class ShowBookDetailPageUsecase(Usecase):
         book_on_shelf = self.book_service.is_book_on_shelf(book, user)
         registers = self.book_service.count_books_on_shelf(book)
         latest_review = self.review_service.get_latest_review_for_user(book, user)
+        memos = self.memo_service.get_memos_of_book_with_paginate(book, 1)
         
         self.book_service.increment_views_of_book(book)
         
@@ -215,6 +221,7 @@ class ShowBookDetailPageUsecase(Usecase):
             "rating_range": range(1, 6),
             "reviews_count": reviews.count(),
             "registers": registers,
+            "memos": memos,
         }
         return context
 

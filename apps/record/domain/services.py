@@ -42,6 +42,9 @@ class MemoDomainService(object):
     def initialize(cls):
         memo_repo = ReadingMemoRepository()
         return cls(memo_repo)
+    
+    def get_memos_of_book_with_paginate(self, book, page=1):
+        return self.memo_repo.fetch_memos_by_book_with_paginate(book, page)
 
     def get_latest_memos(self, limit: int = None):
         return self.memo_repo.fetch_latest_memos(limit)

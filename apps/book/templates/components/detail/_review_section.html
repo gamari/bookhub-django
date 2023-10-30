@@ -1,0 +1,19 @@
+{% load review_tags %}
+
+
+<section id="reviews-section">
+  <div class="review-title-container">
+    <h3>レビュー</h3>
+
+    {% if user.is_authenticated %}
+    <button type="button" class="btn-sm btn-primary" id="openReviewModalButton">
+      <i class="fa-solid fa-pen"></i>
+      <span>レビューを書く</span>
+    </button>
+    {% else %}
+    <p>レビューするには<a href="{% url 'login' %}">ログイン</a></p>
+    {% endif %}
+  </div>
+
+  {% review_list reviews request.user.is_authenticated %}
+</section>
