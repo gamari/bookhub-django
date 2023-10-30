@@ -1,4 +1,3 @@
-from apps.search.models import SearchHistory
 from config.application.usecases import Usecase
 
 

@@ -15,7 +15,7 @@ class AiDomainService(object):
             messages=[
                 {
                     "role": "system",
-                    "content": "指定された要求を満たす書籍を検索するための「検索ワード」を作成してください。ただし、検索ワードを空白区切りで返してください。また、検索ワード以外は含めないでください。"
+                    "content": "指定された要求を満たす書籍を検索するための「検索ワード」を作成してください。検索ワードは、できるだけ曖昧にヒットしやすいワードを選んでください。ただし、検索ワードを空白区切りで返してください。また、検索ワード以外は含めないでください。"
                 },
                 {
                     "role": "user", 
@@ -36,10 +36,9 @@ class AiDomainService(object):
             frequency_penalty=0,
             presence_penalty=0
         )
-        logger.info(response)
-        logger.info(response.choices)
+        tokens = response.usage.get("total_tokens")
+        logger.info(f"USE TOKENS: {tokens}")
         title = response.choices[0].message.content
-        logger.info(title)
 
         return title
     
@@ -49,11 +48,11 @@ class AiDomainService(object):
             messages=[
                 {
                     "role": "system",
-                    "content": "指定された要求と、書籍一覧を見比べて、おすすめの本を2つピックアップしてください。ただし、JSONの配列形式のみ返してください。また、idのみを返してください。同一タイトルのものは選択しないでください。"
+                    "content": "指定された要求と、書籍一覧を見比べて、おすすめの本を3つピックアップしてください。ただし、JSONの配列形式のみ返してください。また、idのみを返してください。同一タイトルのものは選択しないでください。そして、過激な内容やセンシティブな内容は選択しないでください。"
                 },
                 {
                     "role": "assistant",
-                    "content": "[230, 333, 1, 1870]"
+                    "content": "[230, 333, 1]"
                 },
                 {
                     "role": "user",

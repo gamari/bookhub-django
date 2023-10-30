@@ -26,7 +26,6 @@ class BookSelection(models.Model):
     @property
     def get_first_book(self):
         book = self.books.first()
-        logger.debug(f"get_first_book: {book}")
         return book
     
     def inclement_views(self):

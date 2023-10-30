@@ -36,6 +36,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     profile_image = models.ImageField(
         upload_to="profile_images/", null=True, blank=True
     )
+    available_selections = models.IntegerField(verbose_name="セレクション作成の有効数。",default=3)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]

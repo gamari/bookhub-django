@@ -93,10 +93,12 @@ class AICreateSelectionUsecase(Usecase):
     def run(self, demand, user):
         if len(demand) > 200 or len(demand) < 10:
             raise ApplicationException("要望は10文字以上200文字以内で入力してください。")
+        
+        # 
+
 
         ai_service = AiDomainService()
         title = ai_service.create_selection_title(demand)
-        # title = "成り上がり 書籍"
         logger.info(f"{title}で検索します。")
         
         api_client = GoogleBooksAPIClient()
@@ -116,9 +118,7 @@ class AICreateSelectionUsecase(Usecase):
         logger.info(target)
 
         recommend_books_str = ai_service.recommend_books(demand, target)
-        logger.info(recommend_books_str)
         recommend_books = extract_ids_from_selection(recommend_books_str)
-        logger.info(recommend_books)
 
         selection_service = BookSelectionDomainService.initialize()
         selection = selection_service.create_selection_by_book_ids(demand, recommend_books, user)
