@@ -95,10 +95,10 @@ def management_books(request):
 @user_passes_test(lambda u: u.is_superuser)
 def management_duplicate_books(request):
     duplicated_books = (
-        Book.objects.values("other")  # otherカラムの値でグループ化
-        .annotate(count=Count("other"))  # 各otherの出現回数をカウント
-        .filter(count__gt=1, other__isnull=False)  # 1回以上出現し、otherがnullでないものをフィルタ
-        .values_list("other", flat=True)  # otherの値のみをリストで取得
+        Book.objects.values("other")
+        .annotate(count=Count("other"))
+        .filter(count__gt=1, other__isnull=False)
+        .values_list("id", "title", "isbn_10", "other", flat=True)
     )
     context = {
         "books": duplicated_books,
