@@ -1,5 +1,6 @@
-from config.application.usecases import Usecase
+import logging
 
+from config.application.usecases import Usecase
 from apps.book.domain.repositories import BookRepository
 from apps.book.domain.services import BookDomainService
 from apps.record.domain.repositories import ReadingMemoRepository
@@ -9,6 +10,8 @@ from apps.record.models import ReadingMemo
 from apps.review.domain.services import ReviewDomainService
 from apps.review.forms import ReviewForm
 
+
+logger = logging.getLogger("app_logger")
 
 class RecordReadingHistoryUsecase(Usecase):
     """読書記録画面を表示する。"""
@@ -36,16 +39,13 @@ class RecordReadingHistoryUsecase(Usecase):
         )
 
     def run(self, book_id, user):
-        book = self.book_service.find_book_by_id(book_id)
+        book = self.book_service.get_book_by_id(book_id)
 
         latest_review = self.review_service.get_latest_review_for_user(book, user)
-
-        record = self.reading_record_service.get_by_user_and_book(user, book)
-
+        record = self.reading_record_service.get_or_create_record(user, book)
 
         memos = ReadingMemo.objects.filter(user=user, book=book).order_by("-created_at")
         form = ReadingMemoForm()
-
 
         return {
             "book": book,

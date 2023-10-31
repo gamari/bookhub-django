@@ -52,7 +52,7 @@ class AiDomainService(object):
                 },
                 {
                     "role": "assistant",
-                    "content": "[230, 333, 1]"
+                    "content": "[230, 333, 1258]"
                 },
                 {
                     "role": "user",

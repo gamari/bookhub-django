@@ -120,6 +120,11 @@ h4 {
   box-sizing: border-box;
 }
 
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .btn-sm {
   text-align: center;
   background-color: white;
@@ -133,6 +138,11 @@ h4 {
   flex-shrink: 0;
   flex-grow: 0;
   box-sizing: border-box;
+}
+
+.btn-sm:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .btn:hover {

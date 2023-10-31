@@ -19,7 +19,7 @@ class BookDomainService(object):
         bookshelf_repository = BookshelfRepository()
         return cls(book_repository, bookshelf_repository)
 
-    def find_book_by_id(self, book_id):
+    def get_book_by_id(self, book_id):
         return self.book_repository.find_by_id(book_id)
 
     def is_book_on_shelf(self, book, user):
@@ -69,6 +69,11 @@ class BookshelfDomainService(object):
 
     def get_or_create(self, user) -> Bookshelf:
         return self.bookshelf_repo.get_or_create(user)
+    
+    def add_books(self, books, user):
+        bookshelf = self.bookshelf_repo.get_or_create(user)
+        bookshelf.add_books(books)
+        bookshelf.save()
 
     @classmethod
     def initialize(cls):

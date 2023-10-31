@@ -102,7 +102,7 @@ class GoogleBooksAPIClient(object):
         start_index = (int(page) - 1) * limit
         url = (
             GoogleBooksURLBuilder(GoogleBooksAPIClient.BASE_URL)
-            .with_query_in_title(query)
+            .with_query(query)
             .with_start_index(start_index)
             .with_max_results(limit)
             .with_lang_restrict("ja")
@@ -112,6 +112,8 @@ class GoogleBooksAPIClient(object):
             .with_api_key(GOOGLE_BOOKS_API_KEY)
             .build()
         )
+        print(url)
+
         response = requests.get(url)
         return response.json() if response.status_code == 200 else {}
 

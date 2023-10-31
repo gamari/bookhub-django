@@ -1,8 +1,9 @@
+import re
 from collections import defaultdict
 from datetime import date, timedelta, datetime
 from PIL import Image, ImageDraw, ImageFont
 
-
+# 日付系
 class DateUtils(object):
     @staticmethod
     def head_of_calendar(first_date: date) -> date:
@@ -39,6 +40,20 @@ class DateUtils(object):
         ) - timedelta(days=1)
         return first_day_of_month, last_day_of_month
 
+# 文字列系
+def extract_ids_from_selection(selection):
+    # 正規表現を使用して、[]内の数字を抜き出す
+    match = re.search(r'\[(.*?)\]', selection)
+    if match:
+        ids_str = match.group(1)
+        # カンマで分割して、整数のリストに変換
+        ids = list(map(int, ids_str.split(',')))
+        return ids
+    else:
+        return []
+
+
+# 画像系
 def create_ogp_image(title):
     # 新しい画像を生成
     width, height = 1200, 630  # OGP 推奨サイズ

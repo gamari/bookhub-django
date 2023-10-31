@@ -201,7 +201,7 @@ class ShowBookDetailPageUsecase(Usecase):
         return cls(book_service, review_service, memo_service)
 
     def run(self, book_id, user):
-        book = self.book_service.find_book_by_id(book_id)
+        book = self.book_service.get_book_by_id(book_id)
         reviews = self.book_service.get_reviews_of_book(book, user)
         avg_rating = self.book_service.get_avg_rating_of_book(book)
         book_on_shelf = self.book_service.is_book_on_shelf(book, user)
@@ -245,7 +245,7 @@ class AddBookToShelfUsecase(Usecase):
         return cls(book_service, reading_record_service)
 
     def run(self, book_id, user):
-        book = self.book_service.find_book_by_id(book_id)
+        book = self.book_service.get_book_by_id(book_id)
         bookshelf: Bookshelf = self.book_service.get_or_create_bookshelf(user)
         bookshelf.books.add(book)
 
@@ -269,7 +269,7 @@ class RemoveBookFromShelfUsecase(Usecase):
         return cls(book_service)
 
     def run(self, book_id, user):
-        book = self.book_service.find_book_by_id(book_id)
+        book = self.book_service.get_book_by_id(book_id)
 
         bookshelf: Bookshelf = self.book_service.get_or_create_bookshelf(user)
         bookshelf.books.remove(book)

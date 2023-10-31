@@ -98,6 +98,10 @@ class Bookshelf(models.Model):
 
     def add_book(self, book: Book):
         self.books.add(book)
+    
+    def add_books(self, books):
+        for book in books:
+            self.add_book(book)
 
     def remove_book(self, book: Book):
         self.books.remove(book)

@@ -1,6 +1,6 @@
 import logging, re
 
-from apps.book.domain.services import BookDomainService
+from apps.book.domain.services import BookDomainService, BookshelfDomainService
 from apps.book.infrastructure.mappers import GoogleBooksMapper
 
 from apps.search.infrastracture.external.apis import GoogleBooksAPIClient
@@ -10,6 +10,7 @@ from apps.selection.models import BookSelectionLike
 from config.application.usecases import Usecase
 from config.domain.services import AiDomainService
 from config.exceptions import ApplicationException
+from config.utils import extract_ids_from_selection
 
 logger = logging.getLogger("app_logger")
 
@@ -66,16 +67,7 @@ class DetailBookSelectionUsecase(Usecase):
         return {"selection": selection, "is_liked": is_liked }
 
 
-def extract_ids_from_selection(selection):
-    # 正規表現を使用して、[]内の数字を抜き出す
-    match = re.search(r'\[(.*?)\]', selection)
-    if match:
-        ids_str = match.group(1)
-        # カンマで分割して、整数のリストに変換
-        ids = list(map(int, ids_str.split(',')))
-        return ids
-    else:
-        return []
+
 
 class AICreateSelectionUsecase(Usecase):
     """
@@ -96,16 +88,13 @@ class AICreateSelectionUsecase(Usecase):
         
         ai_service = AiDomainService()
         title = ai_service.create_selection_title(demand)
-        logger.info(f"{title}で検索します。")
+        logger.debug(f"title: {title}")
         
         api_client = GoogleBooksAPIClient()
         api_result = api_client.search_newest_books_by_title(title, 1, 20)
-        # api_result = api_client.search_books_by_description(title, 1, 20)
         book_items = api_result.get("items", [])
 
-        logger.debug(str(len(book_items)) + "件を検証します。")
         books_data = GoogleBooksMapper.to_books(book_items)
-        logger.debug(str(len(books_data)) + "件の書籍を登録します。")
 
         book_service = BookDomainService.initialize()
         books = book_service.get_or_create_books(books_data)
@@ -113,14 +102,20 @@ class AICreateSelectionUsecase(Usecase):
             "id": book.id,
             "title": book.title,
         } for book in books]
-        logger.info(target)
+        logger.debug(f"target: {target}")
 
         recommend_books_str = ai_service.recommend_books(demand, target)
+        logger.debug(f"recommend_books_str: {recommend_books_str}")
         recommend_books = extract_ids_from_selection(recommend_books_str)
 
-        logger.info("AIが選んだ本のID")
-        logger.info(recommend_books)
-        # TODO recommend_booksを本棚に追加する
+        if len(recommend_books) == 0:
+            raise ApplicationException("おすすめの本が見つかりませんでした。")
+        
+        # TODO recommend_booksが空の場合の処理
+
+        # 本棚に追加
+        bookshelf_serivce = BookshelfDomainService.initialize()
+        bookshelf_serivce.add_books(recommend_books, user)
 
         # セレクション作成
         selection_service = BookSelectionDomainService.initialize()

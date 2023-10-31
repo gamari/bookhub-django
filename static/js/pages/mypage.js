@@ -84,36 +84,32 @@ function initalizeSelectionModal() {
     const selectionCreateBtn = document.getElementById('selection-create-btn');
 
     aiSelectionOpenBtn.addEventListener('click', function () {
-        console.log('click')
         aiSelectionModal.style.display = 'block';
     });
     
     aiSelectionCloseBtn.addEventListener('click', function () {
-        console.log('click')
         aiSelectionModal.style.display = 'none';
     });
 
     selectionCreateBtn.addEventListener('click', async function () {
-        console.log("test");
         const demandInput = document.getElementById('selection-demand');
 
         try {
             const demand = demandInput.value;
-            console.log(demand);
 
             if (demand === '' || demand.length < 10) {
                 alert('要望は10文字以上入力してください。');
                 return;
             }
 
+            // selectionCreateBtnを無効化する
             selectionCreateBtn.disabled = true;
+
             const result = await createSelectionByAi(demand);
-            console.log(result);
 
             location.replace(`/selection/${result.id}/`)
         } catch (e) {
-            console.log(e);
-            alert('作成に失敗しました。');
+            alert('オススメの書籍が見つかりませんでした。');
         } finally {
             selectionCreateBtn.disabled = false;
         }

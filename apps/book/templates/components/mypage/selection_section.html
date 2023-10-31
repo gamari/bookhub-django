@@ -15,23 +15,24 @@
 
   <div id="ai-selection-modal" class="modal-container" style="display: none;">
     <div class="modal-dialog">
-      <h4>AIがセレクションを自動生成してくれます。</h4>
+      <h4>AIがセレクションを生成してくれます</h4>
 
-      <div>
-        <div>残り{{user.available_selections}}回できます。</div>
+      <div class="form-group mt-4">
+        <input id="selection-demand" type="text" placeholder="面白い漫画を読みたいです（10~100)" class="form-input">
       </div>
-
-      <input id="selection-demand" type="text" placeholder="面白い漫画を読みたいです（10~100)">
 
       <ul class="my-4">
         <li 
           id="selection-create-btn" 
-          class="border p-2"
-          data-demand=""
+          class="border btn btn-primary"
         >
-          AIに依頼して作成してもらう
+          [α版]AIに依頼する(残り{{user.available_selections}}回)
         </li>
       </ul>
+
+      <div class="mb-2 mt-6">
+        <div>※対象の書籍は本棚に追加されます</div>
+      </div>
   
       <div>
         <button id="ai-selection-close" type="button" class="btn-sm">閉じる</button>
