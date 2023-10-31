@@ -5,6 +5,7 @@ from . import views, views_api
 urlpatterns = [
     path('manage/dashboard/', views.management_dashboard, name='management_dashboard'),
     path('manage/books/', views.management_books, name='management_books'),
+    path("manage/book/duplicate/", views.management_duplicate_books, name="management_book_duplicate"),
     path('manage/book/<int:book_id>/', views.management_book_edit, name='management_book_edit'),
     path('manage/book/<int:book_id>/delete/', views.management_delete_book, name='management_book_delete'),
     path('manage/books/<int:source_id>/merge/<int:target_id>/', views.management_book_merge, name='management_book_merge'),

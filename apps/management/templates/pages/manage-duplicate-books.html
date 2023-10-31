@@ -1,0 +1,50 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block css %} {% comment %} TODO {% endcomment %} {% endblock %} 
+
+{% block title %}重複書籍一覧{% endblock %} 
+
+{% block content %}
+
+<div>
+  <a href="{% url 'management_dashboard' %}">管理者ダッシュボードへ</a>
+</div>
+
+
+<section>
+  <div class="col gap-4">
+    {% for book in books %}
+    <div class="bg-white p-4">
+      <div>{{ book.title }}</div>
+
+      <div class="row gap-4">
+        <div>
+          <span>閲覧数</span>
+          <span> {{ book.views }} </span>
+        </div>
+        <div>{{ book.is_clean }}</div>
+      </div>
+
+      <div>
+        ISBN10: {{ book.isbn_10 }}
+      </div>
+      <div>
+        ISBN:13: {{ book.isbn_13 }}
+      </div>
+      <div>
+        OTHER: {{ book.other }}
+      </div>
+
+      <div class="row-between">
+        <a
+          href="{% url 'management_book_edit' book.id %}"
+          class="btn-sm btn-primary"
+          >編集する</a>
+
+          <a class="btn-sm btn-danger" href="{% url 'management_book_delete' book.id %}">削除</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

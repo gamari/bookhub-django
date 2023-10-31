@@ -2,6 +2,8 @@ import logging
 
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import user_passes_test
+from django.db.models import Count
+
 from apps.book.domain.repositories import BookRepository
 from apps.book.forms import BookForm
 
@@ -89,6 +91,21 @@ def management_books(request):
     }
     return render(request, "pages/manage-books.html", context)
 
+# 重複書籍一覧
+@user_passes_test(lambda u: u.is_superuser)
+def management_duplicate_books(request):
+    duplicated_books = (
+        Book.objects.values("other")  # otherカラムの値でグループ化
+        .annotate(count=Count("other"))  # 各otherの出現回数をカウント
+        .filter(count__gt=1, other__isnull=False)  # 1回以上出現し、otherがnullでないものをフィルタ
+        .values_list("other", flat=True)  # otherの値のみをリストで取得
+    )
+    context = {
+        "books": duplicated_books,
+    }
+    return render(request, "pages/manage-duplicate-books.html", context)
+
+
 @user_passes_test(lambda u: u.is_superuser)
 def management_book_edit(request, book_id):
     book = Book.objects.get(id=book_id)
@@ -113,6 +130,7 @@ def management_ai_users(request):
         "users": users,
     }
     return render(request, "pages/manage-ai-users.html", context)
+
 
 @user_passes_test(lambda u: u.is_superuser)
 def management_ai_users_edit(request, user_id):
