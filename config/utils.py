@@ -3,6 +3,7 @@ from collections import defaultdict
 from datetime import date, timedelta, datetime
 from PIL import Image, ImageDraw, ImageFont
 
+
 # 日付系
 class DateUtils(object):
     @staticmethod
