@@ -77,7 +77,7 @@ class BookRepository(object):
         except Exception as e:
             print(e)
             book = Book.objects.filter(
-                Q(isbn_10=book_data["isbn_10"]) | Q(isbn_13=book_data["isbn_13"])
+                Q(isbn_10=book_data["isbn_10"]) | Q(isbn_13=book_data["isbn_13"]) | Q(other=book_data["other"])
             ).first()
 
         if book:

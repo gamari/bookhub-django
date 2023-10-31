@@ -45,10 +45,9 @@ class BookSelectionDomainService(object):
         else:
             raise ApplicationException(form.errors)
     
-    def create_selection_by_book_ids(self,description, book_ids, user):
+    def create_selection_by_book_ids(self, title, book_ids, user):
         """書籍IDのリストからセレクションを作成する。"""
-        # TODO title, descriptionは仮
-        title = "AIによるセレクション"
-        selection = BookSelection.objects.create(user=user, title=title, description=description, is_public=True)
+        
+        selection = BookSelection.objects.create(user=user, title=title, is_public=True)
         selection.books.set(book_ids)
         return selection

@@ -33,7 +33,7 @@ class AutoCreateRecommendBook(Usecase):
 
         url = f"{APP_URL}/detail/{random_book.id}"
 
-        content = f"{header}\n\n{hash_tags}\n{url}"
+        content = f"{header}\n\n{hash_tags}\n\b{url}"
         logger.debug(content)
 
         twitter_client = TwitterClient()

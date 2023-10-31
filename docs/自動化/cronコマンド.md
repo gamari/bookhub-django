@@ -41,3 +41,14 @@ crontab -r
 
 
 「docker-compose exec web python manage.py recommend」このコマンドを、「/home/ec2-user/bookhub-django」上で行いたいだけなので、ファイルを作りたくないんですが、無理ですか？
+
+
+## 自動セレクション
+# 分 時 日 月 曜日 コマンド
+
+0 * * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py recommend >> /home/ec2-user/cron_log.log 2>&1
+8 12 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py createselection >> /home/ec2-user/cron_log.log 2>&1
+12 24 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py createselection >> /home/ec2-user/cron_log.log 2>&1
+25 16 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py createselection >> /home/ec2-user/cron_log.log 2>&1
+15 18 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py createselection >> /home/ec2-user/cron_log.log 2>&1
+22 21 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py createselection >> /home/ec2-user/cron_log.log 2>&1

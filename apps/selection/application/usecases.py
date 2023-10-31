@@ -4,12 +4,13 @@ from apps.book.domain.services import BookDomainService, BookshelfDomainService
 from apps.book.infrastructure.mappers import GoogleBooksMapper
 
 from apps.search.infrastracture.external.apis import GoogleBooksAPIClient
-
+from config.clients import TwitterClient
 from apps.selection.domain.services import BookSelectionDomainService
 from apps.selection.models import BookSelectionLike
 from config.application.usecases import Usecase
 from config.domain.services import AiDomainService
 from config.exceptions import ApplicationException
+from config.settings import APP_URL
 from config.utils import extract_ids_from_selection
 
 logger = logging.getLogger("app_logger")
@@ -97,12 +98,10 @@ class AICreateSelectionByProfile(Usecase):
     def run(self, ai_user):
         logger.debug(f"ai_user: {ai_user}")
         description = ai_user.description
-        title = self.ai_service.create_selection_title_by_profile(description)
+        title = self._generate_title_from_description(description)
         logger.debug(f"title: {title}")
 
-        api_client = GoogleBooksAPIClient() # TODO service層だよね
-        api_result = api_client.search_newest_books_by_title(title, 1, 20)
-        book_items = api_result.get("items", [])
+        book_items = self._fetch_books_from_api(title)
 
         books_data = GoogleBooksMapper.to_books(book_items)
 
@@ -118,24 +117,54 @@ class AICreateSelectionByProfile(Usecase):
 
         logger.debug(f"target: {target}")
 
-        recommend_books_str = self.ai_service.recommend_books(description, target)
-        logger.debug(f"recommend_books_str: {recommend_books_str}")
-        recommend_book_ids = extract_ids_from_selection(recommend_books_str)
-        logger.debug(f"recommend_book_ids: {recommend_book_ids}")
-        # booksからrecommend_book_idsのものを取り出す
-        recommend_books = [book for book in books if book.id in recommend_book_ids]
-        logger.debug(f"recommend_books: {recommend_books}")
+        recommend_books = self._get_recommended_books(description, books)
 
+        # TODO recommend_book_idsが空の場合の処理
         if len(recommend_books) == 0:
             raise ApplicationException("おすすめの本が見つかりませんでした。")
         
-        # TODO recommend_book_idsが空の場合の処理
+        # タイトルを箇条書きでテキストで出す出す
+        recommend_titles_str = "\n".join([book.title for book in recommend_books])
+        logger.debug(f"recommend_titles_str: {recommend_titles_str}")
+        selection_title = self.ai_service.create_selection_title_by_book_ids(recommend_titles_str)
+        
 
         self.bookshelf_service.add_books(recommend_books, ai_user)
-        selection = self.selection_service.create_selection_by_book_ids(description, recommend_books, ai_user)
+        selection = self.selection_service.create_selection_by_book_ids(selection_title, recommend_books, ai_user)
+
+        # ツイートする
+        header = f"【{selection_title}】"
+        hash_tags = "#Yommy #読書好きな人と繋がりたい"
+        url = f"{APP_URL}/selection/{selection.id}/"
+        content = f"{header}\n\n{hash_tags}\n\n{url}"
+        logger.debug(content)
+
+        twitter_client = TwitterClient()
+        twitter_client.post_tweet(content)
 
         return selection
+    
+    def _generate_title_from_description(self, description):
+        title = self.ai_service.create_selection_title_by_profile(description)
+        logger.debug(f"title: {title}")
+        return title
 
+    def _fetch_books_from_api(self, title):
+        api_client = GoogleBooksAPIClient()
+        api_result = api_client.search_newest_books_by_title(title, 1, 20)
+        return api_result.get("items", [])
+    
+    def _get_recommended_books(self, description, books):
+        target = [{"id": book.id, "title": book.title} for book in books]
+        logger.debug(f"target: {target}")
+        
+        recommend_books_str = self.ai_service.recommend_books_by_profile(description, target)
+        logger.debug(f"recommend_books_str: {recommend_books_str}")
+        
+        recommend_book_ids = extract_ids_from_selection(recommend_books_str)
+        logger.debug(f"recommend_book_ids: {recommend_book_ids}")
+        
+        return [book for book in books if book.id in recommend_book_ids]
 
 
 class AICreateSelectionUsecaseByDemand(Usecase):
@@ -194,7 +223,7 @@ class AICreateSelectionUsecaseByDemand(Usecase):
 
         logger.debug(f"target: {target}")
 
-        recommend_books_str = self.ai_service.recommend_books(demand, target)
+        recommend_books_str = self.ai_service.recommend_books_by_demand(demand, target)
         logger.debug(f"recommend_books_str: {recommend_books_str}")
         recommend_book_ids = extract_ids_from_selection(recommend_books_str)
         logger.debug(f"recommend_book_ids: {recommend_book_ids}")
@@ -207,7 +236,8 @@ class AICreateSelectionUsecaseByDemand(Usecase):
         
         # TODO recommend_book_idsが空の場合の処理
 
+        title = "AIによるセレクション"
         self.bookshelf_service.add_books(recommend_books, user)
-        selection = self.selection_service.create_selection_by_book_ids(demand, recommend_books, user)
+        selection = self.selection_service.create_selection_by_book_ids(title, recommend_books, user)
 
         return selection

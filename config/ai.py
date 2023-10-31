@@ -7,6 +7,9 @@ class OpenAiClient(object):
     def __init__(self, api_key: str) -> None:
         openai.api_key = api_key
         self.messages = []
+    
+    def reset(self):
+        self.messages = []
 
     def add_system_message(self, content: str):
         self.messages.append({
