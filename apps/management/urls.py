@@ -14,5 +14,7 @@ urlpatterns = [
     path('manage/notice/create/', views.management_notice_create, name='management_notice_create'),
     path('manage/notice/<int:notice_id>/edit/', views.management_notice_edit, name='management_notice_edit'),
     path('manage/notice/<int:notice_id>/delete/', views.management_notice_delete, name='management_notice_delete'),
+    path('manage/ai-users/', views.management_ai_users, name='management_ai_users'),
+    path('manage/ai-user/<uuid:user_id>/', views.management_ai_users_edit, name='management_ai_users_edit'),
     path("api/manage/post/recommend/", views_api.RecommendPostAPIView.as_view(), name="management_post_recommend"),
 ]

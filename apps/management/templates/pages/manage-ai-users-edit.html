@@ -1,0 +1,28 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block css %}
+{% comment %} TODO {% endcomment %}
+{% endblock %} 
+
+{% block title %}AIユーザー編集画面{% endblock %} 
+
+{% block js %}
+<script src="{% static 'js/services/search/book_list.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<section>
+    <a href="{% url 'management_dashboard' %}">管理者ダッシュボードへ</a>
+</section>
+
+<section>
+    <form method="post" class="card-sm">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="更新">
+    </form>
+
+    <a href="{% url 'user_detail' form.instance.username %}" class="btn-sm btn-primary">詳細ページへ</a>
+</section>
+{% endblock %}

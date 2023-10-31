@@ -13,6 +13,8 @@ from apps.record.models import ReadingMemo
 from apps.review.models import Review
 from apps.search.models import SearchHistory
 from apps.selection.models import SelectionBookRelation
+from authentication.forms import AccountUpdateForm
+from authentication.models import Account
 
 logger = logging.getLogger("app_logger")
 
@@ -102,6 +104,34 @@ def management_book_edit(request, book_id):
         "form": form,
     }
     return render(request, "pages/manage-book-edit.html", context)
+
+# AIユーザー一覧
+@user_passes_test(lambda u: u.is_superuser)
+def management_ai_users(request):
+    users = Account.objects.filter(is_ai=True)
+    context = {
+        "users": users,
+    }
+    return render(request, "pages/manage-ai-users.html", context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def management_ai_users_edit(request, user_id):
+    user = Account.objects.get(id=user_id)
+
+    if request.method == "POST":
+        form = AccountUpdateForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('management_ai_users')
+    else:
+        form = AccountUpdateForm(instance=user)
+    context = {
+        "user": user,
+        "form": form,
+    }
+    return render(request, "pages/manage-ai-users-edit.html", context)
+
+
 
 # TODO マージ処理を完成させる
 @user_passes_test(lambda u: u.is_superuser)

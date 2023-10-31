@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block css %} {% comment %} TODO {% endcomment %} {% endblock %} 
+
+{% block title %}管理者画面-AIユーザー一覧{% endblock %} 
+
+{% block content %}
+
+<div>
+  <a href="{% url 'management_dashboard' %}">管理者ダッシュボードへ</a>
+</div>
+
+
+<section>
+  <div class="col gap-4">
+    {% for user in users %}
+    <div>
+        <div class="card-sm">
+            <div>{{user.username}}</div>
+            <div>{{user.description}}</div>
+        </div>
+        <div>
+            <a href="{% url 'management_ai_users_edit' user.id %}" class="btn-sm btn-primary">編集</a>
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -54,7 +54,7 @@ class Book(models.Model):
     id = models.AutoField(primary_key=True)
     isbn_10 = models.CharField(max_length=10, unique=True, null=True, blank=True)
     isbn_13 = models.CharField(max_length=13, unique=True, null=True, blank=True)
-    other = models.CharField(verbose_name="ISBN意外のキー", max_length=255, null=True, blank=True)
+    other = models.CharField(verbose_name="ISBN意外のキー", max_length=255, null=True, blank=True, unique=True)
     title = models.CharField("書籍名", max_length=255)
     description = models.TextField("書籍説明", null=True, blank=True)
     category = models.ForeignKey(
@@ -143,6 +143,9 @@ class BookshelfBook(models.Model):
     bookshelf = models.ForeignKey(Bookshelf, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("bookshelf", "book")
 
 
 class BookAuthor(models.Model):
