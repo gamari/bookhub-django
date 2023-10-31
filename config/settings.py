@@ -12,10 +12,13 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="").split(",")
 print(f"ALLOWED_HOSTS: {ALLOWED_HOSTS}")
 
+# Keys
 OPEN_AI_KEY = config("OPEN_AI_KEY", default="")
-
-
 GOOGLE_BOOKS_API_KEY = config("GOOGLE_BOOKS_API_KEY", default="")
+TWITTER_API_KEY = config("TWITTER_API_KEY", default="")
+TWITTER_API_SECRET_KEY = config("TWITTER_API_SECRET_KEY", default="")
+TWITTER_ACCESS_TOKEN = config("TWITTER_ACCESS_TOKEN", default="")
+TWITTER_SECRET_TOKEN = config("TWITTER_SECRET_TOKEN", default="")
 
 APP_NAME = "Yommy"
 
