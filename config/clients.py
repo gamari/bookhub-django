@@ -6,7 +6,6 @@ from decouple import config
 logger = logging.getLogger("app_logger")
 
 
-# 通信系
 class BaseHttpClient(object):
     def __init__(self, base_url, headers=None):
         self.base_url = base_url

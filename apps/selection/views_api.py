@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from apps.selection.application.usecases import AICreateSelectionUsecase
+from apps.selection.application.usecases import AICreateSelectionUsecaseByDemand
 from apps.selection.serializers import BookSelectionSerializer
 
 from .models import BookSelection, BookSelectionLike
@@ -60,8 +60,7 @@ class AICreateSelectionAPIView(APIView):
         if current_value != request.user.available_selections:
             return Response({"detail": "同時に複数のリクエストが処理されています。再試行してください。"}, status=status.HTTP_400_BAD_REQUEST)
 
-
-        usecase = AICreateSelectionUsecase.build()
+        usecase = AICreateSelectionUsecaseByDemand.build()
         selection = usecase.run(demand, request.user)
         serializer = BookSelectionSerializer(selection)
 

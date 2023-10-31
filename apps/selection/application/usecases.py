@@ -67,37 +67,46 @@ class DetailBookSelectionUsecase(Usecase):
         return {"selection": selection, "is_liked": is_liked }
 
 
+class AICreateSelectionByProfile(Usecase):
+    """AIのプロフィールからセレクションを作成する機能。"""
 
-
-class AICreateSelectionUsecase(Usecase):
-    """
-    AIが要求からセレクションの作成をしてくれる機能。
-
-    {"demand": "謎解きのある作品が読みたいです。"}
-    """
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, 
+            ai_service: AiDomainService,
+            book_service: BookDomainService,
+            bookshelf_service: BookshelfDomainService, 
+            selection_service: BookSelectionDomainService
+        ) -> None:
+        self.ai_service = ai_service
+        self.book_service = book_service
+        self.bookshelf_service = bookshelf_service
+        self.selection_service = selection_service
     
     @classmethod
     def build(cls):
-        return cls()
-
-    def run(self, demand, user):
-        if len(demand) > 100 or len(demand) < 10:
-            raise ApplicationException("要望は10文字以上100文字以内で入力してください。")
-        
-        ai_service = AiDomainService()
-        title = ai_service.create_selection_title(demand)
+        ai_service = AiDomainService.initialize()
+        book_service = BookDomainService.initialize()
+        bookshelf_service = BookshelfDomainService.initialize()
+        selection_service = BookSelectionDomainService.initialize()
+        return cls(
+            ai_service,
+            book_service,
+            bookshelf_service,
+            selection_service
+        )
+    
+    def run(self, ai_user):
+        logger.debug(f"ai_user: {ai_user}")
+        description = ai_user.description
+        title = self.ai_service.create_selection_title_by_profile(description)
         logger.debug(f"title: {title}")
-        
-        api_client = GoogleBooksAPIClient()
+
+        api_client = GoogleBooksAPIClient() # TODO service層だよね
         api_result = api_client.search_newest_books_by_title(title, 1, 20)
         book_items = api_result.get("items", [])
 
         books_data = GoogleBooksMapper.to_books(book_items)
 
-        book_service = BookDomainService.initialize()
-        books = book_service.get_or_create_books(books_data)
+        books = self.book_service.get_or_create_books(books_data)
         logger.debug(f"{len(books)}件がヒット")
         books = [book for book in books if not book.is_sensitive]
 
@@ -109,21 +118,96 @@ class AICreateSelectionUsecase(Usecase):
 
         logger.debug(f"target: {target}")
 
-        recommend_books_str = ai_service.recommend_books(demand, target)
+        recommend_books_str = self.ai_service.recommend_books(description, target)
         logger.debug(f"recommend_books_str: {recommend_books_str}")
-        recommend_books = extract_ids_from_selection(recommend_books_str)
+        recommend_book_ids = extract_ids_from_selection(recommend_books_str)
+        logger.debug(f"recommend_book_ids: {recommend_book_ids}")
+        # booksからrecommend_book_idsのものを取り出す
+        recommend_books = [book for book in books if book.id in recommend_book_ids]
+        logger.debug(f"recommend_books: {recommend_books}")
 
         if len(recommend_books) == 0:
             raise ApplicationException("おすすめの本が見つかりませんでした。")
         
-        # TODO recommend_booksが空の場合の処理
+        # TODO recommend_book_idsが空の場合の処理
 
-        # 本棚に追加
-        bookshelf_serivce = BookshelfDomainService.initialize()
-        bookshelf_serivce.add_books(recommend_books, user)
+        self.bookshelf_service.add_books(recommend_books, ai_user)
+        selection = self.selection_service.create_selection_by_book_ids(description, recommend_books, ai_user)
 
-        # セレクション作成
+        return selection
+
+
+
+class AICreateSelectionUsecaseByDemand(Usecase):
+    """
+    AIが要求からセレクションの作成をしてくれる機能。
+
+    {"demand": "謎解きのある作品が読みたいです。"}
+    """
+    def __init__(
+        self, 
+        ai_service: AiDomainService, 
+        book_service: BookDomainService,
+        bookshelf_service: BookshelfDomainService, 
+        selection_service: BookSelectionDomainService
+    ):
+        self.ai_service = ai_service
+        self.book_service = book_service
+        self.bookshelf_service = bookshelf_service
+        self.selection_service = selection_service
+    
+    @classmethod
+    def build(cls):
+        ai_service = AiDomainService.initialize()
+        book_service = BookDomainService.initialize()
+        bookshelf_service = BookshelfDomainService.initialize()
         selection_service = BookSelectionDomainService.initialize()
-        selection = selection_service.create_selection_by_book_ids(demand, recommend_books, user)
+        return cls(
+            ai_service=ai_service, 
+            book_service=book_service,
+            bookshelf_service=bookshelf_service,
+            selection_service=selection_service
+        )
+
+    def run(self, demand, user):
+        if len(demand) > 100 or len(demand) < 10:
+            raise ApplicationException("要望は10文字以上100文字以内で入力してください。")
+        
+        title = self.ai_service.create_selection_title_by_demand(demand)
+        logger.debug(f"title: {title}")
+        
+        api_client = GoogleBooksAPIClient() # TODO service層だよね
+        api_result = api_client.search_newest_books_by_title(title, 1, 20)
+        book_items = api_result.get("items", [])
+
+        books_data = GoogleBooksMapper.to_books(book_items)
+
+        books = self.book_service.get_or_create_books(books_data)
+        logger.debug(f"{len(books)}件がヒット")
+        books = [book for book in books if not book.is_sensitive]
+
+        target = [{
+            "id": book.id,
+            "title": book.title,
+        } for book in books]
+
+
+        logger.debug(f"target: {target}")
+
+        recommend_books_str = self.ai_service.recommend_books(demand, target)
+        logger.debug(f"recommend_books_str: {recommend_books_str}")
+        recommend_book_ids = extract_ids_from_selection(recommend_books_str)
+        logger.debug(f"recommend_book_ids: {recommend_book_ids}")
+        # booksからrecommend_book_idsのものを取り出す
+        recommend_books = [book for book in books if book.id in recommend_book_ids]
+        logger.debug(f"recommend_books: {recommend_books}")
+
+        if len(recommend_books) == 0:
+            raise ApplicationException("おすすめの本が見つかりませんでした。")
+        
+        # TODO recommend_book_idsが空の場合の処理
+
+        self.bookshelf_service.add_books(recommend_books, user)
+        selection = self.selection_service.create_selection_by_book_ids(demand, recommend_books, user)
 
         return selection

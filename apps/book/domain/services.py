@@ -82,3 +82,4 @@ class BookshelfDomainService(object):
     def initialize(cls):
         bookshelf_repo = BookshelfRepository()
         return cls(bookshelf_repo)
+

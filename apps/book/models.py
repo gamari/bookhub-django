@@ -97,10 +97,16 @@ class Bookshelf(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     books = models.ManyToManyField(Book, through="BookshelfBook")
 
+    def __str__(self) -> str:
+        return f"[{self.user.username}]の本棚"
+
     def add_book(self, book: Book):
-        self.books.add(book)
+        logger.debug(f"{book}")
+        if not self.books.filter(id=book.id).exists():
+            self.books.add(book)
     
     def add_books(self, books):
+        logger.debug(f"{self}に書籍を追加します。")
         for book in books:
             self.add_book(book)
 
