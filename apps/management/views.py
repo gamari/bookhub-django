@@ -91,6 +91,17 @@ def management_books(request):
     }
     return render(request, "pages/manage-books.html", context)
 
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def management_delete_book(request, book_id):
+    logger.info("削除します")
+    book = Book.objects.get(id=book_id)
+    book.delete()
+    logger.info("削除しました")
+    logger.info(book)
+    return redirect('management_books')
+
 # 重複書籍一覧
 @user_passes_test(lambda u: u.is_superuser)
 def management_duplicate_books(request):
@@ -110,6 +121,16 @@ def management_duplicate_books(request):
 
     return render(request, "pages/manage-duplicate-books.html", context)
 
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def management_delete_duplicate_book(request, book_id):
+    logger.info("削除します")
+    book = Book.objects.get(id=book_id)
+    book.delete()
+    logger.info("削除しました")
+    logger.info(book)
+    return redirect('management_book_duplicate')
 
 @user_passes_test(lambda u: u.is_superuser)
 def management_book_edit(request, book_id):
@@ -223,15 +244,6 @@ def management_book_merge(request, source_id, target_id):
     source_book.delete()
     return redirect('management_books')
 
-
-@user_passes_test(lambda u: u.is_superuser)
-def management_delete_book(request, book_id):
-    logger.info("削除します")
-    book = Book.objects.get(id=book_id)
-    book.delete()
-    logger.info("削除しました")
-    logger.info(book)
-    return redirect('management_books')
 
 @user_passes_test(lambda u: u.is_superuser)
 def management_contacts(request):
