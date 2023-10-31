@@ -31,6 +31,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=256, unique=True, null=False, blank=False)
     username = models.CharField(max_length=30, unique=True, default="noname")
     description = models.TextField(max_length=500, blank=True, null=True)
+    is_ai = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     profile_image = models.ImageField(
