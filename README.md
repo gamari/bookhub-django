@@ -51,6 +51,9 @@ docker compose exec web python manage.py migrate
 docker compose restart
 ```
 
+## オススメツイート
+docker compose exec web python manage.py recommend
+
 
 ## DB操作
 

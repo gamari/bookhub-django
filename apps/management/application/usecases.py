@@ -31,7 +31,7 @@ class AutoCreateRecommendBook(Usecase):
         if len(random_book.title) < 25:
             hash_tags += f" #{random_book.title}"
 
-        url = f"{APP_URL}"
+        url = f"{APP_URL}/detail/{random_book.id}"
 
         content = f"{header}\n\n{hash_tags}\n{url}"
         logger.debug(content)
