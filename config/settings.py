@@ -21,6 +21,7 @@ TWITTER_ACCESS_TOKEN = config("TWITTER_ACCESS_TOKEN", default="")
 TWITTER_SECRET_TOKEN = config("TWITTER_SECRET_TOKEN", default="")
 
 APP_NAME = "Yommy"
+APP_URL = config("APP_URL", default="")
 
 INSTALLED_APPS = [
     "django.contrib.admin",

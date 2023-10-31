@@ -9,13 +9,12 @@ from apps.selection.models import BookSelection
 
 logger = logging.getLogger("app_logger")
 
-class AuthorRepository(object):
-    @staticmethod
-    def get_or_create_by_name(name):
-        return Author.objects.get_or_create(name=name)
-
 
 class BookRepository(object):
+    @staticmethod
+    def find_random_book():
+        return Book.objects.all().filter(is_sensitive=False).order_by("?").first()
+
     @classmethod
     def fetch_books(cls, limit=20):
         return Book.objects.all().order_by("-created_at")[:limit]
@@ -139,3 +138,10 @@ class BookSelectionRepository(object):
     @classmethod
     def _fetch_selection(cls, is_public=True):
         return BookSelection.objects.all().filter(is_public=is_public)
+
+
+class AuthorRepository(object):
+    @staticmethod
+    def get_or_create_by_name(name):
+        return Author.objects.get_or_create(name=name)
+

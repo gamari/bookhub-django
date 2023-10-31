@@ -7,20 +7,16 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from decouple import config
-
-from config.clients import TwitterClient
+from apps.management.application.usecases import AutoCreateRecommendBook
 
 logger = logging.getLogger("app_logger")
 
-class AutoPostAPIView(APIView):
+class RecommendPostAPIView(APIView):
     def post(self, request):
         if not request.user.is_staff:
             return Response({"detail": "管理者以外は利用できません。"}, status=status.HTTP_400_BAD_REQUEST)
         
-        try:
-            twitter_client = TwitterClient()
-            twitter_client.post_tweet("テスト1")
-            return Response({"detail": "ツイートが成功しました。"}, status=status.HTTP_200_OK)
-        except Exception as e:
-            logger.exception(e)
-            return Response({"detail": f"ツイートの投稿に失敗しました: {e}"}, status=status.HTTP_400_BAD_REQUEST)
+        usecase = AutoCreateRecommendBook.build()
+        usecase.execute()
+
+        return Response({"detail": "ツイートが成功しました。"}, status=status.HTTP_200_OK)

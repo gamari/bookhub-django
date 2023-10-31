@@ -21,6 +21,9 @@ class BookDomainService(object):
 
     def get_book_by_id(self, book_id):
         return self.book_repository.find_by_id(book_id)
+    
+    def get_random_book(self):
+        return self.book_repository.find_random_book()
 
     def is_book_on_shelf(self, book, user):
         if not user.is_authenticated:
