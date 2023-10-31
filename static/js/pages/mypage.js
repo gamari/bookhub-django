@@ -102,7 +102,6 @@ function initalizeSelectionModal() {
                 return;
             }
 
-            // selectionCreateBtnを無効化する
             selectionCreateBtn.disabled = true;
 
             const result = await createSelectionByAi(demand);

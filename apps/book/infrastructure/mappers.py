@@ -43,6 +43,12 @@ class GoogleBooksMapper(object):
             else:
                 views = 0
 
+            # 年齢制限
+            is_sensitive = False
+            maturity_rating = volume_info.get("maturityRating", "")
+            if maturity_rating == "NOT_MATURE":
+                is_sensitive = True
+
             book = {
                 "title": title,
                 "description": description,
@@ -54,6 +60,7 @@ class GoogleBooksMapper(object):
                 "published_date": published_date,
                 "publisher": publisher,
                 "views": views,
+                "is_sensitive": is_sensitive,
             }
             books.append(book)
 

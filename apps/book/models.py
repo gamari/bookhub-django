@@ -70,6 +70,7 @@ class Book(models.Model):
     publisher = models.CharField("出版社", max_length=255, null=True, blank=True)
     views = models.IntegerField("閲覧数", default=0)
     genres = models.ManyToManyField(Genre, through="BookGenre")
+    is_sensitive = models.BooleanField("センシティブな内容", default=False)
     is_clean = models.BooleanField("整備されたデータ判定", default=False)
     amazon_url = models.URLField("Amazonの購入URL", null=True, blank=True)
 

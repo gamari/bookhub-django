@@ -98,10 +98,15 @@ class AICreateSelectionUsecase(Usecase):
 
         book_service = BookDomainService.initialize()
         books = book_service.get_or_create_books(books_data)
+        logger.debug(f"{len(books)}件がヒット")
+        books = [book for book in books if not book.is_sensitive]
+
         target = [{
             "id": book.id,
             "title": book.title,
         } for book in books]
+
+
         logger.debug(f"target: {target}")
 
         recommend_books_str = ai_service.recommend_books(demand, target)
