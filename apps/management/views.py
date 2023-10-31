@@ -94,12 +94,15 @@ def management_books(request):
 # 重複書籍一覧
 @user_passes_test(lambda u: u.is_superuser)
 def management_duplicate_books(request):
-    duplicated_books = (
+    duplicated_others = (
         Book.objects.values("other")
         .annotate(count=Count("other"))
         .filter(count__gt=1, other__isnull=False)
-        .values_list("id", "title", "isbn_10", "other")
+        .values_list("other", flat=True)
     )
+    
+    duplicated_books = Book.objects.filter(other__in=duplicated_others).order_by("title")
+    
     context = {
         "books": duplicated_books,
     }
