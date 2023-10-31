@@ -98,11 +98,13 @@ def management_duplicate_books(request):
         Book.objects.values("other")
         .annotate(count=Count("other"))
         .filter(count__gt=1, other__isnull=False)
-        .values_list("id", "title", "isbn_10", "other", flat=True)
+        .values_list("id", "title", "isbn_10", "other")
     )
     context = {
         "books": duplicated_books,
     }
+    logger.debug(duplicated_books)
+
     return render(request, "pages/manage-duplicate-books.html", context)
 
 
