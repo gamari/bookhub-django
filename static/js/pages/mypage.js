@@ -92,6 +92,12 @@ function initalizeSelectionModal() {
     });
 
     selectionCreateBtn.addEventListener('click', async function () {
+        // disable buttonの場合は処理を中断
+        if (selectionCreateBtn.disabled) {
+            console.log("disabled")
+            return;
+        }
+
         const demandInput = document.getElementById('selection-demand');
 
         try {

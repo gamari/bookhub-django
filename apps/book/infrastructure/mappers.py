@@ -43,11 +43,11 @@ class GoogleBooksMapper(object):
             else:
                 views = 0
 
-            # 年齢制限
+            # 年齢制限 TODO 要検討
             is_sensitive = False
-            maturity_rating = volume_info.get("maturityRating", "")
-            if maturity_rating == "NOT_MATURE":
-                is_sensitive = True
+            # maturity_rating = volume_info.get("maturityRating", "")
+            # if maturity_rating == "NOT_MATURE":
+            #     is_sensitive = False
 
             book = {
                 "title": title,

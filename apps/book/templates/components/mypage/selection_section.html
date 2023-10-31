@@ -7,7 +7,9 @@
       >
     </div>
     <div>
-      <button id="ai-selection-open" type="button" class="btn-sm">AI生成</button>
+      {% if user.is_staff %}
+        <button id="ai-selection-open" type="button" class="btn-sm">AI生成</button>
+      {% endif %}
     </div>
   </div>
 
