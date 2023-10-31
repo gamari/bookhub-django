@@ -5,7 +5,7 @@ async function deleteMemo(id, url) {
     const response = await fetch(url, {
         method: 'DELETE',
         headers: {
-            'X-CSRFToken': getCookie('csrftoken'),
+            'X-CSRFToken': getCsrfToken(),
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },

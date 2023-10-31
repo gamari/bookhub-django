@@ -99,7 +99,8 @@ class AICreateSelectionUsecase(Usecase):
         logger.info(f"{title}で検索します。")
         
         api_client = GoogleBooksAPIClient()
-        api_result = api_client.search_books_by_description(title, 1, 20)
+        api_result = api_client.search_newest_books_by_title(title, 1, 20)
+        # api_result = api_client.search_books_by_description(title, 1, 20)
         book_items = api_result.get("items", [])
 
         logger.debug(str(len(book_items)) + "件を検証します。")
@@ -117,6 +118,11 @@ class AICreateSelectionUsecase(Usecase):
         recommend_books_str = ai_service.recommend_books(demand, target)
         recommend_books = extract_ids_from_selection(recommend_books_str)
 
+        logger.info("AIが選んだ本のID")
+        logger.info(recommend_books)
+        # TODO recommend_booksを本棚に追加する
+
+        # セレクション作成
         selection_service = BookSelectionDomainService.initialize()
         selection = selection_service.create_selection_by_book_ids(demand, recommend_books, user)
 

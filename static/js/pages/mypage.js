@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     initializeContentToggle();
     initializeDeleteButtons();
+    initalizeSelectionModal();
 });
 
 function initializeContentToggle() {
@@ -72,5 +73,49 @@ function initializeDeleteButtons() {
                 alert("削除に失敗しました。")
             }
         });
+    });
+}
+
+function initalizeSelectionModal() {
+    console.log('initalizeSelectionModal')
+    const aiSelectionOpenBtn = document.getElementById('ai-selection-open');
+    const aiSelectionCloseBtn = document.getElementById('ai-selection-close');
+    const aiSelectionModal = document.getElementById('ai-selection-modal');
+    const selectionCreateBtn = document.getElementById('selection-create-btn');
+
+    aiSelectionOpenBtn.addEventListener('click', function () {
+        console.log('click')
+        aiSelectionModal.style.display = 'block';
+    });
+    
+    aiSelectionCloseBtn.addEventListener('click', function () {
+        console.log('click')
+        aiSelectionModal.style.display = 'none';
+    });
+
+    selectionCreateBtn.addEventListener('click', async function () {
+        console.log("test");
+        const demandInput = document.getElementById('selection-demand');
+
+        try {
+            const demand = demandInput.value;
+            console.log(demand);
+
+            if (demand === '' || demand.length < 10) {
+                alert('要望は10文字以上入力してください。');
+                return;
+            }
+
+            selectionCreateBtn.disabled = true;
+            const result = await createSelectionByAi(demand);
+            console.log(result);
+
+            location.replace(`/selection/${result.id}/`)
+        } catch (e) {
+            console.log(e);
+            alert('作成に失敗しました。');
+        } finally {
+            selectionCreateBtn.disabled = false;
+        }
     });
 }

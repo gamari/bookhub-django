@@ -7,13 +7,35 @@
       >
     </div>
     <div>
-      <button type="button" class="btn-sm">AI生成</button>
+      <button id="ai-selection-open" type="button" class="btn-sm">AI生成</button>
     </div>
   </div>
 
   {% include "components/_selection_list.html" with show_tool=True %}
 
-  <div class="modal">
-    <div>AIModal</div>
+  <div id="ai-selection-modal" class="modal-container" style="display: none;">
+    <div class="modal-dialog">
+      <h4>AIがセレクションを自動生成してくれます。</h4>
+
+      <div>
+        <div>残り{{user.available_selections}}回できます。</div>
+      </div>
+
+      <input id="selection-demand" type="text" placeholder="面白い漫画を読みたいです（10~100)">
+
+      <ul class="my-4">
+        <li 
+          id="selection-create-btn" 
+          class="border p-2"
+          data-demand=""
+        >
+          AIに依頼して作成してもらう
+        </li>
+      </ul>
+  
+      <div>
+        <button id="ai-selection-close" type="button" class="btn-sm">閉じる</button>
+      </div>
+    </div>
   </div>
 </section>
