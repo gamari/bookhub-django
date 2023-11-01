@@ -3,6 +3,7 @@ import logging
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Count
+from apps.ads.models import RecommendBook
 
 from apps.book.domain.repositories import BookRepository
 from apps.book.forms import BookForm
@@ -230,6 +231,34 @@ def management_ai_selections_edit(request, selection_id):
         "form": form,
     }
     return render(request, "pages/selection/manage-ai-selection-edit.html", context)
+
+###
+# オススメ
+###
+@user_passes_test(lambda u: u.is_superuser)
+def management_recommends(request):
+    recommends = RecommendBook.objects.all().order_by("-created_at")
+    context = {
+        "recommends": recommends,
+    }
+    return render(request, "pages/recommend/manage-recommends.html", context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def management_recommend_create(request):
+    if request.method == "POST":
+        # inputを使って作成する
+        logger.info(request.POST)
+        book_id = request.POST.get("id")
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+
+        book = Book.objects.get(id=book_id)
+
+        RecommendBook.objects.create(book=book, title=title, description=description)
+
+        return redirect('management_recommends')
+    return render(request, "pages/recommend/manage-recommend-create.html")
+
 
 
 

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+  {% comment %}TODO{% endcomment %}
+{% endblock %}
+
+{% block title %}
+  オススメ作成
+{% endblock %}
+
+{% block content %}
+  <div>
+    <a href="{% url 'management_dashboard' %}">管理者ダッシュボードへ</a>
+  </div>
+
+  <div class="my-6">
+    <a href="">オススメを新規作成</a>
+  </div>
+
+  <section class="mt-10">
+    <form method="post" action="{% url 'management_recommend_create' %}">
+      {% csrf_token %}
+      <div>
+        <input name="id" id="id" type="text" placeholder="対象の書籍YommyID" />
+      </div>
+
+      <div>
+        <label for="title">タイトル</label>
+        <input name="title" id="title" type="text" placeholder="タイトル">
+      </div>
+
+      <div>
+        <label for="description">説明</label>
+        <textarea name="description" id="description" placeholder="説明"></textarea>
+      </div>
+
+      <button type="submit" class="btn-sm btn-primary">作成する</button>
+    </form>
+  </section>
+{% endblock %}

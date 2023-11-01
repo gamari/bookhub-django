@@ -1,0 +1,24 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block css %} {% comment %} TODO {% endcomment %} {% endblock %} 
+
+{% block title %}オススメ一覧{% endblock %} 
+
+{% block content %}
+
+<div>
+  <a href="{% url 'management_dashboard' %}">管理者ダッシュボードへ</a>
+</div>
+
+<div class="my-6">
+<a href="{% url 'management_recommend_create' %}">オススメを新規作成</a>
+</div>
+
+
+<section class="mt-10">
+    {% for recommend in recommends %}
+    <div>{{ recommend.title }} </div>
+    {% endfor %}
+</section>
+{% endblock %}

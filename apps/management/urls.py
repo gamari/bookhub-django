@@ -17,6 +17,10 @@ urlpatterns = [
     path('manage/selections/ai/', views.management_ai_selections, name='management_ai_selections'),
     path('manage/selections/ai/<uuid:selection_id>/', views.management_ai_selections_edit, name='management_ai_selections_edit'),
 
+    # オススメ
+    path('manage/recommends/', views.management_recommends, name='management_recommends'),
+    path('manage/recommend/create/', views.management_recommend_create, name='management_recommend_create'),
+
     path('manage/search-history/', views.management_search_history, name='management_search_history'),
     path('manage/notices/', views.management_notices, name='management_notices'),
     path('manage/notice/create/', views.management_notice_create, name='management_notice_create'),
