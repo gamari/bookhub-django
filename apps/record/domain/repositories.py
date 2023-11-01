@@ -100,7 +100,8 @@ class ReadingMemoRepository(object):
 
 class ReadingRecordRepository(object):
     def fetch_or_create(self, user, book):
-        return ReadingRecord.objects.get_or_create(user=user, book=book)
+        record, _ = ReadingRecord.objects.get_or_create(user=user, book=book)
+        return record
 
     def fetch_record_by_user_and_book(self, user, book):
         return ReadingRecord.objects.get(book=book, user=user)

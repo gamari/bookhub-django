@@ -54,6 +54,9 @@ docker compose restart
 ## オススメツイート
 docker compose exec web python manage.py recommend
 
+docker compose exec web python manage.py createselection
+
+docker compose exec web python manage.py createai 
 
 ## DB操作
 

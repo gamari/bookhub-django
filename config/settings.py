@@ -135,7 +135,8 @@ LOGGING = {
     "version": 1,
     "formatters": {
         "verbose": {
-            "format": "[{levelname}][{module}.{funcName}()] {message}",
+            # 時間を入れる
+            "format": "[{levelname}][{asctime}][{module}.{funcName}()] {message}",
             "style": "{",
         },
     },

@@ -48,7 +48,7 @@ crontab -r
 
 0 * * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py recommend >> /home/ec2-user/cron_log.log 2>&1
 8 12 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py createselection >> /home/ec2-user/cron_log.log 2>&1
-12 24 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py createselection >> /home/ec2-user/cron_log.log 2>&1
+24 12 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py createselection >> /home/ec2-user/cron_log.log 2>&1
 25 16 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py createselection >> /home/ec2-user/cron_log.log 2>&1
 15 18 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py createselection >> /home/ec2-user/cron_log.log 2>&1
 22 21 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py createselection >> /home/ec2-user/cron_log.log 2>&1

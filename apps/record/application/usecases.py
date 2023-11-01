@@ -47,6 +47,9 @@ class RecordReadingHistoryUsecase(Usecase):
         memos = ReadingMemo.objects.filter(user=user, book=book).order_by("-created_at")
         form = ReadingMemoForm()
 
+        logger.debug(f"record: {record}")
+        logger.debug(f"{record.started_at}")
+
         return {
             "book": book,
             "record": record,
