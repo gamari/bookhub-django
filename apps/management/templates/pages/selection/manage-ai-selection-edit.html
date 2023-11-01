@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  管理者-AIセレクション編集
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/components/form.css' %}" />
+<link rel="stylesheet" href="{% static 'css/components/selection.css' %}" />
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/services/selection_service.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+  <section>
+    <a href="{% url 'management_dashboard' %}">管理者ダッシュボードへ</a>
+  </section>
+
+  <section>
+    <form method="post" class="form-card max-w-xl">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="id_title">タイトル</label>
+        {{ form.title }}
+      </div>
+
+      <div class="form-group">
+        <label for="id_description">説明</label>
+        {{ form.description }}
+      </div>
+
+      <div class="form-group">
+        <label for="">
+          <span>書籍</span>
+          <span class="label-help">(本棚から選択します)</span>
+        </label>
+      </div>
+
+      {% include 'components/_book_selection.html' %}
+
+      <div class="mt-4">{{ form.is_public }}</div>
+
+      <button type="submit" class="mt-4 btn btn-primary">更新<span id="selected-count"></span></button>
+
+      {% if error_message %}
+        <p class="mt-4 form-error">{{ error_message }}</p>
+      {% endif %}
+    </form>
+  </section>
+{% endblock %}

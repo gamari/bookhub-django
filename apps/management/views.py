@@ -14,12 +14,22 @@ from apps.management.models import Notice
 from apps.record.models import ReadingMemo
 from apps.review.models import Review
 from apps.search.models import SearchHistory
-from apps.selection.models import SelectionBookRelation
+from apps.selection.forms import BookSelectionForm
+from apps.selection.models import BookSelection, SelectionBookRelation
 from authentication.forms import AccountUpdateForm
 from authentication.models import Account
 
 logger = logging.getLogger("app_logger")
 
+
+@user_passes_test(lambda u: u.is_superuser)
+def management_dashboard(request):
+    context = {}
+    return render(request, "pages/manage-dashboard.html", context)
+
+####
+# お知らせ
+###
 @user_passes_test(lambda u: u.is_superuser)
 def management_notices(request):
     """お知らせ一覧画面。"""
@@ -63,7 +73,6 @@ def management_notice_edit(request, notice_id):
     
     return render(request, "pages/manage-notice-edit.html", context)
 
-# お知らせの削除
 @user_passes_test(lambda u: u.is_superuser)
 def management_notice_delete(request, notice_id):
     if request.user.is_superuser:
@@ -75,13 +84,9 @@ def management_notice_delete(request, notice_id):
     logger.info("削除できません")
     return redirect('management_notices')
 
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def management_dashboard(request):
-    context = {}
-    return render(request, "pages/manage-dashboard.html", context)
-
+###
+# 書籍
+###
 @user_passes_test(lambda u: u.is_superuser)
 def management_books(request):
     repository = BookRepository()
@@ -90,8 +95,6 @@ def management_books(request):
         "books": books,
     }
     return render(request, "pages/manage-books.html", context)
-
-
 
 @user_passes_test(lambda u: u.is_superuser)
 def management_delete_book(request, book_id):
@@ -102,7 +105,6 @@ def management_delete_book(request, book_id):
     logger.info(book)
     return redirect('management_books')
 
-# 重複書籍一覧
 @user_passes_test(lambda u: u.is_superuser)
 def management_duplicate_books(request):
     duplicated_others = (
@@ -120,8 +122,6 @@ def management_duplicate_books(request):
     logger.debug(duplicated_books)
 
     return render(request, "pages/manage-duplicate-books.html", context)
-
-
 
 @user_passes_test(lambda u: u.is_superuser)
 def management_delete_duplicate_book(request, book_id):
@@ -176,7 +176,64 @@ def management_ai_users_edit(request, user_id):
     return render(request, "pages/manage-ai-users-edit.html", context)
 
 
+# お問い合わせ
+@user_passes_test(lambda u: u.is_superuser)
+def management_contacts(request):
+    contacts = Contact.objects.all().order_by("-created_at")[:10]
 
+    context = {
+        "contacts": contacts,
+    }
+    return render(request, "pages/manage-contacts.html", context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def management_search_history(request):
+    histories = SearchHistory.objects.all().order_by("-created_at")[:50]
+    context = {
+        "histories": histories,
+    }
+    return render(request, "pages/manage-search-history.html", context)
+
+###
+# セレクション
+###
+@user_passes_test(lambda u: u.is_superuser)
+def management_ai_selections(request):
+    # Accountがis_ai=Trueユーザーのselectionsを取得する
+    selections = BookSelection.objects.filter(user__is_ai=True).order_by("-created_at")
+
+    context = {
+        "selections": selections,
+    }
+    return render(request, "pages/selection/manage-ai-selections.html", context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def management_ai_selections_edit(request, selection_id):
+    selection = BookSelection.objects.get(id=selection_id)
+    form = BookSelectionForm(instance=selection, user=request.user)
+    context = {"form": form, "selection": selection}
+
+    if request.method == "POST":
+        # TODO is_staffのみ編集可能にする
+
+        form = BookSelectionForm(request.POST, instance=selection, user=selection.user)
+        if form.is_valid():
+            form.save()
+            return redirect('management_ai_selections')
+        else:
+            logger.info("バリデーションエラー")
+            logger.info(form.errors)
+    else:
+        form = BookSelectionForm(instance=selection, user=selection.user)
+    context = {
+        "selection": selection,
+        "form": form,
+    }
+    return render(request, "pages/selection/manage-ai-selection-edit.html", context)
+
+
+
+## TODO 以下実装途中
 # TODO マージ処理を完成させる
 @user_passes_test(lambda u: u.is_superuser)
 def management_book_merge(request, source_id, target_id):
@@ -243,22 +300,4 @@ def management_book_merge(request, source_id, target_id):
     target_book.save()
     source_book.delete()
     return redirect('management_books')
-
-# お問い合わせ
-@user_passes_test(lambda u: u.is_superuser)
-def management_contacts(request):
-    contacts = Contact.objects.all().order_by("-created_at")[:10]
-
-    context = {
-        "contacts": contacts,
-    }
-    return render(request, "pages/manage-contacts.html", context)
-
-@user_passes_test(lambda u: u.is_superuser)
-def management_search_history(request):
-    histories = SearchHistory.objects.all().order_by("-created_at")[:50]
-    context = {
-        "histories": histories,
-    }
-    return render(request, "pages/manage-search-history.html", context)
 

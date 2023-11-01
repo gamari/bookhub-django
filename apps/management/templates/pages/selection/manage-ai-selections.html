@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+  {% comment %}TODO{% endcomment %}
+{% endblock %}
+
+{% block title %}
+  AIが作成したセレクション一覧
+{% endblock %}
+
+{% block js %}
+  <script src="{% static 'js/services/search/book_list.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+  <section>
+    <a href="{% url 'management_dashboard' %}">管理者ダッシュボードへ</a>
+  </section>
+
+  <section>
+    {% for selection in selections %}
+        <div>
+            <a href="{% url 'management_ai_selections_edit' selection.id %}">{{ selection.title }}</a>
+        </div>
+    {% endfor %}
+  </section>
+{% endblock %}
