@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load search_tags %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/pages/search_results.css' %}" />
+{% endblock %}
+
+{% block js %}
+  <script src="{% static 'js/services/book/register.js' %}"></script>
+  <script src="{% static 'js/pages/search_result.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+  タグ検索
+{% endblock %}
+
+{% block content %}
+  <section>
+    <h3 class="mb-4">[{{ tag_name }}]タグで検索</h3>
+
+    {% comment %}TODO 何も無い場合は何も表示しない{% endcomment %}
+
+    <ul>
+      {% for book in result %}
+        {% search_panel book request.user %}
+        
+        {% empty %}        
+        <p class="card-sm">該当のタグの書籍は存在しません</p>
+      {% endfor %}
+    </ul>
+  </section>
+
+  {% comment %}ページネーション{% endcomment %}
+  <section>
+    {% if result.has_previous %}
+        <a href="?page={{ result.previous_page_number }}&tag={{ tag_name }}" class="btn-sm btn-primary">前へ</a>
+    {% endif %}
+
+    <span class="current">
+        {{ result.number }} / {{ result.paginator.num_pages }}
+    </span>
+
+    {% if result.has_next %}
+        <a href="?page={{ result.next_page_number }}&tag={{ tag_name }}" class="btn-sm btn-primary">次へ</a>
+    {% endif %}
+  </section>
+{% endblock %}

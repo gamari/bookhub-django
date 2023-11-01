@@ -1,5 +1,6 @@
 import logging
 from django.db import IntegrityError, transaction
+from apps.book.models import BookTag, Tag
 
 # from apps.book.models import BookTag, Tag
 from config.application.usecases import Usecase
@@ -63,18 +64,11 @@ class CreateBookTagsByAIUsecase(Usecase):
         tags = ['オブジェクト指向', '初心者', '学習', 'すっきり']
         logger.debug(f"tags: {tags}")
 
-        # with transaction.atomic():
-        #     for tag_name in tags:
-        #         tag, created = Tag.objects.get_or_create(name=tag_name)
+        with transaction.atomic():
+            for tag_name in tags:
+                tag, created = Tag.objects.get_or_create(name=tag_name)
 
-        #         logger.debug(f"{book} {tag_name} ")
-        #         try:
-        #             book_tag = BookTag.objects.get(book=book, tag=tag)
-        #         except BookTag.DoesNotExist:
-        #             try:
-        #                 BookTag.objects.create(book=book, tag=tag)
-        #             except IntegrityError:
-        #                 pass
+                BookTag.objects.get_or_create(book=book, tag=tag)
             
 
 

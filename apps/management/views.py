@@ -159,7 +159,7 @@ def management_book_tag(request, book_id):
 
     usecase = CreateBookTagsByAIUsecase.build()
     usecase.execute(book_id)
-    return render(request, "pages/manage/book/list.html")
+    return render(request, "pages/manage-dashboard.html")
 
 
 # AIユーザー一覧

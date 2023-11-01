@@ -103,7 +103,16 @@
     </div>
   </section>
 
-  {% comment %} TODO 記事紹介を {% endcomment %}
+  <section>
+    <div class="row-center gap-4">
+      {% for tag in book.tags.all %}
+      <a href="{% url 'book_search_by_tag' %}?tag={{tag.name}}" class="badge-sm badge-info">
+        #{{tag.name}}
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
   
 
   <div class="toolbar-section mb-10">

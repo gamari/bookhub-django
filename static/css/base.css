@@ -216,6 +216,12 @@ h4 {
   border: 1px solid transparent;
 }
 
+.badge-info-border {
+  background-color: white;
+  color: rgb(100, 100, 100);
+  border: 1px solid rgb(100, 100, 100);
+}
+
 .badge-success {
   background-color: #41bb5d;
   color: white;
