@@ -34,16 +34,14 @@ class AiDomainService(object):
     
     def create_tags_by_book(self, book):
         """タグ作成。"""
-        # title = book.title
-        # description = book.description[:180]
-        title="対岸の家事"
-        description = "家族のために「家事をすること」を仕事に選んだ、専業主婦の詩穂。娘とたった二人だけの、途方もなく繰り返される毎日。幸せなはずなのに、自分の選択が正しかったのか迷う彼女のまわりには、性別や立場が違っても、同じく現実に苦しむ人たちがいた。二児を抱え、自分に熱があっても休めない多忙なワーキングマザー。医者の夫との間に子どもができず、姑や患者にプレッシャーをかけられる主婦。外資系企業で働く妻の代わりに、二年間の育休をとり、１歳の娘を育てるエリート公務員。誰にも頼れず、いつしか限界を迎える彼らに、詩穂は優しく寄り添い、自分にできることを考え始める――。"[:180]
+        sample_title="対岸の家事"
+        sample = "家族のために「家事をすること」を仕事に選んだ、専業主婦の詩穂。娘とたった二人だけの、途方もなく繰り返される毎日。幸せなはずなのに、自分の選択が正しかったのか迷う彼女のまわりには、性別や立場が違っても、同じく現実に苦しむ人たちがいた。二児を抱え、自分に熱があっても休めない多忙なワーキングマザー。医者の夫との間に子どもができず、姑や患者にプレッシャーをかけられる主婦。外資系企業で働く妻の代わりに、二年間の育休をとり、１歳の娘を育てるエリート公務員。誰にも頼れず、いつしか限界を迎える彼らに、詩穂は優しく寄り添い、自分にできることを考え始める――。"[:120]
         instruction = "指定された書籍と、書籍詳細の内容から、タグを作成してください。ただし、タグを空白区切りで返してください。また、タグ以外の言葉含めないでください。"
 
         self.client.add_system_message(instruction)
-        self.client.add_sample_message("user", f"書籍名:{title}\n書籍詳細:{description}")
+        self.client.add_sample_message("user", f"書籍名:{sample_title}\n書籍詳細:{sample}")
         self.client.add_sample_message("assistant", "タグ:子育て 小説 生き方 母")
-        self.client.add_user_message(book.description)
+        self.client.add_user_message(book.description[:180])
         tags = self.client.query()
         self.reset()
 
