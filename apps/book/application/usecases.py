@@ -8,7 +8,7 @@ from config.utils import DateUtils
 from config.application.usecases import Usecase
 from apps.ranking.domain.services import RankingDomainService
 from apps.selection.application.usecases import BookSelectionDomainService
-from apps.book.domain.services import BookDomainService, BookshelfDomainService
+from apps.book.domain.services import BookDomainService, BookshelfDomainService, TagDomainService
 from apps.book.models import Bookshelf
 from apps.record.domain.services import (
     ActivityDomainService,
@@ -32,7 +32,8 @@ class ShowHomePageUsecase(Usecase):
         ranking_service: RankingDomainService,
         notice_service: NoticeDomainService,
         selection_service: BookSelectionDomainService,
-        recommend_service: RecommendDomainService
+        recommend_service: RecommendDomainService,
+        tag_service: TagDomainService,
     ):
         self.record_service = record_service
         self.review_service = review_service
@@ -41,6 +42,7 @@ class ShowHomePageUsecase(Usecase):
         self.notice_service = notice_service
         self.selection_service = selection_service
         self.recommend_service = recommend_service
+        self.tag_service = tag_service
     
     @classmethod
     def build(cls):
@@ -51,6 +53,7 @@ class ShowHomePageUsecase(Usecase):
         notice_service = NoticeDomainService.initialize()
         selection_service = BookSelectionDomainService.initialize()
         recommend_service = RecommendDomainService.initialize()
+        tag_service = TagDomainService.initialize()
 
         return cls(
             record_service,
@@ -59,7 +62,8 @@ class ShowHomePageUsecase(Usecase):
             ranking_service,
             notice_service,
             selection_service,
-            recommend_service
+            recommend_service,
+            tag_service,
         )
 
     def run(self):
@@ -73,6 +77,7 @@ class ShowHomePageUsecase(Usecase):
         latest_notices = self.notice_service.get_latest_notices(1)
         latest_selection_list = self.selection_service.get_latest_selection_list()
         recommend_books = self.recommend_service.get_recommend_three_books()
+        tags = self.tag_service.get_random_tags(5)
 
         context = {
             "top_book_results": top_book_results,
@@ -82,6 +87,7 @@ class ShowHomePageUsecase(Usecase):
             "latest_notices": latest_notices,
             "selections": latest_selection_list,
             "recommend_books": recommend_books,
+            "tags": tags,
         }
 
         return context

@@ -1,7 +1,7 @@
 import logging
 
 from apps.book.domain.repositories import BookRepository, BookshelfRepository
-from apps.book.models import Bookshelf
+from apps.book.models import Bookshelf, Tag
 
 logger = logging.getLogger("app_logger")
 
@@ -83,3 +83,14 @@ class BookshelfDomainService(object):
         bookshelf_repo = BookshelfRepository()
         return cls(bookshelf_repo)
 
+class TagDomainService(object):
+    def __init__(self):
+        pass
+
+    @classmethod
+    def initialize(cls):
+        return cls()
+
+    @classmethod
+    def get_random_tags(cls, num):
+        return Tag.objects.order_by("?")[:num]

@@ -1,20 +1,15 @@
 <section class="w-full">
   <div class="card-sm">
-    <form
-      action="{% url 'book_search' %}"
-      method="GET"
-      class="search-container"
-    >
-      <input
-        type="text"
-        name="query"
-        placeholder="書籍名で検索……"
-        class="search-input w-full"
-        autocomplete="off"
-      />
-      <button type="submit" class="searchbox-icon">
-        <i class="fas fa-search"></i>
-      </button>
+    <form action="{% url 'book_search' %}" method="GET" class="search-container">
+      <input type="text" name="query" placeholder="書籍名で検索……" class="search-input w-full" autocomplete="off" />
+      <button type="submit" class="searchbox-icon"><i class="fas fa-search"></i></button>
     </form>
+
+    <div class="mt-4">
+      <h5>タグ検索</h5>
+      {% for tag in tags %}
+        <a href="{% url 'book_search_by_tag' %}?tag={{ tag.name }}" class="badge-sm badge-info-border">#{{ tag.name }}</a>
+      {% endfor %}
+    </div>
   </div>
 </section>

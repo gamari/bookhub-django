@@ -11,7 +11,7 @@ from config.settings import APP_URL
 
 logger = logging.getLogger("app_logger")
 
-class AutoCreateRecommendBook(Usecase):
+class CreateRecommendBook(Usecase):
     def __init__(self, book_service):
         self.book_service = book_service
 
@@ -60,8 +60,7 @@ class CreateBookTagsByAIUsecase(Usecase):
 
     def execute(self, book_id):
         book = self.book_service.get_book_by_id(book_id)
-        # tags = self.ai_service.create_tags_by_book(book)
-        tags = ['オブジェクト指向', '初心者', '学習', 'すっきり']
+        tags = self.ai_service.create_tags_by_book(book)
         logger.debug(f"tags: {tags}")
 
         with transaction.atomic():
