@@ -95,7 +95,7 @@ def management_books(request):
     context = {
         "books": books,
     }
-    return render(request, "pages/manage-books.html", context)
+    return render(request, "pages/manage/book/list.html", context)
 
 @user_passes_test(lambda u: u.is_superuser)
 def management_delete_book(request, book_id):
@@ -122,7 +122,7 @@ def management_duplicate_books(request):
     }
     logger.debug(duplicated_books)
 
-    return render(request, "pages/manage-duplicate-books.html", context)
+    return render(request, "pages/manage/book/duplicate/list.html", context)
 
 @user_passes_test(lambda u: u.is_superuser)
 def management_delete_duplicate_book(request, book_id):
@@ -147,7 +147,7 @@ def management_book_edit(request, book_id):
         "book": book,
         "form": form,
     }
-    return render(request, "pages/manage-book-edit.html", context)
+    return render(request, "pages/manage/book/edit.html", context)
 
 # AIユーザー一覧
 @user_passes_test(lambda u: u.is_superuser)
