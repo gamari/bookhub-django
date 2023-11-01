@@ -56,11 +56,6 @@ main {
   padding-bottom: 64px; 
 }
 
-.header-content {
-  /* TODO */
-  width: 100%;
-}
-
 .content {
   display: flex;
   flex-direction: row;
@@ -213,7 +208,7 @@ h4 {
   }
 
   .container {
-    max-width: 900px;
+    max-width: 1100px;
     padding-bottom: 64px;
     padding-right: 32px;
     padding-left: 32px;

@@ -18,6 +18,7 @@ urlpatterns = [
     path("", include("apps.search.urls")),
     path("", include("apps.selection.urls")),
     path("", include("apps.management.urls")),
+    path("", include("apps.ads.urls")),
 ]
 
 # ファイル設定

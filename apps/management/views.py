@@ -244,7 +244,7 @@ def management_book_merge(request, source_id, target_id):
     source_book.delete()
     return redirect('management_books')
 
-
+# お問い合わせ
 @user_passes_test(lambda u: u.is_superuser)
 def management_contacts(request):
     contacts = Contact.objects.all().order_by("-created_at")[:10]

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     # Local
     "authentication.apps.AuthenticationConfig",
+    "apps.ads.apps.AdsConfig",
     "apps.book.apps.BookConfig",
     "apps.record.apps.RecordConfig",
     "apps.review.apps.ReviewConfig",
