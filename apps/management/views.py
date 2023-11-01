@@ -8,7 +8,7 @@ from apps.ads.models import RecommendBook
 from apps.book.domain.repositories import BookRepository
 from apps.book.forms import BookForm
 
-from apps.book.models import Book, BookAuthor, BookGenre, BookshelfBook
+from apps.book.models import Book, BookAuthor, BookGenre, BookshelfBook, Tag
 from apps.contact.models import Contact
 from apps.management.application.usecases import CreateBookTagsByAIUsecase
 from apps.management.forms import NoticeForm
@@ -150,6 +150,9 @@ def management_book_edit(request, book_id):
     }
     return render(request, "pages/manage/book/edit.html", context)
 
+###
+# タグ
+###
 @user_passes_test(lambda u: u.is_superuser)
 def management_book_tag(request, book_id):
     # book_id = request.POST.get("book_id")
@@ -160,6 +163,19 @@ def management_book_tag(request, book_id):
     usecase = CreateBookTagsByAIUsecase.build()
     usecase.execute(book_id)
     return render(request, "pages/manage-dashboard.html")
+
+@user_passes_test(lambda u: u.is_superuser)
+def management_book_tag_all(request):
+    tags = Tag.objects.all()
+    return render(request, "pages/manage/tag/list.html", {
+        "tags": tags,
+    })
+
+@user_passes_test(lambda u: u.is_superuser)
+def management_tag_delete(request, tag_id):
+    tag = Tag.objects.get(id=tag_id)
+    tag.delete()
+    return redirect('management_tags')
 
 
 # AIユーザー一覧

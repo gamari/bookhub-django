@@ -24,6 +24,10 @@ urlpatterns = [
     path('manage/recommends/', views.management_recommends, name='management_recommends'),
     path('manage/recommend/create/', views.management_recommend_create, name='management_recommend_create'),
 
+    # タグ
+    path("manage/tags/", views.management_book_tag_all, name="management_tags"),
+    path("manage/tag/<int:tag_id>/delete/", views.management_tag_delete, name="management_tag_delete"),
+
     path('manage/search-history/', views.management_search_history, name='management_search_history'),
     path('manage/notices/', views.management_notices, name='management_notices'),
     path('manage/notice/create/', views.management_notice_create, name='management_notice_create'),

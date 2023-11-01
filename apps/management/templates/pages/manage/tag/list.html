@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block title %}タグ一覧{% endblock %} 
+{% block css %} {% comment %} TODO {% endcomment %} {% endblock %} 
+{% block js %}{% comment %} TODO {% endcomment %}{% endblock %}
+
+{% block content %}
+<div class="my-6">
+  <a href="{% url 'management_dashboard' %}">管理者ダッシュボードへ</a>
+</div>
+
+<section class="mt-4">
+  <div class="col gap-4">
+    {% for tag in tags %}
+    <div class="bg-white p-4">
+      <div>{{ tag.name }}</div>
+
+      <div class="row-between">
+          <a class="btn-sm btn-danger" 
+          href="{% url 'management_tag_delete' tag.id %}"
+          >削除</a>
+      </div>
+     
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

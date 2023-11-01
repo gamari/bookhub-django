@@ -12,7 +12,12 @@
   {% with first_book=selection.get_first_book %}
     <meta property="og:image" content="{{ first_book.thumbnail }}" />
     <meta property="og:title" content="{{ selection.title }}" />
+    {% if selection.description %}
     <meta property="og:description" content="{{ selection.description }}" />
+    {% else %}
+    {% comment %} TODO 考える {% endcomment %}
+    <meta property="og:description" content="{{selection.title}}" />
+    {% endif %}
     <meta property="og:type" content="article" />
     
     <!-- Twitter Card -->
