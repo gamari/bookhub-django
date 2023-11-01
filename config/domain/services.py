@@ -47,7 +47,8 @@ class AiDomainService(object):
         tags = self.client.query()
         self.reset()
 
-        tags = tags.replace("タグ:", "").split(" ")
+        # 空配列は排除する
+        tags = tags.replace("タグ:", "").split(" ").remove("")
 
         return tags
 
