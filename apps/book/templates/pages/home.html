@@ -1,5 +1,6 @@
 {% extends 'base.html' %} 
 {% load static %} 
+{% load book_tags %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
@@ -19,21 +20,28 @@
 <aside class="sidebar">
 <div class="card-sm">
   {% comment %} TODO 属性によって変えたい {% endcomment %}
-  <h3>オススメ</h3>
-  <ul>
-    {% for book in recommend_books %}
-      <li>{{book.title}}</li>
+  <h3 class="mb-4">注目！</h3>
+  <ul class="col-center gap-4">
+    {% for recommend in recommend_books %}
+      <li>
+        <div class="badge-sm badge-success text-center mb-2">{{ recommend.title }}</div>
+        <div>
+          <div>
+            {% book_icon recommend.book "md" %}
+          </div>
+        </div>
+      </li>
     {% endfor %}
   </ul>
 </div>
 
-<div class="mt-6 card-sm">
+{% comment %} <div class="mt-6 card-sm">
   <h3>AIによるオススメ</h3>
 
   <div>
 
   </div>
-</div>
+</div> {% endcomment %}
 
 </aside>
 {% endblock %}

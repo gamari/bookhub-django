@@ -182,11 +182,26 @@ h4 {
 .badge {
   display: inline-block;
   padding: 6px 8px;
-  font-size: 0.7rem;
-  border-radius: 16px;
-  background-color: white;
+  font-size: 1rem;
+  border-radius: 8px;
+  /* background-color: white; */
   color: #444;
-  border: 1px solid rgb(159, 159, 159);
+  /* border: 1px solid rgb(159, 159, 159); */
+  border: 1px solid transparent;
+
+}
+
+.badge:hover {
+  opacity: 0.8;
+  background-color: rgb(150, 150, 150);
+  color: white;
+}
+
+.badge-sm {
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  text-align: center;
+  border-radius: 3px;
 }
 
 .badge-primary {
@@ -197,6 +212,12 @@ h4 {
 
 .badge-info {
   background-color: rgb(100, 100, 100);
+  color: white;
+  border: 1px solid transparent;
+}
+
+.badge-success {
+  background-color: #41bb5d;
   color: white;
   border: 1px solid transparent;
 }
