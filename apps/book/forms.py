@@ -19,6 +19,7 @@ class BookForm(forms.ModelForm):
             'views', 
             'is_clean',
             "amazon_url",
+            # "tags",
         ]
         widgets = {
             'published_date': DateInput(),

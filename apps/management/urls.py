@@ -11,6 +11,9 @@ urlpatterns = [
     path("manage/book/duplicate/", views.management_duplicate_books, name="management_book_duplicate"),
     path("manage/book/duplicate/<int:book_id>/", views.management_delete_duplicate_book, name="management_duplicate_book_edit"),
     path('manage/books/<int:source_id>/merge/<int:target_id>/', views.management_book_merge, name='management_book_merge'),
+    path("manage/book/<int:book_id>/tag/", views.management_book_tag, name="management_book_tag"),
+
+    # お問い合わせ
     path('manage/contacts/', views.management_contacts, name='management_contacts'),
 
     # セレクション

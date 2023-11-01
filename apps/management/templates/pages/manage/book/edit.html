@@ -20,8 +20,27 @@
     <form method="post" class="card-sm">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="更新">
+
+
+        <div class="row gap-4">
+            <input type="submit" value="更新" class="btn-sm btn-primary">
+            
+            {% comment %} <button class="btn-primary btn-sm" type="button">タグ付けする</button> {% endcomment %}
+        </div>
     </form>
+
+    <form method="POST" action="{% url 'management_book_tag' book_id=book.id %}">
+        {% csrf_token %}
+
+        <button type="submit"  class="btn-sm btn-primary">タグ付けする</button>
+    </form>
+</section>
+
+<section>
+    <div>
+        <a class="btn-sm btn-danger" href="{% url 'management_book_delete' book.id %}">削除</a>
+        <a class="btn-sm btn-primary" href="{% url 'book_detail' book.id %}">詳細</a>
+    </div>
 </section>
 
 <section>

@@ -10,6 +10,7 @@ from apps.book.forms import BookForm
 
 from apps.book.models import Book, BookAuthor, BookGenre, BookshelfBook
 from apps.contact.models import Contact
+from apps.management.application.usecases import CreateBookTagsByAIUsecase
 from apps.management.forms import NoticeForm
 from apps.management.models import Notice
 from apps.record.models import ReadingMemo
@@ -148,6 +149,18 @@ def management_book_edit(request, book_id):
         "form": form,
     }
     return render(request, "pages/manage/book/edit.html", context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def management_book_tag(request, book_id):
+    # book_id = request.POST.get("book_id")
+    logger.debug(book_id)
+    if request.method != "POST":
+        return redirect('management_book_edit', book_id=book_id)
+
+    usecase = CreateBookTagsByAIUsecase.build()
+    usecase.execute(book_id)
+    return render(request, "pages/manage/book/list.html")
+
 
 # AIユーザー一覧
 @user_passes_test(lambda u: u.is_superuser)

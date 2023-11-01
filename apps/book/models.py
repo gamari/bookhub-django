@@ -31,7 +31,6 @@ class Author(models.Model):
         return self.name
 
 class Tag(models.Model):
-    id = models.CharField(max_length=255, primary_key=True)
     name = models.CharField("タグ名", max_length=255, unique=True)
     created_at = models.DateTimeField("作成日", auto_now_add=True)
 
