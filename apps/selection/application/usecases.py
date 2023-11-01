@@ -134,7 +134,7 @@ class AICreateSelectionByProfile(Usecase):
 
         # ツイートする
         header = f"【{selection_title}】"
-        hash_tags = "#Yommy #読書好きな人と繋がりたい"
+        hash_tags = "#Yommy #読書好きな人と繋がりたい #AIがセレクトしてます"
         url = f"{APP_URL}/selection/{selection.id}/"
         content = f"{header}\n\n{hash_tags}\n\n{url}"
         logger.debug(content)

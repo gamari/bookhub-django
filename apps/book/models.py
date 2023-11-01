@@ -30,6 +30,14 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
+class Tag(models.Model):
+    id = models.CharField(max_length=255, primary_key=True)
+    name = models.CharField("タグ名", max_length=255, unique=True)
+    created_at = models.DateTimeField("作成日", auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
 
 class BookCategory(models.Model):
     """
@@ -73,7 +81,7 @@ class Book(models.Model):
     is_sensitive = models.BooleanField("センシティブな内容", default=False)
     is_clean = models.BooleanField("整備されたデータ判定", default=False)
     amazon_url = models.URLField("Amazonの購入URL", null=True, blank=True)
-
+    tags = models.ManyToManyField(Tag, through="BookTag", verbose_name="タグ", blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
@@ -168,3 +176,11 @@ class BookGenre(models.Model):
 
     class Meta:
         unique_together = ("book", "genre")
+
+class BookTag(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name="書籍")
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, verbose_name="タグ")
+    created_at = models.DateTimeField("タグ付け日", auto_now_add=True)
+
+    class Meta:
+        unique_together = ('book', 'tag')
