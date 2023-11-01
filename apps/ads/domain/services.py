@@ -2,7 +2,7 @@ from apps.ads.domain.repository import RecommendRepository
 
 
 class RecommendDomainService(object):
-    def __init__(self, recommend_repo):
+    def __init__(self, recommend_repo: RecommendRepository):
         self.recommend_repo = recommend_repo
     
     @classmethod
