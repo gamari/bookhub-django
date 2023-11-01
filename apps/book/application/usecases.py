@@ -1,6 +1,7 @@
 import logging
 
 from django.utils import timezone
+from apps.ads.domain.services import RecommendDomainService
 from apps.management.domain.services import NoticeDomainService
 
 from config.utils import DateUtils
@@ -30,7 +31,8 @@ class ShowHomePageUsecase(Usecase):
         memo_service: MemoDomainService,
         ranking_service: RankingDomainService,
         notice_service: NoticeDomainService,
-        selection_service: BookSelectionDomainService
+        selection_service: BookSelectionDomainService,
+        recommend_service: RecommendDomainService
     ):
         self.record_service = record_service
         self.review_service = review_service
@@ -38,6 +40,7 @@ class ShowHomePageUsecase(Usecase):
         self.ranking_service = ranking_service
         self.notice_service = notice_service
         self.selection_service = selection_service
+        self.recommend_service = recommend_service
     
     @classmethod
     def build(cls):
@@ -47,6 +50,7 @@ class ShowHomePageUsecase(Usecase):
         ranking_service = RankingDomainService.initialize()
         notice_service = NoticeDomainService.initialize()
         selection_service = BookSelectionDomainService.initialize()
+        recommend_service = RecommendDomainService.initialize()
 
         return cls(
             record_service,
@@ -54,7 +58,8 @@ class ShowHomePageUsecase(Usecase):
             memo_service,
             ranking_service,
             notice_service,
-            selection_service
+            selection_service,
+            recommend_service
         )
 
     def run(self):
@@ -63,21 +68,20 @@ class ShowHomePageUsecase(Usecase):
             first_day_of_month, last_day_of_month, limit=3
         )
         latest_reviews = self.review_service.get_latest_reviews(limit=3)
-        ranking_entries = self.ranking_service.get_latest_ranking_entries()
+        # ranking_entries = self.ranking_service.get_latest_ranking_entries()
         memos = self.memo_service.get_latest_memos(limit=4)
-
         latest_notice = self.notice_service.get_latest_notice()
-        logger.info(f"{latest_notice}")
-
         latest_selection_list = self.selection_service.get_latest_selection_list()
+        recommend_books = self.recommend_service.get_recommend_three_books()
 
         context = {
             "top_book_results": top_book_results,
             "reviews": latest_reviews,
-            "ranking_entries": ranking_entries,
+            # "ranking_entries": ranking_entries,
             "memos": memos,
             "latest_notice": latest_notice,
-            "selections": latest_selection_list
+            "selections": latest_selection_list,
+            "recommend_books": recommend_books,
         }
 
         return context

@@ -16,10 +16,25 @@
 {% endblock %}
 
 {% block right %}
-<aside class="sidebar card-sm">
-<div>
+<aside class="sidebar">
+<div class="card-sm">
+  {% comment %} TODO 属性によって変えたい {% endcomment %}
   <h3>オススメ</h3>
+  <ul>
+    {% for book in recommend_books %}
+      <li>{{book.title}}</li>
+    {% endfor %}
+  </ul>
 </div>
+
+<div class="mt-6 card-sm">
+  <h3>AIによるオススメ</h3>
+
+  <div>
+
+  </div>
+</div>
+
 </aside>
 {% endblock %}
 
