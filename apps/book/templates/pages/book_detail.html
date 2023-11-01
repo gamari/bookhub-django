@@ -104,7 +104,7 @@
   </section>
 
   <section>
-    <div class="row-center gap-4">
+    <div class="row-center gap-4 flex-wrap">
       {% for tag in book.tags.all %}
       <a href="{% url 'book_search_by_tag' %}?tag={{tag.name}}" class="badge-sm badge-info">
         #{{tag.name}}
