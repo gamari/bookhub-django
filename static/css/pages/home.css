@@ -1,6 +1,7 @@
 .sidebar {
   display: none;
-  width: 250px;
+  width: 280px;
+  padding-left: 20px;
 }
 
 /* Aboutセクション */
