@@ -1,7 +1,5 @@
 <section class="w-full">
-  <div class="card">
-    <h3>気になる書籍を検索する</h3>
-    
+  <div class="card-sm">
     <form
       action="{% url 'book_search' %}"
       method="GET"
@@ -10,7 +8,7 @@
       <input
         type="text"
         name="query"
-        placeholder="書籍名で検索"
+        placeholder="書籍名で検索……"
         class="search-input w-full"
         autocomplete="off"
       />

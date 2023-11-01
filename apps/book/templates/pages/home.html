@@ -18,6 +18,8 @@
 
 {% block right %}
 <aside class="sidebar">
+
+<h2 class="mb-4">注目</h2>
 <div class="card-sm">
   <ul class="col-center gap-4">
     {% for recommend in recommend_books %}
@@ -31,6 +33,12 @@
       </li>
     {% endfor %}
   </ul>
+</div>
+
+<h2 class="mt-6 mb-4">Yommy応援</h2>
+
+<div class="card-sm">
+  <div>1</div>
 </div>
 
 {% comment %} <div class="mt-6 card-sm">
@@ -47,9 +55,9 @@
 
 {% block content %}
   {% include 'components/home/selection_section.html' %}
+  {% include 'components/home/reviews_section.html' %}
   {% include 'components/home/news_section.html' %}
   {% include 'components/home/timeline_section.html' %}
   {% comment %} {% include 'components/home/ranking_section.html' %} {% endcomment %}
-  {% include 'components/home/reviews_section.html' %}
   {% include 'components/home/top_books.html' %}
 {% endblock %}

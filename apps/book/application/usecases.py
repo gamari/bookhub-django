@@ -70,7 +70,7 @@ class ShowHomePageUsecase(Usecase):
         latest_reviews = self.review_service.get_latest_reviews(limit=3)
         # ranking_entries = self.ranking_service.get_latest_ranking_entries()
         memos = self.memo_service.get_latest_memos(limit=4)
-        latest_notice = self.notice_service.get_latest_notice()
+        latest_notices = self.notice_service.get_latest_notices(3)
         latest_selection_list = self.selection_service.get_latest_selection_list()
         recommend_books = self.recommend_service.get_recommend_three_books()
 
@@ -79,7 +79,7 @@ class ShowHomePageUsecase(Usecase):
             "reviews": latest_reviews,
             # "ranking_entries": ranking_entries,
             "memos": memos,
-            "latest_notice": latest_notice,
+            "latest_notices": latest_notices,
             "selections": latest_selection_list,
             "recommend_books": recommend_books,
         }

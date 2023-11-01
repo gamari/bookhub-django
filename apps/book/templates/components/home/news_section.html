@@ -2,14 +2,18 @@
   <h2 class="mb-4">お知らせ</h2>
 
   {% comment %} TODO 詳細ページを作成する {% endcomment %}
-  {% if latest_notice %}
+  {% for notice in latest_notices %}
   <div>
     <div class="card-sm row-center gap-4">
-      <div class="text-sm text-info">{{ latest_notice.created_at|date:"Y/m/d" }}</div>
-      <p>{{ latest_notice.title }}</p>
+      <div class="text-sm text-info">{{ notice.created_at|date:"Y/m/d" }}</div>
+
+      <div class="badge-sm badge-primary">お知らせ</div>
+      <p class="text-sm">
+        {{ notice.title }}
+      </p>
     </div>
   </div>
-  {%  else %}
+  {% empty %}
   <div class="card-sm">お知らせがありません</div>
-  {% endif %}
+  {% endfor %}
 </section>
