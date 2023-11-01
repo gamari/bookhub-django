@@ -2,15 +2,24 @@
 {% load static %} 
 {% load book_tags %}
 
+{% block title %}Yommy{% endblock %} 
+
+{% block meta%}
+<meta property="og:image" content="{% static 'images/logo.jpg' %}" />
+<meta property="og:title" content="Yommyホーム" />
+<meta property="og:type" content="article" />
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yommyホーム">
+<meta name="twitter:image" content="{% static 'images/logo.jpg' %}">
+{% endblock %}
+
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
 <link rel="stylesheet" href="{% static 'css/components/memo.css' %}" />
 <link rel="stylesheet" href="{% static 'css/components/selection.css' %}" />
 <link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
 {% endblock %} 
-
-{% block title %}Yommy{% endblock %} 
-
 
 {% block header_content %}
   {% include 'components/home/search_section.html' %}
