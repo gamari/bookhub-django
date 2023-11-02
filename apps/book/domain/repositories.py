@@ -75,8 +75,9 @@ class BookRepository(object):
                 is_sensitive=book_data["is_sensitive"],
             )
         except Exception as e:
-            # 作成できない場合は、isbnで取得するか、もしくはotherで取得する
             book = Book.objects.filter(
+                isbn_10__isnull=False, isbn_13__isnull=False
+            ).filter(
                 Q(isbn_10=book_data["isbn_10"]) | Q(isbn_13=book_data["isbn_13"])
             ).first()
 
