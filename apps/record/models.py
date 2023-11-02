@@ -3,6 +3,7 @@ from datetime import date
 
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 from apps.book.models import Book
 
@@ -16,7 +17,7 @@ class ReadingMemo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     content = models.TextField(max_length=1000)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
     
     def get_isoformat_created_at(self):
         return self.created_at.strftime('%Y-%m-%d %H:%M:%S')

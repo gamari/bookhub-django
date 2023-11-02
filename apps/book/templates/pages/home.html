@@ -1,25 +1,27 @@
-{% extends 'base.html' %} 
-{% load static %} 
+{% extends 'base.html' %}
+{% load static %}
 {% load book_tags %}
 
-{% block title %}Yommy{% endblock %} 
+{% block title %}
+  Yommy
+{% endblock %}
 
-{% block meta%}
-<meta property="og:image" content="{% static 'images/logo.jpg' %}" />
-<meta property="og:title" content="Yommyホーム" />
-<meta property="og:type" content="article" />
+{% block meta %}
+  <meta property="og:image" content="{% static 'images/logo.jpg' %}" />
+  <meta property="og:title" content="Yommyホーム" />
+  <meta property="og:type" content="article" />
 
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Yommyホーム">
-<meta name="twitter:image" content="{% static 'images/logo.jpg' %}">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Yommyホーム" />
+  <meta name="twitter:image" content="{% static 'images/logo.jpg' %}" />
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
-<link rel="stylesheet" href="{% static 'css/components/memo.css' %}" />
-<link rel="stylesheet" href="{% static 'css/components/selection.css' %}" />
-<link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
-{% endblock %} 
+  <link rel="stylesheet" href="{% static 'css/components/review.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/memo.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/selection.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
+{% endblock %}
 
 {% block header_content %}
   {% include 'components/home/search_section.html' %}
@@ -29,52 +31,55 @@
 
     <div class="features-container">
       <div class="feature">
-        <h3>一生消えないメモ</h3>
-        <div>image</div>
-
-        <p>Yommyでは、書籍に対してメモを残すことができます。このメモは消えないので、振り返りに有用です。</p>
-      </div>
-      <div class="feature">
-        <h3>AIセレクション</h3>
-        <div>image</div>
-        <p>AIを活用したセレクション作成に力を入れています。自信の本棚を対象に、オリジナルのセレクションを作ったり、AIユーザーのセレクションを見たりすることができます。</p>
+        <h3>AIの活用</h3>
+        <div class="center">
+          <img src="{% static 'images/top/ai.jpg' %}" alt="image" style="height: 180px; width: 200px; object-fit: contain;" />
+        </div>
+        <p class="text-sm">YommyではAIの活用を積極的に取り入れています。AIがセレクションを作ったり、本棚を整理したりできるようになります。</p>
       </div>
       <div class="feature">
         <h3>頑張りの可視化</h3>
-        <div>image</div>
-        <p>Yommyでは従来のチャート表示ではなく、色付け表示によって頑張りが可視化されています。そのため「一度挫折した」後でも、モチベーションを保ちやすくなっています。</p>
+        <div class="center">
+          <img src="{% static 'images/top/activity.jpg' %}" alt="image" style="height: 180px; width: 200px; object-fit: contain;" />
+        </div>
+        <p class="text-sm">Yommyでは従来のチャート表示ではなく、色付け表示によって頑張りが可視化されています。そのため「一度挫折した」後でも、モチベーションを保ちやすくなっています。</p>
+      </div>
+      <div class="feature">
+        <h3>タイムライン</h3>
+        <div class="center">
+          <img src="{% static 'images/top/memo2.jpg' %}" alt="image" style="height: 180px; width: 200px; object-fit: contain;" />
+        </div>
+        <p class="text-sm">Yommyでは、書籍に対してメモを残すことができます。このメモは書籍のタイムラインとして表示され、皆が何を記録しているのかを確認することができます！</p>
       </div>
     </div>
   </section>
 {% endblock %}
 
 {% block right %}
-<aside class="sidebar">
+  <aside class="sidebar">
+    <h2 class="mb-4">Pickup！</h2>
+    <div class="card-sm">
+      <ul class="col-center gap-4">
+        {% for recommend in recommend_books %}
+          <li>
+            <div class="badge-sm badge-success text-center mb-2">{{ recommend.title }}</div>
+            <div>
+              <div>
+                {% book_icon recommend.book 'md' %}
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
 
-<h2 class="mb-4">Pickup！</h2>
-<div class="card-sm">
-  <ul class="col-center gap-4">
-    {% for recommend in recommend_books %}
-      <li>
-        <div class="badge-sm badge-success text-center mb-2">{{ recommend.title }}</div>
-        <div>
-          <div>
-            {% book_icon recommend.book "md" %}
-          </div>
-        </div>
-      </li>
-    {% endfor %}
-  </ul>
-</div>
+    {% comment %} <h2 class="mt-6 mb-4">応援されてます</h2>
 
-{% comment %} <h2 class="mt-6 mb-4">応援されてます</h2>
-
-<div class="card-sm">
-  <div>1</div>
-</div> {% endcomment %}
-</aside>
+    <div class="card-sm">
+      <div>1</div>
+    </div> {% endcomment %}
+  </aside>
 {% endblock %}
-
 
 {% block content %}
   {% include 'components/home/selection_section.html' %}
