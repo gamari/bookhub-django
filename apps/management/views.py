@@ -86,6 +86,14 @@ def management_notice_delete(request, notice_id):
     logger.info("削除できません")
     return redirect('management_notices')
 
+# TODO 詳細画面は誰でもアクセスできるようにする
+def notice_detail(request, notice_id):
+    notice = Notice.objects.get(id=notice_id)
+    context = {
+        "notice": notice,
+    }
+    return render(request, "pages/notice/detail.html", context)
+
 ###
 # 書籍
 ###
