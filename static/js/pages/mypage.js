@@ -57,9 +57,12 @@ function initializeDeleteButtons() {
     deleteButtons.forEach((deleteButton) => {
         deleteButton.addEventListener('click', async function (event) {
             const id = deleteButton.dataset.id;
+            
             const confirmation = confirm("削除しますか？");
+
             if (!confirmation) {
                 event.preventDefault();
+                return;
             }
 
             try {
