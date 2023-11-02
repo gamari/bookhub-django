@@ -32,12 +32,12 @@ class BookDomainService(object):
     
     def count_books_on_shelf(self, book):
         return self.bookshelf_repository.count_books_on_shelf(book)
-    
 
     def get_or_create_books(self, books_data):
         books = []
         for book_data in books_data:
             book = self.book_repository.get_or_create(book_data)
+            logger.debug(f"{book}を登録します")
             if book:
                 books.append(book)
         return books

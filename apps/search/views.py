@@ -23,15 +23,14 @@ def book_search(request):
     if not query:
         return render(request, "pages/search_results.html")
 
-    # TODO 検証のため
-    # mode = "detail"
-
     if mode == "detail":
+        logger.debug("詳細検索します")
         search_service = GoogleBooksService(
             GoogleBooksAPIClient(),
             BookDomainService(BookRepository(), BookshelfRepository()),
         )
     else:
+        logger.debug("通常検索します")
         search_service = BookSearchService()
 
     try:

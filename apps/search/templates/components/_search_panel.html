@@ -9,18 +9,25 @@
     </a>
 
     <ul class="authors-container mt-4">
-      {% for author in book.authors.all %}
-      <li>
-        <i class="fa-regular fa-user fa-sm"></i>
-        <span>{{ author.name }}</span>
-      </li>
-      {% empty %}
-      <li class="author">
-        <i class="fa-regular fa-user fa-sm"></i>
-        <span>-</span>
-      </li>
-      {% endfor %}
+        {% for author in book.authors.all %}
+        {% if forloop.counter <= 4 %}
+            <li>
+                <i class="fa-regular fa-user fa-sm"></i>
+                <span>{{ author.name }}</span>
+            </li>
+        {% endif %}
+        {% if book.authors.length > 5 %} 
+        <span>他{{authors.length}}人</span>
+        {% endif %}
+        {% endfor %}
+        {% if not book.authors.all %}
+        <li class="author">
+            <i class="fa-regular fa-user fa-sm"></i>
+            <span>-</span>
+        </li>
+        {% endif %}
     </ul>
+  
 
     <div class="">
       <i class="fa-regular fa-calendar fa-sm"></i>

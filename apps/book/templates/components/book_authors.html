@@ -1,13 +1,21 @@
-<div class="info">
+<ul class="info">
   {% for author in book.authors.all %}
-    <div class="book-author">
-      <i class="fa-regular fa-user fa-sm"></i>
-      <span>{{ author.name }}</span>
-    </div>
-    {% empty %}
-    <div class="book-author">
+    {% if forloop.counter <= 4 %}
+      <li class="book-author">
+        <i class="fa-regular fa-user fa-sm"></i>
+        <span>{{ author.name }}</span>
+      </li>
+    {% endif %}
+  {% endfor %}
+
+  {% if book.authors.count > 4 %}
+    <li class="my-2">
+      <span>残り{{ book.authors.count|add:"-4" }}人</span>
+    </li>
+  {% elif not book.authors.all %}
+    <li class="author">
       <i class="fa-regular fa-user fa-sm"></i>
       <span>-</span>
-    </div>
-  {% endfor %}
-</div>
+    </li>
+  {% endif %}
+</ul>
