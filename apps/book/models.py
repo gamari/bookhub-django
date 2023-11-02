@@ -2,7 +2,8 @@ import uuid, logging
 
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Max
+
 
 logger = logging.getLogger("app_logger")
 
@@ -125,17 +126,20 @@ class Bookshelf(models.Model):
 
     def get_books_with_reading_records(self, user):
         from apps.record.models import ReadingRecord
-
-        # TODO 作成順に入れたい
+        reading_records_ordered = ReadingRecord.objects.filter(user=user).order_by('-updated_at')
         books_with_records = self.books.all().prefetch_related(
             Prefetch(
                 "readingrecord_set",
-                queryset=ReadingRecord.objects.filter(user=user),
-                to_attr="reading_record",
+                queryset=reading_records_ordered,
+                to_attr="user_reading_records"
             )
-        ).order_by("-readingrecord__updated_at")
+        )
 
-        return books_with_records
+        books_with_records_list = list(books_with_records.distinct())
+
+        books_with_records_list.sort(key=lambda b: b.user_reading_records[0].updated_at if b.user_reading_records else None, reverse=True)
+
+        return books_with_records_list
 
     def contains(self, book: Book):
         return self.books.filter(id=book.id).exists()
