@@ -126,20 +126,17 @@ class Bookshelf(models.Model):
 
     def get_books_with_reading_records(self, user):
         from apps.record.models import ReadingRecord
-        reading_records_ordered = ReadingRecord.objects.filter(user=user).order_by('-updated_at')
+
+        # TODO 作成順に入れたい
         books_with_records = self.books.all().prefetch_related(
             Prefetch(
                 "readingrecord_set",
-                queryset=reading_records_ordered,
-                to_attr="user_reading_records"
+                queryset=ReadingRecord.objects.filter(user=user),
+                to_attr="reading_record",
             )
         )
 
-        books_with_records_list = list(books_with_records.distinct())
-
-        books_with_records_list.sort(key=lambda b: b.user_reading_records[0].updated_at if b.user_reading_records else None, reverse=True)
-
-        return books_with_records_list
+        return books_with_records
 
     def contains(self, book: Book):
         return self.books.filter(id=book.id).exists()
