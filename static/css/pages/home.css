@@ -109,6 +109,14 @@
   background-color: transparent;
 }
 
+.search-select {
+  border: none;
+  border-right: 1px solid #aaa;
+  height: 100%;
+  width: 80px;
+  outline: none;
+}
+
 /* ランキング */
 .ranking-list-container {
   margin-top: 16px;

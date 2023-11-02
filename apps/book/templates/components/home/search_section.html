@@ -1,7 +1,17 @@
 <section class="w-full">
   <div class="card-sm">
-    <form action="{% url 'book_search' %}" method="GET" class="search-container">
-      <input type="text" name="query" placeholder="書籍名で検索……" class="search-input w-full" autocomplete="off" />
+    <form 
+      action="{% url 'book_search' %}" method="GET" 
+      class="search-container" 
+      data-book-url="{% url 'book_search' %}" 
+      {% comment %} TODO 著者検索も対応する {% endcomment %}
+      data-author-url=""
+    >
+      <select name="search_type" id="searchType" onchange="updateActionURL()" class="search-select">
+        <option value="book_name" selected>タイトル</option>
+        <option value="author_name">著者名</option>
+      </select>
+      <input type="text" name="query" placeholder="検索……" class="search-input w-full" autocomplete="off" />
       <button type="submit" class="searchbox-icon"><i class="fas fa-search"></i></button>
     </form>
 

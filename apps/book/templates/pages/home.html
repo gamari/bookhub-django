@@ -23,6 +23,10 @@
   <link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
 {% endblock %}
 
+{% block js %}
+<script src="{% static 'js/services/search/select.js' %}"></script>
+{% endblock %}
+
 {% block header_content %}
   {% include 'components/home/search_section.html' %}
 
