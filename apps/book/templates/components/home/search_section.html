@@ -9,7 +9,7 @@
     >
       <select name="search_type" id="searchType" onchange="updateActionURL()" class="search-select">
         <option value="book_name" selected>タイトル</option>
-        <option value="author_name">著者名</option>
+        {% comment %} <option value="author_name">著者名</option> {% endcomment %}
       </select>
       <input type="text" name="query" placeholder="検索……" class="search-input w-full" autocomplete="off" />
       <button type="submit" class="searchbox-icon"><i class="fas fa-search"></i></button>
