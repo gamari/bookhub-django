@@ -113,6 +113,13 @@
     </div>
   </section>
 
+
+  {% comment %} 管理者用 {% endcomment %}
+  {% if request.user.is_staff %}
+  <div class="mb-10">
+    <a href="{% url 'management_book_edit' book.id %}" class="btn-sm btn-primary">編集</a>
+  </div>
+  {% endif %}
   
 
   <div class="toolbar-section mb-10">

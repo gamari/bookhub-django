@@ -127,13 +127,13 @@ class Bookshelf(models.Model):
         from apps.record.models import ReadingRecord
 
         # TODO 作成順に入れたい
-        books_with_records = self.get_books().prefetch_related(
+        books_with_records = self.books.all().prefetch_related(
             Prefetch(
                 "readingrecord_set",
                 queryset=ReadingRecord.objects.filter(user=user),
                 to_attr="reading_record",
             )
-        )
+        ).order_by("-readingrecord__updated_at")
 
         return books_with_records
 
