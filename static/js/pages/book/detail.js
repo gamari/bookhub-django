@@ -2,6 +2,35 @@
 書籍詳細画面のJavaScript。
 */
 
+async function postMemo() {
+    const memoList = document.querySelector("#memo-list");
+    const memoForm = document.querySelector("#memo-form");
+    const memoContent = document.querySelector("#memo-content");
+    const noMemoTitle = document.querySelector("#no-memo-title");
+
+    const formData = new FormData(memoForm);
+
+    if (formData.get('content') === '') {
+        alert("メモの内容を入力してください。");
+        return;
+    }
+
+    const postUrl = memoForm.dataset.action;
+
+    try {
+        const data = await createMemo(postUrl, formData, getCookie('csrfmiddlewaretoken'));
+
+        if (noMemoTitle) noMemoTitle.remove();
+
+        const newMemo = createMemoElement(data)
+        memoList.prepend(newMemo);
+        memoContent.value = '';
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
 /** リスナー */
 function deleteListener(button) {
     const isOk = confirm('削除してもよろしいですか？');
@@ -91,35 +120,13 @@ function initializeGetMemoList() {
 }
 
 function initializeCreateMemo() {
-    const memoList = document.querySelector("#memo-list");
-    const memoForm = document.querySelector("#memo-form");
     const createMemoButton = document.querySelector("#create-memo-button");
-    const memoContent = document.querySelector("#id_content");
-    const noMemoTitle = document.querySelector("#no-memo-title");
+    const memoContent = document.querySelector("#memo-content");
 
     // 投稿フォームの設定
     createMemoButton.addEventListener("click", async function (event) {
         event.preventDefault();
-        const formData = new FormData(memoForm);
-
-        if (formData.get('content') === '') {
-            alert("メモの内容を入力してください。");
-            return;
-        }
-
-        const postUrl = memoForm.dataset.action;
-
-        try {
-            const data = await createMemo(postUrl, formData, getCookie('csrfmiddlewaretoken'));
-
-            if (noMemoTitle) noMemoTitle.remove();
-
-            const newMemo = createMemoElement(data)
-            memoList.prepend(newMemo);
-            memoContent.value = '';
-        } catch (error) {
-            console.error(error);
-        }
+        postMemo();
     });
 
     // 削除ボタンの設定
@@ -128,6 +135,13 @@ function initializeCreateMemo() {
         button.addEventListener('click', function (event) {
             deleteListener(button);
         });
+    });
+
+    memoContent.addEventListener('keydown', async function (event) {
+        if (event.ctrlKey && event.key === 'Enter') {
+            event.preventDefault();
+            postMemo();
+        }
     });
 }
 

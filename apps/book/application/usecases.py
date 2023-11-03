@@ -217,10 +217,7 @@ class ShowBookDetailPageUsecase(Usecase):
         book_on_shelf = self.book_service.is_book_on_shelf(book, user)
         registers = self.book_service.count_books_on_shelf(book)
         latest_review = self.review_service.get_latest_review_for_user(book, user)
-
-
-        memos = self.memo_service.get_latest_memos_by_book(book, 1)
-        
+        memos = self.memo_service.get_latest_memos_by_book(book, 10)
         self.book_service.increment_views_of_book(book)
         
         context = {

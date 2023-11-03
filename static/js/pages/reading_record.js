@@ -54,10 +54,8 @@ function initializeForm() {
     });
 
     memoContent.addEventListener('keydown', async function (event) {
-        console.log(event.ctrlKey);
         if (event.ctrlKey && event.key === 'Enter') {
             event.preventDefault();
-            // createMemoButton.click();
             postMemo();
         }
     });
