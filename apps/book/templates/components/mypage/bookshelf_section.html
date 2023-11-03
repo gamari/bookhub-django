@@ -1,7 +1,32 @@
 {% load book_tags %}
 
 <section id="bookshelf-section">
-  <h3 class="mb-6">本棚</h3>
+  <div class="content-header mb-6">
+    <h3>本棚</h3>
+    <div class="flex-1">
+      <input type="text" id="book-filter" class="text-input w-sm" placeholder="フィルター…">
+    </div>
 
-  {% bookshelf books %}
+    {% comment %} <div>
+      <button class="btn-sm">全て</button>
+      <button class="btn-sm">進行中</button>
+      <button class="btn-sm">読了</button>
+    </div> {% endcomment %}
+  </div>
+
+  {% if books %}
+    {% bookshelf books %}
+  {% else %}
+
+    <div class="card-sm">
+      <h4>まずは登録したい書籍を検索してみましょう！</h4>
+
+      <div class="mt-4">
+        <form method="get" action="{% url 'book_search' %}">
+          <input type="text" name="query" class="text-input" placeholder="書籍名…">
+          <input type="submit"  class="btn-sm btn-primary" value="検索する">
+        </form>
+      </div>
+    </div>
+  {% endif %}
 </section>

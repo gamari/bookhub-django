@@ -2,7 +2,12 @@
 
 <div class="bookshelf">
   {% for book in books %}
-  <a href="{% url 'reading_record' book.id %}" class="book">
+  <a 
+    href="{% url 'reading_record' book.id %}"
+    class="book"
+    data-title="{{ book.title }}"
+    data-status="{{ reading_record.status }}"
+  >
     {% if book.thumbnail %}
     <img
       src="{{ book.thumbnail }}"
@@ -21,8 +26,5 @@
 
     <div class="book-title__hover">{{ book.title }}</div>
   </a>
-
-  {% empty %}
-  <div class="card-sm w-full">書籍が登録されていません</div>
   {% endfor %}
 </div>

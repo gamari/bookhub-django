@@ -73,6 +73,13 @@
 
 
 /* コンテント */
+.content-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
 .mypage-bookshelf-title {
   display: flex;
   flex-direction: row;

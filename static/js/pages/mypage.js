@@ -9,7 +9,7 @@ function initializeContentToggle() {
     const btnReviews = document.getElementById('btn-reviews');
     const btnSelection = document.getElementById('btn-selection');
     const btnTimeline = document.getElementById('btn-timeline');
-    
+
     const sectionBookshelf = document.getElementById('bookshelf-section');
     const sectionReviews = document.getElementById('reviews-section');
     const sectionSelection = document.getElementById('selection-section');
@@ -57,7 +57,7 @@ function initializeDeleteButtons() {
     deleteButtons.forEach((deleteButton) => {
         deleteButton.addEventListener('click', async function (event) {
             const id = deleteButton.dataset.id;
-            
+
             const confirmation = confirm("削除しますか？");
 
             if (!confirmation) {
@@ -67,7 +67,7 @@ function initializeDeleteButtons() {
 
             try {
                 await deleteSelection(id);
-                
+
                 // selectionの削除処理
                 const panelId = deleteButton.dataset.panelId;
                 const panel = document.getElementById(panelId);
@@ -80,16 +80,17 @@ function initializeDeleteButtons() {
 }
 
 function initalizeSelectionModal() {
-    console.log('initalizeSelectionModal')
     const aiSelectionOpenBtn = document.getElementById('ai-selection-open');
     const aiSelectionCloseBtn = document.getElementById('ai-selection-close');
     const aiSelectionModal = document.getElementById('ai-selection-modal');
     const selectionCreateBtn = document.getElementById('selection-create-btn');
 
-    aiSelectionOpenBtn.addEventListener('click', function () {
-        aiSelectionModal.style.display = 'block';
-    });
-    
+    if (aiSelectionOpenBtn) {
+        aiSelectionOpenBtn.addEventListener('click', function () {
+            aiSelectionModal.style.display = 'block';
+        });
+    }
+
     aiSelectionCloseBtn.addEventListener('click', function () {
         aiSelectionModal.style.display = 'none';
     });

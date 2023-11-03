@@ -54,6 +54,10 @@
     </a>
   </div>
 
+  {% if books %}
   {% booklist books %}
+  {% else %}
+    <div class="card-sm text-sm">{{user.username}}さんが登録している書籍はまだ存在しません</div>
+  {% endif %}
 </section>
 {% endblock %}
