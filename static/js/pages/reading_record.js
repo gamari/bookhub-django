@@ -64,7 +64,7 @@ function initializeGetButton() {
     let oldestDate = memoList.lastElementChild.dataset.date;
 
     getMemoListButton.addEventListener('click', function() {
-        getMemoListToBookBeforeDate(book_id, oldestDate).then(json => {
+        getMyselfMemoListByBookAndDate(book_id, oldestDate).then(json => {
             getMemoListButton.style.display = 'block';
 
             if (json.length === 0) {

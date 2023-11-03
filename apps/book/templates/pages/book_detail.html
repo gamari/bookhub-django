@@ -47,6 +47,7 @@
   <script src="{% static 'js/review-modal.js' %}"></script>
   <script src="{% static 'js/services/memo/delete.js' %}"></script>
   <script src="{% static 'js/services/memo/create.js' %}"></script>
+  <script src="{% static 'js/services/memo/get_list.js' %}"></script>
   <script src="{% static 'js/services/memo/create_element.js' %}"></script>
   <script src="{% static 'js/pages/book/detail.js' %}"></script>
 {% endblock %}
@@ -142,4 +143,8 @@
   {% include 'components/detail/_book_detail_section.html' %}
 
   {% include 'components/review_modal.html' %}
+
+  <div>
+    <input type="hidden" name="book_id" id="book_id" value="{{book.id}}">
+  </div>
 {% endblock %}

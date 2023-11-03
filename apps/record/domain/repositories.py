@@ -68,6 +68,12 @@ class ReadingMemoRepository(object):
     
     def fetch_latest_memos(self, limit):
         return ReadingMemo.objects.filter(user__is_active=True).order_by("-created_at")[:limit]
+    
+    def fetch_latest_memos_by_book(self, book, limit):
+        return ReadingMemo.objects.filter(book=book).order_by("-created_at")[:limit]
+    
+    def fetch_memos_by_book_and_date(self, book, date, limit):
+        return ReadingMemo.objects.filter(book=book, created_at__lt=date).order_by("-created_at")[:limit]
   
 
     def delete(self, memo):

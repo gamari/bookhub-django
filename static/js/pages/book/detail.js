@@ -22,11 +22,11 @@ function initializeToggles() {
     const btnReviews = document.getElementById('btn-reviews');
     const btnTimeline = document.getElementById('btn-timeline');
     const btnBookDetail = document.getElementById('btn-book-detail');
-    
+
     const sectionReviews = document.getElementById('reviews-section');
     const sectionTimeline = document.getElementById('timeline-section');
     const sectionBookDetail = document.getElementById('book-detail-section');
-    
+
     function showTimeline() {
         reset();
         sectionTimeline.style.display = 'block';
@@ -63,22 +63,30 @@ function initializeToggles() {
 }
 
 function initializeGetMemoList() {
-    const btnGetMemoList = document.getElementById('get-memo-list-btn');
-    const bookId = document.getElementById('book-id').value;
-    const memoList = document.getElementById('memo-list');
-    let timelinePage = 1;
+    const getMemoListButton = document.querySelector('#get-memo-list-btn');
+    const memoList = document.querySelector('#memo-list');
+    const loading = document.querySelector('.loading');
+    const book_id = document.querySelector('#book_id').value;
+    let oldestDate = memoList.lastElementChild.dataset.date;
 
-    btnGetMemoList.addEventListener('click', function() {
-        timelinePage++;
-        const url = `/api/books/${bookId}/memos/?page=${timelinePage}`;
-        fetch(url)
-            .then(response => response.json())
-            .then(memos => {
-                memos.forEach(memo => {
-                    const newMemo = createMemoElement(memo, false);
-                    memoList.appendChild(newMemo);
-                })
-            });
+    getMemoListButton.addEventListener('click', function () {
+        getMemoListByBookAndDate(book_id, oldestDate).then(json => {
+            getMemoListButton.style.display = 'block';
+
+            if (json.length === 0) {
+                getMemoListButton.style.display = 'none';
+                return;
+            }
+
+            json.forEach(data => {
+                memoList.appendChild(createMemoElement(data));
+            })
+
+            const created_at = json[json.length - 1]['created_at']
+            if (created_at) {
+                oldestDate = created_at
+            }
+        })
     });
 }
 
@@ -110,7 +118,7 @@ function initializeCreateMemo() {
             memoList.prepend(newMemo);
             memoContent.value = '';
         } catch (error) {
-            console.error( error);
+            console.error(error);
         }
     });
 
@@ -124,7 +132,7 @@ function initializeCreateMemo() {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initializeToggles();
     initializeGetMemoList();
     initializeCreateMemo();

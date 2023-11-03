@@ -43,11 +43,14 @@ class MemoDomainService(object):
         memo_repo = ReadingMemoRepository()
         return cls(memo_repo)
     
-    def get_memos_of_book_with_paginate(self, book, page=1):
-        return self.memo_repo.fetch_memos_by_book_with_paginate(book, page)
-
     def get_latest_memos(self, limit: int = None):
         return self.memo_repo.fetch_latest_memos(limit)
+    
+    def get_latest_memos_by_book(self, book, limit: int = None):
+        return self.memo_repo.fetch_latest_memos_by_book(book, limit)
+    
+    def get_memos_by_book_and_date(self, book, date, limit: int = None):
+        return self.memo_repo.fetch_memos_by_book_and_date(book, date, limit)
     
     def get_memos_by_book_and_date_and_user(self, book, date, user, limit: int = None):
         """"""
