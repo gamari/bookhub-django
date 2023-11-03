@@ -11,13 +11,17 @@
   {% with first_book=selection.get_first_book %}
     <meta property="og:image" content="{{ book.thumbnail }}" />
     <meta property="og:title" content="{{ book.title }}" />
+    {% if book.description %}
     <meta property="og:description" content="{{ book.description }}" />
+    {% endif %}
     <meta property="og:type" content="article" />
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ book.title }}">
+    {% if book.description %}
     <meta name="twitter:description" content="{{ book.description }}">
+    {% endif %}
     <meta name="twitter:image" content="{{ book.thumbnail }}">
   {% endwith %}
 {% endblock %}
@@ -125,7 +129,7 @@
   <div class="toolbar-section mb-10">
     <div>
       <button id="btn-reviews" class="badge badge-info">レビュー</button>
-      <button id="btn-timeline" class="badge">タイムライン</button>
+      <button id="btn-timeline" class="badge">つぶやく</button>
       <button id="btn-book-detail" class="badge">書籍紹介</button>
     </div>
   </div>

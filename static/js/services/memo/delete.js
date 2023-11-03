@@ -1,6 +1,3 @@
-// TODO 移動させる
-
-
 async function deleteMemo(id, url) {
     const response = await fetch(url, {
         method: 'DELETE',
@@ -19,27 +16,3 @@ async function deleteMemo(id, url) {
     }
 
 }
-
-function deleteListener(button) {
-    const isOk = confirm('削除してもよろしいですか？');
-
-    if (!isOk) return;
-
-    const memoId = button.dataset.memoId;
-    const actionUrl = button.dataset.action;
-
-    deleteMemo(memoId, actionUrl).then(data => {
-        button.closest('.memo-item').remove();
-    });
-}
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    const deleteButtonList = document.querySelectorAll('.memo-item__delete')
-    deleteButtonList.forEach(function (button) {
-        button.addEventListener('click', function (event) {
-            deleteListener(button);
-        });
-    });
-});
-

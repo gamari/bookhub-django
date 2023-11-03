@@ -17,36 +17,3 @@ async function createMemo(url, body_data, csrf_token) {
     }
 }
 
-
-function initialize() {
-    const memoList = document.querySelector("#memo-list");
-    const memoForm = document.querySelector("#memo-form");
-    const createMemoButton = document.querySelector("#create-memo-button");
-    const memoContent = document.querySelector("#id_content");
-    const noMemoTitle = document.querySelector("#no-memo-title");
-
-    createMemoButton.addEventListener("click", async function (event) {
-        event.preventDefault();
-        const formData = new FormData(memoForm);
-
-        if (formData.get('content') === '') {
-            alert("メモの内容を入力してください。");
-            return;
-        }
-
-        const postUrl = memoForm.dataset.action;
-
-        try {
-            const data = await createMemo(postUrl, formData, getCookie('csrfmiddlewaretoken'));
-            console.log(memoList)
-
-            if (noMemoTitle) noMemoTitle.remove();
-            memoList.prepend(createMemoElement(data));
-            memoContent.value = '';
-        } catch (error) {
-            console.error("Error creating memo:", error);
-        }
-    });
-}
-
-document.addEventListener('DOMContentLoaded', initialize);

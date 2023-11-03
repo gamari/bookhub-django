@@ -1,6 +1,9 @@
 <form id="memo-form" data-action="{% url 'create_memo_api' book.id %}">
   {% csrf_token %}
-  {{ form.content }}
+
+  <div class="w-lg">
+    {{ form.content }}
+  </div>
 
   {% if form.content.errors %}
     <div class="error">{{ form.content.errors }}</div>
@@ -8,6 +11,6 @@
 
   <button id="create-memo-button" class="btn btn-primary">
     <i class="fa-regular fa-file"></i>
-    <span>メモを追加</span>
+    <span>つぶやく</span>
   </button>
 </form>

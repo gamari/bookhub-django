@@ -1,16 +1,11 @@
 
 /* メモフォーム */
 #memo-form {
-  margin-bottom: 32px;
-  background-color: white;
-  padding: 24px;
-  padding-top: 32px;
-  padding-bottom: 32px;
   display: flex;
-  flex-direction: column;
-  align-items: start;
+  flex-direction: row;
   gap: 24px;
-  border: 1px solid #ccc;
+  align-items: center;
+  margin-bottom: 32px;
 }
 
 .memo-textarea {
@@ -29,7 +24,8 @@
 
 /* Memoリスト */
 #memo-list {
-  border: 1px solid #eee;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
   background-color: white;
   box-sizing: border-box;
 }

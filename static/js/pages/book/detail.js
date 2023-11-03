@@ -1,3 +1,8 @@
+/*
+書籍詳細画面のJavaScript。
+*/
+
+/** トグルボタンの初期設定。 */
 function initializeToggles() {
     const btnReviews = document.getElementById('btn-reviews');
     const btnTimeline = document.getElementById('btn-timeline');

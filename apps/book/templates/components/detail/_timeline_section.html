@@ -1,7 +1,20 @@
 <div id="timeline-section" style="display: none">
-    <h3 class="mb-6">タイムライン</h3>
+    <h3 class="mb-6">つぶやき一覧</h3>
+    
+    <div class="my-6">
+        <div class="row-center gap-4">
+            <textarea id="memo-text" class="textarea w-md" placeholder="アウトプットなど……"></textarea>
+            <button class="btn btn-primary">つぶやく</button>
+        </div>
+    </div>
 
-    {% include 'components/memo_list.html' with show=False %}
+    {% if memos %}
+        {% include 'components/memo_list.html' with show=False %}
+        {% else%}
+        <div class="card-sm">
+            <p>まだつぶやきがありません。始めてのつぶやきをしてみませんか？</p>
+        </div>
+    {% endif %}
 
     <div class="center pt-4 mt-10">
         <i id="get-memo-list-btn"  class="fa-xl fa-solid fa-rotate-right cursor-pointer" style="color: #1e90ff;"></i>

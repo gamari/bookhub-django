@@ -12,7 +12,7 @@ class ReadingMemoForm(forms.ModelForm):
             'content': forms.Textarea(attrs={
                 'rows': 4, 
                 'class': 'memo-textarea', 
-                'placeholder': 'メモ……(250)',
+                'placeholder': 'アウトプットなど…(250)',
                 "maxLength": "250"
             }),
         }

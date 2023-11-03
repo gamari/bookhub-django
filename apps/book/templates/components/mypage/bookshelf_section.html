@@ -19,14 +19,14 @@
   {% else %}
 
     <div class="card-sm">
-      <h4>まずは登録したい書籍を検索してみましょう！</h4>
+      <h4>まずは気になる作品を検索して本棚に登録してみましょう</h4>
+    </div>
 
-      <div class="mt-4">
-        <form method="get" action="{% url 'book_search' %}">
-          <input type="text" name="query" class="text-input" placeholder="書籍名…">
-          <input type="submit"  class="btn-sm btn-primary" value="検索する">
-        </form>
-      </div>
+    <div class="mt-4">
+      <form method="get" action="{% url 'book_search' %}">
+        <input type="text" name="query" class="text-input" placeholder="書籍名…">
+        <input type="submit"  class="btn-sm btn-primary" value="検索する">
+      </form>
     </div>
   {% endif %}
 </section>
