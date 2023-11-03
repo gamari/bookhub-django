@@ -1,8 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
-    initializeContentToggle();
-    initializeDeleteButtons();
-    initalizeSelectionModal();
-});
+
 
 function initializeContentToggle() {
     const btnBookshelf = document.getElementById('btn-bookshelf');
@@ -124,3 +120,39 @@ function initalizeSelectionModal() {
         }
     });
 }
+
+async function initializeTimeline() {
+    const getMemoListButton = document.querySelector('#get-memo-list-btn');
+    const memoList = document.querySelector('#memo-list');
+    let oldestDate = memoList.lastElementChild.dataset.date;
+
+    getMemoListButton.addEventListener('click', function () {
+        console.log("TEST")
+        getFollowingsMemosByDate(oldestDate).then(json => {
+            getMemoListButton.style.display = 'block';
+
+            if (json.length === 0) {
+                getMemoListButton.style.display = 'none';
+                return;
+            }
+
+            json.forEach(data => {
+                memoList.appendChild(createMemoElement(data));
+            })
+
+            const created_at = json[json.length - 1]['created_at']
+            if (created_at) {
+                oldestDate = created_at
+            }
+        })
+    });
+}
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    initializeContentToggle();
+    initializeDeleteButtons();
+    initalizeSelectionModal();
+    initializeTimeline();
+});

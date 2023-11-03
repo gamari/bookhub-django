@@ -58,3 +58,24 @@ async function getMyselfMemoListByBookAndDate(book_id, date) {
 
     return json;
 }
+
+async function getFollowingsMemosByDate(previouse_date) {
+    let csrfToken = getCsrfToken();
+    let apiUrl = `/api/followings/memos/?`;
+
+    if (previouse_date) {
+        apiUrl += `previous_date=${previouse_date}`;
+    }
+
+    const response = await fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        }
+    });
+
+    const json = await response.json();
+
+    return json;
+}

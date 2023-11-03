@@ -65,20 +65,27 @@ class MemoDomainService(object):
 
     def get_memos_by_user(self, user, limit: int = None):
         return self.memo_repo.fetch_memos_by_user(user, limit)
+    
+    def get_memos_by_user_and_date(self, user, date, limit: int = 10):
+        return self.memo_repo.fetch_memos_by_user_and_date(user, date, limit)
+    
+    def get_memos_by_following_and_me(self, user, limit=10):
+        following_users = Follow.objects.filter(follower=user).values_list(
+            "followed", flat=True
+        )
+        
+        following_users = list(following_users) + [user.id]
+        logger.debug(following_users)
+        
+        return self.memo_repo.fetch_memos_by_users(following_users, limit)
 
-    def get_memos_of_followings_and_me(
-        self, user, limit=None, since_date=None, previous_date=None
-    ):
-        """ユーザーとフォローしているユーザーのメモを取得する"""
-        logger.debug(f"{limit}")
+
+    def get_memos_by_following_users_and_me_and_date(self, user, date, limit: int = 10):
+        """フォローしているユーザーのメモを取得する"""
         followings = Follow.objects.filter(follower=user).values_list(
             "followed", flat=True
         )
-        users_to_fetch = list(followings) + [user]
-        order_by = "-created_at"
-        return self.memo_repo.fetch_memos_for_users(
-            users_to_fetch, limit, since_date, previous_date, order_by
-        )
+        return self.memo_repo.fetch_memos_by_users_and_date(followings, date, limit)
 
     def create_memo_from_form(self, form: ReadingMemoForm, user, book):
         # TODO DDD的にformはドメインが持つべきかを検討する

@@ -14,7 +14,28 @@ class ReadingMemoRepository(object):
         return ReadingMemo.objects.get(id=memo_id)
 
     def fetch_memos_by_user(self, user, limit):
-        return self._fetch_memos(user=user, limit=limit)
+        query = ReadingMemo.objects.filter(user=user).order_by("-created_at")
+        if limit:
+            query = query[:limit]
+        return query
+    
+    def fetch_memos_by_user_and_date(self, user, previouse_date, limit):
+        query = ReadingMemo.objects.filter(user=user, created_at__lt=previouse_date).order_by("-created_at")
+        if limit:
+            query = query[:limit]
+        return query
+    
+    def fetch_memos_by_users(self, users, limit):
+        query = ReadingMemo.objects.filter(user__in=users).order_by("-created_at")
+        if limit:
+            query = query[:limit]
+        return query
+   
+    def fetch_memos_by_users_and_date(self, users, previouse_date, limit):
+        query = ReadingMemo.objects.filter(user__in=users, created_at__lt=previouse_date).order_by("-created_at")
+        if limit:
+            query = query[:limit]
+        return query
     
     def fetch_memos_by_book_and_date_and_user(self, book, previouse_date, user, limit):
         query = ReadingMemo.objects.filter(book=book, user=user, created_at__lt=previouse_date).order_by("-created_at")
