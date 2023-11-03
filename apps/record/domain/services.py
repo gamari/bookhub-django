@@ -49,9 +49,9 @@ class MemoDomainService(object):
     def get_latest_memos(self, limit: int = None):
         return self.memo_repo.fetch_latest_memos(limit)
     
-    def get_memos_of_book_before_date(self, book, date, limit: int = None):
+    def get_memos_by_book_and_date_and_user(self, book, date, user, limit: int = None):
         """"""
-        return self.memo_repo.fetch_memos_by_book_and_date(book, date, limit)
+        return self.memo_repo.fetch_memos_by_book_and_date_and_user(book, date, user, limit)
 
     def get_memos_by_user(self, user, limit: int = None):
         return self.memo_repo.fetch_memos_by_user(user, limit)

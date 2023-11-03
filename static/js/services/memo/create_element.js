@@ -1,6 +1,5 @@
 /** 削除ボタン */
 function createDeleteButton(data, classes = "") {
-    console.log(data)
     const deleteIcon = createElement('i', {
         classes: ['fa-regular', 'fa-trash-can', 'fa-xl'],
         attributes: { style: 'color: #666' }

@@ -66,6 +66,11 @@ function initializeGetButton() {
     getMemoListButton.addEventListener('click', function() {
         getMemoListToBookBeforeDate(book_id, oldestDate).then(json => {
             getMemoListButton.style.display = 'block';
+
+            if (json.length === 0) {
+                getMemoListButton.style.display = 'none';
+                return;
+            }
     
             json.forEach(data => {
                 memoList.appendChild(createMemoElement(data));

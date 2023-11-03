@@ -35,7 +35,7 @@ class GetMemoListByBookAPIView(APIView):
 
         service = MemoDomainService.initialize()
         if previous_date:
-            memos = service.get_memos_of_book_before_date(book_id, previous_date, limit=1)
+            memos = service.get_memos_by_book_and_date_and_user(book_id, previous_date, request.user, limit=10)
         else:
             memos = service.get_memos_of_book_with_paginate(book_id, page)
 
