@@ -2,10 +2,18 @@
 {% load user_tags %}
 
 <section id="timeline-section" style="display: none">
-{% comment %} <section id="timeline-section"> {% endcomment %}
     <h3 class="mb-6">最新のタイムライン</h3>
     
-    {% include 'components/memo_list.html' with show=True %}
+    {% if memos %}
+      {% include 'components/memo_list.html' with show=True %}
+    {% else %}
+      <div class="card-sm col gap-4">
+        <div>つぶやきが存在しません。</div>
+        <div>他ユーザーをフォローするか、書籍詳細からつぶやいてみてください。</div>
+      </div>
+    {% endif %}
+
+    {% comment %} TODO オススメユーザを表示する {% endcomment %}
 
     <div class="center pt-4 mt-10">
         <i id="get-memo-list-btn"  class="fa-xl fa-solid fa-rotate-right cursor-pointer" style="color: #1e90ff;"></i>

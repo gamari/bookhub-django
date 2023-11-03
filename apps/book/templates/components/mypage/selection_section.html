@@ -8,12 +8,19 @@
     </div>
     <div>
       {% if user.is_staff %}
-        <button id="ai-selection-open" type="button" class="btn-sm">AI生成</button>
+        <button id="ai-selection-open" type="button" class="btn-sm">ＡＩ</button>
       {% endif %}
     </div>
   </div>
 
+  {% if selections %}
   {% include "components/_selection_list.html" with show_tool=True %}
+  {% else %}
+    <div class="card-sm col gap-4">
+      <div>セレクションが存在しません。</div>
+      <div>試しに上記の「AI」ボタンを押してセレクションを作ってもらいましょう</div>
+    </div>
+  {%endif%}
 
   <div id="ai-selection-modal" class="modal-container" style="display: none;">
     <div class="modal-dialog">

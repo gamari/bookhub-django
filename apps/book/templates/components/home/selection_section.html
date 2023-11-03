@@ -1,5 +1,7 @@
 <section>
   <h2 class="mb-4">最新のセレクション</h2>
 
+  {% if selections %}
   {% include "components/_selection_list.html" with show_tool=False %}
+  {% endif %}
 </section>

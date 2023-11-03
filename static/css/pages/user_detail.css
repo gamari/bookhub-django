@@ -18,6 +18,7 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
+  border-right: 4px solid #888;
 }
 
 .user-bookshelf-title {
