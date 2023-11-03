@@ -12,3 +12,6 @@ class ReadingMemoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReadingMemo
         fields = '__all__'
+    
+    def get_created_at_jp(self, obj):
+        return obj.created_at.strftime('%Y/%m/%d')

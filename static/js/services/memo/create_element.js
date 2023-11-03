@@ -45,9 +45,9 @@ function createMemoElement(data, show_delete = true) {
         content: data.user.username
     });
     userName.appendChild(userNameLink)
-    const timeData = data.created_at
-    const formattedTime = timeData.replace(/年|月/g, '/').replace('日', ' ');
-    const time = createElement("p", {classes: ['time'], content: formattedTime})
+    const formattedDate = formatDateTime(data.created_at);
+    console.log(formattedDate);
+    const time = createElement("p", {classes: ['time'], content: formattedDate})
     tempDiv.append(userName, time)
 
     const userIcon = createUserIcon(data.user);

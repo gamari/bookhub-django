@@ -4,10 +4,14 @@ from apps.follow.models import Follow
 from config.utils import DateUtils
 
 from apps.record.domain.aggregates import ActivityCollection
-from apps.record.domain.repositories import ReadingMemoRepository, ReadingRecordRepository
+from apps.record.domain.repositories import (
+    ReadingMemoRepository,
+    ReadingRecordRepository,
+)
 from apps.record.forms import ReadingMemoForm
 
 logger = logging.getLogger("app_logger")
+
 
 class RecordDomainService(object):
     """記録ドメインサービス。"""
@@ -19,53 +23,62 @@ class RecordDomainService(object):
     def initialize(cls):
         reading_record_repo = ReadingRecordRepository()
         return cls(reading_record_repo)
-    
+
     def get_or_create_record(self, user, book):
         return self.reading_record_repo.fetch_or_create(user, book)
-    
+
     def get_top_books(self, start_date, end_date, limit):
         return self.reading_record_repo.fetch_top_books(start_date, end_date, limit)
-    
+
     def get_by_user_and_book(self, user, book):
         return self.reading_record_repo.fetch_record_by_user_and_book(user, book)
-    
+
     def get_finished_books_this_month(self, user):
         return self.reading_record_repo.fetch_finished_books_this_month(user)
 
 
 class MemoDomainService(object):
     """メモドメインサービス。"""
+
     def __init__(self, memo_repo: ReadingMemoRepository) -> None:
         self.memo_repo = memo_repo
-    
+
     @classmethod
     def initialize(cls):
         memo_repo = ReadingMemoRepository()
         return cls(memo_repo)
-    
+
     def get_latest_memos(self, limit: int = None):
         return self.memo_repo.fetch_latest_memos(limit)
-    
+
     def get_latest_memos_by_book(self, book, limit: int = None):
         return self.memo_repo.fetch_latest_memos_by_book(book, limit)
-    
+
     def get_memos_by_book_and_date(self, book, date, limit: int = None):
         return self.memo_repo.fetch_memos_by_book_and_date(book, date, limit)
-    
+
     def get_memos_by_book_and_date_and_user(self, book, date, user, limit: int = None):
         """"""
-        return self.memo_repo.fetch_memos_by_book_and_date_and_user(book, date, user, limit)
+        return self.memo_repo.fetch_memos_by_book_and_date_and_user(
+            book, date, user, limit
+        )
 
     def get_memos_by_user(self, user, limit: int = None):
         return self.memo_repo.fetch_memos_by_user(user, limit)
-    
-    def get_memos_of_followings_and_me(self, user, limit=None, since_date=None, previous_date=None):
+
+    def get_memos_of_followings_and_me(
+        self, user, limit=None, since_date=None, previous_date=None
+    ):
         """ユーザーとフォローしているユーザーのメモを取得する"""
         logger.debug(f"{limit}")
-        followings = Follow.objects.filter(follower=user).values_list('followed', flat=True)
+        followings = Follow.objects.filter(follower=user).values_list(
+            "followed", flat=True
+        )
         users_to_fetch = list(followings) + [user]
-        order_by = '-created_at'
-        return self.memo_repo.fetch_memos_for_users(users_to_fetch, limit, since_date, previous_date, order_by)
+        order_by = "-created_at"
+        return self.memo_repo.fetch_memos_for_users(
+            users_to_fetch, limit, since_date, previous_date, order_by
+        )
 
     def create_memo_from_form(self, form: ReadingMemoForm, user, book):
         # TODO DDD的にformはドメインが持つべきかを検討する
@@ -81,7 +94,7 @@ class ActivityDomainService(object):
 
     def __init__(self, reading_memo_repo: ReadingMemoRepository):
         self.reading_memo_repo = reading_memo_repo
-    
+
     @classmethod
     def initialize(cls):
         reading_memo_repo = ReadingMemoRepository()
@@ -95,8 +108,10 @@ class ActivityDomainService(object):
 
         # TODO 取得できたメモだけを集計するように変更したい
 
-        activity_data_raw = self.reading_memo_repo.fetch_memos_by_user_within_date_range(
-            user, head_date_of_calendar, end_date_of_calendar
+        activity_data_raw = (
+            self.reading_memo_repo.fetch_memos_by_user_within_date_range(
+                user, head_date_of_calendar, end_date_of_calendar
+            )
         )
 
         activities = ActivityCollection.from_raw_data(

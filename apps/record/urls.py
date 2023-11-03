@@ -30,6 +30,5 @@ urlpatterns = [
         create_memo_api,
         name="create_memo_api",
     ),
-    path("api/memos/", views_api.ReadingMemoViewSet.as_view({"get": "list"})),
     path("api/books/<int:book_id>/memos/", views_api.GetMemoListByBookAPIView.as_view()),
 ]
