@@ -9,6 +9,7 @@ from apps.record.forms import ReadingMemoForm
 from apps.record.models import ReadingMemo
 from apps.review.domain.services import ReviewDomainService
 from apps.review.forms import ReviewForm
+from config.exceptions import ApplicationException
 
 
 logger = logging.getLogger("app_logger")
@@ -108,7 +109,7 @@ class CreateMemoUsecase(Usecase):
             "id": memo.id,
             "result": "success",
             "content": memo.content,
-            "created_at": memo.created_at.strftime("%Y年%m月%d日%H:%M"),
+            "created_at": memo.created_at,
             "user": user,
             "book": book_detail
         }
@@ -126,7 +127,8 @@ class DeleteMemoUsecase(Usecase):
         memo = self.memo_repo.fetch_memo_by_id(self.memo_id)
 
         if memo.user != self.user:
-            return {"result": "fail"}
+            raise ApplicationException("削除権限がありません。")
 
         self.memo_repo.delete(memo)
+        
         return {"result": "success"}

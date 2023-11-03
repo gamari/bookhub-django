@@ -7,12 +7,11 @@ async function deleteMemo(id, url) {
             'Content-Type': 'application/json'
         },
     });
-    const data = await response.json();
 
-    if (data.result === 'success') {
-        return data;
-    } else {
+    if (!response.ok) {
         throw new Error("メモの削除に失敗しました。");
     }
 
+    const data = await response.json();
+    return data;
 }

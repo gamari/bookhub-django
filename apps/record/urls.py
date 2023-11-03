@@ -2,14 +2,13 @@ from django.urls import path
 from apps.record import views_api
 
 from apps.record.views import (
-    create_memo_api,
     mark_as_finished,
     mark_as_started,
     mark_as_unfinished,
     mark_as_unstarted,
     reading_record_page,
-    memo_detail_api,
 )
+from apps.record.views_api import create_memo_api, memo_delete_api
 
 urlpatterns = [
     path("book/<int:book_id>/reading/", reading_record_page, name="reading_record"),
@@ -24,7 +23,7 @@ urlpatterns = [
         name="mark_as_unfinished",
     ),
     # API
-    path("api/memos/<int:memo_id>/", memo_detail_api, name="memo_detail_api"),
+    path("api/memos/<int:memo_id>/", memo_delete_api, name="memo_detail_api"),
     path(
         "api/reading_record/<int:book_id>/memo/",
         create_memo_api,

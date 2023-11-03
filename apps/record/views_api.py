@@ -1,11 +1,13 @@
 import logging
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
-from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from apps.record.application.usecases import CreateMemoUsecase, DeleteMemoUsecase
+from apps.record.domain.repositories import ReadingMemoRepository
 
 from apps.record.domain.services import MemoDomainService
-from .models import ReadingMemo
 from .serializers import ReadingMemoSerializer
 
 logger = logging.getLogger("app_logger")
@@ -39,3 +41,30 @@ class GetMemoListByBookAPIView(APIView):
 
         serializer = ReadingMemoSerializer(memos, many=True)
         return Response(serializer.data)
+
+
+@login_required
+def create_memo_api(request, book_id):
+    if request.method == "POST":
+        usecase = CreateMemoUsecase.build()
+
+        response_data = usecase.run(request.POST, request.user, book_id)
+
+        if response_data["result"] == "success":
+            return JsonResponse(response_data, status=201)
+        else:
+            return JsonResponse(response_data, status=400)
+    else:
+        return JsonResponse({"result": "fail"}, status=400)
+
+
+@login_required
+def memo_delete_api(request, memo_id):
+    if request.method == "DELETE":
+        usecase = DeleteMemoUsecase(memo_id, request.user, ReadingMemoRepository())
+        response_data = usecase.execute()
+
+        if response_data["result"] == "success":
+            return JsonResponse(response_data, status=201)
+        else:
+            return JsonResponse(response_data, status=400)

@@ -9,41 +9,58 @@ function deleteListener(button) {
 
     deleteMemo(memoId, actionUrl).then(data => {
         button.closest('.memo-item').remove();
-    });
+    })
+    .catch(error => {
+        alert("削除に失敗しました。")
+    });;
+}
+
+async function postMemo() {
+    const memoList = document.querySelector("#memo-list");
+    const memoForm = document.querySelector("#memo-form");
+    const memoContent = document.querySelector("#memo-content");
+    const noMemoTitle = document.querySelector("#no-memo-title");
+
+    const formData = new FormData(memoForm);
+
+    if (formData.get('content') === '') {
+        alert("メモの内容を入力してください。");
+        return;
+    }
+
+    const postUrl = memoForm.dataset.action;
+
+    try {
+        const data = await createMemo(postUrl, formData, getCookie('csrfmiddlewaretoken'));
+
+        if (noMemoTitle) noMemoTitle.remove();
+
+        const newMemo = createMemoElement(data)
+        memoList.prepend(newMemo);
+        memoContent.value = '';
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 function initializeForm() {
-    const memoList = document.querySelector("#memo-list");
-    const memoForm = document.querySelector("#memo-form");
     const createMemoButton = document.querySelector("#create-memo-button");
-    const memoContent = document.querySelector("#id_content");
-    const noMemoTitle = document.querySelector("#no-memo-title");
+    const memoContent = document.querySelector("#memo-content");
 
     // 投稿フォームの設定
     createMemoButton.addEventListener("click", async function (event) {
         event.preventDefault();
-        const formData = new FormData(memoForm);
-
-        if (formData.get('content') === '') {
-            alert("メモの内容を入力してください。");
-            return;
-        }
-
-        const postUrl = memoForm.dataset.action;
-
-        try {
-            const data = await createMemo(postUrl, formData, getCookie('csrfmiddlewaretoken'));
-
-            if (noMemoTitle) noMemoTitle.remove();
-
-            const newMemo = createMemoElement(data)
-            memoList.prepend(newMemo);
-            memoContent.value = '';
-        } catch (error) {
-            console.error(error);
-        }
+        postMemo();
     });
 
+    memoContent.addEventListener('keydown', async function (event) {
+        console.log(event.ctrlKey);
+        if (event.ctrlKey && event.key === 'Enter') {
+            event.preventDefault();
+            // createMemoButton.click();
+            postMemo();
+        }
+    });
 }
 
 function initializeDeleteButtons() {

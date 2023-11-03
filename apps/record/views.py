@@ -1,14 +1,10 @@
-from django.http import JsonResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from apps.book.models import Book
 from apps.record.application.usecases import (
-    CreateMemoUsecase,
-    DeleteMemoUsecase,
     RecordReadingHistoryUsecase,
 )
-from apps.record.domain.repositories import ReadingMemoRepository
 from apps.record.models import ReadingRecord
 
 
@@ -23,33 +19,6 @@ def reading_record_page(request, book_id):
 
 # TODO 移動させてAPIViewで書き換える
 # API系
-@login_required
-def create_memo_api(request, book_id):
-    if request.method == "POST":
-        usecase = CreateMemoUsecase.build()
-
-        response_data = usecase.run(request.POST, request.user, book_id)
-
-        if response_data["result"] == "success":
-            return JsonResponse(response_data, status=201)
-        else:
-            return JsonResponse(response_data, status=400)
-    else:
-        return JsonResponse({"result": "fail"}, status=400)
-
-
-@login_required
-def memo_detail_api(request, memo_id):
-    if request.method == "DELETE":
-        usecase = DeleteMemoUsecase(memo_id, request.user, ReadingMemoRepository())
-        response_data = usecase.execute()
-
-        if response_data["result"] == "success":
-            return JsonResponse(response_data, status=201)
-        else:
-            return JsonResponse(response_data, status=400)
-
-
 # 開始操作
 @login_required
 def mark_as_started(request, book_id):
