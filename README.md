@@ -29,7 +29,7 @@ BookHubアプリ。
 -  Firebaseの設定
   - [ ] Firebaseのプロジェクトを作成してください
   - [ ] static/js/firebase.jsを作成してください
-
+- [ ]
 
 ## デプロイ
 
