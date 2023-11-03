@@ -12,7 +12,7 @@ function deleteListener(button) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+function initializeForm() {
     const memoList = document.querySelector("#memo-list");
     const memoForm = document.querySelector("#memo-form");
     const createMemoButton = document.querySelector("#create-memo-button");
@@ -40,10 +40,13 @@ document.addEventListener("DOMContentLoaded", function () {
             memoList.prepend(newMemo);
             memoContent.value = '';
         } catch (error) {
-            console.error( error);
+            console.error(error);
         }
     });
 
+}
+
+function initializeDeleteButtons() {
     // 削除ボタンの設定
     const deleteButtonList = document.querySelectorAll('.memo-item__delete');
     deleteButtonList.forEach(function (button) {
@@ -51,4 +54,34 @@ document.addEventListener("DOMContentLoaded", function () {
             deleteListener(button);
         });
     });
+}
+
+function initializeGetButton() {
+    const getMemoListButton = document.querySelector('#get-memo-list-btn');
+    const memoList = document.querySelector('#memo-list');
+    const loading = document.querySelector('.loading');
+    const book_id = document.querySelector('#book_id').value;
+    let oldestDate = memoList.lastElementChild.dataset.date;
+
+    getMemoListButton.addEventListener('click', function() {
+        getMemoListToBookBeforeDate(book_id, oldestDate).then(json => {
+            getMemoListButton.style.display = 'block';
+    
+            json.forEach(data => {
+                memoList.appendChild(createMemoElement(data));
+            })
+
+            const created_at  = json[json.length - 1]['created_at']
+            if (created_at) {
+                oldestDate = created_at
+            }
+        })
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    initializeForm();
+    initializeDeleteButtons();
+    initializeGetButton();
 });
+

@@ -28,9 +28,16 @@ class ReadingMemoViewSet(viewsets.ReadOnlyModelViewSet):
 class GetMemoListByBookAPIView(APIView):
     def get(self, request, book_id):
         page = request.query_params.get('page')
+        since_date = request.query_params.get('since_date')
+        previous_date = request.query_params.get('previous_date')
+
+        logger.debug(previous_date);
 
         service = MemoDomainService.initialize()
-        memos = service.get_memos_of_book_with_paginate(book_id, page)
+        if previous_date:
+            memos = service.get_memos_of_book_before_date(book_id, previous_date, limit=1)
+        else:
+            memos = service.get_memos_of_book_with_paginate(book_id, page)
 
         logger.info(memos)
 

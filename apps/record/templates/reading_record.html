@@ -17,6 +17,7 @@
   <script src="{% static 'js/services/memo/delete.js' %}"></script>
   <script src="{% static 'js/services/memo/create.js' %}"></script>
   <script src="{% static 'js/services/memo/create_element.js' %}"></script>
+  <script src="{% static 'js/services/memo/get_list.js' %}"></script>
   <script src="{% static 'js/pages/reading_record.js' %}"></script>
 {% endblock %} 
 
@@ -52,7 +53,18 @@
   {% if not memos %}
     <div id="no-memo-title" class="card-sm">アウトプットが存在しません。</div>
   {% endif %}
+
+  <div class="center pt-4 mt-10">
+    <i id="get-memo-list-btn"  class="fa-xl fa-solid fa-rotate-right cursor-pointer" style="color: #1e90ff;"></i>
+</div>
 </section>
+
+
+{% comment %} 隠し要素 {% endcomment %}
+
+<div>
+  <input type="hidden" value="{{book.id}}" id="book_id">
+</div>
 
 {% include 'components/review_modal.html' %} 
 {% endblock %}

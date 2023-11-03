@@ -44,7 +44,7 @@ class RecordReadingHistoryUsecase(Usecase):
         latest_review = self.review_service.get_latest_review_for_user(book, user)
         record = self.reading_record_service.get_or_create_record(user, book)
 
-        memos = ReadingMemo.objects.filter(user=user, book=book).order_by("-created_at")
+        memos = ReadingMemo.objects.filter(user=user, book=book).order_by("-created_at")[:2]
         form = ReadingMemoForm()
 
         logger.debug(f"record: {record}")

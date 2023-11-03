@@ -3,9 +3,8 @@
 
     {% include 'components/memo_form.html' %}
     
-    {% if memos %}
-        {% include 'components/memo_list.html' with show=False %}
-        {% else%}
+    {% include 'components/memo_list.html' with show=True %}
+    {% if not memos %}
         <div class="card-sm">
             <p>アウトプットがありません。始めてのアウトプットをしてみませんか？</p>
         </div>
