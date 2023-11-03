@@ -45,6 +45,9 @@
 {% block js %}
   <script src="{% static 'js/services/review/like.js' %}"></script>
   <script src="{% static 'js/review-modal.js' %}"></script>
+  <script src="{% static 'js/services/memo/delete.js' %}"></script>
+  <script src="{% static 'js/services/memo/create.js' %}"></script>
+  <script src="{% static 'js/services/memo/create_element.js' %}"></script>
   <script src="{% static 'js/pages/book/detail.js' %}"></script>
 {% endblock %}
 
@@ -128,8 +131,8 @@
 
   <div class="toolbar-section mb-10">
     <div>
-      <button id="btn-reviews" class="badge badge-info">レビュー</button>
-      <button id="btn-timeline" class="badge">つぶやく</button>
+      <button id="btn-timeline" class="badge badge-info">アウトプット</button>
+      <button id="btn-reviews" class="badge">レビュー</button>
       <button id="btn-book-detail" class="badge">書籍紹介</button>
     </div>
   </div>

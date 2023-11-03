@@ -37,7 +37,6 @@ class BookDomainService(object):
         books = []
         for book_data in books_data:
             book = self.book_repository.get_or_create(book_data)
-            logger.debug(f"{book}を登録します")
             if book:
                 books.append(book)
         return books

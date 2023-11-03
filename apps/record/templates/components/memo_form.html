@@ -1,16 +1,12 @@
 <form id="memo-form" data-action="{% url 'create_memo_api' book.id %}">
   {% csrf_token %}
 
-  <div class="w-lg">
-    {{ form.content }}
+  <div class="row-end gap-4">
+    <textarea name="content" class="textarea w-md" placeholder="学んだこと…"></textarea>
+
+    <button id="create-memo-button" class="btn btn-primary">
+      <i class="fa-regular fa-file"></i>
+      <span>アウトプット</span>
+    </button>
   </div>
-
-  {% if form.content.errors %}
-    <div class="error">{{ form.content.errors }}</div>
-  {% endif %}
-
-  <button id="create-memo-button" class="btn btn-primary">
-    <i class="fa-regular fa-file"></i>
-    <span>つぶやく</span>
-  </button>
 </form>

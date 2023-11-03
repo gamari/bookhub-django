@@ -9,6 +9,7 @@ from rest_framework import status
 
 from apps.selection.application.usecases import AICreateSelectionUsecaseByDemand
 from apps.selection.serializers import BookSelectionSerializer
+from config.exceptions import ApplicationException
 
 from .models import BookSelection, BookSelectionLike
 
@@ -52,19 +53,22 @@ class AICreateSelectionAPIView(APIView):
     def post(self, request):
         demand = request.data.get("demand")
 
-        if not request.user.is_staff and request.user.available_selections <= 0:
+        if not request.user.is_staff and request.user.is_available_ai():
             return Response({"detail": "利用可能なセレクション数を超えています。"}, status=status.HTTP_400_BAD_REQUEST)
-
+        
         # 楽観的ロック
         current_value = Account.objects.get(id=request.user.id).available_selections
         if current_value != request.user.available_selections:
             return Response({"detail": "同時に複数のリクエストが処理されています。再試行してください。"}, status=status.HTTP_400_BAD_REQUEST)
 
-        usecase = AICreateSelectionUsecaseByDemand.build()
-        selection = usecase.run(demand, request.user)
-        serializer = BookSelectionSerializer(selection)
+        try:
+            usecase = AICreateSelectionUsecaseByDemand.build()
+            selection = usecase.run(demand, request.user)
+            serializer = BookSelectionSerializer(selection)
 
-        request.user.available_selections -= 1
-        request.user.save()
+            request.user.available_ai -= 1
+            request.user.save()
 
-        return Response(serializer.data, status=201)
+            return Response(serializer.data, status=201)
+        except ApplicationException as e:
+            return Response({"detail": "作成できませんでした。"}, status=status.HTTP_400_BAD_REQUEST)

@@ -22,6 +22,7 @@ logger = logging.getLogger("app_logger")
 
 
 class CreateSelectionView(View):
+    """セレクション作成。"""
     template_name = "pages/create_selection.html"
 
     @method_decorator(login_required, name='post')

@@ -18,34 +18,34 @@
   {% else %}
     <div class="card-sm col gap-4">
       <div>セレクションが存在しません。</div>
-      <div>試しに上記の「AI」ボタンを押してセレクションを作ってもらいましょう</div>
+      {% comment %} <div>「AI」に作成してもらうか、「作成」ボタンから作成してみましょう。</div> {% endcomment %}
+      <div>「作成」ボタンから作成してみましょう。</div>
     </div>
   {%endif%}
 
   <div id="ai-selection-modal" class="modal-container" style="display: none;">
     <div class="modal-dialog">
-      <h4>AIがセレクションを生成してくれます</h4>
+      <h4>[Ver0.1]AIセレクション機能</h4>
+
+      <p class="pt-4 text-sm">AIに要求を出すと、それに合ったセレクションを作ってくれます。</p>
+      <p class="text-sm">※現在検証中のため、精度は向上中です。</p>
 
       <div class="form-group mt-4">
-        <input id="selection-demand" type="text" placeholder="面白い漫画を読みたいです（10~100)" class="form-input">
+        <textarea id="selection-demand" placeholder="泣ける作品が読みたいです…" class="textarea"></textarea>
       </div>
 
-      <ul class="my-4">
-        <li 
+      <ul class="my-4 row-center gap-4">
+        <button 
           id="selection-create-btn" 
-          class="border btn btn-primary"
+          class="border btn-sm btn-primary"
         >
-          [α版]AIに依頼する(残り{{user.available_selections}}回)
-        </li>
+          生成する(AIチケット残り{{user.available_ai}}回)
+        </button>
+        <div>
+          <button id="ai-selection-close" type="button" class="btn-sm">閉じる</button>
+        </div>
       </ul>
 
-      <div class="mb-2 mt-6">
-        <div>※対象の書籍は本棚に追加されます</div>
-      </div>
-  
-      <div>
-        <button id="ai-selection-close" type="button" class="btn-sm">閉じる</button>
-      </div>
     </div>
   </div>
 </section>

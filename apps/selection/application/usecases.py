@@ -202,41 +202,37 @@ class AICreateSelectionUsecaseByDemand(Usecase):
         if len(demand) > 100 or len(demand) < 10:
             raise ApplicationException("要望は10文字以上100文字以内で入力してください。")
         
-        title = self.ai_service.create_selection_title_by_demand(demand)
-        logger.debug(f"title: {title}")
+        # AI
+        # タイトル作成
+        # title = self.ai_service.create_selection_title_by_demand(demand)
+        # logger.debug(f"title: {title}")
+        tags = self.ai_service.create_tags_by_demand(demand)
         
-        api_client = GoogleBooksAPIClient() # TODO service層だよね
-        api_result = api_client.search_newest_books_by_title(title, 1, 20)
-        book_items = api_result.get("items", [])
+        # API
+        # 本を取得
+        searched_books = []
+        for tag in tags:    
+            api_client = GoogleBooksAPIClient()
+            api_result = api_client.search_newest_books_by_title(tag, 1, 5)
+            book_items = api_result.get("items", [])
+            books_data = GoogleBooksMapper.to_books(book_items)
+            searched_books.extend(books_data)
+        
+        if len(searched_books) == 0:
+            raise ApplicationException("おすすめの本が見つかりませんでした。")
 
-        books_data = GoogleBooksMapper.to_books(book_items)
+        # 変換処理
+        books = [book for book in self.book_service.get_or_create_books(searched_books) if not book.is_sensitive]
+        
 
-        books = self.book_service.get_or_create_books(books_data)
-        logger.debug(f"{len(books)}件がヒット")
-        books = [book for book in books if not book.is_sensitive]
-
-        target = [{
-            "id": book.id,
-            "title": book.title,
-        } for book in books]
-
-
-        logger.debug(f"target: {target}")
-
-        recommend_books_str = self.ai_service.recommend_books_by_demand(demand, target)
-        logger.debug(f"recommend_books_str: {recommend_books_str}")
-        recommend_book_ids = extract_ids_from_selection(recommend_books_str)
-        logger.debug(f"recommend_book_ids: {recommend_book_ids}")
-        # booksからrecommend_book_idsのものを取り出す
-        recommend_books = [book for book in books if book.id in recommend_book_ids]
+        # AI 選択領域
+        recommend_books = self.ai_service.recommend_books_by_demand(demand, books)
         logger.debug(f"recommend_books: {recommend_books}")
 
         if len(recommend_books) == 0:
             raise ApplicationException("おすすめの本が見つかりませんでした。")
         
-        # TODO recommend_book_idsが空の場合の処理
-
-        title = "AIによるセレクション"
+        title = "AIが作成したセレクション"
         self.bookshelf_service.add_books(recommend_books, user)
         selection = self.selection_service.create_selection_by_book_ids(title, recommend_books, user)
 

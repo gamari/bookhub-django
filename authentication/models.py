@@ -38,6 +38,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
         upload_to="profile_images/", null=True, blank=True
     )
     available_selections = models.IntegerField(verbose_name="セレクション作成の有効数。",default=3)
+    available_ai = models.IntegerField(verbose_name="AIの利用可能数。",default=3)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
@@ -56,3 +57,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     def bookshelf(self):
         from apps.book.models import Bookshelf
         return Bookshelf.objects.get(user=self)
+    
+    # AIの利用可能判定
+    def is_available_ai(self):
+        return self.available_ai > 0

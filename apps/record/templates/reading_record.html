@@ -46,8 +46,12 @@
 </section>
 
 <section class="memo-container">
-  {% include 'components/memo_form.html' %} 
+  {% include 'components/memo_form.html' %}
+
   {% include 'components/memo_list.html' with show=True %}
+  {% if not memos %}
+    <div id="no-memo-title" class="card-sm">アウトプットが存在しません。</div>
+  {% endif %}
 </section>
 
 {% include 'components/review_modal.html' %} 

@@ -1,7 +1,10 @@
 import logging, openai
+from typing import List
+from apps.book.models import Book
 
 from config.ai import OpenAiClient
 from config.settings import OPEN_AI_KEY
+from config.utils import extract_ids_from_selection
 
 logger = logging.getLogger("app_logger")
 
@@ -31,6 +34,20 @@ class AiDomainService(object):
         title = title.replace("検索ワード:", "")
 
         return title
+    
+    def create_tags_by_demand(self, demand: str) -> List[str]:
+        instruction = "指定された要求を満たす書籍を検索するための「タグ」を作成してください。ただし、以下のルールに従って作成してください。\n#ルール\n1. タグは空白区切りで返してください。\n2. タグ以外の言葉含めないでください。\n3. タグは4つ作成してください。"
+
+        self.client.add_system_message(instruction)
+        self.client.add_sample_message("user", "推理ものの小説を見たい。")
+        self.client.add_sample_message("assistant", "タグ:推理 小説")
+        self.client.add_user_message(demand)
+        response = self.client.query()
+        self.reset()
+
+        tags = response.replace("タグ", "").split(" ")
+
+        return tags
     
     def create_tags_by_book(self, book):
         """タグ作成。"""
@@ -81,19 +98,32 @@ class AiDomainService(object):
 
         return title
     
-    def recommend_books_by_demand(self, demand, books):
-        instruction = "指定された要求と、書籍一覧を見比べて、おすすめの本を3つピックアップしてください。ただし、JSONの配列形式のみ返してください。また、idのみを返してください。同一タイトルのものは選択しないでください。そして、過激な内容やセンシティブな内容は選択しないでください。"
+    def recommend_books_by_demand(self, demand, books: List[Book]):
+        target = [{
+            "id": book.id,
+            "title": book.title,
+        } for book in books]
+        logger.debug(f"target: {target}")
 
+
+        instruction = "指定された要求と、書籍一覧を見比べて、おすすめの本をピックアップしてください。ただし、ルールに従って選択してください。\n\n# ルール\n1.JSONの配列形式のみで返してください。\n2. idのみを返してください。\n3. 同一タイトルのものは選択しないでください。\n4. 過激な内容やセンシティブな内容は選択しないでください。\n5. 選択できる数は5つまでです。\n6. 要求を満たした書籍のみを選択してください。"
+
+        # 選択する
         self.client.add_system_message(instruction)
-        self.client.add_sample_message("assistant", "選択したID:[230, 333, 1258]")
-        self.client.add_user_message(f"{demand}\n\n書籍一覧:\n{books}")
+        self.client.add_sample_message("assistant", "選択したID:[230, 1258, 5852]")
+        self.client.add_user_message(f"{demand}\n\n書籍一覧:\n{target}")
+        logger.debug(target)
 
-        selection = self.client.query()
-        logger.debug(f"RESPONSE: {selection}")
-        selection = selection.replace("選択したID:", "")
+        response = self.client.query()
+        logger.debug(f"RESPONSE: {response}")
+        selected_ids = response.replace("選択したID:", "")
         self.reset()
 
-        return selection
+        recommend_book_ids = extract_ids_from_selection(selected_ids)
+        logger.debug(recommend_book_ids)
+        recommend_books = [book for book in books if book.id in recommend_book_ids]
+
+        return recommend_books
     
     def recommend_books_by_profile(self, profile, books):
         instruction = "指定されたプロフィールと、書籍一覧を見比べて、おすすめの本を3つピックアップしてください。ただし、JSONの配列形式のみ返してください。また、idのみを返してください。同一タイトルのものは選択しないでください。そして、過激な内容やセンシティブな内容は選択しないでください。"

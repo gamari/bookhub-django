@@ -14,7 +14,7 @@ from apps.book.models import Bookshelf
 def home(request):
     usecase = ShowHomePageUsecase.build()
     context = usecase.execute()
-
+    
     return render(request, "pages/home.html", context)
 
 
