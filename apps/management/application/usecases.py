@@ -28,7 +28,7 @@ class CreateRecommendBook(Usecase):
         random_book = self.book_service.get_random_book()
 
         # TODO 出来ればランダムにレビューを引用したい
-        header = f"【感想お待ちしております】\n{random_book.title}\n"
+        header = f"【アウトプットしてみませんか？】\n{random_book.title}\n"
 
         hash_tags = f"#Yommy #本好きと繋がりたい"
 

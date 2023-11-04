@@ -20,7 +20,7 @@ class RegisterForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={"class": "form-input"})
     )
-    username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-input"}))
+    username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-input", "type": "text"}))
     terms_agreed = forms.BooleanField(required=True)
 
     def clean_username(self):

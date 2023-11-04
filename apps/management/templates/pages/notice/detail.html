@@ -10,12 +10,10 @@
 {% block meta %}
 <meta property="og:image" content="{% static 'images/logo.jpg' %}" />
 <meta property="og:title" content="{{ notice.title }}" />
-{% comment %} <meta property="og:description" content="{{ book.description }}" /> {% endcomment %}
 <meta property="og:type" content="article" />
 
 <!-- Twitter Card -->
 <meta name="twitter:title" content="{{ notice.title }}" />
-{% comment %} <meta name="twitter:description" content="{{ book.description }}" /> {% endcomment %}
 <meta name="twitter:image" content="{% static 'images/logo.jpg' %}" />
 <meta name="twitter:card" content="summary" />
 {% endblock %}
