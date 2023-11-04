@@ -59,7 +59,7 @@ def tag_search(request):
         page = 1
     
     books = Book.objects.filter(tags__name=tag_name)
-    paginator = Paginator(books, 1)
+    paginator = Paginator(books, 10)
     result = paginator.get_page(page)
     logger.debug(result)
     logger.debug(result.next_page_number)

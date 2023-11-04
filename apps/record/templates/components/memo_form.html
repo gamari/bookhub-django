@@ -1,7 +1,7 @@
 <form id="memo-form" data-action="{% url 'create_memo_api' book.id %}">
   {% csrf_token %}
 
-  <textarea id="memo-content" name="content" class="textarea w-md" placeholder="学んだこと…"></textarea>
+  <textarea id="memo-content" name="content" class="textarea" placeholder="学んだこと…"></textarea>
 
   <button id="create-memo-button" class="btn btn-primary">
     <i class="fa-regular fa-file"></i>

@@ -77,7 +77,7 @@ class ShowHomePageUsecase(Usecase):
         latest_notices = self.notice_service.get_latest_notices(3)
         latest_selection_list = self.selection_service.get_latest_selection_list()
         recommend_books = self.recommend_service.get_recommend_three_books()
-        tags = self.tag_service.get_random_tags(5)
+        tags = self.tag_service.get_random_tags(3)
 
         context = {
             "top_book_results": top_book_results,

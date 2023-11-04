@@ -9,6 +9,10 @@
   margin-bottom: 32px;
 }
 
+#memo-content {
+  width: 100%;
+}
+
 
 .memo-textarea {
   width: 100%;
@@ -103,6 +107,10 @@
     flex-direction: row;
     align-items: end;
     gap: 24px;
+  }
+
+  #memo-content {
+    max-width: 480px;
   }
 
   #memo-list {
