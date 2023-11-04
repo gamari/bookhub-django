@@ -53,7 +53,9 @@ async function getRanking() {
     }
 
     // TODO まだ無ければ、ランキングがありません。と表示する
-    data.forEach((user, index) => {
+    data
+    .sort((a, b) => b.memos_count - a.memos_count)
+    .forEach((user, index) => {
         const rankItem = document.createElement('div');
         rankItem.classList.add('user-info');
 
