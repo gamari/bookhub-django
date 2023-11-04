@@ -21,21 +21,33 @@
 {% endblock %}
 
 {% block css %}
-  <style></style>
+<link rel="stylesheet" href="{% static 'css/markdown.css' %}">
 {% endblock %}
 
 {% block js %}
 {% endblock %}
 
 {% block content %}
+  {% if request.user.is_staff %}
+    <a href="{% url 'management_notice_edit' notice.id %}" class="btn btn-primary">編集</a>
+  {% endif %}
+
   <section>
-    <div class="card">
+    <div class="card ">
       <h2>{{ notice.title }}</h2>
 
-      <div class="time my-4">{{ notice.created_at|date:'Y/m/d H:i' }}</div>
+      <div class="time mt-4">{{ notice.created_at|date:'Y/m/d H:i' }}</div>
 
-      <div class="content">
-        <div>{{ notice.content_html|safe }}</div>
+      <div class="mt-4">
+        {% if notice.kind == "news" %}
+        <span class="badge-sm badge-primary">お知らせ</span>
+        {% elif notice.kind == "help" %}
+        <span class="badge-sm badge-secondary">使い方</span>
+        {% endif %}
+      </div>
+
+      <div class="content mt-10">
+        <div class="markdown">{{ notice.content_html|safe }}</div>
       </div>
 
       <div class="mt-6">

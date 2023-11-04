@@ -8,7 +8,7 @@ from apps.record.views import (
     mark_as_unstarted,
     reading_record_page,
 )
-from apps.record.views_api import GetMemoListByFollowingUsersAPIView, create_memo_api, memo_delete_api
+from apps.record.views_api import CreateMemoAPI, GetMemoListByFollowingUsersAPIView,  memo_delete_api
 
 urlpatterns = [
     path("book/<int:book_id>/reading/", reading_record_page, name="reading_record"),
@@ -26,7 +26,7 @@ urlpatterns = [
     path("api/memos/<int:memo_id>/", memo_delete_api, name="memo_detail_api"),
     path(
         "api/reading_record/<int:book_id>/memo/",
-        create_memo_api,
+        CreateMemoAPI.as_view(),
         name="create_memo_api",
     ),
     path("api/books/<int:book_id>/memos/", views_api.GetMemoListByBookAPIView.as_view()),

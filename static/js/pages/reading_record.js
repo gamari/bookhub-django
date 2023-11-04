@@ -31,7 +31,7 @@ async function postMemo() {
     const postUrl = memoForm.dataset.action;
 
     try {
-        const data = await createMemo(postUrl, formData, getCookie('csrfmiddlewaretoken'));
+        const data = await createMemo(postUrl, formData);
 
         if (noMemoTitle) noMemoTitle.remove();
 
@@ -39,6 +39,10 @@ async function postMemo() {
         memoList.prepend(newMemo);
         memoContent.value = '';
     } catch (error) {
+        const message = error.message;
+        if (message) {
+            alert(message);
+        }
         console.error(error);
     }
 }
@@ -76,7 +80,11 @@ function initializeGetButton() {
     const memoList = document.querySelector('#memo-list');
     const loading = document.querySelector('.loading');
     const book_id = document.querySelector('#book_id').value;
-    let oldestDate = memoList.lastElementChild.dataset.date;
+    let oldestDate;
+
+    if (memoList.lastElementChild) {
+        oldestDate = memoList.lastElementChild.dataset.date
+    }
 
     getMemoListButton.addEventListener('click', function() {
         getMyselfMemoListByBookAndDate(book_id, oldestDate).then(json => {

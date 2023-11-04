@@ -2,11 +2,13 @@ import logging
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+
 from apps.record.application.usecases import CreateMemoUsecase, DeleteMemoUsecase
 from apps.record.domain.repositories import ReadingMemoRepository
-
 from apps.record.domain.services import MemoDomainService
 from .serializers import ReadingMemoSerializer
 
@@ -72,20 +74,18 @@ class GetMemoListByBookAPIView(APIView):
         return Response(serializer.data)
 
 
-@login_required
-def create_memo_api(request, book_id):
-    if request.method == "POST":
-        usecase = CreateMemoUsecase.build()
 
-        response_data = usecase.run(request.POST, request.user, book_id)
+class CreateMemoAPI(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, book_id):
+        usecase = CreateMemoUsecase.build()
+        response_data = usecase.run(request.data, request.user, book_id)
 
         if response_data["result"] == "success":
-            return JsonResponse(response_data, status=201)
+            return Response(response_data, status=status.HTTP_201_CREATED)
         else:
-            return JsonResponse(response_data, status=400)
-    else:
-        return JsonResponse({"result": "fail"}, status=400)
-
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
 @login_required
 def memo_delete_api(request, memo_id):
