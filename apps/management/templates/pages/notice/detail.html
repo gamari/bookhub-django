@@ -8,13 +8,15 @@
 {% endblock %}
 
 {% block meta %}
-<meta property="og:image" content="{% static 'images/logo.jpg' %}" />
 <meta property="og:title" content="{{ notice.title }}" />
+{% comment %} <meta property="og:image" content="{% static 'images/logo.jpg' %}" /> {% endcomment %}
+<meta property="og:image" content="https://yommy-books.com/static/images/logo.jpg" />
 <meta property="og:type" content="article" />
 
 <!-- Twitter Card -->
 <meta name="twitter:title" content="{{ notice.title }}" />
-<meta name="twitter:image" content="{% static 'images/logo.jpg' %}" />
+{% comment %} <meta name="twitter:image" content="{% static 'images/logo.jpg' %}" /> {% endcomment %}
+<meta name="twitter:image" content="https://yommy-books.com/static/images/logo.jpg" />
 <meta name="twitter:card" content="summary" />
 {% endblock %}
 

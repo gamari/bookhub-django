@@ -1,12 +1,14 @@
 
 /* メモフォーム */
 #memo-form {
+  padding: 12px;
   display: flex;
-  flex-direction: row;
-  gap: 24px;
-  align-items: center;
+  flex-direction: column;
+  align-items: start;
+  gap: 8px;
   margin-bottom: 32px;
 }
+
 
 .memo-textarea {
   width: 100%;
@@ -22,7 +24,8 @@
   border-color: #007bff;
 }
 
-/* Memoリスト */
+
+
 #memo-list {
   border-left: 1px solid #eee;
   border-right: 1px solid #eee;
@@ -95,6 +98,13 @@
 }
 
 @media screen and (min-width: 768px) {
+  #memo-form {
+    padding: 0;
+    flex-direction: row;
+    align-items: end;
+    gap: 24px;
+  }
+
   #memo-list {
     border-radius: 6px;
   }
