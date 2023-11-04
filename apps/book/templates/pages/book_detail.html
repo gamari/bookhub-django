@@ -2,6 +2,7 @@
 {% load static %}
 {% load user_tags %}
 {% load book_tags %}
+{% load url_tags %}
 
 {% block title %}
   書籍詳細
@@ -59,7 +60,24 @@
       {% book_icon book "md" %}
 
       <div>
-        {% include 'components/book_share_x.html' with title=book.title %}
+        {% comment %} {% include 'components/book_share_x.html' with title="" tag="皆でアウトプット" %} {% endcomment %}
+        {% if user.is_authenticated %}
+        <a 
+          href="https://twitter.com/intent/tweet?text=【{{book.title}}】%0A{{request.user.username}}さんがアウトプットしています%0A%0A%23Yommy %23皆でアウトプット%0A%0A{% build_https_absolute_uri request %}" 
+          target="_blank" 
+          class="decoration-none"
+        >
+          <i class="fa-brands fa-x-twitter fa-lg"></i>
+        </a>
+        {% else %}
+        <a 
+          href="https://twitter.com/intent/tweet?text=【{{book.title}}】%0A皆でアウトプットしてみよう！%0A%0A%23Yommy %23皆でアウトプット%0A%0A{% build_https_absolute_uri request %}" 
+          target="_blank" 
+          class="decoration-none"
+        >
+          <i class="fa-brands fa-x-twitter fa-lg"></i>
+        </a>
+        {% endif %}
       </div>
     </div>
 
