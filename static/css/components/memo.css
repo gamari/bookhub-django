@@ -111,6 +111,8 @@
 
   #memo-content {
     max-width: 480px;
+    flex-grow: 1;
+    width: auto;
   }
 
   #memo-list {
