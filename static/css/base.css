@@ -134,6 +134,11 @@ h4 {
   cursor: not-allowed;
 }
 
+
+.btn:hover {
+  opacity: 0.8;
+}
+
 .btn-sm {
   text-align: center;
   background-color: white;
@@ -154,11 +159,31 @@ h4 {
   cursor: not-allowed;
 }
 
-.btn:hover {
+.btn-sm:hover {
   opacity: 0.8;
 }
 
-.btn-sm:hover {
+.btn-xs {
+  text-align: center;
+  background-color: white;
+  color: #1e90ff;
+  border: 1px solid #1e90ff;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.6rem;
+  padding: 2px 4px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  box-sizing: border-box;
+}
+
+.btn-xs:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-xs:hover {
   opacity: 0.8;
 }
 

@@ -55,7 +55,7 @@ async function getRanking() {
     // TODO まだ無ければ、ランキングがありません。と表示する
     data
     .sort((a, b) => {
-        return b.memos_count - a.memos_count > 0 ? 1 : -1;
+        return b.count - a.count > 0 ? 1 : -1;
     })
     .forEach((user, index) => {
         const rankItem = document.createElement('div');
@@ -219,6 +219,13 @@ function initializeCreateMemo() {
 
 async function initializeRanking() {
     getRanking();
+
+    const rankingResetButton = document.getElementById('reset-ranking-btn');
+    const rankingList = document.getElementById('ranking-list');
+
+    rankingResetButton.addEventListener('click', async function () {
+        getRanking();
+    });
 }
 
 

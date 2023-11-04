@@ -3,9 +3,12 @@
 <section id="bookshelf-section">
   <div class="content-header mb-6">
     <h3>本棚</h3>
+
+    {% if books %}
     <div class="flex-1">
       <input type="text" id="book-filter" class="text-input w-sm" placeholder="フィルター…">
     </div>
+    {% endif %}
 
     {% comment %} <div>
       <button class="btn-sm">全て</button>
@@ -20,13 +23,15 @@
 
     <div class="card-sm">
       <h4>まずは気になる作品を検索して本棚に登録してみましょう</h4>
+
+      <div class="mt-4">
+        <form method="get" action="{% url 'book_search' %}">
+          <input type="text" name="query" class="text-input" placeholder="書籍名…">
+          <input type="submit"  class="btn-sm btn-primary" value="検索する">
+        </form>
+      </div>
     </div>
 
-    <div class="mt-4">
-      <form method="get" action="{% url 'book_search' %}">
-        <input type="text" name="query" class="text-input" placeholder="書籍名…">
-        <input type="submit"  class="btn-sm btn-primary" value="検索する">
-      </form>
-    </div>
+   
   {% endif %}
 </section>
