@@ -27,6 +27,7 @@
 {% block js %}
 {% endblock %}
 
+
 {% block content %}
   {% if request.user.is_staff %}
     <a href="{% url 'management_notice_edit' notice.id %}" class="btn btn-primary">編集</a>

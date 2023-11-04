@@ -43,6 +43,9 @@
   </style>
 {% endblock %}
 
+
+
+
 {% block js %}
   <script src="{% static 'js/services/review/like.js' %}"></script>
   <script src="{% static 'js/review-modal.js' %}"></script>
@@ -53,92 +56,109 @@
   <script src="{% static 'js/pages/book/detail.js' %}"></script>
 {% endblock %}
 
-{% block content %}
-  <section class="detail-section card">
-    <div  class="detail-image">
-      
-      {% book_icon book "md" %}
 
-      <div>
-        {% comment %} {% include 'components/book_share_x.html' with title="" tag="皆でアウトプット" %} {% endcomment %}
-        {% if user.is_authenticated %}
-        <a 
-          href="https://twitter.com/intent/tweet?text=【{{book.title}}】%0A{{request.user.username}}さんがアウトプットしています%0A%0A%23Yommy %23皆でアウトプット%0A%0A{% build_https_absolute_uri request %}" 
-          target="_blank" 
-          class="decoration-none"
-        >
-          <i class="fa-brands fa-x-twitter fa-lg"></i>
-        </a>
-        {% else %}
-        <a 
-          href="https://twitter.com/intent/tweet?text=【{{book.title}}】%0A皆でアウトプットしてみよう！%0A%0A%23Yommy %23皆でアウトプット%0A%0A{% build_https_absolute_uri request %}" 
-          target="_blank" 
-          class="decoration-none"
-        >
-          <i class="fa-brands fa-x-twitter fa-lg"></i>
-        </a>
-        {% endif %}
-      </div>
-    </div>
+{% block header_content %}
+<section class="detail-section card">
+  <div  class="detail-image">
+    
+    {% book_icon book "md" %}
 
-    <div class="book-detail-info-container text-sm">
-      {% include 'components/book_title_sm.html' %}
-      {% include 'components/book_authors.html' %}
-      {% include 'components/book_publication_date.html' %}
-
-
-      <div class="rating-container">
-        {% if avg_rating %}
-          {% include 'components/rating_stars.html' %}
-          {{ avg_rating }}点
-        {% else %}
-          レビューがありません
-        {% endif %}
-      </div>
-
-      <div class="book-detail-tools">
-       {% include "components/_book_register_button.html" %}
-      </div>
-    </div>
-
-    <div class="book-record-container">
-      <h4>書籍記録</h4>
-      <div>
-        <span class="badge-sm badge-info">レビュー</span>
-        <span class="text-sm">{{ reviews_count }}件</span>
-      </div>
-
-      <div>
-        <span class="badge-sm badge-info">登録者数</span>
-        <span class="text-sm">{{ registers }}人</span>
-      </div>
-
-      <div>
-        <div>
-          {% if book.amazon_url %}
-          <a href="{{ book.amazon_url }}" target="_blank" rel="noopener noreferrer">
-            <img src="{% static 'images/amazon.png' %}" class="amazon-logo" alt="Amazon Logo">
-          </a>
-          {% else %}
-          <a href="https://www.amazon.co.jp/s?k={{book.title}}&linkCode=ll2&tag=yommy-22&linkId=21ce06eccdc77bca6b1be589ceed7a39&language=ja_JP&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer">
-            <img src="{% static 'images/amazon.png' %}" class="amazon-logo" alt="Amazon Logo">
-          </a>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="row-center gap-4 flex-wrap">
-      {% for tag in book.tags.all %}
-      <a href="{% url 'book_search_by_tag' %}?tag={{tag.name}}" class="badge-sm badge-info">
-        #{{tag.name}}
+    <div>
+      {% comment %} {% include 'components/book_share_x.html' with title="" tag="皆でアウトプット" %} {% endcomment %}
+      {% if user.is_authenticated %}
+      <a 
+        href="https://twitter.com/intent/tweet?text=【{{book.title}}】%0A{{request.user.username}}さんがアウトプットしています%0A%0A%23Yommy %23皆でアウトプット%0A%0A{% build_https_absolute_uri request %}" 
+        target="_blank" 
+        class="decoration-none"
+      >
+        <i class="fa-brands fa-x-twitter fa-lg"></i>
       </a>
-      {% endfor %}
+      {% else %}
+      <a 
+        href="https://twitter.com/intent/tweet?text=【{{book.title}}】%0A皆でアウトプットしてみよう！%0A%0A%23Yommy %23皆でアウトプット%0A%0A{% build_https_absolute_uri request %}" 
+        target="_blank" 
+        class="decoration-none"
+      >
+        <i class="fa-brands fa-x-twitter fa-lg"></i>
+      </a>
+      {% endif %}
     </div>
-  </section>
+  </div>
 
+  <div class="book-detail-info-container text-sm">
+    {% include 'components/book_title_sm.html' %}
+    {% include 'components/book_authors.html' %}
+    {% include 'components/book_publication_date.html' %}
+
+
+    <div class="rating-container">
+      {% if avg_rating %}
+        {% include 'components/rating_stars.html' %}
+        {{ avg_rating }}点
+      {% else %}
+        レビューがありません
+      {% endif %}
+    </div>
+
+    <div class="book-detail-tools">
+     {% include "components/_book_register_button.html" %}
+    </div>
+  </div>
+
+  <div class="book-record-container">
+    <h4>書籍記録</h4>
+    <div>
+      <span class="badge-sm badge-info">レビュー</span>
+      <span class="text-sm">{{ reviews_count }}件</span>
+    </div>
+
+    <div>
+      <span class="badge-sm badge-info">登録者数</span>
+      <span class="text-sm">{{ registers }}人</span>
+    </div>
+
+    <div>
+      <div>
+        {% if book.amazon_url %}
+        <a href="{{ book.amazon_url }}" target="_blank" rel="noopener noreferrer">
+          <img src="{% static 'images/amazon.png' %}" class="amazon-logo" alt="Amazon Logo">
+        </a>
+        {% else %}
+        <a href="https://www.amazon.co.jp/s?k={{book.title}}&linkCode=ll2&tag=yommy-22&linkId=21ce06eccdc77bca6b1be589ceed7a39&language=ja_JP&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer">
+          <img src="{% static 'images/amazon.png' %}" class="amazon-logo" alt="Amazon Logo">
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="row-center gap-4 flex-wrap">
+    {% for tag in book.tags.all %}
+    <a href="{% url 'book_search_by_tag' %}?tag={{tag.name}}" class="badge-sm badge-info">
+      #{{tag.name}}
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+
+
+{% block right %}
+<aside class="sidebar">
+  <div class="card-sm col gap-4">
+    <div class="">
+      <h4>ランキング</h4>
+
+      <div id="ranking-list" class="mt-2 col gap-4">
+      </div>
+    </div>
+  </div>
+</aside>
+{% endblock %}
+
+{% block content %}
 
   {% comment %} 管理者用 {% endcomment %}
   {% if request.user.is_staff %}

@@ -1,7 +1,6 @@
 /*
 書籍詳細画面のJavaScript。
 */
-
 async function postMemo() {
     const memoList = document.querySelector("#memo-list");
     const memoForm = document.querySelector("#memo-form");
@@ -33,6 +32,66 @@ async function postMemo() {
         }
         console.error(error);
     }
+}
+
+// TODO ランク作成は関数化するべき
+async function getRanking() {
+    const bookId = document.getElementById('book_id').value;
+    const apiUrl = `/api/ranking/books/${bookId}/memos/users/`;
+
+    // TODO 関数にする
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    const rankingList = document.getElementById('ranking-list');
+    rankingList.innerHTML = '';
+
+    if (data.length === 0) {
+        const noRanking = document.createElement('div');
+        noRanking.innerText = '参加者がいません';
+        rankingList.appendChild(noRanking);
+        return;
+    }
+
+    // TODO まだ無ければ、ランキングがありません。と表示する
+    data.forEach((user, index) => {
+        const rankItem = document.createElement('div');
+        rankItem.classList.add('user-info');
+
+        // rankItemを分解して作る
+        const rankHeader = document.createElement('div');
+        rankHeader.classList.add('text-primary');
+        rankHeader.innerText = `${index + 1}位`;
+
+        const rankBody = document.createElement('div');
+        rankBody.classList.add('user-info__body');
+        rankBody.classList.add('row-center');
+        rankBody.classList.add('gap-4');
+
+        const userLink = document.createElement('a');
+        userLink.classList.add('user-icon-sm');
+        userLink.classList.add('user-icon');
+        userLink.href = `/user/${user.username}/`;
+
+        const rankImage = document.createElement('div');
+        if (user.profile_image) {
+            rankImage.innerHTML = `<img src="${user.profile_image}" class="user-icon user-icon-sm" />`;
+        } else {
+            rankImage.innerHTML = `<i class="fa-regular fa-face-smile fa-xl" style="color: #888"></i>`;
+        }
+
+        userLink.appendChild(rankImage);
+
+        const rankUsername = document.createElement('div');
+        rankUsername.innerText = user.username;
+
+        rankBody.appendChild(userLink);
+        rankBody.appendChild(rankUsername);
+
+        rankItem.appendChild(rankHeader);
+        rankItem.appendChild(rankBody);
+
+        rankingList.appendChild(rankItem);
+    });
 }
 
 
@@ -154,9 +213,14 @@ function initializeCreateMemo() {
     });
 }
 
+async function initializeRanking() {
+    getRanking();
+}
+
 
 document.addEventListener('DOMContentLoaded', function () {
     initializeToggles();
     initializeGetMemoList();
     initializeCreateMemo();
+    initializeRanking();
 });
