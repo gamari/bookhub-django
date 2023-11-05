@@ -47,6 +47,22 @@
   position: relative;
 }
 
+.absolute {
+  position: absolute;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.top-2 {
+  top: 8px;
+}
+
+.right-2 {
+  right: 8px;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -90,6 +106,10 @@
 
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+.flex-1 {
+  flex-grow: 1;
 }
 
 .w-sm {

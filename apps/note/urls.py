@@ -4,6 +4,8 @@ from . import views, views_api
 
 urlpatterns = [
     path('notes/<int:note_id>/', views.note_detail, name='note_detail'),
+    path("notes/<int:note_id>/edit/", views.edit_note, name="edit_note"),
+    path("notes/<int:note_id>/delete/", views.delete_note, name="delete_note"),
     path('books/<int:book_id>/notes/', views.note_of_book, name='create_note_of_book'),
     
     # api

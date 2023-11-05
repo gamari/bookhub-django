@@ -7,5 +7,6 @@ class NoteForm(forms.ModelForm):
         model = Note
         fields = ['title', 'content', 'is_public']
         widgets = {
-            "content": forms.Textarea(attrs={"rows": 20, "cols": 80, "id": "note-content"}),
+            "content": forms.Textarea(attrs={"rows": 12, "id": "note-content", "class": "textarea w-full"}),
+            "title": forms.TextInput(attrs={"id": "note-title", "class": "input"}),
         }

@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
 {% load static %}
@@ -5,7 +6,7 @@
 {% load book_tags %}
 
 {% block title %}
-  ノート作成
+  ノート編集
 {% endblock %}
 
 {% block css %}
@@ -23,14 +24,20 @@
 <aside class="pl-4 w-sm">
   <div class="card-sm col gap-4">
     <button class="btn-sm btn-primary">アウトプット一覧</button>
-    <button id="ai-btn" class="btn-sm btn-primary">AIに依頼</button>
+    <button id="ai-btn" class="btn-sm btn-primary">AIに作成依頼</button>
+
+    <form method="post" action="{% url 'delete_note' note.id %}" class="mt-4">
+      {% csrf_token %}
+      <input type="hidden" value="{{note.id}}" id="note_id">
+      <button type="submit" class="btn-sm btn-danger" id="delete-note-btn">削除</button>
+    </form>
   </div>
 </aside>
 {% endblock %}
 
 {% block content %}
   <section>
-    <div class="card-sm relative">
+    <div class="card-sm">
       <form method="post">
         {% csrf_token %}
 
@@ -44,13 +51,13 @@
           <div>{{ form.content }}</div>
         </div>
 
-        <button type="submit" class="btn btn-primary">作成する</button>
+        <button type="submit" class="btn">編集する</button>
       </form>
     </div>
   </section>
 
   {% comment %} Modal作成 {% endcomment %}
-  <div>
+  <div id="ai-modal" class="modal">
     modal
   </div>
 
@@ -59,3 +66,5 @@
     <input type="hidden" name="book-id" id="book-id" value="{{ book.id }}">
   </div>
 {% endblock %}
+
+

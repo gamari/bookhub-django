@@ -23,7 +23,13 @@
 
 {% block content %}
   <section>
-    <div class="card-sm">
+    <div class="card-sm relative">
+        {% if request.user == note.author %}
+          <div class="absolute top-2 right-2">
+            <a href="{% url "edit_note" note.id %}" class="btn-sm">編集</a>
+          </div>
+        {% endif %}
+
         <h3>{{ note.title }}</h3>
 
         <p class="mt-4">{{ note.content|linebreaks }}</p>

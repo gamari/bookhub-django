@@ -50,14 +50,25 @@
 {% block right %}
 <aside class="pl-4 w-sm">
   <div class="card-sm">
-    <h3>ノート一覧</h3>
+    <div class="row-center gap-2 mb-6">
+      <h3>ノート</h3>
+      <a href="{% url 'create_note_of_book' record.book.id %}" class="btn-sm btn-primary">
+        ノートを書く
+      </a>
+    </div>
 
     {% if notes %}
-    {% for note in notes %}
-      <div class="note">
-        <a href="{% url 'note_detail' note.id %}">{{note.title}}</a>
+      <div class="col gap-2">
+        {% for note in notes %}
+          <div class="row-center gap-2">
+            <a href="{% url 'note_detail' note.id %}" class=" overflow-hidden flex-1">{{note.title}}</a>
+
+            <div class="row-center">
+              <a href="{% url "edit_note" note.id %}" class="btn-sm">編集</a>
+            </div>
+          </div>
+        {% endfor %}
       </div>
-    {% endfor %}
     {% else %}
       <div>まだノートがありません</div>
     {% endif %}
