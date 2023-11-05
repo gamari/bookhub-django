@@ -21,9 +21,16 @@
     <div>
         <div class="card-sm">
             <div>{{tweet.content}}</div>
-        </div>
-        <div>
-            <a href="{% url 'management_edit_tweet' tweet.id %}" class="btn-sm btn-primary">編集</a>
+            <div>
+              {% if tweet.is_active %}
+              <div>公開中</div>
+              {% else %}
+              <div>非公開</div>
+              {% endif %}
+            </div>
+            <div>
+                <a href="{% url 'management_edit_tweet' tweet.id %}" class="btn-sm btn-primary">編集</a>
+            </div>
         </div>
     </div>
     {% endfor %}

@@ -10,4 +10,4 @@ class NoticeForm(forms.ModelForm):
 class TweetForm(forms.ModelForm):
     class Meta:
         model = Tweet
-        fields = ('content',)
+        fields = ('content', "is_active")
