@@ -16,4 +16,9 @@ class Notice(models.Model):
     def save(self, *args, **kwargs):
         self.content_html = markdown.markdown(self.content)
         super().save(*args, **kwargs)
-    
+
+class Tweet(models.Model):
+    content = models.TextField()
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

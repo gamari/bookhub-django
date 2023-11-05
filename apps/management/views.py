@@ -11,8 +11,8 @@ from apps.book.forms import BookForm
 from apps.book.models import Book, BookAuthor, BookGenre, BookshelfBook, Tag
 from apps.contact.models import Contact
 from apps.management.application.usecases import CreateBookTagsByAIUsecase
-from apps.management.forms import NoticeForm
-from apps.management.models import Notice
+from apps.management.forms import NoticeForm, TweetForm
+from apps.management.models import Notice, Tweet
 from apps.record.models import ReadingMemo
 from apps.review.models import Review
 from apps.search.models import SearchHistory
@@ -295,6 +295,53 @@ def management_recommend_create(request):
 
         return redirect('management_recommends')
     return render(request, "pages/recommend/manage-recommend-create.html")
+
+
+###
+# ツイート
+###
+@user_passes_test(lambda u: u.is_superuser)
+def management_tweet_list(request):
+    tweets = Tweet.objects.all().order_by("-created_at")
+
+    context = {
+        "tweets": tweets,
+    }
+    
+    return render(request, "pages/manage/tweet/list.html", context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def management_tweet_create(request):
+    if request.method == "POST":
+        form = TweetForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('management_tweet_list')
+    else:
+        form = TweetForm()
+    context = {
+        "form": form,
+    }
+    
+    return render(request, "pages/manage/tweet/create.html", context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def management_tweet_edit(request, tweet_id):
+    tweet = Tweet.objects.get(id=tweet_id)
+    if request.method == "POST":
+        form = TweetForm(request.POST, instance=tweet)
+        if form.is_valid():
+            form.save()
+            return redirect('management_tweet_list')
+    else:
+        form = TweetForm(instance=tweet)
+        
+    context = {
+        "tweet": tweet,
+        "form": form,
+    }
+    return render(request, "pages/manage/tweet/edit.html", context)
+
 
 
 

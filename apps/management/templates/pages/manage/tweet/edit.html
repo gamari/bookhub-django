@@ -1,0 +1,23 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block css %}
+{% comment %} TODO {% endcomment %}
+{% endblock %} 
+
+{% block title %}ツイート編集{% endblock %} 
+
+
+{% block content %}
+<section>
+    <form action="{% url 'management_edit_tweet' form.instance.id %}" method="POST" class="w-lg">
+
+        {% csrf_token %}
+        <div class="form-group">
+            {{form.as_p}}
+        </div>
+        
+        <button class="btn">編集</button>
+    </form>
+</section>
+{% endblock %}

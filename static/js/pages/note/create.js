@@ -9,16 +9,22 @@ function initializeSidebar() {
 
     aiBtn.addEventListener('click', function () {
         console.log("click");
+        const title = document.getElementById('note-title').value;
+
+        if (!title) {
+            alert('タイトルを入力してください');
+            return;
+        }
+
         fetch(`/api/ai/books/${bookId}/notes/`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': getCsrfToken()
-            }
-            // body: JSON.stringify({
-            //     "title": "ai",
-            //     "content": "ai"
-            // })
+            },
+            body: JSON.stringify({
+                "title": title,
+            })
         }).then(function (response) {
             return response.json();
         }).then(function (json) {

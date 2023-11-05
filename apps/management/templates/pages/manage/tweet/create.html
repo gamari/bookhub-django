@@ -1,0 +1,22 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block css %}
+{% comment %} TODO {% endcomment %}
+{% endblock %} 
+
+{% block title %}ツイート作成{% endblock %} 
+
+
+{% block content %}
+<section>
+    <form method="POST" class="w-lg">
+        {% csrf_token %}
+        <div class="form-group">
+            {{form.as_p}}
+        </div>
+        
+        <button class="btn btn-primary">作成</button>
+    </form>
+</section>
+{% endblock %}

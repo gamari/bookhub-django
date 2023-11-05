@@ -34,6 +34,11 @@ urlpatterns = [
     path('manage/notice/create/', views.management_notice_create, name='management_notice_create'),
     path('manage/notice/<int:notice_id>/edit/', views.management_notice_edit, name='management_notice_edit'),
     path('manage/notice/<int:notice_id>/delete/', views.management_notice_delete, name='management_notice_delete'),
+    
+    # ツイート
+    path("manage/tweets/", views.management_tweet_list, name="management_tweet_list"),
+    path("manage/tweets/create/", views.management_tweet_create, name="management_create_tweet"),
+    path("manage/tweet/<int:tweet_id>/edit/", views.management_tweet_edit, name="management_edit_tweet"),
 
     path('manage/search-history/', views.management_search_history, name='management_search_history'),
     path('manage/ai-users/', views.management_ai_users, name='management_ai_users'),

@@ -1,0 +1,32 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block css %} {% comment %} TODO {% endcomment %} {% endblock %} 
+
+{% block title %}管理者画面-ツイート一覧{% endblock %} 
+
+{% block content %}
+
+<div>
+  <a href="{% url 'management_dashboard' %}">管理者ダッシュボードへ</a>
+</div>
+
+
+<section>
+    <div class="my-4">
+        <a href="{% url 'management_create_tweet' %}" class="mt-4 btn-sm btn-primary">作成する</a>
+    </div>
+
+  <div class="col gap-4">
+    {% for tweet in tweets %}
+    <div>
+        <div class="card-sm">
+            <div>{{tweet.content}}</div>
+        </div>
+        <div>
+            <a href="{% url 'management_edit_tweet' tweet.id %}" class="btn-sm btn-primary">編集</a>
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

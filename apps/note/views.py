@@ -64,10 +64,6 @@ def edit_note(request, note_id):
 def delete_note(request, note_id):
     note = get_object_or_404(Note, id=note_id)
     
-    logger.debug(note)
-    logger.debug(note_id)
-    logger.debug(request.method)
-
     if note.author != request.user:
         return redirect("reading_record", book_id=note.book.id)
 
