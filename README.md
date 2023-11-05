@@ -58,6 +58,8 @@ docker compose exec web python manage.py createselection
 
 docker compose exec web python manage.py createai 
 
+docker compose exec web python manage.py tweet 
+
 ## DB操作
 
 - python manage.py shell
@@ -86,3 +88,28 @@ python manage.py collectstatic
 
 python manage.py showmigrations
 python manage.py migrate [app_name] [migration_name]
+
+
+## cron
+
+crontab -e
+
+```
+0 * * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py recommend >> /home/ec2-user/cron_log.log 2>&1
+
+8 12 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py tweet >> /home/ec2-user/cron_log.log 2>&1
+
+48 13 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py tweet >> /home/ec2-user/cron_log.log 2>&1
+
+12 15 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py tweet >> /home/ec2-user/cron_log.log 2>&1
+
+1 19 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py tweet >> /home/ec2-user/cron_log.log 2>&1
+
+33 22 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py tweet >> /home/ec2-user/cron_log.log 2>&1
+
+25 16 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py createselection >> /home/ec2-user/cron_log.log 2>&1
+
+15 18 * * * cd /home/ec2-user/bookhub-django && docker compose exec -T web python manage.py createselection >> /home/ec2-user/cron_log.log 2>&1
+```
+
+

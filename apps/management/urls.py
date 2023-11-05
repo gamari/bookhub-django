@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views, views_api
+from . import views, views_tweet, views_api
 
 urlpatterns = [
     path('manage/dashboard/', views.management_dashboard, name='management_dashboard'),
@@ -36,9 +36,11 @@ urlpatterns = [
     path('manage/notice/<int:notice_id>/delete/', views.management_notice_delete, name='management_notice_delete'),
     
     # ツイート
-    path("manage/tweets/", views.management_tweet_list, name="management_tweet_list"),
-    path("manage/tweets/create/", views.management_tweet_create, name="management_create_tweet"),
-    path("manage/tweet/<int:tweet_id>/edit/", views.management_tweet_edit, name="management_edit_tweet"),
+    path("manage/tweets/", views_tweet.management_tweet_list, name="management_tweet_list"),
+    path("manage/tweet/create/", views_tweet.management_tweet_create, name="management_create_tweet"),
+    path("manage/tweet/<int:tweet_id>/edit/", views_tweet.management_tweet_edit, name="management_edit_tweet"),
+    path("manage/tweet/tags/", views_tweet.management_tweet_tag_list, name="management_tweet_tag_list"),
+    path("manage/tweet/tag/create/", views_tweet.management_create_tweet_tag, name="management_create_tweet_tag"),
 
     path('manage/search-history/', views.management_search_history, name='management_search_history'),
     path('manage/ai-users/', views.management_ai_users, name='management_ai_users'),

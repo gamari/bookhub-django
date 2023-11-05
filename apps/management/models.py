@@ -22,3 +22,7 @@ class Tweet(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class TweetTag(models.Model):
+    title = models.CharField(max_length=30)
