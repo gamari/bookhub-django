@@ -1,4 +1,5 @@
 import logging
+from apps.note.domain.services import NoteDomainService
 
 from config.application.usecases import Usecase
 from apps.book.domain.repositories import BookRepository
@@ -22,21 +23,25 @@ class RecordReadingHistoryUsecase(Usecase):
         reading_record_service: RecordDomainService,
         book_service: BookDomainService,
         review_service: ReviewDomainService,
+        note_service: NoteDomainService
     ):
         self.reading_record_service = reading_record_service
         self.book_service = book_service
         self.review_service = review_service
+        self.note_service = note_service
 
     @classmethod
     def build(cls):
         reading_record_service = RecordDomainService.initialize()
         book_service = BookDomainService.initialize()
         review_service = ReviewDomainService.initialize()
+        note_service = NoteDomainService.initialize()
 
         return cls(
             reading_record_service,
             book_service,
             review_service,
+            note_service
         )
 
     def run(self, book_id, user):
@@ -50,6 +55,8 @@ class RecordReadingHistoryUsecase(Usecase):
 
         logger.debug(f"record: {record}")
         logger.debug(f"{record.started_at}")
+        
+        notes = self.note_service.get_notes_by_book_and_user(book, user)
 
         return {
             "book": book,
@@ -60,6 +67,7 @@ class RecordReadingHistoryUsecase(Usecase):
             "review_form": ReviewForm(
                 instance=latest_review if latest_review else None
             ),
+            "notes": notes,
         }
 
 

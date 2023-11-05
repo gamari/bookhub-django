@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "apps.selection.apps.SelectionConfig",
     "apps.search.apps.SearchConfig",
     "apps.management.apps.ManagementConfig",
+    "apps.note.apps.NoteConfig",
 ]
 
 MIDDLEWARE = [

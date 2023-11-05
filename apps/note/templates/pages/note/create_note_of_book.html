@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load user_tags %}
+{% load book_tags %}
+
+{% block title %}
+  ノート作成
+{% endblock %}
+
+{% block css %}
+  {% comment %} 
+  <link rel="stylesheet" href="{% static 'css/components/modal.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pages/reading_record.css' %}" /> 
+  {% endcomment %}
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/pages/note/create.js' %}"></script>
+{% endblock %}
+
+{% block right %}
+<aside class="pl-4 w-sm">
+  <div class="card-sm col gap-4">
+    <button class="btn-sm btn-primary">アウトプット一覧</button>
+    <button id="ai-btn" class="btn-sm btn-primary">AIに依頼</button>
+  </div>
+</aside>
+{% endblock %}
+
+{% block content %}
+  <section>
+    <div class="card-sm">
+      <form method="post">
+        {% csrf_token %}
+
+        <div>
+          <div>タイトル</div>
+          <div>{{ form.title }}</div>
+        </div>
+
+        <div>
+          <div>本文</div>
+          <div>{{ form.content }}</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">作成する</button>
+      </form>
+    </div>
+  </section>
+
+  {% comment %} Modal作成 {% endcomment %}
+  <div>
+    modal
+  </div>
+
+
+  <div>
+    <input type="hidden" name="book-id" id="book-id" value="{{ book.id }}">
+  </div>
+{% endblock %}

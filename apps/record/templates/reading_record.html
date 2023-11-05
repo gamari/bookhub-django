@@ -21,8 +21,7 @@
   <script src="{% static 'js/pages/reading_record.js' %}"></script>
 {% endblock %} 
 
-
-{% block content %}
+{% block header_content %}
 <section>
   <div class="card book-detail-section">
     <div class="book-detail-left">
@@ -45,7 +44,30 @@
     {% include 'components/record.html' %}
   </div>
 </section>
+{% endblock %}
 
+
+{% block right %}
+<aside class="pl-4 w-sm">
+  <div class="card-sm">
+    <h3>ノート一覧</h3>
+
+    {% if notes %}
+    {% for note in notes %}
+      <div class="note">
+        <a href="{% url 'note_detail' note.id %}">{{note.title}}</a>
+      </div>
+    {% endfor %}
+    {% else %}
+      <div>まだノートがありません</div>
+    {% endif %}
+  </div>
+</aside>
+
+{% endblock %}
+
+
+{% block content %}
 <section class="memo-container">
   {% include 'components/memo_form.html' %}
 

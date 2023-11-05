@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load user_tags %}
+{% load book_tags %}
+
+{% block title %}
+  ノート詳細
+{% endblock %}
+
+{% block css %}
+  {% comment %} 
+  <link rel="stylesheet" href="{% static 'css/components/modal.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pages/reading_record.css' %}" /> 
+  {% endcomment %}
+{% endblock %}
+
+{% block js %}
+  {% comment %} 
+  <script src="{% static 'js/services/memo/delete.js' %}"></script>
+  <script src="{% static 'js/pages/reading_record.js' %}"></script> {% endcomment %}
+{% endblock %}
+
+{% block content %}
+  <section>
+    <div class="card-sm">
+        <h3>{{ note.title }}</h3>
+
+        <p class="mt-4">{{ note.content|linebreaks }}</p>
+
+        <div class="mt-10">
+          参照書籍: {{ book.title }}
+        </div>
+    </div>
+  </section>
+{% endblock %}

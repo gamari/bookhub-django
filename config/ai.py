@@ -37,5 +37,7 @@ class OpenAiClient(object):
             messages=self.messages,
             **kwargs
         )
+        tokens = response["usage"]["total_tokens"]
+        logger.debug(f"tokens: {tokens}")
         return response.choices[0].message.content
 
