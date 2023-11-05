@@ -37,7 +37,6 @@ def delete_profile_image(request):
 def user_detail(request, username):
     usercase = UserDetailShowUsecase(username, request.user, BookshelfRepository())
     context = usercase.execute()
-    logger.info(context["books"])
     return render(request, "pages/user_detail.html", context)
 
 

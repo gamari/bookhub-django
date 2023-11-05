@@ -15,9 +15,9 @@ from .serializers import ReadingMemoSerializer
 logger = logging.getLogger("app_logger")
 
 class GetMemoListByUserAPIView(APIView):
-    def get(self, requset):
-        user_id = requset.query_params.get("id")
+    def get(self, requset, user_id):
         previouse_date = requset.query_params.get("previous_date")
+        print(user_id)
         
         service = MemoDomainService.initialize()
         
@@ -25,6 +25,9 @@ class GetMemoListByUserAPIView(APIView):
             memos = service.get_memos_by_user_and_date(user_id, previous_date=previouse_date)
         else:
             memos = service.get_memos_by_user(user_id)
+        
+        serializer = ReadingMemoSerializer(memos, many=True)
+        return Response(serializer.data)
 
 class GetMemoListByFollowingUsersAPIView(APIView):
     """自分自身のフォローしている人たちのメモを取得するAPI。"""

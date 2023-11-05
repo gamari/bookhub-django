@@ -221,7 +221,6 @@ async function initializeRanking() {
     getRanking();
 
     const rankingResetButton = document.getElementById('reset-ranking-btn');
-    const rankingList = document.getElementById('ranking-list');
 
     rankingResetButton.addEventListener('click', async function () {
         getRanking();

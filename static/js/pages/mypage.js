@@ -1,5 +1,4 @@
-
-
+// 初期化処理
 function initializeContentToggle() {
     const btnBookshelf = document.getElementById('btn-bookshelf');
     const btnReviews = document.getElementById('btn-reviews');

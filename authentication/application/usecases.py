@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
+from apps.record.models import ReadingMemo
 
 from config.application.usecases import Usecase
 
@@ -26,10 +27,10 @@ class UserDetailShowUsecase(Usecase):
         # フォロー判定
         follow_service = FollowService()
         is_following = follow_service.is_following(self.me.id, user.id)
-
         following_count = follow_service.get_following_count(user.id)
-
         follower_count = follow_service.get_follower_count(user.id)
+        
+        memos = ReadingMemo.objects.filter(user=user).order_by("-created_at")[:10]
 
         return {
             "user": user,
@@ -39,4 +40,5 @@ class UserDetailShowUsecase(Usecase):
             "is_following": is_following,
             "following_count": following_count,
             "follower_count": follower_count,
+            "memos": memos
         }

@@ -1,9 +1,10 @@
 {% extends 'base.html' %} 
+
 {% load static %} 
 {% load book_tags %}
 
 
-{% block meta%}
+{% block meta %}
   {% with first_book=selection.get_first_book %}
     <meta property="og:title" content="{{ user.username }}" />
     <meta property="og:description" content="{{user.username}}さんの本棚を見る！" />
@@ -30,28 +31,39 @@
 
 {% block css %}
   <link href="{% static 'css/components/follow.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/components/memo.css' %}" rel="stylesheet" />
   <link href="{% static 'css/pages/user_detail.css' %}" rel="stylesheet" />
 {% endblock %} 
 
 {% block js %}
 <script src="{% static 'js/services/follow/follow_user.js' %}"></script>
+<script src="{% static 'js/services/memo/create_element.js' %}"></script>
+<script src="{% static 'js/services/memo/get_list.js' %}"></script>
+<script src="{% static 'js/pages/user/detail.js' %}"></script>
 {% endblock %} 
 
 {% block content %}
 <section>{% include 'components/user_panel.html' %}</section>
 
-<section>
+<section class="row-center gap-2 mb-10">
+    <button id="btn-bookshelf" class="badge badge-info">本棚</button>
+    <button id="btn-output" class="badge">アウトプット</button>
+</section>
+
+
+<section id="bookshelf-section">
   <div class="mb-6 user-bookshelf-title">
     <h4>{{ user.username }}さんの本棚</h4>
 
     <a
-      href="https://twitter.com/intent/tweet?text={{ user.username }}さんの本棚をチェックしよう！&url={{ request.build_absolute_uri|urlencode }}"
+      href="https://twitter.com/intent/tweet?text={{ user.username }}さんの本棚をチェックしよう！%0A{{ request.build_absolute_uri|urlencode }}"
       target="_blank"
       class="btn-sm btn-primary"
     >
       <i class="fa-regular fa-share-from-square"></i>
       <span>シェアする</span>
     </a>
+
   </div>
 
   {% if books %}
@@ -60,4 +72,23 @@
     <div class="card-sm text-sm">{{user.username}}さんが登録している書籍はまだ存在しません</div>
   {% endif %}
 </section>
+
+<section id="output-section" style="display: none;">
+  <h3 class="mb-6">{{ user.username }}さんのアウトプット一覧</h3>
+
+  <div>
+    {% if memos %}
+      {% include 'components/memo_list.html' with show=False %}
+      <div class="center pt-4 mt-10">
+        <i id="get-memo-list-btn"  class="fa-xl fa-solid fa-rotate-right cursor-pointer" style="color: #1e90ff;"></i>
+      </div>
+      {% else %}
+      <div class="card-sm text-sm">{{user.username}}さんが登録しているアウトプットはまだ存在しません</div>
+    {% endif %}
+  </div>
+</section>
+
+<div>
+  <input type="hidden" name="user_id" id="user_id" value="{{ user.id }}">
+</div>
 {% endblock %}

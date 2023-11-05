@@ -79,3 +79,25 @@ async function getFollowingsMemosByDate(previouse_date) {
 
     return json;
 }
+
+async function getMemosByUserAndDate(user_id, date) {
+    console.log("getMemosByUserAndDate")
+    let csrfToken = getCsrfToken();
+    let apiUrl = `/api/users/${user_id}/memos/`;
+
+    if (date) {
+        apiUrl += `?previous_date=${date}`;
+    }
+
+    const response = await fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        }
+    });
+
+    const json = await response.json();
+
+    return json;
+}

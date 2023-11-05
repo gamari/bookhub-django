@@ -23,6 +23,8 @@ urlpatterns = [
         name="mark_as_unfinished",
     ),
     # API
+    path("api/users/<uuid:user_id>/memos/", views_api.GetMemoListByUserAPIView.as_view()),
+    
     path("api/memos/<int:memo_id>/", memo_delete_api, name="memo_detail_api"),
     path(
         "api/reading_record/<int:book_id>/memo/",

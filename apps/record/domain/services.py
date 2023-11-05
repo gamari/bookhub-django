@@ -66,8 +66,8 @@ class MemoDomainService(object):
     def get_memos_by_user(self, user, limit: int = None):
         return self.memo_repo.fetch_memos_by_user(user, limit)
     
-    def get_memos_by_user_and_date(self, user, date, limit: int = 10):
-        return self.memo_repo.fetch_memos_by_user_and_date(user, date, limit)
+    def get_memos_by_user_and_date(self, user, previous_date, limit: int = 10):
+        return self.memo_repo.fetch_memos_by_user_and_date(user, previous_date, limit)
     
     def get_memos_by_following_and_me(self, user, limit=10):
         following_users = Follow.objects.filter(follower=user).values_list(

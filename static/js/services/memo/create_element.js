@@ -46,7 +46,6 @@ function createMemoElement(data, show_delete = true) {
     });
     userName.appendChild(userNameLink)
     const formattedDate = formatDateTime(data.created_at);
-    console.log(formattedDate);
     const time = createElement("p", {classes: ['time'], content: formattedDate})
     tempDiv.append(userName, time)
 
